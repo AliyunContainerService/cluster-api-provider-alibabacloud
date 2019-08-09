@@ -88,44 +88,30 @@ check-pkg:
 unit: # Run unit test
 	$(DOCKER_CMD) go test -race -cover ./cmd/... ./pkg/...
 
-.PHONY: integration
-integration: ## Run integration test
-	$(DOCKER_CMD) go test -v sigs.k8s.io/cluster-api-provider-alicloud/test/integration
+#.PHONY: integration
+#integration: ## Run integration test
+#	$(DOCKER_CMD) go test -v github.com/AliyunContainerService/cluster-api-provider-alicloud/test/integration
 
-.PHONY: build-e2e
-build-e2e:
-	go test -c -o bin/e2e.test sigs.k8s.io/cluster-api-provider-alicloud/test/machines
+#.PHONY: build-e2e
+#build-e2e:
+#	go test -c -o bin/e2e.test github.com/AliyunContainerService/cluster-api-provider-alicloud/test/machines
 
-.PHONY: k8s-e2e
-k8s-e2e: ## Run k8s specific e2e test
-	# KUBECONFIG and SSH_PK dirs needs to be mounted inside a container if tests are run in containers
-	go test -timeout 30m \
-		-v sigs.k8s.io/cluster-api-provider-alicloud/test/machines \
-		-kubeconfig $${KUBECONFIG:-~/.kube/config} \
-		-ssh-key $${SSH_PK:-~/.ssh/id_rsa} \
-		-machine-controller-image $${ACTUATOR_IMAGE:-gcr.io/k8s-cluster-api/alicloud-machine-controller:0.0.1} \
-		-machine-manager-image $${ACTUATOR_IMAGE:-gcr.io/k8s-cluster-api/alicloud-machine-controller:0.0.1} \
-		-nodelink-controller-image $$(docker run registry.svc.ci.openshift.org/origin/release:4.2 image machine-api-operator) \
-		-cluster-id $${ENVIRONMENT_ID:-""} \
-		-ginkgo.v \
-		-args -v 5 -logtostderr true
-
-.PHONY: test-e2e
-test-e2e: ## Run e2e tests
-	hack/e2e.sh
+#.PHONY: test-e2e
+#test-e2e: ## Run e2e tests
+#	hack/e2e.sh
 
 
-.PHONY: lint
-lint: ## Go lint your code
-	hack/go-lint.sh -min_confidence 0.3 $$(go list -f '{{ .ImportPath }}' ./... | grep -v -e 'sigs.k8s.io/cluster-api-provider-alicloud/test' -e 'sigs.k8s.io/cluster-api-provider-alicloud/pkg/cloud/alicloud/client/mock')
+#.PHONY: lint
+#lint: ## Go lint your code
+#	hack/go-lint.sh -min_confidence 0.3 $$(go list -f '{{ .ImportPath }}' ./... | grep -v -e 'sigs.k8s.io/cluster-api-provider-alicloud/test' -e 'sigs.k8s.io/cluster-api-provider-alicloud/pkg/cloud/alicloud/client/mock')
 
 .PHONY: fmt
 fmt: ## Go fmt your code
 	hack/go-fmt.sh .
 
-.PHONY: vet
-vet: ## Apply go vet to all go files
-	hack/go-vet.sh ./...
+#.PHONY: vet
+#vet: ## Apply go vet to all go files
+#	hack/go-vet.sh ./...
 
 .PHONY: help
 help:
