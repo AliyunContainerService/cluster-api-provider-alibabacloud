@@ -103,7 +103,7 @@ func createCommand() *cobra.Command {
 			if err != nil {
 				return fmt.Errorf("unable to create machine: %v", err)
 			}
-			fmt.Printf("Machine creation was successful! InstanceID: %s\n", *result.InstanceId)
+			fmt.Printf("Machine creation was successful! InstanceID: %s\n", result.InstanceId)
 			return nil
 		},
 	}
