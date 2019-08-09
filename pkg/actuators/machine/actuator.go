@@ -179,8 +179,30 @@ func (a *Actuator) Update(ctx context.Context, machine *machinev1.Machine) error
 		return a.handleMachineError(machine, machineapierrors.InvalidMachineConfiguration("failed to create machine %q scope: %v", machine.Name, err), updateEventAction)
 	}
 
+<<<<<<< HEAD
 	if err = a.reconcilerBuilder(scope).Update(context.Background()); err != nil {
 		if err := scope.patchMachine(); err != nil {
+=======
+	machineCopy := machine.DeepCopy()
+	machineCopy.Status.ProviderStatus = alicloudStatusRaw
+	if networkAddresses != nil {
+		machineCopy.Status.Addresses = networkAddresses
+	}
+
+	oldAlicloudStatus := &providerconfigv1.AlicloudMachineProviderStatus{}
+	if err := a.codec.DecodeProviderStatus(machine.Status.ProviderStatus, oldAlicloudStatus); err != nil {
+		glog.Errorf("%s: error updating machine status: %v", machine.Name, err)
+		return err
+	}
+
+	if !equality.Semantic.DeepEqual(alicloudStatusRaw, oldAlicloudStatus) || !equality.Semantic.DeepEqual(machine.Status.Addresses, machineCopy.Status.Addresses) {
+		glog.Infof("%s: machine status has changed, updating", machine.Name)
+		time := metav1.Now()
+		machineCopy.Status.LastUpdated = &time
+
+		if err := a.client.Status().Update(context.Background(), machineCopy); err != nil {
+			glog.Errorf("%s: error updating machine status: %v", machine.Name, err)
+>>>>>>> 5a63acd2 (update test case)
 			return err
 		}
 		return a.handleMachineError(machine, machineapierrors.InvalidMachineConfiguration("failed to reconcile machine %q: %v", machine.Name, err), updateEventAction)

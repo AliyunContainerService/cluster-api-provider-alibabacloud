@@ -1,7 +1,11 @@
 apiVersion: v1
 kind: Secret
 metadata:
+<<<<<<< HEAD
   name: alibabacloud-worker-user-data-secret
+=======
+  name: alicloud-actuator-user-data-secret
+>>>>>>> 5a63acd2 (update test case)
   namespace: default
 type: Opaque
 data:

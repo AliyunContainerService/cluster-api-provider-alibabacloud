@@ -40,7 +40,7 @@ spec:
         name: alibabacloud-credentials-secret
 =======
   name: alicloud-actuator-testing-machine
-  namespace: test
+  namespace: default
   generateName: vs-master-
   labels:
     machine.openshift.io/cluster-api-cluster: alicloud-actuator-k8s
