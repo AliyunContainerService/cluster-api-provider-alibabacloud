@@ -1,6 +1,7 @@
 package machine
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/ecs"
 	"time"
@@ -40,32 +41,30 @@ runcmd:
 
 func stubProviderConfig() *providerconfigv1.AlicloudMachineProviderConfig {
 	return &providerconfigv1.AlicloudMachineProviderConfig{
-		Spec: providerconfigv1.AlicloudMachineProviderSpec{
-			ImageId: "centos_7_06_64_20G_alibase_20190619.vhd",
-			CredentialsSecret: &apiv1.LocalObjectReference{
-				Name: alicloudCredentialsSecretName,
-			},
-			InstanceType: "ecs.n4.xlarge",
-			RegionId:     "cn-hangzhou",
-			VpcId:        "vpc-bp1td11g1i90b1fjnm7jw",
-			VSwitchId:    "vsw-bp1ra53n8ban94mbbgb4w",
-			Tags: []providerconfigv1.TagSpecification{
-				{
-					Key:   "openshift-node-group-config",
-					Value: "node-config-master",
-				},
-				{
-					Key:   "host-type",
-					Value: "master",
-				},
-				{
-					Key:   "sub-host-type",
-					Value: "default",
-				},
-			},
-			SecurityGroupId: "sg-bp1iccjoxddumf300okm",
-			PublicIP:        true,
+		ImageId: "centos_7_06_64_20G_alibase_20190619.vhd",
+		CredentialsSecret: &apiv1.LocalObjectReference{
+			Name: alicloudCredentialsSecretName,
 		},
+		InstanceType: "ecs.n4.xlarge",
+		RegionId:     "cn-hangzhou",
+		VpcId:        "vpc-bp1td11g1i90b1fjnm7jw",
+		VSwitchId:    "vsw-bp1ra53n8ban94mbbgb4w",
+		Tags: []providerconfigv1.TagSpecification{
+			{
+				Key:   "openshift-node-group-config",
+				Value: "node-config-master",
+			},
+			{
+				Key:   "host-type",
+				Value: "master",
+			},
+			{
+				Key:   "sub-host-type",
+				Value: "default",
+			},
+		},
+		SecurityGroupId: "sg-bp1iccjoxddumf300okm",
+		PublicIP:        true,
 	}
 }
 
@@ -130,7 +129,10 @@ func stubUserDataSecret() *corev1.Secret {
 }
 
 func stubAlicloudCredentialsSecret() *corev1.Secret {
-	return utils.GenerateAlicloudCredentialsSecretFromEnv(alicloudCredentialsSecretName, defaultNamespace)
+	secret := utils.GenerateAlicloudCredentialsSecretFromEnv(alicloudCredentialsSecretName, defaultNamespace)
+	aa, _ := json.Marshal(secret)
+	fmt.Printf("=====%s=====", string(aa))
+	return secret
 }
 
 func stubInstance(imageID, instanceID string) ecs.Instance {
@@ -164,18 +166,18 @@ func stubInstance(imageID, instanceID string) ecs.Instance {
 	}
 }
 
-func stubCreateInstance(instanceID string) *ecs.CreateInstanceResponse{
+func stubCreateInstance(instanceID string) *ecs.CreateInstanceResponse {
 	return &ecs.CreateInstanceResponse{
-		InstanceId:instanceID,
+		InstanceId: instanceID,
 	}
 }
 
 func stubSecurityGroups(sgId string) *ecs.DescribeSecurityGroupsResponse {
 	return &ecs.DescribeSecurityGroupsResponse{
-		SecurityGroups:ecs.SecurityGroups{
-			SecurityGroup:[]ecs.SecurityGroup{
+		SecurityGroups: ecs.SecurityGroups{
+			SecurityGroup: []ecs.SecurityGroup{
 				{
-					SecurityGroupId:sgId,
+					SecurityGroupId: sgId,
 				},
 			},
 		},
@@ -184,10 +186,10 @@ func stubSecurityGroups(sgId string) *ecs.DescribeSecurityGroupsResponse {
 
 func stubImages(imageId string) *ecs.DescribeImagesResponse {
 	return &ecs.DescribeImagesResponse{
-		Images:ecs.Images{
-			Image:[]ecs.Image{
+		Images: ecs.Images{
+			Image: []ecs.Image{
 				{
-					ImageId:imageId,
+					ImageId: imageId,
 				},
 			},
 		},
@@ -197,10 +199,10 @@ func stubImages(imageId string) *ecs.DescribeImagesResponse {
 func stubDescribeInstances(imageID, instanceID string) *ecs.DescribeInstancesResponse {
 	return &ecs.DescribeInstancesResponse{
 		Instances: ecs.InstancesInDescribeInstances{
-			Instance:[]ecs.Instance{
+			Instance: []ecs.Instance{
 				{
-					ImageId:imageID,
-					InstanceId:instanceID,
+					ImageId:    imageID,
+					InstanceId: instanceID,
 				},
 			},
 		},

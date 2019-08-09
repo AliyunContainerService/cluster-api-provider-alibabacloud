@@ -99,9 +99,9 @@ func createActuator(machine *machinev1.Machine, aliCloudCredentials, userData *a
 	}
 
 	params := machineactuator.ActuatorParams{
-		Client:           fakeClient,
+		Client:                fakeClient,
 		AliCloudClientBuilder: alicloudclient.NewClient,
-		Codec:            codec,
+		Codec:                 codec,
 		// use empty recorder dropping any event recorded
 		EventRecorder: &record.FakeRecorder{},
 	}

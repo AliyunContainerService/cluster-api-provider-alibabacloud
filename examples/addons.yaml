@@ -6,4 +6,4 @@ metadata:
 type: Opaque
 data:
   alicloud_access_key_id:
-  alicloud_secret_access_key:
+  alicloud_access_key_secret:

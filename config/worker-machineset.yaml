@@ -36,8 +36,6 @@ spec:
             - name: "tag:ready"
               values:
               - "yes"
-          credentialsSecret:
-            name: alicloud-credentials-secret
           instanceType: m4.xlarge
           placement:
             region: us-east-1

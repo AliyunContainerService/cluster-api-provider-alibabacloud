@@ -20,39 +20,37 @@ func GenerateAlicloudCredentialsSecretFromEnv(secretName, namespace string) *api
 		},
 		Data: map[string][]byte{
 			alicloudclient.AliCloudAccessKeyId:     []byte(os.Getenv("ALICLOUD_ACCESS_KEY_ID")),
-			alicloudclient.AliCloudAccessKeySecret: []byte(os.Getenv("ALICLOUD_SECRET_ACCESS_KEY")),
+			alicloudclient.AliCloudAccessKeySecret: []byte(os.Getenv("ALICLOUD_ACCESS_KEY_SECRET")),
 		},
 	}
 }
 
 func testingAlicloudMachineProviderSpec(alicloudCredentialsSecretName string, clusterID string) *providerconfigv1.AlicloudMachineProviderConfig {
 	return &providerconfigv1.AlicloudMachineProviderConfig{
-		Spec: providerconfigv1.AlicloudMachineProviderSpec{
-			ImageId: "centos_7_06_64_20G_alibase_20190619.vhd",
-			CredentialsSecret: &apiv1.LocalObjectReference{
-				Name: alicloudCredentialsSecretName,
-			},
-			InstanceType: "ecs.n4.xlarge",
-			RegionId:     "cn-hangzhou",
-			VpcId:        "vpc-bp1td11g1i90b1fjnm7jw",
-			VSwitchId:    "vsw-bp1ra53n8ban94mbbgb4w",
-			Tags: []providerconfigv1.TagSpecification{
-				{
-					Key:   "openshift-node-group-config",
-					Value: "node-config-master",
-				},
-				{
-					Key:   "host-type",
-					Value: "master",
-				},
-				{
-					Key:   "sub-host-type",
-					Value: "default",
-				},
-			},
-			SecurityGroupId: "sg-bp1iccjoxddumf300okm",
-			PublicIP:        true,
+		ImageId: "centos_7_06_64_20G_alibase_20190619.vhd",
+		CredentialsSecret: &apiv1.LocalObjectReference{
+			Name: alicloudCredentialsSecretName,
 		},
+		InstanceType: "ecs.n4.xlarge",
+		RegionId:     "cn-hangzhou",
+		VpcId:        "vpc-bp1td11g1i90b1fjnm7jw",
+		VSwitchId:    "vsw-bp1ra53n8ban94mbbgb4w",
+		Tags: []providerconfigv1.TagSpecification{
+			{
+				Key:   "openshift-node-group-config",
+				Value: "node-config-master",
+			},
+			{
+				Key:   "host-type",
+				Value: "master",
+			},
+			{
+				Key:   "sub-host-type",
+				Value: "default",
+			},
+		},
+		SecurityGroupId: "sg-bp1iccjoxddumf300okm",
+		PublicIP:        true,
 	}
 }
 
@@ -68,4 +66,3 @@ func TestingMachineProviderSpec(alicloudCredentialsSecretName string, clusterID 
 	}
 	return *config, nil
 }
-

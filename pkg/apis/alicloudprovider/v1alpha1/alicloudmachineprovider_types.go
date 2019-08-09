@@ -27,97 +27,97 @@ const (
 
 // AlicloudMachineProviderSpec defines the desired state of AlicloudMachineProviderConfig
 // +k8s:openapi-gen=true
-type AlicloudMachineProviderSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "operator-sdk generate k8s" to regenerate code after modifying this file
-	// Add custom validation using kubebuilder tags: https://book-v1.book.kubebuilder.io/beyond_basics/generating_crd.html
-
-	//The ID of the image file that you specified when you create the instance. Example :centos_7_06_64_20G_alibase_20190619.vhd
-	ImageId string `json:"imageId"`
-
-	// The type of the instance. Example: ecs.n4.large
-	InstanceType string `json:"instanceType"`
-
-	//The region ID of the instance. Example: cn-hangzhou
-	RegionId string `json:"regionId"`
-
-	/**
-	The name of the instance. It must be 2 to 128 characters in length and can contain uppercase and lowercase letters,
-	digits, colons (:), underscores (_), and hyphens (-). It must start with a letter. It cannot start with http:// or https://.
-	If this parameter is not specified, InstanceId is used by default.
-	*/
-	InstanceName string `json:"instanceName"`
-
-	// PublicIP specifies whether the instance should get a public IP. If not present,
-	// it should use the default of its subnet.
-	PublicIP bool `json:"publicIp"`
-
-	//The ID of the VPC
-	VpcId string `json:"vpcId"`
-
-	//The ID of the VSwitch. It must be specified when you create VPC-type instances.
-	VSwitchId string `json:"vSwitchId"`
-
-	// KeyPairName is the name of the KeyPair to use for SSH
-	KeyPairName string `json:"keyPairName"`
-
-	// UserDataSecret contains a local reference to a secret that contains the
-	// UserData to apply to the instance
-	UserDataSecret *corev1.LocalObjectReference `json:"userDataSecret,omitempty"`
-
-	// CredentialsSecret is a reference to the secret with AliCloud credentials. Otherwise, defaults to permissions
-	// provided by attached RAM role where the actuator is running.
-	CredentialsSecret *corev1.LocalObjectReference `json:"credentialsSecret,omitempty"`
-
-	//The RAM role name of the instance
-	RamRoleName string `json:"ramRoleName"`
-
-	//The ID of the security group to which the instance belongs
-	SecurityGroupId string `json:"securityGroupId"`
-
-	//The tags  of the instance
-	Tags []TagSpecification `json:"tags,omitempty"`
-
-	/**
-	The category of the system disk. The default value of the non-optimized instance for phased-out instance types for which I/O optimization is not performed is cloud. The default value for other instances is cloud_efficiency. Valid values:
-
-	cloud: basic disk.
-	cloud_efficiency: ultra disk.
-	cloud_ssd: SSD.
-	ephemeral_ssd: local SSD.
-	cloud_essd: ESSD. ESSDs are still in the public beta test phase and only available in some regions. For more information, see ESSD FAQ.
-	*/
-	SystemDiskCategory string `json:"systemDiskCategory"`
-
-	/**
-	The size of the system disk. Unit: GiB. Valid values: 20 to 500.
-
-	This value must be equal to or greater than max {20, ImageSize}. Default value: max {40, ImageSize}.
-	*/
-	SystemDiskSize int64 `json:"systemDiskSize"`
-
-	/**
-	The name of the system disk. It must be 2 to 128 characters in length and can contain uppercase and lowercase letters, digits, colons (:),
-	underscores (_), and hyphens (-). It must start with a letter. It cannot start with http:// or https://. Default value: null.
-	*/
-	SystemDiskDiskName string `json:"systemDiskDiskName"`
-
-	/**
-	The description of the system disk. It must be 2 to 256 characters in length. It cannot start with http:// or https://.
-	*/
-	SystemDiskDescription string `json:"systemDiskDescription"`
-
-	//DataDisks of the instance
-	DataDisks []DataDiskSpecification `json:"dataDisks,omitempty"`
-
-	/**
-	The release protection attribute of the instance. It indicates whether you can use the ECS console or
-	call the DeleteInstance action to release the instance. Default value: false. Valid values:
-	true: enables release protection.
-	false: disables release protection.
-	*/
-	DeletionProtection bool `json:"deletionProtection"`
-}
+//type AlicloudMachineProviderSpec struct {
+//	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
+//	// Important: Run "operator-sdk generate k8s" to regenerate code after modifying this file
+//	// Add custom validation using kubebuilder tags: https://book-v1.book.kubebuilder.io/beyond_basics/generating_crd.html
+//
+//	//The ID of the image file that you specified when you create the instance. Example :centos_7_06_64_20G_alibase_20190619.vhd
+//	ImageId string `json:"imageId"`
+//
+//	// The type of the instance. Example: ecs.n4.large
+//	InstanceType string `json:"instanceType"`
+//
+//	//The region ID of the instance. Example: cn-hangzhou
+//	RegionId string `json:"regionId"`
+//
+//	/**
+//	The name of the instance. It must be 2 to 128 characters in length and can contain uppercase and lowercase letters,
+//	digits, colons (:), underscores (_), and hyphens (-). It must start with a letter. It cannot start with http:// or https://.
+//	If this parameter is not specified, InstanceId is used by default.
+//	*/
+//	InstanceName string `json:"instanceName"`
+//
+//	// PublicIP specifies whether the instance should get a public IP. If not present,
+//	// it should use the default of its subnet.
+//	PublicIP bool `json:"publicIp"`
+//
+//	//The ID of the VPC
+//	VpcId string `json:"vpcId"`
+//
+//	//The ID of the VSwitch. It must be specified when you create VPC-type instances.
+//	VSwitchId string `json:"vSwitchId"`
+//
+//	// KeyPairName is the name of the KeyPair to use for SSH
+//	KeyPairName string `json:"keyPairName"`
+//
+//	// UserDataSecret contains a local reference to a secret that contains the
+//	// UserData to apply to the instance
+//	UserDataSecret *corev1.LocalObjectReference `json:"userDataSecret,omitempty"`
+//
+//	// CredentialsSecret is a reference to the secret with AliCloud credentials. Otherwise, defaults to permissions
+//	// provided by attached RAM role where the actuator is running.
+//	CredentialsSecret *corev1.LocalObjectReference `json:"credentialsSecret,omitempty"`
+//
+//	//The RAM role name of the instance
+//	RamRoleName string `json:"ramRoleName"`
+//
+//	//The ID of the security group to which the instance belongs
+//	SecurityGroupId string `json:"securityGroupId"`
+//
+//	//The tags  of the instance
+//	Tags []TagSpecification `json:"tags,omitempty"`
+//
+//	/**
+//	The category of the system disk. The default value of the non-optimized instance for phased-out instance types for which I/O optimization is not performed is cloud. The default value for other instances is cloud_efficiency. Valid values:
+//
+//	cloud: basic disk.
+//	cloud_efficiency: ultra disk.
+//	cloud_ssd: SSD.
+//	ephemeral_ssd: local SSD.
+//	cloud_essd: ESSD. ESSDs are still in the public beta test phase and only available in some regions. For more information, see ESSD FAQ.
+//	*/
+//	SystemDiskCategory string `json:"systemDiskCategory"`
+//
+//	/**
+//	The size of the system disk. Unit: GiB. Valid values: 20 to 500.
+//
+//	This value must be equal to or greater than max {20, ImageSize}. Default value: max {40, ImageSize}.
+//	*/
+//	SystemDiskSize int64 `json:"systemDiskSize"`
+//
+//	/**
+//	The name of the system disk. It must be 2 to 128 characters in length and can contain uppercase and lowercase letters, digits, colons (:),
+//	underscores (_), and hyphens (-). It must start with a letter. It cannot start with http:// or https://. Default value: null.
+//	*/
+//	SystemDiskDiskName string `json:"systemDiskDiskName"`
+//
+//	/**
+//	The description of the system disk. It must be 2 to 256 characters in length. It cannot start with http:// or https://.
+//	*/
+//	SystemDiskDescription string `json:"systemDiskDescription"`
+//
+//	//DataDisks of the instance
+//	DataDisks []DataDiskSpecification `json:"dataDisks,omitempty"`
+//
+//	/**
+//	The release protection attribute of the instance. It indicates whether you can use the ECS console or
+//	call the DeleteInstance action to release the instance. Default value: false. Valid values:
+//	true: enables release protection.
+//	false: disables release protection.
+//	*/
+//	DeletionProtection bool `json:"deletionProtection"`
+//}
 
 // TagSpecification is the name/value pair for a tag
 type TagSpecification struct {
@@ -218,8 +218,95 @@ type AlicloudMachineProviderConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   AlicloudMachineProviderSpec   `json:"spec,omitempty"`
-	Status AlicloudMachineProviderStatus `json:"status,omitempty"`
+	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
+	// Important: Run "operator-sdk generate k8s" to regenerate code after modifying this file
+	// Add custom validation using kubebuilder tags: https://book-v1.book.kubebuilder.io/beyond_basics/generating_crd.html
+
+	//The ID of the image file that you specified when you create the instance. Example :centos_7_06_64_20G_alibase_20190619.vhd
+	ImageId string `json:"imageId"`
+
+	// The type of the instance. Example: ecs.n4.large
+	InstanceType string `json:"instanceType"`
+
+	//The region ID of the instance. Example: cn-hangzhou
+	RegionId string `json:"regionId"`
+
+	/**
+	The name of the instance. It must be 2 to 128 characters in length and can contain uppercase and lowercase letters,
+	digits, colons (:), underscores (_), and hyphens (-). It must start with a letter. It cannot start with http:// or https://.
+	If this parameter is not specified, InstanceId is used by default.
+	*/
+	InstanceName string `json:"instanceName"`
+
+	// PublicIP specifies whether the instance should get a public IP. If not present,
+	// it should use the default of its subnet.
+	PublicIP bool `json:"publicIp"`
+
+	//The ID of the VPC
+	VpcId string `json:"vpcId"`
+
+	//The ID of the VSwitch. It must be specified when you create VPC-type instances.
+	VSwitchId string `json:"vSwitchId"`
+
+	// KeyPairName is the name of the KeyPair to use for SSH
+	KeyPairName string `json:"keyPairName"`
+
+	// UserDataSecret contains a local reference to a secret that contains the
+	// UserData to apply to the instance
+	UserDataSecret *corev1.LocalObjectReference `json:"userDataSecret,omitempty"`
+
+	// CredentialsSecret is a reference to the secret with AliCloud credentials. Otherwise, defaults to permissions
+	// provided by attached RAM role where the actuator is running.
+	CredentialsSecret *corev1.LocalObjectReference `json:"credentialsSecret,omitempty"`
+
+	//The RAM role name of the instance
+	RamRoleName string `json:"ramRoleName"`
+
+	//The ID of the security group to which the instance belongs
+	SecurityGroupId string `json:"securityGroupId"`
+
+	//The tags  of the instance
+	Tags []TagSpecification `json:"tags,omitempty"`
+
+	/**
+	The category of the system disk. The default value of the non-optimized instance for phased-out instance types for which I/O optimization is not performed is cloud. The default value for other instances is cloud_efficiency. Valid values:
+
+	cloud: basic disk.
+	cloud_efficiency: ultra disk.
+	cloud_ssd: SSD.
+	ephemeral_ssd: local SSD.
+	cloud_essd: ESSD. ESSDs are still in the public beta test phase and only available in some regions. For more information, see ESSD FAQ.
+	*/
+	SystemDiskCategory string `json:"systemDiskCategory"`
+
+	/**
+	The size of the system disk. Unit: GiB. Valid values: 20 to 500.
+
+	This value must be equal to or greater than max {20, ImageSize}. Default value: max {40, ImageSize}.
+	*/
+	SystemDiskSize int64 `json:"systemDiskSize"`
+
+	/**
+	The name of the system disk. It must be 2 to 128 characters in length and can contain uppercase and lowercase letters, digits, colons (:),
+	underscores (_), and hyphens (-). It must start with a letter. It cannot start with http:// or https://. Default value: null.
+	*/
+	SystemDiskDiskName string `json:"systemDiskDiskName"`
+
+	/**
+	The description of the system disk. It must be 2 to 256 characters in length. It cannot start with http:// or https://.
+	*/
+	SystemDiskDescription string `json:"systemDiskDescription"`
+
+	//DataDisks of the instance
+	DataDisks []DataDiskSpecification `json:"dataDisks,omitempty"`
+
+	/**
+	The release protection attribute of the instance. It indicates whether you can use the ECS console or
+	call the DeleteInstance action to release the instance. Default value: false. Valid values:
+	true: enables release protection.
+	false: disables release protection.
+	*/
+	DeletionProtection bool `json:"deletionProtection"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
@@ -252,5 +339,5 @@ type AliCloudMachineProviderCondition struct {
 }
 
 func init() {
-	SchemeBuilder.Register(&AlicloudMachineProviderConfig{}, &AlicloudMachineProviderList{},&AlicloudMachineProviderStatus{})
+	SchemeBuilder.Register(&AlicloudMachineProviderConfig{}, &AlicloudMachineProviderList{}, &AlicloudMachineProviderStatus{})
 }
