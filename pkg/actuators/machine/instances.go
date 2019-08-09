@@ -107,39 +107,37 @@ func createInstance(machine *machinev1.Machine, machineProviderConfig *providerc
 		return nil, fmt.Errorf("error creating ECS instance: %v", err)
 	}
 
-	glog.Infof("The ECS instance %s created",createInstanceResponse.InstanceId)
+	glog.Infof("The ECS instance %s created", createInstanceResponse.InstanceId)
 
 	//waitForInstance stopped
-	glog.Infof("Wait for  ECS instance %s stopped",createInstanceResponse.InstanceId)
+	glog.Infof("Wait for  ECS instance %s stopped", createInstanceResponse.InstanceId)
 	if err := client.WaitForInstance(createInstanceResponse.InstanceId, "Stopped", machineProviderConfig.RegionId, 300); err != nil {
 		glog.Errorf("Error waiting ECS instance stopped: %v", err)
 		return nil, err
 	}
-	glog.Infof("The   ECS instance %s stopped",createInstanceResponse.InstanceId)
+	glog.Infof("The   ECS instance %s stopped", createInstanceResponse.InstanceId)
 
-
-	glog.Infof("Start  ECS instance %s ",createInstanceResponse.InstanceId)
+	glog.Infof("Start  ECS instance %s ", createInstanceResponse.InstanceId)
 	//start instance
 	startInstanceRequest := ecs.CreateStartInstanceRequest()
 	startInstanceRequest.RegionId = machineProviderConfig.RegionId
 	startInstanceRequest.InstanceId = createInstanceResponse.InstanceId
 	startInstanceRequest.Scheme = "https"
 
-	_,err = client.StartInstance(startInstanceRequest)
-	if err!=nil{
+	_, err = client.StartInstance(startInstanceRequest)
+	if err != nil {
 		glog.Errorf("Error starting ECS instance: %v", err)
 		return nil, fmt.Errorf("error starting ECS instance: %v", err)
 	}
 
 	//waitForInstanceRunning
-	glog.Infof("Wait for  ECS instance %s running",createInstanceResponse.InstanceId)
+	glog.Infof("Wait for  ECS instance %s running", createInstanceResponse.InstanceId)
 
 	if err := client.WaitForInstance(createInstanceResponse.InstanceId, "Running", machineProviderConfig.RegionId, 300); err != nil {
 		glog.Errorf("Error waiting ECS instance running: %v", err)
 		return nil, err
 	}
-	glog.Infof("The   ECS instance %s running",createInstanceResponse.InstanceId)
-
+	glog.Infof("The   ECS instance %s running", createInstanceResponse.InstanceId)
 
 	//describeInstance
 	describeInstancesRequest := ecs.CreateDescribeInstancesRequest()
