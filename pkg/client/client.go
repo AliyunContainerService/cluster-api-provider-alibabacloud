@@ -17,7 +17,11 @@ import (
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/vpc"
 	machineapiapierrors "github.com/openshift/machine-api-operator/pkg/controller/machine"
 	corev1 "k8s.io/api/core/v1"
+<<<<<<< HEAD
 	apimachineryerrors "k8s.io/apimachinery/pkg/api/errors"
+=======
+	"os"
+>>>>>>> ebdd9bd0 (update test case)
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
@@ -217,8 +221,30 @@ func (client *alibabacloudClient) DeleteInstance(request *ecs.DeleteInstanceRequ
 	return client.ecsClient.DeleteInstance(request)
 }
 
+<<<<<<< HEAD
 func (client *alibabacloudClient) AttachInstanceRAMRole(request *ecs.AttachInstanceRamRoleRequest) (*ecs.AttachInstanceRamRoleResponse, error) {
 	return client.ecsClient.AttachInstanceRamRole(request)
+=======
+	for {
+		describeInstancesRequest := ecs.CreateDescribeInstancesRequest()
+		describeInstancesRequest.RegionId = regionId
+		instancesIds, _ := json.Marshal([]string{instanceId})
+		describeInstancesRequest.InstanceIds = string(instancesIds)
+		describeInstancesRequest.Scheme = "https"
+		describeInstancesResponse, err := c.ecs2Client.DescribeInstances(describeInstancesRequest)
+		if err == nil {
+			if len(describeInstancesResponse.Instances.Instance) > 0 && describeInstancesResponse.Instances.Instance[0].Status == instanceStatus {
+				break
+			}
+		}
+		timeout = timeout - DefaultWaitForInterval
+		if timeout <= 0 {
+			return fmt.Errorf("Timeout")
+		}
+		time.Sleep(DefaultWaitForInterval * time.Second)
+	}
+	return nil
+>>>>>>> ebdd9bd0 (update test case)
 }
 
 func (client *alibabacloudClient) DetachInstanceRAMRole(request *ecs.DetachInstanceRamRoleRequest) (*ecs.DetachInstanceRamRoleResponse, error) {
@@ -233,6 +259,7 @@ func (client *alibabacloudClient) ReActivateInstances(request *ecs.ReActivateIns
 	return client.ecsClient.ReActivateInstances(request)
 }
 
+<<<<<<< HEAD
 func (client *alibabacloudClient) DescribeUserData(request *ecs.DescribeUserDataRequest) (*ecs.DescribeUserDataResponse, error) {
 	return client.ecsClient.DescribeUserData(request)
 }
@@ -620,6 +647,13 @@ func NewClient(ctrlRuntimeClient client.Client, secretName, namespace, regionID 
 //https://github.com/aliyun/alibaba-cloud-sdk-go/blob/master/sdk/auth/credentials/providers/configuration.go
 func newConfiguration(ctrlRuntimeClient client.Client, secretName, namespace string, configManagedClient client.Client) (*providers.Configuration, error) {
 	config := &providers.Configuration{}
+=======
+func NewClient(ctrlRuntimeClient client.Client, secretName, namespace, region string) (Client, error) {
+	aliCloudConfig := &providers.Configuration{
+		AccessKeyID:     os.Getenv("ALICLOUD_ACCESS_KEY_ID"),
+		AccessKeySecret: os.Getenv("ALICLOUD_ACCESS_KEY_SECRET"),
+	}
+>>>>>>> ebdd9bd0 (update test case)
 
 	if secretName != "" {
 		var secret corev1.Secret
@@ -633,6 +667,7 @@ func newConfiguration(ctrlRuntimeClient client.Client, secretName, namespace str
 		if err != nil {
 			return nil, fmt.Errorf("failed to fetch  credentials file from Secret: %v", err)
 		}
+<<<<<<< HEAD
 	}
 
 	return config, nil
@@ -651,6 +686,18 @@ func fetchCredentialsFileFromSecret(secret *corev1.Secret, config *providers.Con
 	//ststoken
 	if len(secret.Data[kubeAccessKeyStsToken]) > 0 {
 		config.AccessKeyStsToken = utils.ByteArray2String(secret.Data[kubeAccessKeyStsToken])
+=======
+		aliCloudConfig.AccessKeyID = string(accessKeyID)
+
+		accessKeySecret, ok := secret.Data[AliCloudAccessKeySecret]
+		if !ok {
+			return nil, fmt.Errorf("AliCloud credentials secret %v did not contain key %v",
+				secretName, AliCloudAccessKeySecret)
+		}
+		aliCloudConfig.AccessKeySecret = string(accessKeySecret)
+		accessKeyStsToken, _ := secret.Data[AliCloudAccessKeyStsToken]
+		aliCloudConfig.AccessKeyStsToken = string(accessKeyStsToken)
+>>>>>>> ebdd9bd0 (update test case)
 	}
 
 	// roleArn ,roleSessionName ,roleSessionExpiration

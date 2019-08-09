@@ -32,7 +32,11 @@ func validateMachine(machine machinev1.Machine) error {
 		return machinecontroller.InvalidMachineConfiguration("%v: missing %q label", machine.GetName(), machinev1.MachineClusterIDLabel)
 	}
 
+<<<<<<< HEAD
 	return nil
+=======
+	return &config, nil
+>>>>>>> ebdd9bd0 (update test case)
 }
 
 // getClusterID get cluster ID by machine.openshift.io/cluster-api-cluster label
@@ -91,9 +95,52 @@ func findProviderCondition(conditions []alibabacloudproviderv1.AlibabaCloudMachi
 	return nil
 }
 
+<<<<<<< HEAD
 func updateExistingCondition(newCondition, existingCondition *alibabacloudproviderv1.AlibabaCloudMachineProviderCondition) {
 	if !shouldUpdateCondition(newCondition, existingCondition) {
 		return
+=======
+// getRunningInstance returns the ECS instance for a given machine. If multiple instances match our machine,
+// the most recently launched will be returned. If no instance exists, an error will be returned.
+func getRunningInstance(machine *machinev1.Machine, client aliCloudClient.Client, regionId string) (*ecs.Instance, error) {
+	instances, err := getRunningInstances(machine, client, regionId)
+	if err != nil {
+		return nil, err
+	}
+	if len(instances) == 0 {
+		return nil, fmt.Errorf("no instance found for machine: %s", machine.Name)
+	}
+
+	sortInstances(instances)
+	return instances[0], nil
+}
+
+// getRunningInstances returns all running instances that have a tag matching our machine name,
+// and cluster ID.
+func getRunningInstances(machine *machinev1.Machine, client aliCloudClient.Client, regionId string) ([]*ecs.Instance, error) {
+	return getInstances(machine, client, "Running", regionId)
+}
+
+// getInstances returns all instances that have a tag matching our machine name,
+// and cluster ID.
+func getInstances(machine *machinev1.Machine, client aliCloudClient.Client, instanceStatus string, regionId string) ([]*ecs.Instance, error) {
+
+	clusterID, ok := getClusterID(machine)
+	if !ok {
+		return []*ecs.Instance{}, fmt.Errorf("unable to get cluster ID for machine: %q", machine.Name)
+	}
+
+	describeInstancesRequest := ecs.CreateDescribeInstancesRequest()
+	describeInstancesRequest.RegionId = regionId
+	tags := clusterTagFilter(clusterID, machine.Name)
+	describeInstancesRequest.Tag = &tags
+	describeInstancesRequest.Status = instanceStatus
+	describeInstancesRequest.Scheme = "https"
+
+	result, err := client.DescribeInstances(describeInstancesRequest)
+	if err != nil {
+		return []*ecs.Instance{}, err
+>>>>>>> ebdd9bd0 (update test case)
 	}
 
 	if existingCondition.Status != newCondition.Status {
@@ -109,6 +156,7 @@ func shouldUpdateCondition(newCondition, existingCondition *alibabacloudprovider
 	return newCondition.Reason != existingCondition.Reason || newCondition.Message != existingCondition.Message
 }
 
+<<<<<<< HEAD
 // WaitForResult wait func
 func WaitForResult(name string, predicate func() (bool, interface{}, error), returnWhenError bool, delay int, timeout int) (interface{}, error) {
 	endTime := time.Now().Add(time.Duration(timeout) * time.Second)
@@ -116,6 +164,18 @@ func WaitForResult(name string, predicate func() (bool, interface{}, error), ret
 	for {
 		// Execute the function
 		satisfied, result, err := predicate()
+=======
+// deleteInstances terminates all provided instances with a single ECS request.
+func deleteInstances(client aliCloudClient.Client, instances []*ecs.Instance) error {
+	// Cleanup all older instances:
+	for _, instance := range instances {
+		glog.Infof("Cleaning up extraneous instance for machine: %v, state: %v, launchTime: %v", instance.InstanceId, instance.Status, instance.CreationTime)
+		deleteInstanceRequest := ecs.CreateDeleteInstanceRequest()
+		deleteInstanceRequest.InstanceId = instance.InstanceId
+		deleteInstanceRequest.Force = requests.NewBoolean(true)
+		deleteInstanceRequest.Scheme = "https"
+		_, err := client.DeleteInstance(deleteInstanceRequest)
+>>>>>>> ebdd9bd0 (update test case)
 		if err != nil {
 			klog.Errorf("%s Invoke func %++s error %++v", name, "predicate func() (bool, error)", err)
 			if returnWhenError {

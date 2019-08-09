@@ -1,6 +1,7 @@
 package machine
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"strconv"
@@ -42,6 +43,7 @@ const (
 	stubInstanceType            = "ecs.c6.2xlarge"
 )
 
+<<<<<<< HEAD
 func stubAlibabaCloudCredentialsSecret() *corev1.Secret {
 	return &corev1.Secret{
 		ObjectMeta: metav1.ObjectMeta{
@@ -87,6 +89,45 @@ func stubMasterMachine() (*machinev1.Machine, error) {
 
 	if err != nil {
 		return nil, err
+=======
+const userDataBlob = `#cloud-config
+write_files:
+- path: /root/node_bootstrap/node_settings.yaml
+ owner: 'root:root'
+ permissions: '0640'
+ content: |
+   node_config_name: node-config-master
+runcmd:
+- [ cat, /root/node_bootstrap/node_settings.yaml]
+`
+
+func stubProviderConfig() *providerconfigv1.AlicloudMachineProviderConfig {
+	return &providerconfigv1.AlicloudMachineProviderConfig{
+		ImageId: "centos_7_06_64_20G_alibase_20190619.vhd",
+		CredentialsSecret: &apiv1.LocalObjectReference{
+			Name: alicloudCredentialsSecretName,
+		},
+		InstanceType: "ecs.n4.xlarge",
+		RegionId:     "cn-hangzhou",
+		VpcId:        "vpc-bp1td11g1i90b1fjnm7jw",
+		VSwitchId:    "vsw-bp1ra53n8ban94mbbgb4w",
+		Tags: []providerconfigv1.TagSpecification{
+			{
+				Key:   "openshift-node-group-config",
+				Value: "node-config-master",
+			},
+			{
+				Key:   "host-type",
+				Value: "master",
+			},
+			{
+				Key:   "sub-host-type",
+				Value: "default",
+			},
+		},
+		SecurityGroupId: "sg-bp1iccjoxddumf300okm",
+		PublicIP:        true,
+>>>>>>> ebdd9bd0 (update test case)
 	}
 
 	return masterMachine, nil
@@ -128,14 +169,87 @@ func stubMachine(machineName string, machineLabels map[string]string) (*machinev
 			ObjectMeta: machinev1.ObjectMeta{
 				Labels: machineLabels,
 			},
+<<<<<<< HEAD
 			ProviderSpec: machinev1.ProviderSpec{
 				Value: providerSpec,
 			},
 		},
+=======
+			ProviderSpec: *providerSpec,
+		},
+	}
+
+	return machine, nil
+}
+
+func stubCluster() *clusterv1.Cluster {
+	return &clusterv1.Cluster{
+		ObjectMeta: metav1.ObjectMeta{
+			Name:      clusterID,
+			Namespace: defaultNamespace,
+		},
+	}
+}
+
+func stubUserDataSecret() *corev1.Secret {
+	return &apiv1.Secret{
+		ObjectMeta: metav1.ObjectMeta{
+			Name:      userDataSecretName,
+			Namespace: defaultNamespace,
+		},
+		Data: map[string][]byte{
+			userDataSecretKey: []byte(userDataBlob),
+		},
+	}
+}
+
+func stubAlicloudCredentialsSecret() *corev1.Secret {
+	secret := utils.GenerateAlicloudCredentialsSecretFromEnv(alicloudCredentialsSecretName, defaultNamespace)
+	aa, _ := json.Marshal(secret)
+	fmt.Printf("=====%s=====", string(aa))
+	return secret
+}
+
+func stubInstance(imageID, instanceID string) ecs.Instance {
+	return ecs.Instance{
+		ImageId:      imageID,
+		InstanceId:   instanceID,
+		Status:       "Running",
+		CreationTime: time.Now().String(),
+		PublicIpAddress: ecs.PublicIpAddressInDescribeInstances{
+			IpAddress: []string{"1.1.1.1"},
+		},
+		InnerIpAddress: ecs.InnerIpAddressInDescribeInstances{
+			IpAddress: []string{"1.1.1.1"},
+		},
+		Tags: ecs.TagsInDescribeInstances{
+			Tag: []ecs.Tag{
+				{
+					TagKey:   "key1",
+					TagValue: "value1",
+				},
+				{
+					TagKey:   "key2",
+					TagValue: "value2",
+				},
+			},
+		},
+		ZoneId: "cn-hangzhou-a",
+		SecurityGroupIds: ecs.SecurityGroupIdsInDescribeInstances{
+			SecurityGroupId: []string{"sg-abc"},
+		},
+	}
+}
+
+func stubCreateInstance(instanceID string) *ecs.CreateInstanceResponse {
+	return &ecs.CreateInstanceResponse{
+		InstanceId: instanceID,
+>>>>>>> ebdd9bd0 (update test case)
 	}
 	return machine, nil
 }
 
+<<<<<<< HEAD
 func stubRunInstancesRequest() *ecs.RunInstancesRequest {
 	request := ecs.CreateRunInstancesRequest()
 	request.Scheme = "https"
@@ -158,7 +272,44 @@ func stubRunInstancesResponse() *ecs.RunInstancesResponse {
 	response := ecs.CreateRunInstancesResponse()
 	response.InstanceIdSets = ecs.InstanceIdSets{
 		InstanceIdSet: []string{stubInstanceID},
+=======
+func stubSecurityGroups(sgId string) *ecs.DescribeSecurityGroupsResponse {
+	return &ecs.DescribeSecurityGroupsResponse{
+		SecurityGroups: ecs.SecurityGroups{
+			SecurityGroup: []ecs.SecurityGroup{
+				{
+					SecurityGroupId: sgId,
+				},
+			},
+		},
+	}
+}
+
+func stubImages(imageId string) *ecs.DescribeImagesResponse {
+	return &ecs.DescribeImagesResponse{
+		Images: ecs.Images{
+			Image: []ecs.Image{
+				{
+					ImageId: imageId,
+				},
+			},
+		},
+>>>>>>> ebdd9bd0 (update test case)
 	}
 
+<<<<<<< HEAD
 	return response
+=======
+func stubDescribeInstances(imageID, instanceID string) *ecs.DescribeInstancesResponse {
+	return &ecs.DescribeInstancesResponse{
+		Instances: ecs.InstancesInDescribeInstances{
+			Instance: []ecs.Instance{
+				{
+					ImageId:    imageID,
+					InstanceId: instanceID,
+				},
+			},
+		},
+	}
+>>>>>>> ebdd9bd0 (update test case)
 }

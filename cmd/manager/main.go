@@ -21,6 +21,7 @@ import (
 	"os"
 	"time"
 
+<<<<<<< HEAD
 	"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/version"
 
 	"github.com/openshift/machine-api-operator/pkg/metrics"
@@ -43,6 +44,17 @@ import (
 	"k8s.io/klog/v2"
 	"k8s.io/klog/v2/klogr"
 	ctrl "sigs.k8s.io/controller-runtime"
+=======
+	machineactuator "github.com/AliyunContainerService/cluster-api-provider-alicloud/pkg/actuators/machine"
+	"github.com/AliyunContainerService/cluster-api-provider-alicloud/pkg/apis/alicloudprovider/v1alpha1"
+	alicloudclient "github.com/AliyunContainerService/cluster-api-provider-alicloud/pkg/client"
+	"github.com/AliyunContainerService/cluster-api-provider-alicloud/pkg/version"
+	"github.com/golang/glog"
+	clusterapis "github.com/openshift/cluster-api/pkg/apis"
+	"github.com/openshift/cluster-api/pkg/controller/machine"
+	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
+	"k8s.io/klog"
+>>>>>>> ebdd9bd0 (update test case)
 	"sigs.k8s.io/controller-runtime/pkg/client/config"
 	"sigs.k8s.io/controller-runtime/pkg/healthz"
 	"sigs.k8s.io/controller-runtime/pkg/manager"
@@ -212,9 +224,18 @@ func newConfigManagedClient(mgr manager.Manager) (runtimeclient.Client, manager.
 		return nil, nil, err
 	}
 
+<<<<<<< HEAD
 	clientOpts := runtimeclient.Options{
 		Scheme: mgr.GetScheme(),
 		Mapper: mgr.GetRESTMapper(),
+=======
+	params := machineactuator.ActuatorParams{
+		Client:                mgr.GetClient(),
+		Config:                mgr.GetConfig(),
+		AliCloudClientBuilder: alicloudclient.NewClient,
+		Codec:                 codec,
+		EventRecorder:         mgr.GetEventRecorderFor("alicloud-controller"),
+>>>>>>> ebdd9bd0 (update test case)
 	}
 
 	cachedClient, err := cluster.DefaultNewClient(c, config.GetConfigOrDie(), clientOpts)
@@ -222,5 +243,9 @@ func newConfigManagedClient(mgr manager.Manager) (runtimeclient.Client, manager.
 		return nil, nil, err
 	}
 
+<<<<<<< HEAD
 	return cachedClient, c, nil
+=======
+	return actuator, nil
+>>>>>>> ebdd9bd0 (update test case)
 }
