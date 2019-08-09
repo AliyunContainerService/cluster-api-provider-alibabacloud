@@ -38,6 +38,7 @@ func providerConfigFromMachine(machine *machinev1.Machine, codec *providerconfig
 	if err := codec.DecodeProviderSpec(&machine.Spec.ProviderSpec, &config); err != nil {
 		return nil, err
 	}
+
 	return &config, nil
 }
 
@@ -115,8 +116,8 @@ func findMachineProviderCondition(conditions []providerconfigv1.AliCloudMachineP
 
 // getRunningInstance returns the ECS instance for a given machine. If multiple instances match our machine,
 // the most recently launched will be returned. If no instance exists, an error will be returned.
-func getRunningInstance(machine *machinev1.Machine, client aliCloudClient.Client,regionId string) (*ecs.Instance, error) {
-	instances, err := getRunningInstances(machine, client,regionId)
+func getRunningInstance(machine *machinev1.Machine, client aliCloudClient.Client, regionId string) (*ecs.Instance, error) {
+	instances, err := getRunningInstances(machine, client, regionId)
 	if err != nil {
 		return nil, err
 	}
@@ -148,6 +149,7 @@ func getInstances(machine *machinev1.Machine, client aliCloudClient.Client, inst
 	tags := clusterTagFilter(clusterID, machine.Name)
 	describeInstancesRequest.Tag = &tags
 	describeInstancesRequest.Status = instanceStatus
+	describeInstancesRequest.Scheme = "https"
 
 	result, err := client.DescribeInstances(describeInstancesRequest)
 	if err != nil {
@@ -170,6 +172,7 @@ func deleteInstances(client aliCloudClient.Client, instances []*ecs.Instance) er
 		deleteInstanceRequest := ecs.CreateDeleteInstanceRequest()
 		deleteInstanceRequest.InstanceId = instance.InstanceId
 		deleteInstanceRequest.Force = requests.NewBoolean(true)
+		deleteInstanceRequest.Scheme = "https"
 		_, err := client.DeleteInstance(deleteInstanceRequest)
 		if err != nil {
 			glog.Errorf("Error delete instances: %v", err)

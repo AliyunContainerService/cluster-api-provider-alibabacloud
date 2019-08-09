@@ -77,7 +77,7 @@ metadata:
 type: Opaque
 data:
   alicloud_access_key_id: FILLIN
-  alicloud_secret_access_key: FILLIN
+  ALICLOUD_ACCESS_KEY_SECRET: FILLIN
 EOF
 
 sudo kubectl apply -f secret.yaml

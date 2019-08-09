@@ -18,12 +18,12 @@ import (
 
 //
 func createInstance(machine *machinev1.Machine, machineProviderConfig *providerconfigv1.AlicloudMachineProviderConfig, userData []byte, client aliClient.Client) (*ecs.Instance, error) {
-	securityGroupsID, err := checkSecurityGroupsID(machineProviderConfig.Spec.VpcId, machineProviderConfig.Spec.RegionId, machineProviderConfig.Spec.SecurityGroupId, client)
+	securityGroupsID, err := checkSecurityGroupsID(machineProviderConfig.VpcId, machineProviderConfig.RegionId, machineProviderConfig.SecurityGroupId, client)
 	if err != nil {
 		return nil, fmt.Errorf("error getting security groups ID: %v", err)
 	}
 
-	ImageId, err := checkImageId(machineProviderConfig.Spec.RegionId, machineProviderConfig.Spec.ImageId, client)
+	ImageId, err := checkImageId(machineProviderConfig.RegionId, machineProviderConfig.ImageId, client)
 	if err != nil {
 		return nil, fmt.Errorf("error getting image ID: %v", err)
 	}
@@ -34,31 +34,31 @@ func createInstance(machine *machinev1.Machine, machineProviderConfig *providerc
 	//imageID
 	createInstanceRequest.ImageId = ImageId
 	//instanceType
-	createInstanceRequest.InstanceType = machineProviderConfig.Spec.InstanceType
+	createInstanceRequest.InstanceType = machineProviderConfig.InstanceType
 	//instanceName
-	if machineProviderConfig.Spec.InstanceName != "" {
-		createInstanceRequest.InstanceName = machineProviderConfig.Spec.InstanceName
+	if machineProviderConfig.InstanceName != "" {
+		createInstanceRequest.InstanceName = machineProviderConfig.InstanceName
 	}
 	//vswitchID
-	createInstanceRequest.VSwitchId = machineProviderConfig.Spec.VSwitchId
+	createInstanceRequest.VSwitchId = machineProviderConfig.VSwitchId
 	//systemDisk
-	createInstanceRequest.SystemDiskCategory = machineProviderConfig.Spec.SystemDiskCategory
-	createInstanceRequest.SystemDiskSize = requests.NewInteger64(machineProviderConfig.Spec.SystemDiskSize)
-	if machineProviderConfig.Spec.SystemDiskDiskName != "" {
-		createInstanceRequest.SystemDiskDiskName = machineProviderConfig.Spec.SystemDiskDiskName
+	createInstanceRequest.SystemDiskCategory = machineProviderConfig.SystemDiskCategory
+	createInstanceRequest.SystemDiskSize = requests.NewInteger64(machineProviderConfig.SystemDiskSize)
+	if machineProviderConfig.SystemDiskDiskName != "" {
+		createInstanceRequest.SystemDiskDiskName = machineProviderConfig.SystemDiskDiskName
 	}
-	if machineProviderConfig.Spec.SystemDiskDescription != "" {
-		createInstanceRequest.SystemDiskDescription = machineProviderConfig.Spec.SystemDiskDescription
+	if machineProviderConfig.SystemDiskDescription != "" {
+		createInstanceRequest.SystemDiskDescription = machineProviderConfig.SystemDiskDescription
 	}
 	//keyPairName
-	createInstanceRequest.KeyPairName = machineProviderConfig.Spec.KeyPairName
+	createInstanceRequest.KeyPairName = machineProviderConfig.KeyPairName
 	//publicIP
-	if machineProviderConfig.Spec.PublicIP {
+	if machineProviderConfig.PublicIP {
 		createInstanceRequest.InternetMaxBandwidthOut = requests.NewInteger64(100)
 	}
 	//ramRoleName
-	if machineProviderConfig.Spec.RamRoleName != "" {
-		createInstanceRequest.RamRoleName = machineProviderConfig.Spec.RamRoleName
+	if machineProviderConfig.RamRoleName != "" {
+		createInstanceRequest.RamRoleName = machineProviderConfig.RamRoleName
 	}
 
 	clusterID, ok := getClusterID(machine)
@@ -69,8 +69,8 @@ func createInstance(machine *machinev1.Machine, machineProviderConfig *providerc
 
 	//tags
 	createInstanceTags := make([]ecs.CreateInstanceTag, 0)
-	if len(machineProviderConfig.Spec.Tags) > 0 {
-		for _, tag := range machineProviderConfig.Spec.Tags {
+	if len(machineProviderConfig.Tags) > 0 {
+		for _, tag := range machineProviderConfig.Tags {
 			createInstanceTags = append(createInstanceTags, ecs.CreateInstanceTag{
 				Key:   tag.Key,
 				Value: tag.Value,
@@ -85,9 +85,9 @@ func createInstance(machine *machinev1.Machine, machineProviderConfig *providerc
 	createInstanceRequest.Tag = &tagList
 
 	//dataDisk
-	if len(machineProviderConfig.Spec.DataDisks) > 0 {
+	if len(machineProviderConfig.DataDisks) > 0 {
 		dataDisks := make([]ecs.CreateInstanceDataDisk, 0)
-		for _, dataDisk := range machineProviderConfig.Spec.DataDisks {
+		for _, dataDisk := range machineProviderConfig.DataDisks {
 			dataDisks = append(dataDisks, ecs.CreateInstanceDataDisk{
 				Size:     strconv.FormatInt(dataDisk.Size, 10),
 				Category: dataDisk.Category,
@@ -98,6 +98,8 @@ func createInstance(machine *machinev1.Machine, machineProviderConfig *providerc
 	//userData
 	createInstanceRequest.UserData = base64.StdEncoding.EncodeToString(userData)
 
+	createInstanceRequest.Scheme = "https"
+
 	//createInstance
 	createInstanceResponse, err := client.CreateInstance(createInstanceRequest)
 	if err != nil {
@@ -105,16 +107,47 @@ func createInstance(machine *machinev1.Machine, machineProviderConfig *providerc
 		return nil, fmt.Errorf("error creating ECS instance: %v", err)
 	}
 
-	//waitForInstanceRunning
-	if err := client.WaitForInstance(createInstanceResponse.InstanceId, "Running", machineProviderConfig.Spec.RegionId, 300); err != nil {
+	glog.Infof("The ECS instance %s created",createInstanceResponse.InstanceId)
+
+	//waitForInstance stopped
+	glog.Infof("Wait for  ECS instance %s stopped",createInstanceResponse.InstanceId)
+	if err := client.WaitForInstance(createInstanceResponse.InstanceId, "Stopped", machineProviderConfig.RegionId, 300); err != nil {
+		glog.Errorf("Error waiting ECS instance stopped: %v", err)
 		return nil, err
 	}
+	glog.Infof("The   ECS instance %s stopped",createInstanceResponse.InstanceId)
+
+
+	glog.Infof("Start  ECS instance %s ",createInstanceResponse.InstanceId)
+	//start instance
+	startInstanceRequest := ecs.CreateStartInstanceRequest()
+	startInstanceRequest.RegionId = machineProviderConfig.RegionId
+	startInstanceRequest.InstanceId = createInstanceResponse.InstanceId
+	startInstanceRequest.Scheme = "https"
+
+	_,err = client.StartInstance(startInstanceRequest)
+	if err!=nil{
+		glog.Errorf("Error starting ECS instance: %v", err)
+		return nil, fmt.Errorf("error starting ECS instance: %v", err)
+	}
+
+	//waitForInstanceRunning
+	glog.Infof("Wait for  ECS instance %s running",createInstanceResponse.InstanceId)
+
+	if err := client.WaitForInstance(createInstanceResponse.InstanceId, "Running", machineProviderConfig.RegionId, 300); err != nil {
+		glog.Errorf("Error waiting ECS instance running: %v", err)
+		return nil, err
+	}
+	glog.Infof("The   ECS instance %s running",createInstanceResponse.InstanceId)
+
 
 	//describeInstance
 	describeInstancesRequest := ecs.CreateDescribeInstancesRequest()
-	describeInstancesRequest.RegionId = machineProviderConfig.Spec.RegionId
+	describeInstancesRequest.RegionId = machineProviderConfig.RegionId
 	instancesIds, _ := json.Marshal([]string{createInstanceResponse.InstanceId})
 	describeInstancesRequest.InstanceIds = string(instancesIds)
+	describeInstancesRequest.Scheme = "https"
+
 	describeInstancesResponse, err := client.DescribeInstances(describeInstancesRequest)
 	if err != nil {
 		return nil, err
@@ -149,6 +182,7 @@ func checkSecurityGroupsID(vpcId, regionId, securityGroupId string, client aliCl
 	describeSecurityGroupsRequest.RegionId = regionId
 	describeSecurityGroupsRequest.SecurityGroupId = securityGroupId
 	describeSecurityGroupsRequest.VpcId = vpcId
+	describeSecurityGroupsRequest.Scheme = "https"
 
 	describeSecurityGroupsResponse, err := client.DescribeSecurityGroups(describeSecurityGroupsRequest)
 	if err != nil {
@@ -168,6 +202,7 @@ func checkImageId(regionId, ImageId string, client aliClient.Client) (string, er
 	describeImagesRequest := ecs.CreateDescribeImagesRequest()
 	describeImagesRequest.RegionId = regionId
 	describeImagesRequest.ImageId = ImageId
+	describeImagesRequest.Scheme = "https"
 
 	describeImagesResponse, err := client.DescribeImages(describeImagesRequest)
 	if err != nil {
@@ -191,7 +226,6 @@ func (il instanceList) Swap(i, j int) {
 	il[i], il[j] = il[j], il[i]
 }
 
-
 var (
 	timeTemplate1 = "2006-01-02 15:04:05"
 )
@@ -207,12 +241,11 @@ func (il instanceList) Less(i, j int) bool {
 		return true
 	}
 
-	t1,_ := time.ParseInLocation(timeTemplate1, il[i].CreationTime, time.Local)
-	t2,_ := time.ParseInLocation(timeTemplate1, il[j].CreationTime, time.Local)
+	t1, _ := time.ParseInLocation(timeTemplate1, il[i].CreationTime, time.Local)
+	t2, _ := time.ParseInLocation(timeTemplate1, il[j].CreationTime, time.Local)
 
 	return t1.After(t2)
 }
-
 
 // sortInstances will sort a list of instance based on an instace launch time
 // from the newest to the oldest.
