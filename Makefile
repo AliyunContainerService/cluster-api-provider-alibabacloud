@@ -19,8 +19,8 @@ GOGCFLAGS ?= -gcflags=all="-N -l"
 endif
 
 VERSION     ?= $(shell git describe --always --abbrev=7)
-REPO_PATH   ?= sigs.k8s.io/cluster-api-provider-alicloud
-LD_FLAGS    ?= -X $(REPO_PATH)/pkg/version.Raw=$(VERSION) -extldflags "-static"
+REPO_PATH   ?= github.com/AliyunContainerService/cluster-api-provider-alicloud
+LD_FLAGS    ?= -X $(REPO_PATH)/pkg/version.Version=$(VERSION) -extldflags "-static"
 MUTABLE_TAG ?= latest
 IMAGE        = origin-alicloud-machine-controllers
 
@@ -33,7 +33,7 @@ ifeq ($(NO_DOCKER), 1)
   IMAGE_BUILD_CMD = imagebuilder
   CGO_ENABLED = 1
 else
-  DOCKER_CMD := docker run --rm -e CGO_ENABLED=1 -v "$(PWD)":/go/src/sigs.k8s.io/cluster-api-provider-alicloud:Z -w /go/src/sigs.k8s.io/cluster-api-provider-alicloud openshift/origin-release:golang-1.12
+  DOCKER_CMD := docker run --rm -e CGO_ENABLED=1 -v "$(PWD)":/go/src/github.com/AliyunContainerService/cluster-api-provider-alicloud:Z -w /go/src/github.com/AliyunContainerService/cluster-api-provider-alicloud openshift/origin-release:golang-1.12
   IMAGE_BUILD_CMD = docker build
 endif
 
@@ -49,7 +49,7 @@ vendor:
 
 .PHONY: generate
 generate:
-	go install $(GOGCFLAGS) -ldflags '-extldflags "-static"' sigs.k8s.io/cluster-api-provider-alicloud/vendor/github.com/golang/mock/mockgen
+	go install $(GOGCFLAGS) -ldflags '-extldflags "-static"' github.com/AliyunContainerService/cluster-api-provider-alicloud/vendor/github.com/golang/mock/mockgen
 	go generate ./pkg/... ./cmd/...
 
 .PHONY: test
@@ -66,7 +66,7 @@ build: ## build binaries
                "$(REPO_PATH)/vendor/github.com/openshift/cluster-api/cmd/manager"
 
 alicloud-actuator:
-	$(DOCKER_CMD) go build $(GOGCFLAGS) -o bin/alicloud-actuator sigs.k8s.io/cluster-api-provider-alicloud/cmd/alicloud-actuator
+	$(DOCKER_CMD) go build $(GOGCFLAGS) -o bin/alicloud-actuator github.com/AliyunContainerService/cluster-api-provider-alicloud/cmd/alicloud-actuator
 
 .PHONY: images
 images: ## Create images

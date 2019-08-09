@@ -6,6 +6,7 @@ import (
 	"math"
 	"strconv"
 	"strings"
+	"sync"
 	"unsafe"
 
 	jsoniter "github.com/json-iterator/go"
@@ -16,15 +17,18 @@ const maxInt = int(maxUint >> 1)
 const minInt = -maxInt - 1
 
 var jsonParser jsoniter.API
+var initJson = &sync.Once{}
 
-func init() {
-	registerBetterFuzzyDecoder()
-	jsonParser = jsoniter.Config{
-		EscapeHTML:             true,
-		SortMapKeys:            true,
-		ValidateJsonRawMessage: true,
-		CaseSensitive:          true,
-	}.Froze()
+func initJsonParserOnce() {
+	initJson.Do(func() {
+		registerBetterFuzzyDecoder()
+		jsonParser = jsoniter.Config{
+			EscapeHTML:             true,
+			SortMapKeys:            true,
+			ValidateJsonRawMessage: true,
+			CaseSensitive:          true,
+		}.Froze()
+	})
 }
 
 func registerBetterFuzzyDecoder() {

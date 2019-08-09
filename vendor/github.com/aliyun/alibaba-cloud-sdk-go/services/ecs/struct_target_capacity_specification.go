@@ -17,10 +17,9 @@ package ecs
 
 // TargetCapacitySpecification is a nested struct in ecs response
 type TargetCapacitySpecification struct {
-	SpotTargetCapacity        float64 `json:"SpotTargetCapacity" xml:"SpotTargetCapacity"`
-	OnDemandTargetCapacity    float64 `json:"OnDemandTargetCapacity" xml:"OnDemandTargetCapacity"`
-	FillGapWithOnDemand       bool    `json:"FillGapWithOnDemand" xml:"FillGapWithOnDemand"`
-	PayAsYouGoTargetCapacity  float64 `json:"PayAsYouGoTargetCapacity" xml:"PayAsYouGoTargetCapacity"`
 	TotalTargetCapacity       float64 `json:"TotalTargetCapacity" xml:"TotalTargetCapacity"`
+	OnDemandTargetCapacity    float64 `json:"OnDemandTargetCapacity" xml:"OnDemandTargetCapacity"`
+	SpotTargetCapacity        float64 `json:"SpotTargetCapacity" xml:"SpotTargetCapacity"`
 	DefaultTargetCapacityType string  `json:"DefaultTargetCapacityType" xml:"DefaultTargetCapacityType"`
+	FillGapWithOnDemand       bool    `json:"FillGapWithOnDemand" xml:"FillGapWithOnDemand"`
 }
