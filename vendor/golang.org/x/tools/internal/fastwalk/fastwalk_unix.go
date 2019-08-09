@@ -2,7 +2,10 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+<<<<<<< HEAD
 //go:build (linux || darwin || freebsd || openbsd || netbsd) && !appengine
+=======
+>>>>>>> 79bfea2d (update vendor)
 // +build linux darwin freebsd openbsd netbsd
 // +build !appengine
 
@@ -22,7 +25,11 @@ const blockSize = 8 << 10
 const unknownFileMode os.FileMode = os.ModeNamedPipe | os.ModeSocket | os.ModeDevice
 
 func readDir(dirName string, fn func(dirName, entName string, typ os.FileMode) error) error {
+<<<<<<< HEAD
 	fd, err := open(dirName, 0, 0)
+=======
+	fd, err := syscall.Open(dirName, 0, 0)
+>>>>>>> 79bfea2d (update vendor)
 	if err != nil {
 		return &os.PathError{Op: "open", Path: dirName, Err: err}
 	}
@@ -36,7 +43,11 @@ func readDir(dirName string, fn func(dirName, entName string, typ os.FileMode) e
 	for {
 		if bufp >= nbuf {
 			bufp = 0
+<<<<<<< HEAD
 			nbuf, err = readDirent(fd, buf)
+=======
+			nbuf, err = syscall.ReadDirent(fd, buf)
+>>>>>>> 79bfea2d (update vendor)
 			if err != nil {
 				return os.NewSyscallError("readdirent", err)
 			}
@@ -67,7 +78,11 @@ func readDir(dirName string, fn func(dirName, entName string, typ os.FileMode) e
 			continue
 		}
 		if err := fn(dirName, name, typ); err != nil {
+<<<<<<< HEAD
 			if err == ErrSkipFiles {
+=======
+			if err == SkipFiles {
+>>>>>>> 79bfea2d (update vendor)
 				skipFiles = true
 				continue
 			}
@@ -77,9 +92,14 @@ func readDir(dirName string, fn func(dirName, entName string, typ os.FileMode) e
 }
 
 func parseDirEnt(buf []byte) (consumed int, name string, typ os.FileMode) {
+<<<<<<< HEAD
 	// golang.org/issue/37269
 	dirent := &syscall.Dirent{}
 	copy((*[unsafe.Sizeof(syscall.Dirent{})]byte)(unsafe.Pointer(dirent))[:], buf)
+=======
+	// golang.org/issue/15653
+	dirent := (*syscall.Dirent)(unsafe.Pointer(&buf[0]))
+>>>>>>> 79bfea2d (update vendor)
 	if v := unsafe.Offsetof(dirent.Reclen) + unsafe.Sizeof(dirent.Reclen); uintptr(len(buf)) < v {
 		panic(fmt.Sprintf("buf size of %d smaller than dirent header size %d", len(buf), v))
 	}
@@ -127,6 +147,7 @@ func parseDirEnt(buf []byte) (consumed int, name string, typ os.FileMode) {
 	}
 	return
 }
+<<<<<<< HEAD
 
 // According to https://golang.org/doc/go1.14#runtime
 // A consequence of the implementation of preemption is that on Unix systems, including Linux and macOS
@@ -151,3 +172,5 @@ func readDirent(fd int, buf []byte) (n int, err error) {
 		}
 	}
 }
+=======
+>>>>>>> 79bfea2d (update vendor)

@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 // untested sections: 2
 
+=======
+>>>>>>> 79bfea2d (update vendor)
 package gexec
 
 import (

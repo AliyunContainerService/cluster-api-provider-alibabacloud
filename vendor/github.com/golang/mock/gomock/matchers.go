@@ -1,3 +1,5 @@
+//go:generate mockgen -destination mock_matcher/mock_matcher.go github.com/golang/mock/gomock Matcher
+
 // Copyright 2010 Google Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -156,6 +158,7 @@ func (n notMatcher) String() string {
 	return "not(" + n.m.String() + ")"
 }
 
+<<<<<<< HEAD
 type assignableToTypeOfMatcher struct {
 	targetType reflect.Type
 }
@@ -307,12 +310,19 @@ func Nil() Matcher { return nilMatcher{} }
 // Example usage:
 //   Not(Eq(5)).Matches(4) // returns true
 //   Not(Eq(5)).Matches(5) // returns false
+=======
+// Constructors
+func Any() Matcher             { return anyMatcher{} }
+func Eq(x interface{}) Matcher { return eqMatcher{x} }
+func Nil() Matcher             { return nilMatcher{} }
+>>>>>>> 79bfea2d (update vendor)
 func Not(x interface{}) Matcher {
 	if m, ok := x.(Matcher); ok {
 		return notMatcher{m}
 	}
 	return notMatcher{Eq(x)}
 }
+<<<<<<< HEAD
 
 // AssignableToTypeOf is a Matcher that matches if the parameter to the mock
 // function is assignable to the type of the parameter to this function.
@@ -339,3 +349,5 @@ func AssignableToTypeOf(x interface{}) Matcher {
 func InAnyOrder(x interface{}) Matcher {
 	return inAnyOrderMatcher{x}
 }
+=======
+>>>>>>> 79bfea2d (update vendor)

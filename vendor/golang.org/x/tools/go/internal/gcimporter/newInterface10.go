@@ -2,7 +2,10 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+<<<<<<< HEAD
 //go:build !go1.11
+=======
+>>>>>>> 79bfea2d (update vendor)
 // +build !go1.11
 
 package gcimporter

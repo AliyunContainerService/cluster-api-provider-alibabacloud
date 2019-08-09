@@ -28,7 +28,6 @@ package http2
 import (
 	"bufio"
 	"bytes"
-	"context"
 	"crypto/tls"
 	"errors"
 	"fmt"
@@ -220,14 +219,12 @@ func ConfigureServer(s *http.Server, conf *Server) error {
 		conf = new(Server)
 	}
 	conf.state = &serverInternalState{activeConns: make(map[*serverConn]struct{})}
-	if h1, h2 := s, conf; h2.IdleTimeout == 0 {
-		if h1.IdleTimeout != 0 {
-			h2.IdleTimeout = h1.IdleTimeout
-		} else {
-			h2.IdleTimeout = h1.ReadTimeout
-		}
+	if err := configureServer18(s, conf); err != nil {
+		return err
 	}
-	s.RegisterOnShutdown(conf.state.startGracefulShutdown)
+	if err := configureServer19(s, conf); err != nil {
+		return err
+	}
 
 	if s.TLSConfig == nil {
 		s.TLSConfig = new(tls.Config)
@@ -472,6 +469,7 @@ func (s *Server) ServeConn(c net.Conn, opts *ServeConnOpts) {
 	sc.serve()
 }
 
+<<<<<<< HEAD
 func serverConnBaseContext(c net.Conn, opts *ServeConnOpts) (ctx context.Context, cancel func()) {
 	ctx, cancel = context.WithCancel(opts.context())
 	ctx = context.WithValue(ctx, http.LocalAddrContextKey, c.LocalAddr())
@@ -481,6 +479,8 @@ func serverConnBaseContext(c net.Conn, opts *ServeConnOpts) (ctx context.Context
 	return
 }
 
+=======
+>>>>>>> 79bfea2d (update vendor)
 func (sc *serverConn) rejectConn(err ErrCode, debug string) {
 	sc.vlogf("http2: server rejecting conn: %v, %s", err, debug)
 	// ignoring errors. hanging up anyway.
@@ -496,7 +496,7 @@ type serverConn struct {
 	conn             net.Conn
 	bw               *bufferedWriter // writing to conn
 	handler          http.Handler
-	baseCtx          context.Context
+	baseCtx          contextContext
 	framer           *Framer
 	doneServing      chan struct{}          // closed when serverConn.serve ends
 	readFrameCh      chan readFrameResult   // written by serverConn.readFrames
@@ -577,7 +577,7 @@ type stream struct {
 	id        uint32
 	body      *pipe       // non-nil if expecting DATA frames
 	cw        closeWaiter // closed wait stream transitions to closed state
-	ctx       context.Context
+	ctx       contextContext
 	cancelCtx func()
 
 	// owned by serverConn's serve loop:
@@ -1658,10 +1658,19 @@ func (sc *serverConn) processData(f *DataFrame) error {
 		// type PROTOCOL_ERROR."
 		return ConnectionError(ErrCodeProtocol)
 	}
+<<<<<<< HEAD
 
 	// "If a DATA frame is received whose stream is not in "open"
 	// or "half closed (local)" state, the recipient MUST respond
 	// with a stream error (Section 5.4.2) of type STREAM_CLOSED."
+=======
+	// RFC 7540, sec 6.1: If a DATA frame is received whose stream is not in
+	// "open" or "half-closed (local)" state, the recipient MUST respond with a
+	// stream error (Section 5.4.2) of type STREAM_CLOSED.
+	if state == stateClosed {
+		return streamError(id, ErrCodeStreamClosed)
+	}
+>>>>>>> 79bfea2d (update vendor)
 	if st == nil || state != stateOpen || st.gotTrailerHeader || st.resetQueued {
 		// This includes sending a RST_STREAM if the stream is
 		// in stateHalfClosedLocal (which currently means that
@@ -1957,7 +1966,7 @@ func (sc *serverConn) newStream(id, pusherID uint32, state streamState) *stream 
 		panic("internal error: cannot create stream with id 0")
 	}
 
-	ctx, cancelCtx := context.WithCancel(sc.baseCtx)
+	ctx, cancelCtx := contextWithCancel(sc.baseCtx)
 	st := &stream{
 		sc:        sc,
 		id:        id,
@@ -2127,7 +2136,7 @@ func (sc *serverConn) newWriterAndRequestNoBody(st *stream, rp requestParam) (*r
 		Body:       body,
 		Trailer:    trailer,
 	}
-	req = req.WithContext(st.ctx)
+	req = requestWithContext(req, st.ctx)
 
 	rws := responseWriterStatePool.Get().(*responseWriterState)
 	bwSave := rws.bw
@@ -2155,7 +2164,7 @@ func (sc *serverConn) runHandler(rw *responseWriter, req *http.Request, handler 
 				stream: rw.rws.stream,
 			})
 			// Same as net/http:
-			if e != nil && e != http.ErrAbortHandler {
+			if shouldLogPanic(e) {
 				const size = 64 << 10
 				buf := make([]byte, size)
 				buf = buf[:runtime.Stack(buf, false)]
@@ -2733,9 +2742,14 @@ var (
 	ErrPushLimitReached = errors.New("http2: push would exceed peer's SETTINGS_MAX_CONCURRENT_STREAMS")
 )
 
-var _ http.Pusher = (*responseWriter)(nil)
+// pushOptions is the internal version of http.PushOptions, which we
+// cannot include here because it's only defined in Go 1.8 and later.
+type pushOptions struct {
+	Method string
+	Header http.Header
+}
 
-func (w *responseWriter) Push(target string, opts *http.PushOptions) error {
+func (w *responseWriter) push(target string, opts pushOptions) error {
 	st := w.rws.stream
 	sc := st.sc
 	sc.serveG.checkNotOn()
@@ -2744,10 +2758,6 @@ func (w *responseWriter) Push(target string, opts *http.PushOptions) error {
 	// http://tools.ietf.org/html/rfc7540#section-6.6
 	if st.isPushed() {
 		return ErrRecursivePush
-	}
-
-	if opts == nil {
-		opts = new(http.PushOptions)
 	}
 
 	// Default options.

@@ -22,8 +22,13 @@ import (
 	"net/http"
 
 	"github.com/go-logr/logr"
+<<<<<<< HEAD
 	jsonpatch "gomodules.xyz/jsonpatch/v2"
 	admissionv1 "k8s.io/api/admission/v1"
+=======
+	"gomodules.xyz/jsonpatch/v2"
+	admissionv1beta1 "k8s.io/api/admission/v1beta1"
+>>>>>>> 79bfea2d (update vendor)
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/util/json"

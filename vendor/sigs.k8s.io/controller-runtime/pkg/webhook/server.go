@@ -100,15 +100,24 @@ func (s *Server) setDefaults() {
 
 	if len(s.CertDir) == 0 {
 		s.CertDir = filepath.Join(os.TempDir(), "k8s-webhook-server", "serving-certs")
+<<<<<<< HEAD
 	}
 
 	if len(s.CertName) == 0 {
 		s.CertName = "tls.crt"
+=======
+>>>>>>> 79bfea2d (update vendor)
 	}
 
 	if len(s.KeyName) == 0 {
 		s.KeyName = "tls.key"
 	}
+}
+
+// NeedLeaderElection implements the LeaderElectionRunnable interface, which indicates
+// the webhook server doesn't need leader election.
+func (*Server) NeedLeaderElection() bool {
+	return false
 }
 
 // NeedLeaderElection implements the LeaderElectionRunnable interface, which indicates

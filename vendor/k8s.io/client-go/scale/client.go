@@ -17,6 +17,7 @@ limitations under the License.
 package scale
 
 import (
+<<<<<<< HEAD
 	"context"
 	"fmt"
 
@@ -26,12 +27,21 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	serializer "k8s.io/apimachinery/pkg/runtime/serializer"
 	"k8s.io/apimachinery/pkg/types"
+=======
+	"fmt"
+
+	autoscaling "k8s.io/api/autoscaling/v1"
+	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/runtime/schema"
+	serializer "k8s.io/apimachinery/pkg/runtime/serializer"
+>>>>>>> 79bfea2d (update vendor)
 	"k8s.io/client-go/dynamic"
 	restclient "k8s.io/client-go/rest"
 )
 
 var scaleConverter = NewScaleConverter()
 var codecs = serializer.NewCodecFactory(scaleConverter.Scheme())
+<<<<<<< HEAD
 var parameterScheme = runtime.NewScheme()
 var dynamicParameterCodec = runtime.NewParameterCodec(parameterScheme)
 
@@ -40,6 +50,12 @@ var versionV1 = schema.GroupVersion{Version: "v1"}
 func init() {
 	metav1.AddToGroupVersion(parameterScheme, versionV1)
 }
+=======
+
+// restInterfaceProvider turns a restclient.Config into a restclient.Interface.
+// It's overridable for the purposes of testing.
+type restInterfaceProvider func(*restclient.Config) (restclient.Interface, error)
+>>>>>>> 79bfea2d (update vendor)
 
 // scaleClient is an implementation of ScalesGetter
 // which makes use of a RESTMapper and a generic REST
@@ -61,7 +77,13 @@ func NewForConfig(cfg *restclient.Config, mapper PreferredResourceMapper, resolv
 	// so that the RESTClientFor doesn't complain
 	cfg.GroupVersion = &schema.GroupVersion{}
 
+<<<<<<< HEAD
 	cfg.NegotiatedSerializer = codecs.WithoutConversion()
+=======
+	cfg.NegotiatedSerializer = serializer.DirectCodecFactory{
+		CodecFactory: codecs,
+	}
+>>>>>>> 79bfea2d (update vendor)
 	if len(cfg.UserAgent) == 0 {
 		cfg.UserAgent = restclient.DefaultKubernetesUserAgent()
 	}
@@ -86,6 +108,7 @@ func New(baseClient restclient.Interface, mapper PreferredResourceMapper, resolv
 	}
 }
 
+<<<<<<< HEAD
 // apiPathFor returns the absolute api path for the given GroupVersion
 func (c *scaleClient) apiPathFor(groupVer schema.GroupVersion) string {
 	// we need to set the API path based on GroupVersion (defaulting to the legacy path if none is set)
@@ -99,6 +122,8 @@ func (c *scaleClient) apiPathFor(groupVer schema.GroupVersion) string {
 	return restclient.DefaultVersionedAPIPath(apiPath, groupVer)
 }
 
+=======
+>>>>>>> 79bfea2d (update vendor)
 // pathAndVersionFor returns the appropriate base path and the associated full GroupVersionResource
 // for the given GroupResource
 func (c *scaleClient) pathAndVersionFor(resource schema.GroupResource) (string, schema.GroupVersionResource, error) {
@@ -109,7 +134,21 @@ func (c *scaleClient) pathAndVersionFor(resource schema.GroupResource) (string, 
 
 	groupVer := gvr.GroupVersion()
 
+<<<<<<< HEAD
 	return c.apiPathFor(groupVer), gvr, nil
+=======
+	// we need to set the API path based on GroupVersion (defaulting to the legacy path if none is set)
+	// TODO: we "cheat" here since the API path really only depends on group ATM, but this should
+	// *probably* take GroupVersionResource and not GroupVersionKind.
+	apiPath := c.apiPathResolverFunc(groupVer.WithKind(""))
+	if apiPath == "" {
+		apiPath = "/api"
+	}
+
+	path := restclient.DefaultVersionedAPIPath(apiPath, groupVer)
+
+	return path, gvr, nil
+>>>>>>> 79bfea2d (update vendor)
 }
 
 // namespacedScaleClient is an ScaleInterface for fetching
@@ -119,6 +158,7 @@ type namespacedScaleClient struct {
 	namespace string
 }
 
+<<<<<<< HEAD
 // convertToScale converts the response body to autoscaling/v1.Scale
 func convertToScale(result *restclient.Result) (*autoscaling.Scale, error) {
 	scaleBytes, err := result.Raw()
@@ -140,6 +180,8 @@ func convertToScale(result *restclient.Result) (*autoscaling.Scale, error) {
 	return scaleObj.(*autoscaling.Scale), nil
 }
 
+=======
+>>>>>>> 79bfea2d (update vendor)
 func (c *scaleClient) Scales(namespace string) ScaleInterface {
 	return &namespacedScaleClient{
 		client:    c,
@@ -147,7 +189,11 @@ func (c *scaleClient) Scales(namespace string) ScaleInterface {
 	}
 }
 
+<<<<<<< HEAD
 func (c *namespacedScaleClient) Get(ctx context.Context, resource schema.GroupResource, name string, opts metav1.GetOptions) (*autoscaling.Scale, error) {
+=======
+func (c *namespacedScaleClient) Get(resource schema.GroupResource, name string) (*autoscaling.Scale, error) {
+>>>>>>> 79bfea2d (update vendor)
 	// Currently, a /scale endpoint can return different scale types.
 	// Until we have support for the alternative API representations proposal,
 	// we need to deal with accepting different API versions.
@@ -160,20 +206,51 @@ func (c *namespacedScaleClient) Get(ctx context.Context, resource schema.GroupRe
 
 	result := c.client.clientBase.Get().
 		AbsPath(path).
+<<<<<<< HEAD
 		NamespaceIfScoped(c.namespace, c.namespace != "").
 		Resource(gvr.Resource).
 		Name(name).
 		SubResource("scale").
 		SpecificallyVersionedParams(&opts, dynamicParameterCodec, versionV1).
 		Do(ctx)
+=======
+		Namespace(c.namespace).
+		Resource(gvr.Resource).
+		Name(name).
+		SubResource("scale").
+		Do()
+>>>>>>> 79bfea2d (update vendor)
 	if err := result.Error(); err != nil {
 		return nil, err
 	}
 
+<<<<<<< HEAD
 	return convertToScale(&result)
 }
 
 func (c *namespacedScaleClient) Update(ctx context.Context, resource schema.GroupResource, scale *autoscaling.Scale, opts metav1.UpdateOptions) (*autoscaling.Scale, error) {
+=======
+	scaleBytes, err := result.Raw()
+	if err != nil {
+		return nil, err
+	}
+	decoder := scaleConverter.codecs.UniversalDecoder(scaleConverter.ScaleVersions()...)
+	rawScaleObj, err := runtime.Decode(decoder, scaleBytes)
+	if err != nil {
+		return nil, err
+	}
+
+	// convert whatever this is to autoscaling/v1.Scale
+	scaleObj, err := scaleConverter.ConvertToVersion(rawScaleObj, autoscaling.SchemeGroupVersion)
+	if err != nil {
+		return nil, fmt.Errorf("received an object from a /scale endpoint which was not convertible to autoscaling Scale: %v", err)
+	}
+
+	return scaleObj.(*autoscaling.Scale), nil
+}
+
+func (c *namespacedScaleClient) Update(resource schema.GroupResource, scale *autoscaling.Scale) (*autoscaling.Scale, error) {
+>>>>>>> 79bfea2d (update vendor)
 	path, gvr, err := c.client.pathAndVersionFor(resource)
 	if err != nil {
 		return nil, fmt.Errorf("unable to get client for %s: %v", resource.String(), err)
@@ -202,6 +279,7 @@ func (c *namespacedScaleClient) Update(ctx context.Context, resource schema.Grou
 
 	result := c.client.clientBase.Put().
 		AbsPath(path).
+<<<<<<< HEAD
 		NamespaceIfScoped(c.namespace, c.namespace != "").
 		Resource(gvr.Resource).
 		Name(scale.Name).
@@ -209,6 +287,14 @@ func (c *namespacedScaleClient) Update(ctx context.Context, resource schema.Grou
 		SpecificallyVersionedParams(&opts, dynamicParameterCodec, versionV1).
 		Body(scaleUpdateBytes).
 		Do(ctx)
+=======
+		Namespace(c.namespace).
+		Resource(gvr.Resource).
+		Name(scale.Name).
+		SubResource("scale").
+		Body(scaleUpdateBytes).
+		Do()
+>>>>>>> 79bfea2d (update vendor)
 	if err := result.Error(); err != nil {
 		// propagate "raw" error from the API
 		// this allows callers to interpret underlying Reason field
@@ -216,6 +302,7 @@ func (c *namespacedScaleClient) Update(ctx context.Context, resource schema.Grou
 		return nil, err
 	}
 
+<<<<<<< HEAD
 	return convertToScale(&result)
 }
 
@@ -235,4 +322,23 @@ func (c *namespacedScaleClient) Patch(ctx context.Context, gvr schema.GroupVersi
 	}
 
 	return convertToScale(&result)
+=======
+	scaleBytes, err := result.Raw()
+	if err != nil {
+		return nil, err
+	}
+	decoder := scaleConverter.codecs.UniversalDecoder(scaleConverter.ScaleVersions()...)
+	rawScaleObj, err := runtime.Decode(decoder, scaleBytes)
+	if err != nil {
+		return nil, err
+	}
+
+	// convert whatever this is back to autoscaling/v1.Scale
+	scaleObj, err := scaleConverter.ConvertToVersion(rawScaleObj, autoscaling.SchemeGroupVersion)
+	if err != nil {
+		return nil, fmt.Errorf("received an object from a /scale endpoint which was not convertible to autoscaling Scale: %v", err)
+	}
+
+	return scaleObj.(*autoscaling.Scale), err
+>>>>>>> 79bfea2d (update vendor)
 }

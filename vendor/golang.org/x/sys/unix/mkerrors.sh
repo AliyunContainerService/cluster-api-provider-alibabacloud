@@ -17,10 +17,12 @@ if test -z "$GOARCH" -o -z "$GOOS"; then
 fi
 
 # Check that we are using the new build system if we should
-if [[ "$GOOS" = "linux" ]] && [[ "$GOLANG_SYS_BUILD" != "docker" ]]; then
-	echo 1>&2 "In the Docker based build system, mkerrors should not be called directly."
-	echo 1>&2 "See README.md"
-	exit 1
+if [[ "$GOOS" = "linux" ]] && [[ "$GOARCH" != "sparc64" ]]; then
+	if [[ "$GOLANG_SYS_BUILD" != "docker" ]]; then
+		echo 1>&2 "In the new build system, mkerrors should not be called directly."
+		echo 1>&2 "See README.md"
+		exit 1
+	fi
 fi
 
 if [[ "$GOOS" = "aix" ]]; then
@@ -108,7 +110,7 @@ includes_DragonFly='
 '
 
 includes_FreeBSD='
-#include <sys/capsicum.h>
+#include <sys/capability.h>
 #include <sys/param.h>
 #include <sys/types.h>
 #include <sys/disk.h>
@@ -192,12 +194,16 @@ struct ltchars {
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/time.h>
+<<<<<<< HEAD
 #include <sys/select.h>
 #include <sys/signalfd.h>
+=======
+>>>>>>> 79bfea2d (update vendor)
 #include <sys/socket.h>
 #include <sys/timerfd.h>
 #include <sys/uio.h>
 #include <sys/xattr.h>
+<<<<<<< HEAD
 #include <linux/bpf.h>
 #include <linux/can.h>
 #include <linux/can/error.h>
@@ -219,12 +225,13 @@ struct ltchars {
 #include <linux/hidraw.h>
 #include <linux/icmp.h>
 #include <linux/icmpv6.h>
+=======
+>>>>>>> 79bfea2d (update vendor)
 #include <linux/if.h>
 #include <linux/if_addr.h>
 #include <linux/if_alg.h>
 #include <linux/if_arp.h>
 #include <linux/if_ether.h>
-#include <linux/if_ppp.h>
 #include <linux/if_tun.h>
 #include <linux/if_packet.h>
 #include <linux/if_xdp.h>
@@ -259,15 +266,7 @@ struct ltchars {
 
 #include <mtd/ubi-user.h>
 #include <net/route.h>
-
-#if defined(__sparc__)
-// On sparc{,64}, the kernel defines struct termios2 itself which clashes with the
-// definition in glibc. As only the error constants are needed here, include the
-// generic termibits.h (which is included by termbits.h on sparc).
-#include <asm-generic/termbits.h>
-#else
 #include <asm/termbits.h>
-#endif
 
 #ifndef MSG_FASTOPEN
 #define MSG_FASTOPEN    0x20000000
@@ -296,6 +295,7 @@ struct ltchars {
 #define FS_KEY_DESC_PREFIX_SIZE         8
 #define FS_MAX_KEY_SIZE                 64
 
+<<<<<<< HEAD
 // The code generator produces -0x1 for (~0), but an unsigned value is necessary
 // for the tipc_subscr timeout __u32 field.
 #undef TIPC_WAIT_FOREVER
@@ -316,6 +316,17 @@ struct ltchars {
 #define _HIDIOCGRAWPHYS		HIDIOCGRAWPHYS(_HIDIOCGRAWPHYS_LEN)
 #define _HIDIOCGRAWUNIQ		HIDIOCGRAWUNIQ(_HIDIOCGRAWUNIQ_LEN)
 
+=======
+// XDP socket constants do not appear to be picked up otherwise.
+// Copied from samples/bpf/xdpsock_user.c.
+#ifndef SOL_XDP
+#define SOL_XDP 283
+#endif
+
+#ifndef AF_XDP
+#define AF_XDP 44
+#endif
+>>>>>>> 79bfea2d (update vendor)
 '
 
 includes_NetBSD='
@@ -515,7 +526,11 @@ ccflags="$@"
 		$2 ~ /^(MS|MNT|UMOUNT)_/ ||
 		$2 ~ /^NS_GET_/ ||
 		$2 ~ /^TUN(SET|GET|ATTACH|DETACH)/ ||
+<<<<<<< HEAD
 		$2 ~ /^(O|F|[ES]?FD|NAME|S|PTRACE|PT|TFD)_/ ||
+=======
+		$2 ~ /^(O|F|E?FD|NAME|S|PTRACE|PT)_/ ||
+>>>>>>> 79bfea2d (update vendor)
 		$2 ~ /^KEXEC_/ ||
 		$2 ~ /^LINUX_REBOOT_CMD_/ ||
 		$2 ~ /^LINUX_REBOOT_MAGIC[12]$/ ||
@@ -539,7 +554,7 @@ ccflags="$@"
 		$2 ~ /^CLONE_[A-Z_]+/ ||
 		$2 !~ /^(BPF_TIMEVAL|BPF_FIB_LOOKUP_[A-Z]+)$/ &&
 		$2 ~ /^(BPF|DLT)_/ ||
-		$2 ~ /^(CLOCK|TIMER)_/ ||
+		$2 ~ /^CLOCK_/ ||
 		$2 ~ /^CAN_/ ||
 		$2 ~ /^CAP_/ ||
 		$2 ~ /^CP_/ ||
@@ -553,7 +568,6 @@ ccflags="$@"
 		$2 ~ /^FSCRYPT_/ ||
 		$2 ~ /^DM_/ ||
 		$2 ~ /^GRND_/ ||
-		$2 ~ /^RND/ ||
 		$2 ~ /^KEY_(SPEC|REQKEY_DEFL)_/ ||
 		$2 ~ /^KEYCTL_/ ||
 		$2 ~ /^PERF_/ ||
@@ -588,11 +602,14 @@ ccflags="$@"
 		$2 ~ /^LWTUNNEL_IP/ ||
 		$2 !~ "WMESGLEN" &&
 		$2 ~ /^W[A-Z0-9]+$/ ||
+<<<<<<< HEAD
 		$2 ~/^PPPIOC/ ||
 		$2 ~ /^FAN_|FANOTIFY_/ ||
 		$2 == "HID_MAX_DESCRIPTOR_SIZE" ||
 		$2 ~ /^_?HIDIOC/ ||
 		$2 ~ /^BUS_(USB|HIL|BLUETOOTH|VIRTUAL)$/ ||
+=======
+>>>>>>> 79bfea2d (update vendor)
 		$2 ~ /^BLK[A-Z]*(GET$|SET$|BUF$|PART$|SIZE)/ {printf("\t%s = C.%s\n", $2, $2)}
 		$2 ~ /^__WCOREFLAG$/ {next}
 		$2 ~ /^__W[A-Z0-9]+$/ {printf("\t%s = C.%s\n", substr($2,3), $2)}

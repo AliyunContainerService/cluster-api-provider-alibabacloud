@@ -56,8 +56,11 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&NetworkList{},
 		&OAuth{},
 		&OAuthList{},
+<<<<<<< HEAD
 		&OperatorHub{},
 		&OperatorHubList{},
+=======
+>>>>>>> 79bfea2d (update vendor)
 		&Project{},
 		&ProjectList{},
 		&Proxy{},

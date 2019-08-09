@@ -8,11 +8,19 @@ import metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 // Feature holds cluster-wide information about feature gates.  The canonical name is `cluster`
 type FeatureGate struct {
+<<<<<<< HEAD
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
 	// spec holds user settable values for configuration
 	// +kubebuilder:validation:Required
+=======
+	metav1.TypeMeta `json:",inline"`
+	// Standard object's metadata.
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+
+	// spec holds user settable values for configuration
+>>>>>>> 79bfea2d (update vendor)
 	// +required
 	Spec FeatureGateSpec `json:"spec"`
 	// status holds observed values from the cluster. They may not be overridden.
@@ -29,6 +37,7 @@ var (
 	// TechPreviewNoUpgrade turns on tech preview features that are not part of the normal supported platform. Turning
 	// this feature set on CANNOT BE UNDONE and PREVENTS UPGRADES.
 	TechPreviewNoUpgrade FeatureSet = "TechPreviewNoUpgrade"
+<<<<<<< HEAD
 
 	// CustomNoUpgrade allows the enabling or disabling of any feature. Turning this feature set on IS NOT SUPPORTED, CANNOT BE UNDONE, and PREVENTS UPGRADES.
 	// Because of its nature, this setting cannot be validated.  If you have any typos or accidentally apply invalid combinations
@@ -69,6 +78,14 @@ type CustomFeatureGates struct {
 	// disabled is a list of all feature gates that you want to force off
 	// +optional
 	Disabled []string `json:"disabled,omitempty"`
+=======
+)
+
+type FeatureGateSpec struct {
+	// featureSet changes the list of features in the cluster.  The default is empty.  Be very careful adjusting this setting.
+	// Turning on or off features may cause irreversible changes in your cluster which cannot be undone.
+	FeatureSet FeatureSet `json:"featureSet,omitempty"`
+>>>>>>> 79bfea2d (update vendor)
 }
 
 type FeatureGateStatus struct {
@@ -78,9 +95,15 @@ type FeatureGateStatus struct {
 
 type FeatureGateList struct {
 	metav1.TypeMeta `json:",inline"`
+<<<<<<< HEAD
 	metav1.ListMeta `json:"metadata"`
 
 	Items []FeatureGate `json:"items"`
+=======
+	// Standard object's metadata.
+	metav1.ListMeta `json:"metadata"`
+	Items           []FeatureGate `json:"items"`
+>>>>>>> 79bfea2d (update vendor)
 }
 
 type FeatureGateEnabledDisabled struct {
@@ -100,6 +123,7 @@ type FeatureGateEnabledDisabled struct {
 //
 // If you put an item in either of these lists, put your area and name on it so we can find owners.
 var FeatureSets = map[FeatureSet]*FeatureGateEnabledDisabled{
+<<<<<<< HEAD
 	Default: defaultFeatures,
 	CustomNoUpgrade: {
 		Enabled:  []string{},
@@ -206,3 +230,27 @@ func (f *featureSetBuilder) toFeatures() *FeatureGateEnabledDisabled {
 		Disabled: finalOff,
 	}
 }
+=======
+	Default: {
+		Enabled: []string{
+			"ExperimentalCriticalPodAnnotation", // sig-pod, sjenning
+			"RotateKubeletServerCertificate",    // sig-pod, sjenning
+			"SupportPodPidsLimit",               // sig-pod, sjenning
+		},
+		Disabled: []string{
+			"LocalStorageCapacityIsolation", // sig-pod, sjenning
+		},
+	},
+	TechPreviewNoUpgrade: {
+		Enabled: []string{
+			"ExperimentalCriticalPodAnnotation", // sig-pod, sjenning
+			"RotateKubeletServerCertificate",    // sig-pod, sjenning
+			"SupportPodPidsLimit",               // sig-pod, sjenning
+			"CSIBlockVolume",                    // sig-storage, j-griffith
+		},
+		Disabled: []string{
+			"LocalStorageCapacityIsolation", // sig-pod, sjenning
+		},
+	},
+}
+>>>>>>> 79bfea2d (update vendor)

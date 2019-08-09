@@ -38,7 +38,10 @@ type WebhookBuilder struct {
 	config  *rest.Config
 }
 
+<<<<<<< HEAD
 // WebhookManagedBy allows inform its manager.Manager
+=======
+>>>>>>> 79bfea2d (update vendor)
 func WebhookManagedBy(m manager.Manager) *WebhookBuilder {
 	return &WebhookBuilder{mgr: m}
 }

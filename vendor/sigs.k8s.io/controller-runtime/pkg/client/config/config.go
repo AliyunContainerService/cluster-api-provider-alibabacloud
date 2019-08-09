@@ -100,6 +100,7 @@ func loadConfig(context string) (*rest.Config, error) {
 
 	// If a flag is specified with the config location, use that
 	if len(kubeconfig) > 0 {
+<<<<<<< HEAD
 		return loadConfigWithContext("", &clientcmd.ClientConfigLoadingRules{ExplicitPath: kubeconfig}, context)
 	}
 
@@ -108,6 +109,22 @@ func loadConfig(context string) (*rest.Config, error) {
 	kubeconfigPath := os.Getenv(clientcmd.RecommendedConfigPathEnvVar)
 	if len(kubeconfigPath) == 0 {
 		if c, err := loadInClusterConfig(); err == nil {
+=======
+		return loadConfigWithContext(apiServerURL, kubeconfig, context)
+	}
+	// If an env variable is specified with the config location, use that
+	if len(os.Getenv("KUBECONFIG")) > 0 {
+		return loadConfigWithContext(apiServerURL, os.Getenv("KUBECONFIG"), context)
+	}
+	// If no explicit location, try the in-cluster config
+	if c, err := rest.InClusterConfig(); err == nil {
+		return c, nil
+	}
+	// If no in-cluster config, try the default location in the user's home directory
+	if usr, err := user.Current(); err == nil {
+		if c, err := loadConfigWithContext(apiServerURL, filepath.Join(usr.HomeDir, ".kube", "config"),
+			context); err == nil {
+>>>>>>> 79bfea2d (update vendor)
 			return c, nil
 		}
 	}
@@ -135,6 +152,17 @@ func loadConfig(context string) (*rest.Config, error) {
 func loadConfigWithContext(apiServerURL string, loader clientcmd.ClientConfigLoader, context string) (*rest.Config, error) {
 	return clientcmd.NewNonInteractiveDeferredLoadingClientConfig(
 		loader,
+		&clientcmd.ConfigOverrides{
+			ClusterInfo: clientcmdapi.Cluster{
+				Server: apiServerURL,
+			},
+			CurrentContext: context,
+		}).ClientConfig()
+}
+
+func loadConfigWithContext(apiServerURL, kubeconfig, context string) (*rest.Config, error) {
+	return clientcmd.NewNonInteractiveDeferredLoadingClientConfig(
+		&clientcmd.ClientConfigLoadingRules{ExplicitPath: kubeconfig},
 		&clientcmd.ConfigOverrides{
 			ClusterInfo: clientcmdapi.Cluster{
 				Server: apiServerURL,

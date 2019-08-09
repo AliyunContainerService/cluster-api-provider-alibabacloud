@@ -6,6 +6,7 @@ import metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
+<<<<<<< HEAD
 // Network holds cluster-wide information about Network. The canonical name is `cluster`. It is used to configure the desired network configuration, such as: IP address pools for services/pod IPs, network plugin, etc.
 // Please view network.spec for an explanation on what applies when configuring this resource.
 type Network struct {
@@ -17,6 +18,16 @@ type Network struct {
 	// consume the NetworkStatus, as it indicates the currently deployed configuration.
 	// Currently, most spec fields are immutable after installation. Please view the individual ones for further details on each.
 	// +kubebuilder:validation:Required
+=======
+// Network holds cluster-wide information about Network.  The canonical name is `cluster`
+// TODO this object is an example of a possible grouping and is subject to change or removal
+type Network struct {
+	metav1.TypeMeta `json:",inline"`
+	// Standard object's metadata.
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+
+	// spec holds user settable values for configuration.
+>>>>>>> 79bfea2d (update vendor)
 	// +required
 	Spec NetworkSpec `json:"spec"`
 	// status holds observed values from the cluster. They may not be overridden.
@@ -27,15 +38,24 @@ type Network struct {
 // NetworkSpec is the desired network configuration.
 // As a general rule, this SHOULD NOT be read directly. Instead, you should
 // consume the NetworkStatus, as it indicates the currently deployed configuration.
+<<<<<<< HEAD
 // Currently, most spec fields are immutable after installation. Please view the individual ones for further details on each.
 type NetworkSpec struct {
 	// IP address pool to use for pod IPs.
 	// This field is immutable after installation.
+=======
+// Currently, none of these fields may be changed after installation.
+type NetworkSpec struct {
+	// IP address pool to use for pod IPs.
+>>>>>>> 79bfea2d (update vendor)
 	ClusterNetwork []ClusterNetworkEntry `json:"clusterNetwork"`
 
 	// IP address pool for services.
 	// Currently, we only support a single entry here.
+<<<<<<< HEAD
 	// This field is immutable after installation.
+=======
+>>>>>>> 79bfea2d (update vendor)
 	ServiceNetwork []string `json:"serviceNetwork"`
 
 	// NetworkType is the plugin that is to be deployed (e.g. OpenShiftSDN).
@@ -43,6 +63,7 @@ type NetworkSpec struct {
 	// or else no networking will be installed.
 	// Currently supported values are:
 	// - OpenShiftSDN
+<<<<<<< HEAD
 	// This field is immutable after installation.
 	NetworkType string `json:"networkType"`
 
@@ -60,6 +81,9 @@ type NetworkSpec struct {
 	// installed.
 	// +kubebuilder:validation:Pattern=`^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])-([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$`
 	ServiceNodePortRange string `json:"serviceNodePortRange,omitempty"`
+=======
+	NetworkType string `json:"networkType"`
+>>>>>>> 79bfea2d (update vendor)
 }
 
 // NetworkStatus is the current network configuration.
@@ -76,9 +100,12 @@ type NetworkStatus struct {
 
 	// ClusterNetworkMTU is the MTU for inter-pod networking.
 	ClusterNetworkMTU int `json:"clusterNetworkMTU,omitempty"`
+<<<<<<< HEAD
 
 	// Migration contains the cluster network migration configuration.
 	Migration *NetworkMigration `json:"migration,omitempty"`
+=======
+>>>>>>> 79bfea2d (update vendor)
 }
 
 // ClusterNetworkEntry is a contiguous block of IP addresses from which pod IPs
@@ -87,6 +114,7 @@ type ClusterNetworkEntry struct {
 	// The complete block for pod IPs.
 	CIDR string `json:"cidr"`
 
+<<<<<<< HEAD
 	// The size (prefix) of block to allocate to each node. If this
 	// field is not used by the plugin, it can be left unset.
 	// +kubebuilder:validation:Minimum=0
@@ -124,12 +152,17 @@ type ExternalIPPolicy struct {
 	// over allowedCIDRs.
 	// +optional
 	RejectedCIDRs []string `json:"rejectedCIDRs,omitempty"`
+=======
+	// The size (prefix) of block to allocate to each node.
+	HostPrefix uint32 `json:"hostPrefix"`
+>>>>>>> 79bfea2d (update vendor)
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 type NetworkList struct {
 	metav1.TypeMeta `json:",inline"`
+<<<<<<< HEAD
 	metav1.ListMeta `json:"metadata"`
 
 	Items []Network `json:"items"`
@@ -141,4 +174,9 @@ type NetworkMigration struct {
 	// Currently supported values are: OpenShiftSDN, OVNKubernetes
 	// +kubebuilder:validation:Enum={"OpenShiftSDN","OVNKubernetes"}
 	NetworkType string `json:"networkType"`
+=======
+	// Standard object's metadata.
+	metav1.ListMeta `json:"metadata"`
+	Items           []Network `json:"items"`
+>>>>>>> 79bfea2d (update vendor)
 }

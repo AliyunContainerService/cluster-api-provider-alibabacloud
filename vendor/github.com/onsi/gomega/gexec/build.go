@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 // untested sections: 5
 
+=======
+>>>>>>> 79bfea2d (update vendor)
 package gexec
 
 import (
@@ -68,7 +71,11 @@ func doBuild(gopath, packagePath string, env []string, args ...string) (compiled
 
 	executable := filepath.Join(tmpDir, path.Base(packagePath))
 	if runtime.GOOS == "windows" {
+<<<<<<< HEAD
 		executable += ".exe"
+=======
+		executable = executable + ".exe"
+>>>>>>> 79bfea2d (update vendor)
 	}
 
 	cmdArgs := append([]string{"build"}, args...)

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # See the OWNERS docs: https://git.k8s.io/community/contributors/guide/owners.md
 
 aliases:
@@ -37,3 +38,13 @@ aliases:
   # folks who may have context on ancient history,
   # but are no longer directly involved
   # controller-runtime-emeritus-maintainers:
+=======
+# See the OWNERS docs: https://git.k8s.io/community/contributors/devel/owners.md
+
+aliases:
+  controller-runtime-admins:
+  - directxman12
+  - droot
+  - pwittrock
+  controller-runtime-maintainers: []
+>>>>>>> 79bfea2d (update vendor)

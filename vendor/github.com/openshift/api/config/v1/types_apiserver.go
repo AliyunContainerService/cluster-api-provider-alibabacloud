@@ -8,6 +8,7 @@ import (
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
+<<<<<<< HEAD
 // APIServer holds configuration (like serving certificates, client CA and CORS domains)
 // shared by all API servers in the system, among them especially kube-apiserver
 // and openshift-apiserver. The canonical name of an instance is 'cluster'.
@@ -19,6 +20,14 @@ type APIServer struct {
 	// +required
 	Spec APIServerSpec `json:"spec"`
 	// status holds observed values from the cluster. They may not be overridden.
+=======
+// APIServer holds cluster-wide information about api-servers.  The canonical name is `cluster`
+type APIServer struct {
+	metav1.TypeMeta   `json:",inline"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+	// +required
+	Spec APIServerSpec `json:"spec"`
+>>>>>>> 79bfea2d (update vendor)
 	// +optional
 	Status APIServerStatus `json:"status"`
 }
@@ -35,6 +44,7 @@ type APIServerSpec struct {
 	// - ConfigMap.Data["ca-bundle.crt"] - CA bundle.
 	// +optional
 	ClientCA ConfigMapNameReference `json:"clientCA"`
+<<<<<<< HEAD
 	// additionalCORSAllowedOrigins lists additional, user-defined regular expressions describing hosts for which the
 	// API server allows access using the CORS headers. This may be needed to access the API and the integrated OAuth
 	// server from JavaScript applications.
@@ -92,6 +102,20 @@ type Audit struct {
 }
 
 type APIServerServingCerts struct {
+=======
+}
+
+type APIServerServingCerts struct {
+	// defaultServingCertificate references a kubernetes.io/tls type secret containing the default TLS cert info for
+	// serving secure traffic. If no named certificates match the server name as understood by a client, this default
+	// certificate will be used. If defaultServingCertificate is not specified, then a operator managed certificate will
+	// be used.
+	// The secret must exist in the openshift-config namespace and contain the following required fields:
+	// - Secret.Data["tls.key"] - TLS private key.
+	// - Secret.Data["tls.crt"] - TLS certificate.
+	// +optional
+	DefaultServingCertificate SecretNameReference `json:"defaultServingCertificate"`
+>>>>>>> 79bfea2d (update vendor)
 	// namedCertificates references secrets containing the TLS cert info for serving secure traffic to specific hostnames.
 	// If no named certificates are provided, or no named certificates match the server name as understood by a client,
 	// the defaultServingCertificate will be used.
@@ -113,6 +137,7 @@ type APIServerNamedServingCert struct {
 	ServingCertificate SecretNameReference `json:"servingCertificate"`
 }
 
+<<<<<<< HEAD
 type APIServerEncryption struct {
 	// type defines what encryption type should be used to encrypt resources at the datastore layer.
 	// When this field is unset (i.e. when it is set to the empty string), identity is implied.
@@ -146,6 +171,8 @@ const (
 	EncryptionTypeAESCBC EncryptionType = "aescbc"
 )
 
+=======
+>>>>>>> 79bfea2d (update vendor)
 type APIServerStatus struct {
 }
 

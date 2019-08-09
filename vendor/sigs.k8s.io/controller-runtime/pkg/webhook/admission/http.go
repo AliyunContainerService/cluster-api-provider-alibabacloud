@@ -97,8 +97,13 @@ func (wh *Webhook) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	wh.log.V(1).Info("received request", "UID", req.UID, "kind", req.Kind, "resource", req.Resource)
 
 	// TODO: add panic-recovery for Handle
+<<<<<<< HEAD
 	reviewResponse = wh.Handle(ctx, req)
 	wh.writeResponseTyped(w, reviewResponse, actualAdmRevGVK)
+=======
+	reviewResponse = wh.Handle(r.Context(), req)
+	wh.writeResponse(w, reviewResponse)
+>>>>>>> 79bfea2d (update vendor)
 }
 
 // writeResponse writes response to w generically, i.e. without encoding GVK information.

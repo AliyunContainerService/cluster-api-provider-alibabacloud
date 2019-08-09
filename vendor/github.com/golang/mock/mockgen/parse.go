@@ -17,16 +17,24 @@ package main
 // This file contains the model construction by parsing source files.
 
 import (
+<<<<<<< HEAD
 	"errors"
+=======
+>>>>>>> 79bfea2d (update vendor)
 	"flag"
 	"fmt"
 	"go/ast"
 	"go/build"
+<<<<<<< HEAD
 	"go/importer"
 	"go/parser"
 	"go/token"
 	"go/types"
 	"io/ioutil"
+=======
+	"go/parser"
+	"go/token"
+>>>>>>> 79bfea2d (update vendor)
 	"log"
 	"path"
 	"path/filepath"
@@ -41,17 +49,30 @@ var (
 	auxFiles = flag.String("aux_files", "", "(source mode) Comma-separated pkg=path pairs of auxiliary Go source files.")
 )
 
+<<<<<<< HEAD
 // sourceMode generates mocks via source file.
 func sourceMode(source string) (*model.Package, error) {
+=======
+// TODO: simplify error reporting
+
+func ParseFile(source string) (*model.Package, error) {
+>>>>>>> 79bfea2d (update vendor)
 	srcDir, err := filepath.Abs(filepath.Dir(source))
 	if err != nil {
 		return nil, fmt.Errorf("failed getting source directory: %v", err)
 	}
 
+<<<<<<< HEAD
 	packageImport, err := parsePackageImport(srcDir)
 	if err != nil {
 		return nil, err
 	}
+=======
+	var packageImport string
+	if p, err := build.ImportDir(srcDir, 0); err == nil {
+		packageImport = p.ImportPath
+	} // TODO: should we fail if this returns an error?
+>>>>>>> 79bfea2d (update vendor)
 
 	fs := token.NewFileSet()
 	file, err := parser.ParseFile(fs, source, nil, 0)
@@ -61,7 +82,11 @@ func sourceMode(source string) (*model.Package, error) {
 
 	p := &fileParser{
 		fileSet:            fs,
+<<<<<<< HEAD
 		imports:            make(map[string]importedPackage),
+=======
+		imports:            make(map[string]string),
+>>>>>>> 79bfea2d (update vendor)
 		importedInterfaces: make(map[string]map[string]*ast.InterfaceType),
 		auxInterfaces:      make(map[string]map[string]*ast.InterfaceType),
 		srcDir:             srcDir,
@@ -74,9 +99,17 @@ func sourceMode(source string) (*model.Package, error) {
 			eq := strings.Index(kv, "=")
 			k, v := kv[:eq], kv[eq+1:]
 			if k == "." {
+<<<<<<< HEAD
 				dotImports[v] = true
 			} else {
 				p.imports[k] = importedPkg{path: v}
+=======
+				// TODO: Catch dupes?
+				dotImports[v] = true
+			} else {
+				// TODO: Catch dupes?
+				p.imports[k] = v
+>>>>>>> 79bfea2d (update vendor)
 			}
 		}
 	}
@@ -91,12 +124,19 @@ func sourceMode(source string) (*model.Package, error) {
 	if err != nil {
 		return nil, err
 	}
+<<<<<<< HEAD
 	for pkgPath := range dotImports {
 		pkg.DotImports = append(pkg.DotImports, pkgPath)
+=======
+	pkg.DotImports = make([]string, 0, len(dotImports))
+	for path := range dotImports {
+		pkg.DotImports = append(pkg.DotImports, path)
+>>>>>>> 79bfea2d (update vendor)
 	}
 	return pkg, nil
 }
 
+<<<<<<< HEAD
 type importedPackage interface {
 	Path() string
 	Parser() *fileParser
@@ -130,6 +170,11 @@ func (d duplicateImport) Parser() *fileParser { log.Fatal(d.Error()); return nil
 type fileParser struct {
 	fileSet            *token.FileSet
 	imports            map[string]importedPackage               // package name => imported package
+=======
+type fileParser struct {
+	fileSet            *token.FileSet
+	imports            map[string]string                        // package name => import path
+>>>>>>> 79bfea2d (update vendor)
 	importedInterfaces map[string]map[string]*ast.InterfaceType // package (or "") => name => interface
 
 	auxFiles      []*ast.File
@@ -179,20 +224,34 @@ func (p *fileParser) addAuxInterfacesFromFile(pkg string, file *ast.File) {
 // parseFile loads all file imports and auxiliary files import into the
 // fileParser, parses all file interfaces and returns package model.
 func (p *fileParser) parseFile(importPath string, file *ast.File) (*model.Package, error) {
+<<<<<<< HEAD
 	allImports, dotImports := importsOfFile(file)
 	// Don't stomp imports provided by -imports. Those should take precedence.
 	for pkg, pkgI := range allImports {
 		if _, ok := p.imports[pkg]; !ok {
 			p.imports[pkg] = pkgI
+=======
+	allImports := importsOfFile(file)
+	// Don't stomp imports provided by -imports. Those should take precedence.
+	for pkg, path := range allImports {
+		if _, ok := p.imports[pkg]; !ok {
+			p.imports[pkg] = path
+>>>>>>> 79bfea2d (update vendor)
 		}
 	}
 	// Add imports from auxiliary files, which might be needed for embedded interfaces.
 	// Don't stomp any other imports.
 	for _, f := range p.auxFiles {
+<<<<<<< HEAD
 		auxImports, _ := importsOfFile(f)
 		for pkg, pkgI := range auxImports {
 			if _, ok := p.imports[pkg]; !ok {
 				p.imports[pkg] = pkgI
+=======
+		for pkg, path := range importsOfFile(f) {
+			if _, ok := p.imports[pkg]; !ok {
+				p.imports[pkg] = path
+>>>>>>> 79bfea2d (update vendor)
 			}
 		}
 	}
@@ -207,6 +266,7 @@ func (p *fileParser) parseFile(importPath string, file *ast.File) (*model.Packag
 	}
 	return &model.Package{
 		Name:       file.Name.String(),
+<<<<<<< HEAD
 		PkgPath:    importPath,
 		Interfaces: is,
 		DotImports: dotImports,
@@ -249,11 +309,49 @@ func (p *fileParser) parsePackage(path string) (*fileParser, error) {
 
 func (p *fileParser) parseInterface(name, pkg string, it *ast.InterfaceType) (*model.Interface, error) {
 	iface := &model.Interface{Name: name}
+=======
+		Interfaces: is,
+	}, nil
+}
+
+// parsePackage loads package specified by path, parses it and populates
+// corresponding imports and importedInterfaces into the fileParser.
+func (p *fileParser) parsePackage(path string) error {
+	var pkgs map[string]*ast.Package
+	if imp, err := build.Import(path, p.srcDir, build.FindOnly); err != nil {
+		return err
+	} else if pkgs, err = parser.ParseDir(p.fileSet, imp.Dir, nil, 0); err != nil {
+		return err
+	}
+	for _, pkg := range pkgs {
+		file := ast.MergePackageFiles(pkg, ast.FilterFuncDuplicates|ast.FilterUnassociatedComments|ast.FilterImportDuplicates)
+		if _, ok := p.importedInterfaces[path]; !ok {
+			p.importedInterfaces[path] = make(map[string]*ast.InterfaceType)
+		}
+		for ni := range iterInterfaces(file) {
+			p.importedInterfaces[path][ni.name.Name] = ni.it
+		}
+		for pkgName, pkgPath := range importsOfFile(file) {
+			if _, ok := p.imports[pkgName]; !ok {
+				p.imports[pkgName] = pkgPath
+			}
+		}
+	}
+	return nil
+}
+
+func (p *fileParser) parseInterface(name, pkg string, it *ast.InterfaceType) (*model.Interface, error) {
+	intf := &model.Interface{Name: name}
+>>>>>>> 79bfea2d (update vendor)
 	for _, field := range it.Methods.List {
 		switch v := field.Type.(type) {
 		case *ast.FuncType:
 			if nn := len(field.Names); nn != 1 {
+<<<<<<< HEAD
 				return nil, fmt.Errorf("expected one name for interface %v, got %d", iface.Name, nn)
+=======
+				return nil, fmt.Errorf("expected one name for interface %v, got %d", intf.Name, nn)
+>>>>>>> 79bfea2d (update vendor)
 			}
 			m := &model.Method{
 				Name: field.Names[0].String(),
@@ -263,6 +361,7 @@ func (p *fileParser) parseInterface(name, pkg string, it *ast.InterfaceType) (*m
 			if err != nil {
 				return nil, err
 			}
+<<<<<<< HEAD
 			iface.AddMethod(m)
 		case *ast.Ident:
 			// Embedded interface in this package.
@@ -332,15 +431,69 @@ func (p *fileParser) parseInterface(name, pkg string, it *ast.InterfaceType) (*m
 			// TODO: apply shadowing rules.
 			for _, m := range embeddedIface.Methods {
 				iface.AddMethod(m)
+=======
+			intf.Methods = append(intf.Methods, m)
+		case *ast.Ident:
+			// Embedded interface in this package.
+			ei := p.auxInterfaces[pkg][v.String()]
+			if ei == nil {
+				if ei = p.importedInterfaces[pkg][v.String()]; ei == nil {
+					return nil, p.errorf(v.Pos(), "unknown embedded interface %s", v.String())
+				}
+			}
+			eintf, err := p.parseInterface(v.String(), pkg, ei)
+			if err != nil {
+				return nil, err
+			}
+			// Copy the methods.
+			// TODO: apply shadowing rules.
+			for _, m := range eintf.Methods {
+				intf.Methods = append(intf.Methods, m)
+			}
+		case *ast.SelectorExpr:
+			// Embedded interface in another package.
+			fpkg, sel := v.X.(*ast.Ident).String(), v.Sel.String()
+			epkg, ok := p.imports[fpkg]
+			if !ok {
+				return nil, p.errorf(v.X.Pos(), "unknown package %s", fpkg)
+			}
+			ei := p.auxInterfaces[fpkg][sel]
+			if ei == nil {
+				fpkg = epkg
+				if _, ok = p.importedInterfaces[epkg]; !ok {
+					if err := p.parsePackage(epkg); err != nil {
+						return nil, p.errorf(v.Pos(), "could not parse package %s: %v", fpkg, err)
+					}
+				}
+				if ei = p.importedInterfaces[epkg][sel]; ei == nil {
+					return nil, p.errorf(v.Pos(), "unknown embedded interface %s.%s", fpkg, sel)
+				}
+			}
+			eintf, err := p.parseInterface(sel, fpkg, ei)
+			if err != nil {
+				return nil, err
+			}
+			// Copy the methods.
+			// TODO: apply shadowing rules.
+			for _, m := range eintf.Methods {
+				intf.Methods = append(intf.Methods, m)
+>>>>>>> 79bfea2d (update vendor)
 			}
 		default:
 			return nil, fmt.Errorf("don't know how to mock method of type %T", field.Type)
 		}
 	}
+<<<<<<< HEAD
 	return iface, nil
 }
 
 func (p *fileParser) parseFunc(pkg string, f *ast.FuncType) (inParam []*model.Parameter, variadic *model.Parameter, outParam []*model.Parameter, err error) {
+=======
+	return intf, nil
+}
+
+func (p *fileParser) parseFunc(pkg string, f *ast.FuncType) (in []*model.Parameter, variadic *model.Parameter, out []*model.Parameter, err error) {
+>>>>>>> 79bfea2d (update vendor)
 	if f.Params != nil {
 		regParams := f.Params.List
 		if isVariadic(f) {
@@ -353,13 +506,21 @@ func (p *fileParser) parseFunc(pkg string, f *ast.FuncType) (inParam []*model.Pa
 			}
 			variadic = vp[0]
 		}
+<<<<<<< HEAD
 		inParam, err = p.parseFieldList(pkg, regParams)
+=======
+		in, err = p.parseFieldList(pkg, regParams)
+>>>>>>> 79bfea2d (update vendor)
 		if err != nil {
 			return nil, nil, nil, p.errorf(f.Pos(), "failed parsing arguments: %v", err)
 		}
 	}
 	if f.Results != nil {
+<<<<<<< HEAD
 		outParam, err = p.parseFieldList(pkg, f.Results.List)
+=======
+		out, err = p.parseFieldList(pkg, f.Results.List)
+>>>>>>> 79bfea2d (update vendor)
 		if err != nil {
 			return nil, nil, nil, p.errorf(f.Pos(), "failed parsing returns: %v", err)
 		}
@@ -406,6 +567,7 @@ func (p *fileParser) parseType(pkg string, typ ast.Expr) (model.Type, error) {
 	case *ast.ArrayType:
 		ln := -1
 		if v.Len != nil {
+<<<<<<< HEAD
 			var value string
 			switch val := v.Len.(type) {
 			case (*ast.BasicLit):
@@ -427,6 +589,9 @@ func (p *fileParser) parseType(pkg string, typ ast.Expr) (model.Type, error) {
 			}
 
 			x, err := strconv.Atoi(value)
+=======
+			x, err := strconv.Atoi(v.Len.(*ast.BasicLit).Value)
+>>>>>>> 79bfea2d (update vendor)
 			if err != nil {
 				return nil, p.errorf(v.Len.Pos(), "bad array size: %v", err)
 			}
@@ -465,6 +630,7 @@ func (p *fileParser) parseType(pkg string, typ ast.Expr) (model.Type, error) {
 			// if so, patch the import w/ the fully qualified import
 			maybeImportedPkg, ok := p.imports[pkg]
 			if ok {
+<<<<<<< HEAD
 				pkg = maybeImportedPkg.Path()
 			}
 			// assume type in this package
@@ -473,6 +639,16 @@ func (p *fileParser) parseType(pkg string, typ ast.Expr) (model.Type, error) {
 
 		// assume predeclared type
 		return model.PredeclaredType(v.Name), nil
+=======
+				pkg = maybeImportedPkg
+			}
+			// assume type in this package
+			return &model.NamedType{Package: pkg, Type: v.Name}, nil
+		} else {
+			// assume predeclared type
+			return model.PredeclaredType(v.Name), nil
+		}
+>>>>>>> 79bfea2d (update vendor)
 	case *ast.InterfaceType:
 		if v.Methods != nil && len(v.Methods.List) > 0 {
 			return nil, p.errorf(v.Pos(), "can't handle non-empty unnamed interface types")
@@ -494,7 +670,11 @@ func (p *fileParser) parseType(pkg string, typ ast.Expr) (model.Type, error) {
 		if !ok {
 			return nil, p.errorf(v.Pos(), "unknown package %q", pkgName)
 		}
+<<<<<<< HEAD
 		return &model.NamedType{Package: pkg.Path(), Type: v.Sel.String()}, nil
+=======
+		return &model.NamedType{Package: pkg, Type: v.Sel.String()}, nil
+>>>>>>> 79bfea2d (update vendor)
 	case *ast.StarExpr:
 		t, err := p.parseType(pkg, v.X)
 		if err != nil {
@@ -506,8 +686,11 @@ func (p *fileParser) parseType(pkg string, typ ast.Expr) (model.Type, error) {
 			return nil, p.errorf(v.Pos(), "can't handle non-empty unnamed struct types")
 		}
 		return model.PredeclaredType("struct{}"), nil
+<<<<<<< HEAD
 	case *ast.ParenExpr:
 		return p.parseType(pkg, v.X)
+=======
+>>>>>>> 79bfea2d (update vendor)
 	}
 
 	return nil, fmt.Errorf("don't know how to parse type %T", typ)
@@ -515,6 +698,7 @@ func (p *fileParser) parseType(pkg string, typ ast.Expr) (model.Type, error) {
 
 // importsOfFile returns a map of package name to import path
 // of the imports in file.
+<<<<<<< HEAD
 func importsOfFile(file *ast.File) (normalImports map[string]importedPackage, dotImports []string) {
 	var importPaths []string
 	for _, is := range file.Imports {
@@ -527,6 +711,10 @@ func importsOfFile(file *ast.File) (normalImports map[string]importedPackage, do
 	packagesName := createPackageMap(importPaths)
 	normalImports = make(map[string]importedPackage)
 	dotImports = make([]string, 0)
+=======
+func importsOfFile(file *ast.File) map[string]string {
+	m := make(map[string]string)
+>>>>>>> 79bfea2d (update vendor)
 	for _, is := range file.Imports {
 		var pkgName string
 		importPath := is.Path.Value[1 : len(is.Path.Value)-1] // remove quotes
@@ -536,16 +724,24 @@ func importsOfFile(file *ast.File) (normalImports map[string]importedPackage, do
 			if is.Name.Name == "_" {
 				continue
 			}
+<<<<<<< HEAD
 			pkgName = is.Name.Name
 		} else {
 			pkg, ok := packagesName[importPath]
 			if !ok {
+=======
+			pkgName = removeDot(is.Name.Name)
+		} else {
+			pkg, err := build.Import(importPath, "", 0)
+			if err != nil {
+>>>>>>> 79bfea2d (update vendor)
 				// Fallback to import path suffix. Note that this is uncertain.
 				_, last := path.Split(importPath)
 				// If the last path component has dots, the first dot-delimited
 				// field is used as the name.
 				pkgName = strings.SplitN(last, ".", 2)[0]
 			} else {
+<<<<<<< HEAD
 				pkgName = pkg
 			}
 		}
@@ -572,6 +768,18 @@ func importsOfFile(file *ast.File) (normalImports map[string]importedPackage, do
 		}
 	}
 	return
+=======
+				pkgName = pkg.Name
+			}
+		}
+
+		if _, ok := m[pkgName]; ok {
+			log.Fatalf("imported package collision: %q imported twice", pkgName)
+		}
+		m[pkgName] = importPath
+	}
+	return m
+>>>>>>> 79bfea2d (update vendor)
 }
 
 type namedInterface struct {
@@ -615,6 +823,7 @@ func isVariadic(f *ast.FuncType) bool {
 	_, ok := f.Params.List[nargs-1].Type.(*ast.Ellipsis)
 	return ok
 }
+<<<<<<< HEAD
 
 // packageNameOfDir get package import path via dir
 func packageNameOfDir(srcDir string) (string, error) {
@@ -642,3 +851,5 @@ func packageNameOfDir(srcDir string) (string, error) {
 }
 
 var errOutsideGoPath = errors.New("source directory is outside GOPATH")
+=======
+>>>>>>> 79bfea2d (update vendor)

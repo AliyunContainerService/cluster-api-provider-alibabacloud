@@ -19,7 +19,11 @@ package ecs
 type LaunchTemplateConfig struct {
 	InstanceType     string  `json:"InstanceType" xml:"InstanceType"`
 	MaxPrice         float64 `json:"MaxPrice" xml:"MaxPrice"`
+<<<<<<< HEAD
 	VSwitchId        string  `json:"VSwitchId" xml:"VSwitchId"`
+=======
+	VSWitchId        string  `json:"VSWitchId" xml:"VSWitchId"`
+>>>>>>> 79bfea2d (update vendor)
 	WeightedCapacity float64 `json:"WeightedCapacity" xml:"WeightedCapacity"`
 	Priority         float64 `json:"Priority" xml:"Priority"`
 }

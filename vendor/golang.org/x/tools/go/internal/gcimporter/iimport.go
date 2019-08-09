@@ -59,6 +59,7 @@ const (
 )
 
 // IImportData imports a package from the serialized package data
+<<<<<<< HEAD
 // and returns 0 and a reference to the package.
 // If the export data version is not recognized or the format is otherwise
 // compromised, an error is returned.
@@ -78,6 +79,14 @@ func IImportBundle(fset *token.FileSet, imports map[string]*types.Package, data 
 func iimportCommon(fset *token.FileSet, imports map[string]*types.Package, data []byte, bundle bool, path string) (pkgs []*types.Package, err error) {
 	const currentVersion = 1
 	version := int64(-1)
+=======
+// and returns the number of bytes consumed and a reference to the package.
+// If the export data version is not recognized or the format is otherwise
+// compromised, an error is returned.
+func IImportData(fset *token.FileSet, imports map[string]*types.Package, data []byte, path string) (_ int, pkg *types.Package, err error) {
+	const currentVersion = 0
+	version := -1
+>>>>>>> 79bfea2d (update vendor)
 	defer func() {
 		if e := recover(); e != nil {
 			if version > currentVersion {
@@ -90,6 +99,7 @@ func iimportCommon(fset *token.FileSet, imports map[string]*types.Package, data 
 
 	r := &intReader{bytes.NewReader(data), path}
 
+<<<<<<< HEAD
 	if bundle {
 		bundleVersion := r.uint64()
 		switch bundleVersion {
@@ -102,6 +112,11 @@ func iimportCommon(fset *token.FileSet, imports map[string]*types.Package, data 
 	version = int64(r.uint64())
 	switch version {
 	case currentVersion, 0:
+=======
+	version = int(r.uint64())
+	switch version {
+	case currentVersion:
+>>>>>>> 79bfea2d (update vendor)
 	default:
 		errorf("unknown iexport format version %d", version)
 	}
@@ -115,8 +130,12 @@ func iimportCommon(fset *token.FileSet, imports map[string]*types.Package, data 
 	r.Seek(sLen+dLen, io.SeekCurrent)
 
 	p := iimporter{
+<<<<<<< HEAD
 		ipath:   path,
 		version: int(version),
+=======
+		ipath: path,
+>>>>>>> 79bfea2d (update vendor)
 
 		stringData:  stringData,
 		stringCache: make(map[uint64]string),
@@ -132,7 +151,11 @@ func iimportCommon(fset *token.FileSet, imports map[string]*types.Package, data 
 		},
 	}
 
+<<<<<<< HEAD
 	for i, pt := range predeclared() {
+=======
+	for i, pt := range predeclared {
+>>>>>>> 79bfea2d (update vendor)
 		p.typCache[uint64(i)] = pt
 	}
 
@@ -166,6 +189,7 @@ func iimportCommon(fset *token.FileSet, imports map[string]*types.Package, data 
 		pkgList[i] = pkg
 	}
 
+<<<<<<< HEAD
 	if bundle {
 		pkgs = make([]*types.Package, r.uint64())
 		for i := range pkgs {
@@ -206,18 +230,46 @@ func iimportCommon(fset *token.FileSet, imports map[string]*types.Package, data 
 
 		// package was imported completely and without errors
 		pkg.MarkComplete()
+=======
+	localpkg := pkgList[0]
+
+	names := make([]string, 0, len(p.pkgIndex[localpkg]))
+	for name := range p.pkgIndex[localpkg] {
+		names = append(names, name)
+	}
+	sort.Strings(names)
+	for _, name := range names {
+		p.doDecl(localpkg, name)
+>>>>>>> 79bfea2d (update vendor)
 	}
 
 	for _, typ := range p.interfaceList {
 		typ.Complete()
 	}
 
+<<<<<<< HEAD
 	return pkgs, nil
 }
 
 type iimporter struct {
 	ipath   string
 	version int
+=======
+	// record all referenced packages as imports
+	list := append(([]*types.Package)(nil), pkgList[1:]...)
+	sort.Sort(byPath(list))
+	localpkg.SetImports(list)
+
+	// package was imported completely and without errors
+	localpkg.MarkComplete()
+
+	consumed, _ := r.Seek(0, io.SeekCurrent)
+	return int(consumed), localpkg, nil
+}
+
+type iimporter struct {
+	ipath string
+>>>>>>> 79bfea2d (update vendor)
 
 	stringData  []byte
 	stringCache map[uint64]string
@@ -297,7 +349,10 @@ type importReader struct {
 	currPkg    *types.Package
 	prevFile   string
 	prevLine   int64
+<<<<<<< HEAD
 	prevColumn int64
+=======
+>>>>>>> 79bfea2d (update vendor)
 }
 
 func (r *importReader) obj(name string) {
@@ -377,10 +432,13 @@ func (r *importReader) value() (typ types.Type, val constant.Value) {
 		val = constant.BinaryOp(re, token.ADD, constant.MakeImag(im))
 
 	default:
+<<<<<<< HEAD
 		if b.Kind() == types.Invalid {
 			val = constant.MakeUnknown()
 			return
 		}
+=======
+>>>>>>> 79bfea2d (update vendor)
 		errorf("unexpected type %v", typ) // panics
 		panic("unreachable")
 	}
@@ -473,6 +531,7 @@ func (r *importReader) mpfloat(b *types.Basic) constant.Value {
 	switch {
 	case exp > 0:
 		x = constant.Shift(x, token.SHL, uint(exp))
+<<<<<<< HEAD
 		// Ensure that the imported Kind is Float, else this constant may run into
 		// bitsize limits on overlarge integers. Eventually we can instead adopt
 		// the approach of CL 288632, but that CL relies on go/constant APIs that
@@ -481,6 +540,8 @@ func (r *importReader) mpfloat(b *types.Basic) constant.Value {
 		// TODO(rFindley): sync the logic here with tip Go once we no longer
 		// support go1.12.
 		x = constant.ToFloat(x)
+=======
+>>>>>>> 79bfea2d (update vendor)
 	case exp < 0:
 		d := constant.Shift(constant.MakeInt64(1), token.SHL, uint(-exp))
 		x = constant.BinaryOp(x, token.QUO, d)
@@ -499,6 +560,7 @@ func (r *importReader) qualifiedIdent() (*types.Package, string) {
 }
 
 func (r *importReader) pos() token.Pos {
+<<<<<<< HEAD
 	if r.p.version >= 1 {
 		r.posv1()
 	} else {
@@ -512,6 +574,8 @@ func (r *importReader) pos() token.Pos {
 }
 
 func (r *importReader) posv0() {
+=======
+>>>>>>> 79bfea2d (update vendor)
 	delta := r.int64()
 	if delta != deltaNewFile {
 		r.prevLine += delta
@@ -521,6 +585,7 @@ func (r *importReader) posv0() {
 		r.prevFile = r.string()
 		r.prevLine = l
 	}
+<<<<<<< HEAD
 }
 
 func (r *importReader) posv1() {
@@ -533,6 +598,14 @@ func (r *importReader) posv1() {
 			r.prevFile = r.string()
 		}
 	}
+=======
+
+	if r.prevFile == "" && r.prevLine == 0 {
+		return token.NoPos
+	}
+
+	return r.p.fake.pos(r.prevFile, int(r.prevLine))
+>>>>>>> 79bfea2d (update vendor)
 }
 
 func (r *importReader) typ() types.Type {

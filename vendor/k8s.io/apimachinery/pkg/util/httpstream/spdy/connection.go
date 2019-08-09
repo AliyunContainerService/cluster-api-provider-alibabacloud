@@ -22,9 +22,15 @@ import (
 	"sync"
 	"time"
 
+<<<<<<< HEAD
 	"github.com/moby/spdystream"
 	"k8s.io/apimachinery/pkg/util/httpstream"
 	"k8s.io/klog/v2"
+=======
+	"github.com/docker/spdystream"
+	"k8s.io/apimachinery/pkg/util/httpstream"
+	"k8s.io/klog"
+>>>>>>> 79bfea2d (update vendor)
 )
 
 // connection maintains state about a spdystream.Connection and its associated
@@ -34,11 +40,15 @@ type connection struct {
 	streams          []httpstream.Stream
 	streamLock       sync.Mutex
 	newStreamHandler httpstream.NewStreamHandler
+<<<<<<< HEAD
 	ping             func() (time.Duration, error)
+=======
+>>>>>>> 79bfea2d (update vendor)
 }
 
 // NewClientConnection creates a new SPDY client connection.
 func NewClientConnection(conn net.Conn) (httpstream.Connection, error) {
+<<<<<<< HEAD
 	return NewClientConnectionWithPings(conn, 0)
 }
 
@@ -48,19 +58,26 @@ func NewClientConnection(conn net.Conn) (httpstream.Connection, error) {
 // frames to the server. Use this to keep idle connections through certain load
 // balancers alive longer.
 func NewClientConnectionWithPings(conn net.Conn, pingPeriod time.Duration) (httpstream.Connection, error) {
+=======
+>>>>>>> 79bfea2d (update vendor)
 	spdyConn, err := spdystream.NewConnection(conn, false)
 	if err != nil {
 		defer conn.Close()
 		return nil, err
 	}
 
+<<<<<<< HEAD
 	return newConnection(spdyConn, httpstream.NoOpNewStreamHandler, pingPeriod, spdyConn.Ping), nil
+=======
+	return newConnection(spdyConn, httpstream.NoOpNewStreamHandler), nil
+>>>>>>> 79bfea2d (update vendor)
 }
 
 // NewServerConnection creates a new SPDY server connection. newStreamHandler
 // will be invoked when the server receives a newly created stream from the
 // client.
 func NewServerConnection(conn net.Conn, newStreamHandler httpstream.NewStreamHandler) (httpstream.Connection, error) {
+<<<<<<< HEAD
 	return NewServerConnectionWithPings(conn, newStreamHandler, 0)
 }
 
@@ -72,24 +89,36 @@ func NewServerConnection(conn net.Conn, newStreamHandler httpstream.NewStreamHan
 // frames to the server. Use this to keep idle connections through certain load
 // balancers alive longer.
 func NewServerConnectionWithPings(conn net.Conn, newStreamHandler httpstream.NewStreamHandler, pingPeriod time.Duration) (httpstream.Connection, error) {
+=======
+>>>>>>> 79bfea2d (update vendor)
 	spdyConn, err := spdystream.NewConnection(conn, true)
 	if err != nil {
 		defer conn.Close()
 		return nil, err
 	}
 
+<<<<<<< HEAD
 	return newConnection(spdyConn, newStreamHandler, pingPeriod, spdyConn.Ping), nil
+=======
+	return newConnection(spdyConn, newStreamHandler), nil
+>>>>>>> 79bfea2d (update vendor)
 }
 
 // newConnection returns a new connection wrapping conn. newStreamHandler
 // will be invoked when the server receives a newly created stream from the
 // client.
+<<<<<<< HEAD
 func newConnection(conn *spdystream.Connection, newStreamHandler httpstream.NewStreamHandler, pingPeriod time.Duration, pingFn func() (time.Duration, error)) httpstream.Connection {
 	c := &connection{conn: conn, newStreamHandler: newStreamHandler, ping: pingFn}
 	go conn.Serve(c.newSpdyStream)
 	if pingPeriod > 0 && pingFn != nil {
 		go c.sendPings(pingPeriod)
 	}
+=======
+func newConnection(conn *spdystream.Connection, newStreamHandler httpstream.NewStreamHandler) httpstream.Connection {
+	c := &connection{conn: conn, newStreamHandler: newStreamHandler}
+	go conn.Serve(c.newSpdyStream)
+>>>>>>> 79bfea2d (update vendor)
 	return c
 }
 
@@ -167,6 +196,7 @@ func (c *connection) newSpdyStream(stream *spdystream.Stream) {
 func (c *connection) SetIdleTimeout(timeout time.Duration) {
 	c.conn.SetIdleTimeout(timeout)
 }
+<<<<<<< HEAD
 
 func (c *connection) sendPings(period time.Duration) {
 	t := time.NewTicker(period)
@@ -185,3 +215,5 @@ func (c *connection) sendPings(period time.Duration) {
 		}
 	}
 }
+=======
+>>>>>>> 79bfea2d (update vendor)

@@ -23,8 +23,11 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/internal/log"
 )
 
+<<<<<<< HEAD
 var log = logf.RuntimeLog.WithName("metrics")
 
+=======
+>>>>>>> 79bfea2d (update vendor)
 // DefaultBindAddress sets the default bind address for the metrics listener
 // The metrics is on by default.
 var DefaultBindAddress = ":8080"
@@ -44,7 +47,11 @@ func NewListener(addr string) (net.Listener, error) {
 	log.Info("metrics server is starting to listen", "addr", addr)
 	ln, err := net.Listen("tcp", addr)
 	if err != nil {
+<<<<<<< HEAD
 		er := fmt.Errorf("error listening on %s: %w", addr, err)
+=======
+		er := fmt.Errorf("error listening on %s: %v", addr, err)
+>>>>>>> 79bfea2d (update vendor)
 		log.Error(er, "metrics server failed to listen. You may want to disable the metrics server or use another port if it is due to conflicts")
 		return nil, er
 	}

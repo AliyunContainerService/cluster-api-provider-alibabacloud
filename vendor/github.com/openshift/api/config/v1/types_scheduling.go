@@ -6,6 +6,7 @@ import metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
+<<<<<<< HEAD
 // Scheduler holds cluster-wide config information to run the Kubernetes Scheduler
 // and influence its placement decisions. The canonical name for this config is `cluster`.
 type Scheduler struct {
@@ -14,6 +15,15 @@ type Scheduler struct {
 
 	// spec holds user settable values for configuration
 	// +kubebuilder:validation:Required
+=======
+// Scheduler holds cluster-wide information about Scheduler.  The canonical name is `cluster`
+type Scheduler struct {
+	metav1.TypeMeta `json:",inline"`
+	// Standard object's metadata.
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+
+	// spec holds user settable values for configuration
+>>>>>>> 79bfea2d (update vendor)
 	// +required
 	Spec SchedulerSpec `json:"spec"`
 	// status holds observed values from the cluster. They may not be overridden.
@@ -22,12 +32,16 @@ type Scheduler struct {
 }
 
 type SchedulerSpec struct {
+<<<<<<< HEAD
 	// DEPRECATED: the scheduler Policy API has been deprecated and will be removed in a future release.
+=======
+>>>>>>> 79bfea2d (update vendor)
 	// policy is a reference to a ConfigMap containing scheduler policy which has
 	// user specified predicates and priorities. If this ConfigMap is not available
 	// scheduler will default to use DefaultAlgorithmProvider.
 	// The namespace for this configmap is openshift-config.
 	// +optional
+<<<<<<< HEAD
 	Policy ConfigMapNameReference `json:"policy,omitempty"`
 	// profile sets which scheduling profile should be set in order to configure scheduling
 	// decisions for new pods.
@@ -40,6 +54,12 @@ type SchedulerSpec struct {
 	// restrict pod placement to specific nodes. This is applied to the pods
 	// created in all namespaces and creates an intersection with any existing
 	// nodeSelectors already set on a pod, additionally constraining that pod's selector.
+=======
+	Policy ConfigMapNameReference `json:"policy"`
+	// defaultNodeSelector helps set the cluster-wide default node selector to
+	// restrict pod placement to specific nodes. This is applied to the pods
+	// created in all namespaces without a specified nodeSelector value.
+>>>>>>> 79bfea2d (update vendor)
 	// For example,
 	// defaultNodeSelector: "type=user-node,region=east" would set nodeSelector
 	// field in pod spec to "type=user-node,region=east" to all pods created
@@ -58,6 +78,7 @@ type SchedulerSpec struct {
 	// would not be applied.
 	// +optional
 	DefaultNodeSelector string `json:"defaultNodeSelector,omitempty"`
+<<<<<<< HEAD
 	// MastersSchedulable allows masters nodes to be schedulable. When this flag is
 	// turned on, all the master nodes in the cluster will be made schedulable,
 	// so that workload pods can run on them. The default value for this field is false,
@@ -87,6 +108,10 @@ var (
 	NoScoring SchedulerProfile = "NoScoring"
 )
 
+=======
+}
+
+>>>>>>> 79bfea2d (update vendor)
 type SchedulerStatus struct {
 }
 
@@ -94,7 +119,13 @@ type SchedulerStatus struct {
 
 type SchedulerList struct {
 	metav1.TypeMeta `json:",inline"`
+<<<<<<< HEAD
 	metav1.ListMeta `json:"metadata"`
 
 	Items []Scheduler `json:"items"`
+=======
+	// Standard object's metadata.
+	metav1.ListMeta `json:"metadata"`
+	Items           []Scheduler `json:"items"`
+>>>>>>> 79bfea2d (update vendor)
 }

@@ -118,5 +118,19 @@ func (h *validatingHandler) Handle(ctx context.Context, req Request) Response {
 		}
 	}
 
+	if req.Operation == v1beta1.Delete {
+		// In reference to PR: https://github.com/kubernetes/kubernetes/pull/76346
+		// OldObject contains the object being deleted
+		err := h.decoder.DecodeRaw(req.OldObject, obj)
+		if err != nil {
+			return Errored(http.StatusBadRequest, err)
+		}
+
+		err = obj.ValidateDelete()
+		if err != nil {
+			return Denied(err.Error())
+		}
+	}
+
 	return Allowed("")
 }

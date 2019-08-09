@@ -1,13 +1,19 @@
+<<<<<<< HEAD
 // Copyright 2018 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+=======
+>>>>>>> 79bfea2d (update vendor)
 package packages
 
 import (
 	"fmt"
 	"os"
+<<<<<<< HEAD
 	"sort"
+=======
+>>>>>>> 79bfea2d (update vendor)
 )
 
 // Visit visits all the packages in the import graph whose roots are
@@ -28,7 +34,10 @@ func Visit(pkgs []*Package, pre func(*Package) bool, post func(*Package)) {
 				for path := range pkg.Imports {
 					paths = append(paths, path)
 				}
+<<<<<<< HEAD
 				sort.Strings(paths) // Imports is a map, this makes visit stable
+=======
+>>>>>>> 79bfea2d (update vendor)
 				for _, path := range paths {
 					visit(pkg.Imports[path])
 				}

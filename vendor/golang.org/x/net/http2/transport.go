@@ -10,7 +10,6 @@ import (
 	"bufio"
 	"bytes"
 	"compress/gzip"
-	"context"
 	"crypto/rand"
 	"crypto/tls"
 	"errors"
@@ -22,7 +21,6 @@ import (
 	mathrand "math/rand"
 	"net"
 	"net/http"
-	"net/http/httptrace"
 	"net/textproto"
 	"sort"
 	"strconv"
@@ -98,6 +96,7 @@ type Transport struct {
 	// to mean no limit.
 	MaxHeaderListSize uint32
 
+<<<<<<< HEAD
 	// StrictMaxConcurrentStreams controls whether the server's
 	// SETTINGS_MAX_CONCURRENT_STREAMS should be respected
 	// globally. If false, new TCP connections are created to the
@@ -121,6 +120,8 @@ type Transport struct {
 	// Defaults to 15s.
 	PingTimeout time.Duration
 
+=======
+>>>>>>> 79bfea2d (update vendor)
 	// t1, if non-nil, is the standard library Transport using
 	// this transport. Its settings are used (but not its
 	// RoundTrip method, etc).
@@ -144,6 +145,7 @@ func (t *Transport) disableCompression() bool {
 	return t.DisableCompression || (t.t1 != nil && t.t1.DisableCompression)
 }
 
+<<<<<<< HEAD
 func (t *Transport) pingTimeout() time.Duration {
 	if t.PingTimeout == 0 {
 		return 15 * time.Second
@@ -211,6 +213,18 @@ func configureTransports(t1 *http.Transport) (*Transport, error) {
 	return t2, nil
 }
 
+=======
+var errTransportVersion = errors.New("http2: ConfigureTransport is only supported starting at Go 1.6")
+
+// ConfigureTransport configures a net/http HTTP/1 Transport to use HTTP/2.
+// It requires Go 1.6 or later and returns an error if the net/http package is too old
+// or if t1 has already been HTTP/2-enabled.
+func ConfigureTransport(t1 *http.Transport) error {
+	_, err := configureTransport(t1) // in configure_transport.go (go1.6) or not_go16.go
+	return err
+}
+
+>>>>>>> 79bfea2d (update vendor)
 func (t *Transport) connPool() ClientConnPool {
 	t.connPoolOnce.Do(t.initConnPool)
 	return t.connPoolOrDef
@@ -277,7 +291,7 @@ type ClientConn struct {
 type clientStream struct {
 	cc            *ClientConn
 	req           *http.Request
-	trace         *httptrace.ClientTrace // or nil
+	trace         *clientTrace // or nil
 	ID            uint32
 	resc          chan resAndError
 	bufPipe       pipe // buffered pipe with the flow-controlled response payload
@@ -311,7 +325,7 @@ type clientStream struct {
 // channel to be signaled. A non-nil error is returned only if the request was
 // canceled.
 func awaitRequestCancel(req *http.Request, done <-chan struct{}) error {
-	ctx := req.Context()
+	ctx := reqContext(req)
 	if req.Cancel == nil && ctx.Done() == nil {
 		return nil
 	}
@@ -487,8 +501,8 @@ func (t *Transport) RoundTripOpt(req *http.Request, opt RoundTripOpt) (*http.Res
 				select {
 				case <-time.After(time.Second * time.Duration(backoff)):
 					continue
-				case <-req.Context().Done():
-					return nil, req.Context().Err()
+				case <-reqContext(req).Done():
+					return nil, reqContext(req).Err()
 				}
 			}
 		}
@@ -525,15 +539,16 @@ func shouldRetryRequest(req *http.Request, err error, afterBodyWrite bool) (*htt
 	}
 	// If the Body is nil (or http.NoBody), it's safe to reuse
 	// this request and its Body.
-	if req.Body == nil || req.Body == http.NoBody {
+	if req.Body == nil || reqBodyIsNoBody(req.Body) {
 		return req, nil
 	}
 
 	// If the request body can be reset back to its original
 	// state via the optional req.GetBody, do that.
-	if req.GetBody != nil {
+	getBody := reqGetBody(req) // Go 1.8: getBody = req.GetBody
+	if getBody != nil {
 		// TODO: consider a req.Body.Close here? or audit that all caller paths do?
-		body, err := req.GetBody()
+		body, err := getBody()
 		if err != nil {
 			return nil, err
 		}
@@ -579,7 +594,7 @@ func (t *Transport) dialClientConn(addr string, singleUse bool) (*ClientConn, er
 func (t *Transport) newTLSConfig(host string) *tls.Config {
 	cfg := new(tls.Config)
 	if t.TLSClientConfig != nil {
-		*cfg = *t.TLSClientConfig.Clone()
+		*cfg = *cloneTLSConfig(t.TLSClientConfig)
 	}
 	if !strSliceContains(cfg.NextProtos, NextProtoTLS) {
 		cfg.NextProtos = append([]string{NextProtoTLS}, cfg.NextProtos...)
@@ -630,7 +645,7 @@ func (t *Transport) expectContinueTimeout() time.Duration {
 	if t.t1 == nil {
 		return 0
 	}
-	return t.t1.ExpectContinueTimeout
+	return transportExpectContinueTimeout(t.t1)
 }
 
 func (t *Transport) NewClientConn(c net.Conn) (*ClientConn, error) {
@@ -770,6 +785,7 @@ func (cc *ClientConn) idleStateLocked() (st clientConnIdleState) {
 	if cc.singleUse && cc.nextStreamID > 1 {
 		return
 	}
+<<<<<<< HEAD
 	var maxConcurrentOkay bool
 	if cc.t.StrictMaxConcurrentStreams {
 		// We'll tell the caller we can take a new request to
@@ -784,6 +800,10 @@ func (cc *ClientConn) idleStateLocked() (st clientConnIdleState) {
 	st.canTakeNewRequest = cc.goAway == nil && !cc.closed && !cc.closing && maxConcurrentOkay &&
 		int64(cc.nextStreamID)+2*int64(cc.pendingRequests) < math.MaxInt32 &&
 		!cc.tooIdleLocked()
+=======
+	st.canTakeNewRequest = cc.goAway == nil && !cc.closed && !cc.closing &&
+		int64(cc.nextStreamID)+int64(cc.pendingRequests) < math.MaxInt32
+>>>>>>> 79bfea2d (update vendor)
 	st.freshConn = cc.nextStreamID == 1 && st.canTakeNewRequest
 	return
 }
@@ -833,7 +853,8 @@ func (cc *ClientConn) closeIfIdle() {
 var shutdownEnterWaitStateHook = func() {}
 
 // Shutdown gracefully close the client connection, waiting for running streams to complete.
-func (cc *ClientConn) Shutdown(ctx context.Context) error {
+// Public implementation is in go17.go and not_go17.go
+func (cc *ClientConn) shutdown(ctx contextContext) error {
 	if err := cc.sendGoAway(); err != nil {
 		return err
 	}
@@ -1015,7 +1036,7 @@ func checkConnHeaders(req *http.Request) error {
 // req.ContentLength, where 0 actually means zero (not unknown) and -1
 // means unknown.
 func actualContentLength(req *http.Request) int64 {
-	if req.Body == nil || req.Body == http.NoBody {
+	if req.Body == nil || reqBodyIsNoBody(req.Body) {
 		return 0
 	}
 	if req.ContentLength != 0 {
@@ -1085,7 +1106,7 @@ func (cc *ClientConn) roundTrip(req *http.Request) (res *http.Response, gotErrAf
 
 	cs := cc.newStream()
 	cs.req = req
-	cs.trace = httptrace.ContextClientTrace(req.Context())
+	cs.trace = requestTrace(req)
 	cs.requestedGzip = requestedGzip
 	bodyWriter := cc.t.getBodyWriterState(cs, body)
 	cs.on100 = bodyWriter.on100
@@ -1132,7 +1153,7 @@ func (cc *ClientConn) roundTrip(req *http.Request) (res *http.Response, gotErrAf
 
 	readLoopResCh := cs.resc
 	bodyWritten := false
-	ctx := req.Context()
+	ctx := reqContext(req)
 
 	handleReadLoopResponse := func(re resAndError) (*http.Response, bool, error) {
 		res := re.res
@@ -1209,7 +1230,6 @@ func (cc *ClientConn) roundTrip(req *http.Request) (res *http.Response, gotErrAf
 			default:
 			}
 			if err != nil {
-				cc.forgetStreamID(cs.ID)
 				return nil, cs.getStartedWrite(), err
 			}
 			if d := cc.responseHeaderTimeout(); d != 0 {
@@ -1355,7 +1375,6 @@ func (cs *clientStream) writeRequestBody(body io.Reader, bodyCloser io.Closer) (
 			sawEOF = true
 			err = nil
 		} else if err != nil {
-			cc.writeStreamReset(cs.ID, ErrCodeCancel, err)
 			return err
 		}
 
@@ -1610,7 +1629,7 @@ func (cc *ClientConn) encodeHeaders(req *http.Request, addGzipHeader bool, trail
 		return nil, errRequestHeaderListSize
 	}
 
-	trace := httptrace.ContextClientTrace(req.Context())
+	trace := requestTrace(req)
 	traceHeaders := traceHasWroteHeaderField(trace)
 
 	// Header list size is ok. Write the headers.
@@ -2058,7 +2077,7 @@ func (rl *clientConnReadLoop) handleResponse(cs *clientStream, f *MetaHeadersFra
 		res.Header.Del("Content-Length")
 		res.ContentLength = -1
 		res.Body = &gzipReader{body: res.Body}
-		res.Uncompressed = true
+		setResponseUncompressed(res)
 	}
 	return res, nil
 }
@@ -2433,7 +2452,8 @@ func (rl *clientConnReadLoop) processResetStream(f *RSTStreamFrame) error {
 }
 
 // Ping sends a PING frame to the server and waits for the ack.
-func (cc *ClientConn) Ping(ctx context.Context) error {
+// Public implementation is in go17.go and not_go17.go
+func (cc *ClientConn) ping(ctx contextContext) error {
 	c := make(chan struct{})
 	// Generate a random payload
 	var p [8]byte
@@ -2670,6 +2690,7 @@ func (s bodyWriterState) scheduleBodyWrite() {
 func isConnectionCloseRequest(req *http.Request) bool {
 	return req.Close || httpguts.HeaderValuesContainsToken(req.Header["Connection"], "close")
 }
+<<<<<<< HEAD
 
 // registerHTTPSProtocol calls Transport.RegisterProtocol but
 // converting panics into errors.
@@ -2758,3 +2779,5 @@ func traceFirstResponseByte(trace *httptrace.ClientTrace) {
 		trace.GotFirstResponseByte()
 	}
 }
+=======
+>>>>>>> 79bfea2d (update vendor)

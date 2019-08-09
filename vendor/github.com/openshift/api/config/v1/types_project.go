@@ -8,11 +8,19 @@ import metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 // Project holds cluster-wide information about Project.  The canonical name is `cluster`
 type Project struct {
+<<<<<<< HEAD
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
 	// spec holds user settable values for configuration
 	// +kubebuilder:validation:Required
+=======
+	metav1.TypeMeta `json:",inline"`
+	// Standard object's metadata.
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+
+	// spec holds user settable values for configuration
+>>>>>>> 79bfea2d (update vendor)
 	// +required
 	Spec ProjectSpec `json:"spec"`
 	// status holds observed values from the cluster. They may not be overridden.
@@ -30,7 +38,10 @@ type TemplateReference struct {
 // ProjectSpec holds the project creation configuration.
 type ProjectSpec struct {
 	// projectRequestMessage is the string presented to a user if they are unable to request a project via the projectrequest api endpoint
+<<<<<<< HEAD
 	// +optional
+=======
+>>>>>>> 79bfea2d (update vendor)
 	ProjectRequestMessage string `json:"projectRequestMessage"`
 
 	// projectRequestTemplate is the template to use for creating projects in response to projectrequest.
@@ -48,7 +59,13 @@ type ProjectStatus struct {
 
 type ProjectList struct {
 	metav1.TypeMeta `json:",inline"`
+<<<<<<< HEAD
 	metav1.ListMeta `json:"metadata"`
 
 	Items []Project `json:"items"`
+=======
+	// Standard object's metadata.
+	metav1.ListMeta `json:"metadata"`
+	Items           []Project `json:"items"`
+>>>>>>> 79bfea2d (update vendor)
 }

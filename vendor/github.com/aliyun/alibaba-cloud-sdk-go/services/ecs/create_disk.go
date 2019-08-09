@@ -71,6 +71,7 @@ func (client *Client) CreateDiskWithCallback(request *CreateDiskRequest, callbac
 // CreateDiskRequest is the request struct for api CreateDisk
 type CreateDiskRequest struct {
 	*requests.RpcRequest
+<<<<<<< HEAD
 	ResourceOwnerId                requests.Integer `position:"Query" name:"ResourceOwnerId"`
 	SnapshotId                     string           `position:"Query" name:"SnapshotId"`
 	ClientToken                    string           `position:"Query" name:"ClientToken"`
@@ -95,6 +96,26 @@ type CreateDiskRequest struct {
 	Encrypted                      requests.Boolean `position:"Query" name:"Encrypted"`
 	ZoneId                         string           `position:"Query" name:"ZoneId"`
 	KMSKeyId                       string           `position:"Query" name:"KMSKeyId"`
+=======
+	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
+	SnapshotId           string           `position:"Query" name:"SnapshotId"`
+	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
+	ClientToken          string           `position:"Query" name:"ClientToken"`
+	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
+	Description          string           `position:"Query" name:"Description"`
+	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
+	DiskName             string           `position:"Query" name:"DiskName"`
+	ResourceGroupId      string           `position:"Query" name:"ResourceGroupId"`
+	InstanceId           string           `position:"Query" name:"InstanceId"`
+	Size                 requests.Integer `position:"Query" name:"Size"`
+	Encrypted            requests.Boolean `position:"Query" name:"Encrypted"`
+	DiskCategory         string           `position:"Query" name:"DiskCategory"`
+	ZoneId               string           `position:"Query" name:"ZoneId"`
+	Tag                  *[]CreateDiskTag `position:"Query" name:"Tag"  type:"Repeated"`
+	Arn                  *[]CreateDiskArn `position:"Query" name:"Arn"  type:"Repeated"`
+	KMSKeyId             string           `position:"Query" name:"KMSKeyId"`
+	AdvancedFeatures     string           `position:"Query" name:"AdvancedFeatures"`
+>>>>>>> 79bfea2d (update vendor)
 }
 
 // CreateDiskTag is a repeated param struct in CreateDiskRequest

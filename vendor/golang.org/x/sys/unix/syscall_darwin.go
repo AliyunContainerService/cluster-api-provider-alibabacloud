@@ -119,7 +119,66 @@ type attrList struct {
 	Forkattr    uint32
 }
 
+<<<<<<< HEAD
 //sysnb	pipe(p *[2]int32) (err error)
+=======
+func getAttrList(path string, attrList attrList, attrBuf []byte, options uint) (attrs [][]byte, err error) {
+	if len(attrBuf) < 4 {
+		return nil, errors.New("attrBuf too small")
+	}
+	attrList.bitmapCount = attrBitMapCount
+
+	var _p0 *byte
+	_p0, err = BytePtrFromString(path)
+	if err != nil {
+		return nil, err
+	}
+
+	_, _, e1 := Syscall6(
+		SYS_GETATTRLIST,
+		uintptr(unsafe.Pointer(_p0)),
+		uintptr(unsafe.Pointer(&attrList)),
+		uintptr(unsafe.Pointer(&attrBuf[0])),
+		uintptr(len(attrBuf)),
+		uintptr(options),
+		0,
+	)
+	if e1 != 0 {
+		return nil, e1
+	}
+	size := *(*uint32)(unsafe.Pointer(&attrBuf[0]))
+
+	// dat is the section of attrBuf that contains valid data,
+	// without the 4 byte length header. All attribute offsets
+	// are relative to dat.
+	dat := attrBuf
+	if int(size) < len(attrBuf) {
+		dat = dat[:size]
+	}
+	dat = dat[4:] // remove length prefix
+
+	for i := uint32(0); int(i) < len(dat); {
+		header := dat[i:]
+		if len(header) < 8 {
+			return attrs, errors.New("truncated attribute header")
+		}
+		datOff := *(*int32)(unsafe.Pointer(&header[0]))
+		attrLen := *(*uint32)(unsafe.Pointer(&header[4]))
+		if datOff < 0 || uint32(datOff)+attrLen > uint32(len(dat)) {
+			return attrs, errors.New("truncated results; attrBuf too small")
+		}
+		end := uint32(datOff) + attrLen
+		attrs = append(attrs, dat[datOff:end])
+		i = end
+		if r := i % 4; r != 0 {
+			i += (4 - r)
+		}
+	}
+	return
+}
+
+//sysnb pipe() (r int, w int, err error)
+>>>>>>> 79bfea2d (update vendor)
 
 func Pipe(p []int) (err error) {
 	if len(p) != 2 {
@@ -139,7 +198,12 @@ func Getfsstat(buf []Statfs_t, flags int) (n int, err error) {
 		_p0 = unsafe.Pointer(&buf[0])
 		bufsize = unsafe.Sizeof(Statfs_t{}) * uintptr(len(buf))
 	}
-	return getfsstat(_p0, bufsize, flags)
+	r0, _, e1 := Syscall(SYS_GETFSSTAT64, uintptr(_p0), bufsize, uintptr(flags))
+	n = int(r0)
+	if e1 != 0 {
+		err = e1
+	}
+	return
 }
 
 func xattrPointer(dest []byte) *byte {
@@ -264,16 +328,26 @@ func setattrlistTimes(path string, times []Timespec, flags int) error {
 	if flags&AT_SYMLINK_NOFOLLOW != 0 {
 		options |= FSOPT_NOFOLLOW
 	}
-	return setattrlist(
-		_p0,
-		unsafe.Pointer(&attrList),
-		unsafe.Pointer(&attributes),
-		unsafe.Sizeof(attributes),
-		options)
+	_, _, e1 := Syscall6(
+		SYS_SETATTRLIST,
+		uintptr(unsafe.Pointer(_p0)),
+		uintptr(unsafe.Pointer(&attrList)),
+		uintptr(unsafe.Pointer(&attributes)),
+		uintptr(unsafe.Sizeof(attributes)),
+		uintptr(options),
+		0,
+	)
+	if e1 != 0 {
+		return e1
+	}
+	return nil
 }
 
+<<<<<<< HEAD
 //sys	setattrlist(path *byte, list unsafe.Pointer, buf unsafe.Pointer, size uintptr, options int) (err error)
 
+=======
+>>>>>>> 79bfea2d (update vendor)
 func utimensat(dirfd int, path string, times *[2]Timespec, flags int) error {
 	// Darwin doesn't support SYS_UTIMENSAT
 	return ENOSYS
@@ -368,6 +442,7 @@ func Uname(uname *Utsname) error {
 	return nil
 }
 
+<<<<<<< HEAD
 func Sendfile(outfd int, infd int, offset *int64, count int) (written int, err error) {
 	if raceenabled {
 		raceReleaseMerge(unsafe.Pointer(&ioSync))
@@ -400,6 +475,8 @@ func GetsockoptXucred(fd, level, opt int) (*Xucred, error) {
 
 //sys	sendfile(infd int, outfd int, offset int64, len *int64, hdtr unsafe.Pointer, flags int) (err error)
 
+=======
+>>>>>>> 79bfea2d (update vendor)
 /*
  * Exposed directly
  */
@@ -410,7 +487,6 @@ func GetsockoptXucred(fd, level, opt int) (*Xucred, error) {
 //sys	Chmod(path string, mode uint32) (err error)
 //sys	Chown(path string, uid int, gid int) (err error)
 //sys	Chroot(path string) (err error)
-//sys	ClockGettime(clockid int32, time *Timespec) (err error)
 //sys	Close(fd int) (err error)
 //sys	Clonefile(src string, dst string, flags int) (err error)
 //sys	Clonefileat(srcDirfd int, src string, dstDirfd int, dst string, flags int) (err error)
@@ -428,9 +504,16 @@ func GetsockoptXucred(fd, level, opt int) (*Xucred, error) {
 //sys	Fclonefileat(srcDirfd int, dstDirfd int, dst string, flags int) (err error)
 //sys	Flock(fd int, how int) (err error)
 //sys	Fpathconf(fd int, name int) (val int, err error)
+//sys	Fstat(fd int, stat *Stat_t) (err error) = SYS_FSTAT64
+//sys	Fstatat(fd int, path string, stat *Stat_t, flags int) (err error) = SYS_FSTATAT64
+//sys	Fstatfs(fd int, stat *Statfs_t) (err error) = SYS_FSTATFS64
 //sys	Fsync(fd int) (err error)
 //sys	Ftruncate(fd int, length int64) (err error)
+<<<<<<< HEAD
 //sys	Getcwd(buf []byte) (n int, err error)
+=======
+//sys	Getdirentries(fd int, buf []byte, basep *uintptr) (n int, err error) = SYS_GETDIRENTRIES64
+>>>>>>> 79bfea2d (update vendor)
 //sys	Getdtablesize() (size int)
 //sysnb	Getegid() (egid int)
 //sysnb	Geteuid() (uid int)
@@ -451,6 +534,7 @@ func GetsockoptXucred(fd, level, opt int) (*Xucred, error) {
 //sys	Link(path string, link string) (err error)
 //sys	Linkat(pathfd int, path string, linkfd int, link string, flags int) (err error)
 //sys	Listen(s int, backlog int) (err error)
+//sys	Lstat(path string, stat *Stat_t) (err error) = SYS_LSTAT64
 //sys	Mkdir(path string, mode uint32) (err error)
 //sys	Mkdirat(dirfd int, path string, mode uint32) (err error)
 //sys	Mkfifo(path string, mode uint32) (err error)
@@ -482,6 +566,8 @@ func GetsockoptXucred(fd, level, opt int) (*Xucred, error) {
 //sysnb	Setsid() (pid int, err error)
 //sysnb	Settimeofday(tp *Timeval) (err error)
 //sysnb	Setuid(uid int) (err error)
+//sys	Stat(path string, stat *Stat_t) (err error) = SYS_STAT64
+//sys	Statfs(path string, stat *Statfs_t) (err error) = SYS_STATFS64
 //sys	Symlink(path string, link string) (err error)
 //sys	Symlinkat(oldpath string, newdirfd int, newpath string) (err error)
 //sys	Sync() (err error)

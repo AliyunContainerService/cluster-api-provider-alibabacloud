@@ -94,7 +94,11 @@ func (c *CacheReader) Get(_ context.Context, key client.ObjectKey, out client.Ob
 }
 
 // List lists items out of the indexer and writes them to out
+<<<<<<< HEAD
 func (c *CacheReader) List(_ context.Context, out client.ObjectList, opts ...client.ListOption) error {
+=======
+func (c *CacheReader) List(_ context.Context, out runtime.Object, opts ...client.ListOption) error {
+>>>>>>> 79bfea2d (update vendor)
 	var objs []interface{}
 	var err error
 

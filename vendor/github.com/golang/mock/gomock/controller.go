@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package gomock is a mock framework for Go.
+// GoMock - a mock framework for Go.
 //
 // Standard usage:
 //   (1) Define an interface that you wish to mock.
@@ -53,20 +53,21 @@
 package gomock
 
 import (
-	"context"
 	"fmt"
+	"golang.org/x/net/context"
 	"reflect"
 	"runtime"
 	"sync"
 )
 
-// A TestReporter is something that can be used to report test failures.  It
-// is satisfied by the standard library's *testing.T.
+// A TestReporter is something that can be used to report test failures.
+// It is satisfied by the standard library's *testing.T.
 type TestReporter interface {
 	Errorf(format string, args ...interface{})
 	Fatalf(format string, args ...interface{})
 }
 
+<<<<<<< HEAD
 // TestHelper is a TestReporter that has the Helper method.  It is satisfied
 // by the standard library's *testing.T.
 type TestHelper interface {
@@ -107,18 +108,19 @@ type cleanuper interface {
 //       // ..
 //     })
 //   })
+=======
+// A Controller represents the top-level control of a mock ecosystem.
+// It defines the scope and lifetime of mock objects, as well as their expectations.
+// It is safe to call Controller's methods from multiple goroutines.
+>>>>>>> 79bfea2d (update vendor)
 type Controller struct {
-	// T should only be called within a generated mock. It is not intended to
-	// be used in user code and may be changed in future versions. T is the
-	// TestReporter passed in when creating the Controller via NewController.
-	// If the TestReporter does not implement a TestHelper it will be wrapped
-	// with a nopTestHelper.
-	T             TestHelper
 	mu            sync.Mutex
+	t             TestReporter
 	expectedCalls *callSet
 	finished      bool
 }
 
+<<<<<<< HEAD
 // NewController returns a new Controller. It is the preferred way to create a
 // Controller.
 //
@@ -131,6 +133,11 @@ func NewController(t TestReporter) *Controller {
 	}
 	ctrl := &Controller{
 		T:             h,
+=======
+func NewController(t TestReporter) *Controller {
+	return &Controller{
+		t:             t,
+>>>>>>> 79bfea2d (update vendor)
 		expectedCalls: newCallSet(),
 	}
 	if c, ok := isCleanuper(ctrl.T); ok {
@@ -144,6 +151,7 @@ func NewController(t TestReporter) *Controller {
 }
 
 type cancelReporter struct {
+<<<<<<< HEAD
 	t      TestHelper
 	cancel func()
 }
@@ -158,11 +166,22 @@ func (r *cancelReporter) Fatalf(format string, args ...interface{}) {
 
 func (r *cancelReporter) Helper() {
 	r.t.Helper()
+=======
+	t      TestReporter
+	cancel func()
+}
+
+func (r *cancelReporter) Errorf(format string, args ...interface{}) { r.t.Errorf(format, args...) }
+func (r *cancelReporter) Fatalf(format string, args ...interface{}) {
+	defer r.cancel()
+	r.t.Fatalf(format, args...)
+>>>>>>> 79bfea2d (update vendor)
 }
 
 // WithContext returns a new Controller and a Context, which is cancelled on any
 // fatal failure.
 func WithContext(ctx context.Context, t TestReporter) (*Controller, context.Context) {
+<<<<<<< HEAD
 	h, ok := t.(TestHelper)
 	if !ok {
 		h = &nopTestHelper{t: t}
@@ -186,8 +205,16 @@ func (h *nopTestHelper) Fatalf(format string, args ...interface{}) {
 func (h nopTestHelper) Helper() {}
 
 // RecordCall is called by a mock. It should not be called by user code.
+=======
+	ctx, cancel := context.WithCancel(ctx)
+	return NewController(&cancelReporter{t, cancel}), ctx
+}
+
+>>>>>>> 79bfea2d (update vendor)
 func (ctrl *Controller) RecordCall(receiver interface{}, method string, args ...interface{}) *Call {
-	ctrl.T.Helper()
+	if h, ok := ctrl.t.(testHelper); ok {
+		h.Helper()
+	}
 
 	recv := reflect.ValueOf(receiver)
 	for i := 0; i < recv.Type().NumMethod(); i++ {
@@ -195,15 +222,16 @@ func (ctrl *Controller) RecordCall(receiver interface{}, method string, args ...
 			return ctrl.RecordCallWithMethodType(receiver, method, recv.Method(i).Type(), args...)
 		}
 	}
-	ctrl.T.Fatalf("gomock: failed finding method %s on %T", method, receiver)
+	ctrl.t.Fatalf("gomock: failed finding method %s on %T", method, receiver)
 	panic("unreachable")
 }
 
-// RecordCallWithMethodType is called by a mock. It should not be called by user code.
 func (ctrl *Controller) RecordCallWithMethodType(receiver interface{}, method string, methodType reflect.Type, args ...interface{}) *Call {
-	ctrl.T.Helper()
+	if h, ok := ctrl.t.(testHelper); ok {
+		h.Helper()
+	}
 
-	call := newCall(ctrl.T, receiver, method, methodType, args...)
+	call := newCall(ctrl.t, receiver, method, methodType, args...)
 
 	ctrl.mu.Lock()
 	defer ctrl.mu.Unlock()
@@ -212,23 +240,28 @@ func (ctrl *Controller) RecordCallWithMethodType(receiver interface{}, method st
 	return call
 }
 
-// Call is called by a mock. It should not be called by user code.
 func (ctrl *Controller) Call(receiver interface{}, method string, args ...interface{}) []interface{} {
-	ctrl.T.Helper()
+	if h, ok := ctrl.t.(testHelper); ok {
+		h.Helper()
+	}
 
 	// Nest this code so we can use defer to make sure the lock is released.
 	actions := func() []func([]interface{}) []interface{} {
-		ctrl.T.Helper()
 		ctrl.mu.Lock()
 		defer ctrl.mu.Unlock()
 
 		expected, err := ctrl.expectedCalls.FindMatch(receiver, method, args)
 		if err != nil {
+<<<<<<< HEAD
 			// callerInfo's skip should be updated if the number of calls between the user's test
 			// and this line changes, i.e. this code is wrapped in another anonymous function.
 			// 0 is us, 1 is controller.Call(), 2 is the generated mock, and 3 is the user's test.
 			origin := callerInfo(3)
 			ctrl.T.Fatalf("Unexpected call to %T.%v(%v) at %s because: %s", receiver, method, args, origin, err)
+=======
+			origin := callerInfo(2)
+			ctrl.t.Fatalf("Unexpected call to %T.%v(%v) at %s because: %s", receiver, method, args, origin, err)
+>>>>>>> 79bfea2d (update vendor)
 		}
 
 		// Two things happen here:
@@ -256,6 +289,7 @@ func (ctrl *Controller) Call(receiver interface{}, method string, args ...interf
 	return rets
 }
 
+<<<<<<< HEAD
 // Finish checks to see if all the methods that were expected to be called
 // were called. It should be invoked for each Controller. It is not idempotent
 // and therefore can only be invoked once.
@@ -271,15 +305,25 @@ func (ctrl *Controller) Finish() {
 
 func (ctrl *Controller) finish(cleanup bool, panicErr interface{}) {
 	ctrl.T.Helper()
+=======
+func (ctrl *Controller) Finish() {
+	if h, ok := ctrl.t.(testHelper); ok {
+		h.Helper()
+	}
+>>>>>>> 79bfea2d (update vendor)
 
 	ctrl.mu.Lock()
 	defer ctrl.mu.Unlock()
 
 	if ctrl.finished {
+<<<<<<< HEAD
 		if _, ok := isCleanuper(ctrl.T); !ok {
 			ctrl.T.Fatalf("Controller.Finish was called more than once. It has to be called exactly once.")
 		}
 		return
+=======
+		ctrl.t.Fatalf("Controller.Finish was called more than once. It has to be called exactly once.")
+>>>>>>> 79bfea2d (update vendor)
 	}
 	ctrl.finished = true
 
@@ -291,14 +335,18 @@ func (ctrl *Controller) finish(cleanup bool, panicErr interface{}) {
 	// Check that all remaining expected calls are satisfied.
 	failures := ctrl.expectedCalls.Failures()
 	for _, call := range failures {
-		ctrl.T.Errorf("missing call(s) to %v", call)
+		ctrl.t.Errorf("missing call(s) to %v", call)
 	}
 	if len(failures) != 0 {
+<<<<<<< HEAD
 		if !cleanup {
 			ctrl.T.Fatalf("aborting test due to missing call(s)")
 			return
 		}
 		ctrl.T.Errorf("aborting test due to missing call(s)")
+=======
+		ctrl.t.Fatalf("aborting test due to missing call(s)")
+>>>>>>> 79bfea2d (update vendor)
 	}
 }
 
@@ -311,6 +359,7 @@ func callerInfo(skip int) string {
 	return "unknown file"
 }
 
+<<<<<<< HEAD
 // isCleanuper checks it if t's base TestReporter has a Cleanup method.
 func isCleanuper(t TestReporter) (cleanuper, bool) {
 	tr := unwrapTestReporter(t)
@@ -333,4 +382,9 @@ func unwrapTestReporter(t TestReporter) TestReporter {
 		// not wrapped
 	}
 	return tr
+=======
+type testHelper interface {
+	TestReporter
+	Helper()
+>>>>>>> 79bfea2d (update vendor)
 }

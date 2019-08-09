@@ -494,6 +494,7 @@ func convertFromDirents11(buf []byte, old []byte) int {
 	return dstPos
 }
 
+<<<<<<< HEAD
 func Sendfile(outfd int, infd int, offset *int64, count int) (written int, err error) {
 	if raceenabled {
 		raceReleaseMerge(unsafe.Pointer(&ioSync))
@@ -555,6 +556,8 @@ func PtraceSingleStep(pid int) (err error) {
 	return ptrace(PTRACE_SINGLESTEP, pid, 1, 0)
 }
 
+=======
+>>>>>>> 79bfea2d (update vendor)
 /*
  * Exposed directly
  */

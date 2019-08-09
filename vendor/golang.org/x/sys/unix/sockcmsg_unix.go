@@ -9,10 +9,27 @@
 
 package unix
 
+<<<<<<< HEAD
 import (
 	"unsafe"
 )
 
+=======
+import "unsafe"
+
+// Round the length of a raw sockaddr up to align it properly.
+func cmsgAlignOf(salen int) int {
+	salign := SizeofPtr
+	// NOTE: It seems like 64-bit Darwin, DragonFly BSD and
+	// Solaris kernels still require 32-bit aligned access to
+	// network subsystem.
+	if darwin64Bit || dragonfly64Bit || solaris64Bit {
+		salign = 4
+	}
+	return (salen + salign - 1) & ^(salign - 1)
+}
+
+>>>>>>> 79bfea2d (update vendor)
 // CmsgLen returns the value to store in the Len field of the Cmsghdr
 // structure, taking into account any necessary alignment.
 func CmsgLen(datalen int) int {

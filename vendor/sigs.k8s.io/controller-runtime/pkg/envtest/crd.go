@@ -19,37 +19,57 @@ package envtest
 import (
 	"bufio"
 	"bytes"
+<<<<<<< HEAD
 	"context"
+=======
+>>>>>>> 79bfea2d (update vendor)
 	"io"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"time"
 
+<<<<<<< HEAD
 	"k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+=======
+	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	"k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
+>>>>>>> 79bfea2d (update vendor)
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/apimachinery/pkg/util/wait"
 	k8syaml "k8s.io/apimachinery/pkg/util/yaml"
 	"k8s.io/client-go/rest"
+<<<<<<< HEAD
 	"k8s.io/client-go/util/retry"
 	"sigs.k8s.io/controller-runtime/pkg/client"
+=======
+>>>>>>> 79bfea2d (update vendor)
 	"sigs.k8s.io/yaml"
 )
 
 // CRDInstallOptions are the options for installing CRDs
 type CRDInstallOptions struct {
+<<<<<<< HEAD
 	// Paths is a list of paths to the directories or files containing CRDs
 	Paths []string
 
 	// CRDs is a list of CRDs to install
 	CRDs []client.Object
+=======
+	// Paths is the path to the directory containing CRDs
+	Paths []string
+
+	// CRDs is a list of CRDs to install
+	CRDs []*apiextensionsv1beta1.CustomResourceDefinition
+>>>>>>> 79bfea2d (update vendor)
 
 	// ErrorIfPathMissing will cause an error if a Path does not exist
 	ErrorIfPathMissing bool
 
+<<<<<<< HEAD
 	// MaxTime is the max time to wait
 	MaxTime time.Duration
 
@@ -60,13 +80,24 @@ type CRDInstallOptions struct {
 	// uninstalled when terminating the test environment.
 	// Defaults to false.
 	CleanUpAfterUse bool
+=======
+	// maxTime is the max time to wait
+	maxTime time.Duration
+
+	// pollInterval is the interval to check
+	pollInterval time.Duration
+>>>>>>> 79bfea2d (update vendor)
 }
 
 const defaultPollInterval = 100 * time.Millisecond
 const defaultMaxWait = 10 * time.Second
 
 // InstallCRDs installs a collection of CRDs into a cluster by reading the crd yaml files from a directory
+<<<<<<< HEAD
 func InstallCRDs(config *rest.Config, options CRDInstallOptions) ([]client.Object, error) {
+=======
+func InstallCRDs(config *rest.Config, options CRDInstallOptions) ([]*apiextensionsv1beta1.CustomResourceDefinition, error) {
+>>>>>>> 79bfea2d (update vendor)
 	defaultCRDOptions(&options)
 
 	// Read the CRD yamls into options.CRDs
@@ -90,27 +121,49 @@ func InstallCRDs(config *rest.Config, options CRDInstallOptions) ([]client.Objec
 // readCRDFiles reads the directories of CRDs in options.Paths and adds the CRD structs to options.CRDs
 func readCRDFiles(options *CRDInstallOptions) error {
 	if len(options.Paths) > 0 {
+<<<<<<< HEAD
 		crdList, err := renderCRDs(options)
 		if err != nil {
 			return err
 		}
 
 		options.CRDs = append(options.CRDs, crdList...)
+=======
+		for _, path := range options.Paths {
+			if _, err := os.Stat(path); !options.ErrorIfPathMissing && os.IsNotExist(err) {
+				continue
+			}
+			new, err := readCRDs(path)
+			if err != nil {
+				return err
+			}
+			options.CRDs = append(options.CRDs, new...)
+		}
+>>>>>>> 79bfea2d (update vendor)
 	}
 	return nil
 }
 
 // defaultCRDOptions sets the default values for CRDs
 func defaultCRDOptions(o *CRDInstallOptions) {
+<<<<<<< HEAD
 	if o.MaxTime == 0 {
 		o.MaxTime = defaultMaxWait
 	}
 	if o.PollInterval == 0 {
 		o.PollInterval = defaultPollInterval
+=======
+	if o.maxTime == 0 {
+		o.maxTime = defaultMaxWait
+	}
+	if o.pollInterval == 0 {
+		o.pollInterval = defaultPollInterval
+>>>>>>> 79bfea2d (update vendor)
 	}
 }
 
 // WaitForCRDs waits for the CRDs to appear in discovery
+<<<<<<< HEAD
 func WaitForCRDs(config *rest.Config, crds []client.Object, options CRDInstallOptions) error {
 	// Add each CRD to a map of GroupVersion to Resource
 	waitingFor := map[schema.GroupVersion]*sets.String{}
@@ -157,6 +210,21 @@ func WaitForCRDs(config *rest.Config, crds []client.Object, options CRDInstallOp
 			}
 		}
 
+=======
+func WaitForCRDs(config *rest.Config, crds []*apiextensionsv1beta1.CustomResourceDefinition, options CRDInstallOptions) error {
+	// Add each CRD to a map of GroupVersion to Resource
+	waitingFor := map[schema.GroupVersion]*sets.String{}
+	for _, crd := range crds {
+		gvs := []schema.GroupVersion{}
+		if crd.Spec.Version != "" {
+			gvs = append(gvs, schema.GroupVersion{Group: crd.Spec.Group, Version: crd.Spec.Version})
+		}
+		for _, ver := range crd.Spec.Versions {
+			if ver.Served {
+				gvs = append(gvs, schema.GroupVersion{Group: crd.Spec.Group, Version: ver.Name})
+			}
+		}
+>>>>>>> 79bfea2d (update vendor)
 		for _, gv := range gvs {
 			log.V(1).Info("adding API in waitlist", "GV", gv)
 			if _, found := waitingFor[gv]; !found {
@@ -164,13 +232,21 @@ func WaitForCRDs(config *rest.Config, crds []client.Object, options CRDInstallOp
 				waitingFor[gv] = &sets.String{}
 			}
 			// Add the Resource
+<<<<<<< HEAD
 			waitingFor[gv].Insert(crdPlural)
+=======
+			waitingFor[gv].Insert(crd.Spec.Names.Plural)
+>>>>>>> 79bfea2d (update vendor)
 		}
 	}
 
 	// Poll until all resources are found in discovery
 	p := &poller{config: config, waitingFor: waitingFor}
+<<<<<<< HEAD
 	return wait.PollImmediate(options.PollInterval, options.MaxTime, p.poll)
+=======
+	return wait.PollImmediate(options.pollInterval, options.maxTime, p.poll)
+>>>>>>> 79bfea2d (update vendor)
 }
 
 // poller checks if all the resources have been found in discovery, and returns false if not
@@ -218,6 +294,7 @@ func (p *poller) poll() (done bool, err error) {
 	return allFound, nil
 }
 
+<<<<<<< HEAD
 // UninstallCRDs uninstalls a collection of CRDs by reading the crd yaml files from a directory
 func UninstallCRDs(config *rest.Config, options CRDInstallOptions) error {
 
@@ -249,11 +326,17 @@ func UninstallCRDs(config *rest.Config, options CRDInstallOptions) error {
 // CreateCRDs creates the CRDs
 func CreateCRDs(config *rest.Config, crds []client.Object) error {
 	cs, err := client.New(config, client.Options{})
+=======
+// CreateCRDs creates the CRDs
+func CreateCRDs(config *rest.Config, crds []*apiextensionsv1beta1.CustomResourceDefinition) error {
+	cs, err := clientset.NewForConfig(config)
+>>>>>>> 79bfea2d (update vendor)
 	if err != nil {
 		return err
 	}
 
 	// Create each CRD
+<<<<<<< HEAD
 	for _, crd := range runtimeCRDListToUnstructured(crds) {
 		log.V(1).Info("installing CRD", "crd", crd.GetName())
 		existingCrd := crd.DeepCopy()
@@ -276,11 +359,18 @@ func CreateCRDs(config *rest.Config, crds []client.Object) error {
 			}); err != nil {
 				return err
 			}
+=======
+	for _, crd := range crds {
+		log.V(1).Info("installing CRD", "crd", crd.Name)
+		if _, err := cs.ApiextensionsV1beta1().CustomResourceDefinitions().Create(crd); err != nil {
+			return err
+>>>>>>> 79bfea2d (update vendor)
 		}
 	}
 	return nil
 }
 
+<<<<<<< HEAD
 // renderCRDs iterate through options.Paths and extract all CRD files.
 func renderCRDs(options *CRDInstallOptions) ([]client.Object, error) {
 	var (
@@ -343,29 +433,55 @@ func renderCRDs(options *CRDInstallOptions) ([]client.Object, error) {
 // readCRDs reads the CRDs from files and Unmarshals them into structs
 func readCRDs(basePath string, files []os.FileInfo) ([]*unstructured.Unstructured, error) {
 	var crds []*unstructured.Unstructured
+=======
+// readCRDs reads the CRDs from files and Unmarshals them into structs
+func readCRDs(path string) ([]*apiextensionsv1beta1.CustomResourceDefinition, error) {
+	// Get the CRD files
+	var files []os.FileInfo
+	var err error
+	log.V(1).Info("reading CRDs from path", "path", path)
+	if files, err = ioutil.ReadDir(path); err != nil {
+		return nil, err
+	}
+>>>>>>> 79bfea2d (update vendor)
 
 	// White list the file extensions that may contain CRDs
 	crdExts := sets.NewString(".json", ".yaml", ".yml")
 
+<<<<<<< HEAD
 	for _, file := range files {
 		// Only parse allowlisted file types
+=======
+	var crds []*apiextensionsv1beta1.CustomResourceDefinition
+	for _, file := range files {
+		// Only parse whitelisted file types
+>>>>>>> 79bfea2d (update vendor)
 		if !crdExts.Has(filepath.Ext(file.Name())) {
 			continue
 		}
 
 		// Unmarshal CRDs from file into structs
+<<<<<<< HEAD
 		docs, err := readDocuments(filepath.Join(basePath, file.Name()))
+=======
+		docs, err := readDocuments(filepath.Join(path, file.Name()))
+>>>>>>> 79bfea2d (update vendor)
 		if err != nil {
 			return nil, err
 		}
 
 		for _, doc := range docs {
+<<<<<<< HEAD
 			crd := &unstructured.Unstructured{}
+=======
+			crd := &apiextensionsv1beta1.CustomResourceDefinition{}
+>>>>>>> 79bfea2d (update vendor)
 			if err = yaml.Unmarshal(doc, crd); err != nil {
 				return nil, err
 			}
 
 			// Check that it is actually a CRD
+<<<<<<< HEAD
 			crdKind, _, err := unstructured.NestedString(crd.Object, "spec", "names", "kind")
 			if err != nil {
 				return nil, err
@@ -376,6 +492,9 @@ func readCRDs(basePath string, files []os.FileInfo) ([]*unstructured.Unstructure
 			}
 
 			if crd.GetKind() != "CustomResourceDefinition" || crdKind == "" || crdGroup == "" {
+=======
+			if crd.Spec.Names.Kind == "" || crd.Spec.Group == "" {
+>>>>>>> 79bfea2d (update vendor)
 				continue
 			}
 			crds = append(crds, crd)

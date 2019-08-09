@@ -131,10 +131,16 @@ func (d *delegatingReader) Get(ctx context.Context, key ObjectKey, obj Object) e
 }
 
 // List retrieves list of objects for a given namespace and list options.
+<<<<<<< HEAD
 func (d *delegatingReader) List(ctx context.Context, list ObjectList, opts ...ListOption) error {
 	if isUncached, err := d.shouldBypassCache(list); err != nil {
 		return err
 	} else if isUncached {
+=======
+func (d *DelegatingReader) List(ctx context.Context, list runtime.Object, opts ...ListOption) error {
+	_, isUnstructured := list.(*unstructured.UnstructuredList)
+	if isUnstructured {
+>>>>>>> 79bfea2d (update vendor)
 		return d.ClientReader.List(ctx, list, opts...)
 	}
 	return d.CacheReader.List(ctx, list, opts...)

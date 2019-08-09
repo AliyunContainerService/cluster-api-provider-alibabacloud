@@ -27,11 +27,13 @@ type Timeval struct {
 
 type Timex struct {
 	Modes     uint32
+	_         [4]byte
 	Offset    int64
 	Freq      int64
 	Maxerror  int64
 	Esterror  int64
 	Status    int32
+	_         [4]byte
 	Constant  int64
 	Precision int64
 	Tolerance int64
@@ -40,6 +42,7 @@ type Timex struct {
 	Ppsfreq   int64
 	Jitter    int64
 	Shift     int32
+	_         [4]byte
 	Stabil    int64
 	Jitcnt    int64
 	Calcnt    int64
@@ -114,6 +117,7 @@ type Dirent struct {
 type Flock_t struct {
 	Type   int16
 	Whence int16
+	_      [4]byte
 	Start  int64
 	Len    int64
 	Pid    int32
@@ -132,6 +136,99 @@ const (
 	FADV_NOREUSE  = 0x5
 )
 
+<<<<<<< HEAD
+=======
+type RawSockaddrInet4 struct {
+	Family uint16
+	Port   uint16
+	Addr   [4]byte /* in_addr */
+	Zero   [8]uint8
+}
+
+type RawSockaddrInet6 struct {
+	Family   uint16
+	Port     uint16
+	Flowinfo uint32
+	Addr     [16]byte /* in6_addr */
+	Scope_id uint32
+}
+
+type RawSockaddrUnix struct {
+	Family uint16
+	Path   [108]int8
+}
+
+type RawSockaddrLinklayer struct {
+	Family   uint16
+	Protocol uint16
+	Ifindex  int32
+	Hatype   uint16
+	Pkttype  uint8
+	Halen    uint8
+	Addr     [8]uint8
+}
+
+type RawSockaddrNetlink struct {
+	Family uint16
+	Pad    uint16
+	Pid    uint32
+	Groups uint32
+}
+
+type RawSockaddrHCI struct {
+	Family  uint16
+	Dev     uint16
+	Channel uint16
+}
+
+type RawSockaddrL2 struct {
+	Family      uint16
+	Psm         uint16
+	Bdaddr      [6]uint8
+	Cid         uint16
+	Bdaddr_type uint8
+	_           [1]byte
+}
+
+type RawSockaddrRFCOMM struct {
+	Family  uint16
+	Bdaddr  [6]uint8
+	Channel uint8
+	_       [1]byte
+}
+
+type RawSockaddrCAN struct {
+	Family  uint16
+	_       [2]byte
+	Ifindex int32
+	Addr    [8]byte
+}
+
+type RawSockaddrALG struct {
+	Family uint16
+	Type   [14]uint8
+	Feat   uint32
+	Mask   uint32
+	Name   [64]uint8
+}
+
+type RawSockaddrVM struct {
+	Family    uint16
+	Reserved1 uint16
+	Port      uint32
+	Cid       uint32
+	Zero      [4]uint8
+}
+
+type RawSockaddrXDP struct {
+	Family         uint16
+	Flags          uint16
+	Ifindex        uint32
+	Queue_id       uint32
+	Shared_umem_fd uint32
+}
+
+>>>>>>> 79bfea2d (update vendor)
 type RawSockaddr struct {
 	Family uint16
 	Data   [14]uint8
@@ -150,6 +247,7 @@ type Iovec struct {
 type Msghdr struct {
 	Name       *byte
 	Namelen    uint32
+	_          [4]byte
 	Iov        *Iovec
 	Iovlen     uint64
 	Control    *byte
@@ -164,16 +262,132 @@ type Cmsghdr struct {
 	Type  int32
 }
 
+<<<<<<< HEAD
 const (
 	SizeofIovec   = 0x10
 	SizeofMsghdr  = 0x38
 	SizeofCmsghdr = 0x10
+=======
+type Inet4Pktinfo struct {
+	Ifindex  int32
+	Spec_dst [4]byte /* in_addr */
+	Addr     [4]byte /* in_addr */
+}
+
+type Inet6Pktinfo struct {
+	Addr    [16]byte /* in6_addr */
+	Ifindex uint32
+}
+
+type IPv6MTUInfo struct {
+	Addr RawSockaddrInet6
+	Mtu  uint32
+}
+
+type ICMPv6Filter struct {
+	Data [8]uint32
+}
+
+type Ucred struct {
+	Pid int32
+	Uid uint32
+	Gid uint32
+}
+
+type TCPInfo struct {
+	State          uint8
+	Ca_state       uint8
+	Retransmits    uint8
+	Probes         uint8
+	Backoff        uint8
+	Options        uint8
+	_              [2]byte
+	Rto            uint32
+	Ato            uint32
+	Snd_mss        uint32
+	Rcv_mss        uint32
+	Unacked        uint32
+	Sacked         uint32
+	Lost           uint32
+	Retrans        uint32
+	Fackets        uint32
+	Last_data_sent uint32
+	Last_ack_sent  uint32
+	Last_data_recv uint32
+	Last_ack_recv  uint32
+	Pmtu           uint32
+	Rcv_ssthresh   uint32
+	Rtt            uint32
+	Rttvar         uint32
+	Snd_ssthresh   uint32
+	Snd_cwnd       uint32
+	Advmss         uint32
+	Reordering     uint32
+	Rcv_rtt        uint32
+	Rcv_space      uint32
+	Total_retrans  uint32
+}
+
+const (
+	SizeofSockaddrInet4     = 0x10
+	SizeofSockaddrInet6     = 0x1c
+	SizeofSockaddrAny       = 0x70
+	SizeofSockaddrUnix      = 0x6e
+	SizeofSockaddrLinklayer = 0x14
+	SizeofSockaddrNetlink   = 0xc
+	SizeofSockaddrHCI       = 0x6
+	SizeofSockaddrL2        = 0xe
+	SizeofSockaddrRFCOMM    = 0xa
+	SizeofSockaddrCAN       = 0x10
+	SizeofSockaddrALG       = 0x58
+	SizeofSockaddrVM        = 0x10
+	SizeofSockaddrXDP       = 0x10
+	SizeofLinger            = 0x8
+	SizeofIovec             = 0x10
+	SizeofIPMreq            = 0x8
+	SizeofIPMreqn           = 0xc
+	SizeofIPv6Mreq          = 0x14
+	SizeofPacketMreq        = 0x10
+	SizeofMsghdr            = 0x38
+	SizeofCmsghdr           = 0x10
+	SizeofInet4Pktinfo      = 0xc
+	SizeofInet6Pktinfo      = 0x14
+	SizeofIPv6MTUInfo       = 0x20
+	SizeofICMPv6Filter      = 0x20
+	SizeofUcred             = 0xc
+	SizeofTCPInfo           = 0x68
+>>>>>>> 79bfea2d (update vendor)
 )
 
 const (
 	SizeofSockFprog = 0x10
 )
 
+<<<<<<< HEAD
+=======
+type SockFilter struct {
+	Code uint16
+	Jt   uint8
+	Jf   uint8
+	K    uint32
+}
+
+type SockFprog struct {
+	Len    uint16
+	_      [6]byte
+	Filter *SockFilter
+}
+
+type InotifyEvent struct {
+	Wd     int32
+	Mask   uint32
+	Cookie uint32
+	Len    uint32
+}
+
+const SizeofInotifyEvent = 0x10
+
+>>>>>>> 79bfea2d (update vendor)
 type PtraceRegs struct {
 	Gpr       [32]uint64
 	Nip       uint64
@@ -205,6 +419,7 @@ type Sysinfo_t struct {
 	Freeswap  uint64
 	Procs     uint16
 	Pad       uint16
+	_         [4]byte
 	Totalhigh uint64
 	Freehigh  uint64
 	Unit      uint32
@@ -214,6 +429,7 @@ type Sysinfo_t struct {
 
 type Ustat_t struct {
 	Tfree  int32
+	_      [4]byte
 	Tinode uint64
 	Fname  [6]uint8
 	Fpack  [6]uint8
@@ -235,7 +451,13 @@ type Sigset_t struct {
 	Val [16]uint64
 }
 
+<<<<<<< HEAD
 const _C__NSIG = 0x41
+=======
+const RNDGETENTCNT = 0x40045200
+
+const PERF_IOC_FLAG_GROUP = 0x1
+>>>>>>> 79bfea2d (update vendor)
 
 type Termios struct {
 	Iflag  uint32
@@ -250,9 +472,11 @@ type Termios struct {
 
 type Taskstats struct {
 	Version                   uint16
+	_                         [2]byte
 	Ac_exitcode               uint32
 	Ac_flag                   uint8
 	Ac_nice                   uint8
+	_                         [6]byte
 	Cpu_count                 uint64
 	Cpu_delay_total           uint64
 	Blkio_count               uint64
@@ -270,6 +494,7 @@ type Taskstats struct {
 	Ac_pid                    uint32
 	Ac_ppid                   uint32
 	Ac_btime                  uint32
+	_                         [4]byte
 	Ac_etime                  uint64
 	Ac_utime                  uint64
 	Ac_stime                  uint64
@@ -293,9 +518,12 @@ type Taskstats struct {
 	Cpu_scaled_run_real_total uint64
 	Freepages_count           uint64
 	Freepages_delay_total     uint64
+<<<<<<< HEAD
 	Thrashing_count           uint64
 	Thrashing_delay_total     uint64
 	Ac_btime64                uint64
+=======
+>>>>>>> 79bfea2d (update vendor)
 }
 
 type cpuMask uint64
@@ -381,6 +609,7 @@ type HDGeometry struct {
 	Heads     uint8
 	Sectors   uint8
 	Cylinders uint16
+	_         [4]byte
 	Start     uint64
 }
 
@@ -531,11 +760,19 @@ type CryptoReportHash struct {
 	Digestsize uint32
 }
 
+<<<<<<< HEAD
 type CryptoReportCipher struct {
 	Type        [64]uint8
 	Blocksize   uint32
 	Min_keysize uint32
 	Max_keysize uint32
+=======
+type RTCWkAlrm struct {
+	Enabled uint8
+	Pending uint8
+	_       [2]byte
+	Time    RTCTime
+>>>>>>> 79bfea2d (update vendor)
 }
 
 type CryptoReportBlkCipher struct {
@@ -547,12 +784,21 @@ type CryptoReportBlkCipher struct {
 	Ivsize      uint32
 }
 
+<<<<<<< HEAD
 type CryptoReportAEAD struct {
 	Type        [64]uint8
 	Geniv       [64]uint8
 	Blocksize   uint32
 	Maxauthsize uint32
 	Ivsize      uint32
+=======
+type BlkpgIoctlArg struct {
+	Op      int32
+	Flags   int32
+	Datalen int32
+	_       [4]byte
+	Data    *byte
+>>>>>>> 79bfea2d (update vendor)
 }
 
 type CryptoReportComp struct {
@@ -610,6 +856,7 @@ type TIPCSIOCNodeIDReq struct {
 	Id   [16]uint8
 }
 
+<<<<<<< HEAD
 type PPSKInfo struct {
 	Assert_sequence uint32
 	Clear_sequence  uint32
@@ -624,4 +871,25 @@ const (
 	PPS_SETPARAMS = 0x800870a2
 	PPS_GETCAP    = 0x400870a3
 	PPS_FETCH     = 0xc00870a4
+=======
+const (
+	SOF_TIMESTAMPING_TX_HARDWARE  = 0x1
+	SOF_TIMESTAMPING_TX_SOFTWARE  = 0x2
+	SOF_TIMESTAMPING_RX_HARDWARE  = 0x4
+	SOF_TIMESTAMPING_RX_SOFTWARE  = 0x8
+	SOF_TIMESTAMPING_SOFTWARE     = 0x10
+	SOF_TIMESTAMPING_SYS_HARDWARE = 0x20
+	SOF_TIMESTAMPING_RAW_HARDWARE = 0x40
+	SOF_TIMESTAMPING_OPT_ID       = 0x80
+	SOF_TIMESTAMPING_TX_SCHED     = 0x100
+	SOF_TIMESTAMPING_TX_ACK       = 0x200
+	SOF_TIMESTAMPING_OPT_CMSG     = 0x400
+	SOF_TIMESTAMPING_OPT_TSONLY   = 0x800
+	SOF_TIMESTAMPING_OPT_STATS    = 0x1000
+	SOF_TIMESTAMPING_OPT_PKTINFO  = 0x2000
+	SOF_TIMESTAMPING_OPT_TX_SWHW  = 0x4000
+
+	SOF_TIMESTAMPING_LAST = 0x4000
+	SOF_TIMESTAMPING_MASK = 0x7fff
+>>>>>>> 79bfea2d (update vendor)
 )

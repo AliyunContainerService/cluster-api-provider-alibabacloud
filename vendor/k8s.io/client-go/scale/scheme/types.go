@@ -28,6 +28,7 @@ import (
 // Scale represents a scaling request for a resource.
 type Scale struct {
 	metav1.TypeMeta
+<<<<<<< HEAD
 	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	// +optional
 	metav1.ObjectMeta
@@ -37,6 +38,17 @@ type Scale struct {
 	Spec ScaleSpec
 
 	// current status of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status. Read-only.
+=======
+	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+	// +optional
+	metav1.ObjectMeta
+
+	// defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+	// +optional
+	Spec ScaleSpec
+
+	// current status of the scale. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status. Read-only.
+>>>>>>> 79bfea2d (update vendor)
 	// +optional
 	Status ScaleStatus
 }

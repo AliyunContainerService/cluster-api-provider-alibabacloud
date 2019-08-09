@@ -1,7 +1,12 @@
+<<<<<<< HEAD
+=======
+[![Build Status](https://travis-ci.org/kubernetes-sigs/controller-runtime.svg?branch=master)](https://travis-ci.org/kubernetes-sigs/controller-runtime "Travis")
+>>>>>>> 79bfea2d (update vendor)
 [![Go Report Card](https://goreportcard.com/badge/sigs.k8s.io/controller-runtime)](https://goreportcard.com/report/sigs.k8s.io/controller-runtime)
 
 # Kubernetes controller-runtime Project
 
+<<<<<<< HEAD
 The Kubernetes controller-runtime Project is a set of go libraries for building
 Controllers. It is leveraged by [Kubebuilder](https://book.kubebuilder.io/) and
 [Operator SDK](https://github.com/operator-framework/operator-sdk). Both are
@@ -17,6 +22,17 @@ Documentation:
 - [Creating a controller](https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/controller#example-New)
 - [Examples](https://github.com/kubernetes-sigs/controller-runtime/blob/master/examples)
 - [Designs](https://github.com/kubernetes-sigs/controller-runtime/blob/master/designs)
+=======
+The Kubernetes controller-runtime Project is a set of go libraries for building Controllers.
+
+Documentation:
+
+- [Package overview](https://godoc.org/github.com/kubernetes-sigs/controller-runtime/pkg)
+- [Basic controller using builder](https://godoc.org/github.com/kubernetes-sigs/controller-runtime/pkg/builder#example-Builder)
+- [Creating a manager](https://godoc.org/github.com/kubernetes-sigs/controller-runtime/pkg/manager#example-New)
+- [Creating a controller](https://godoc.org/github.com/kubernetes-sigs/controller-runtime/pkg/controller#example-New)
+- [Examples](https://github.com/kubernetes-sigs/controller-runtime/blob/master/examples)
+>>>>>>> 79bfea2d (update vendor)
 
 # Versioning, Maintenance, and Compatibility
 
@@ -63,3 +79,7 @@ Before starting any work, please either comment on an existing issue, or file a 
 ## Code of conduct
 
 Participation in the Kubernetes community is governed by the [Kubernetes Code of Conduct](code-of-conduct.md).
+<<<<<<< HEAD
+=======
+
+>>>>>>> 79bfea2d (update vendor)

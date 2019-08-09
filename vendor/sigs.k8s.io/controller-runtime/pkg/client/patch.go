@@ -204,7 +204,11 @@ func (p applyPatch) Type() types.PatchType {
 }
 
 // Data implements Patch.
+<<<<<<< HEAD
 func (p applyPatch) Data(obj Object) ([]byte, error) {
+=======
+func (p applyPatch) Data(obj runtime.Object) ([]byte, error) {
+>>>>>>> 79bfea2d (update vendor)
 	// NB(directxman12): we might technically want to be using an actual encoder
 	// here (in case some more performant encoder is introduced) but this is
 	// correct and sufficient for our uses (it's what the JSON serializer in

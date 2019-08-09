@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // Copyright 2017 Google LLC. All Rights Reserved.
+=======
+// Copyright 2017 Google Inc. All Rights Reserved.
+>>>>>>> 79bfea2d (update vendor)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,8 +20,11 @@
 // of JSON Schemas.
 package jsonschema
 
+<<<<<<< HEAD
 import "gopkg.in/yaml.v3"
 
+=======
+>>>>>>> 79bfea2d (update vendor)
 // The Schema struct models a JSON Schema and, because schemas are
 // defined hierarchically, contains many references to itself.
 // All fields are pointers and are nil if the associated values
@@ -68,7 +75,11 @@ type Schema struct {
 	// 6.  Metadata keywords
 	Title       *string
 	Description *string
+<<<<<<< HEAD
 	Default     *yaml.Node
+=======
+	Default     *interface{}
+>>>>>>> 79bfea2d (update vendor)
 
 	// 7.  Semantic validation with "format"
 	Format *string

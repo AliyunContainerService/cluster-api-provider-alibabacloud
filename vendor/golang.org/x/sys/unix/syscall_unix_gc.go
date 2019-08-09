@@ -4,9 +4,13 @@
 
 //go:build (darwin || dragonfly || freebsd || linux || netbsd || openbsd || solaris) && gc && !ppc64le && !ppc64
 // +build darwin dragonfly freebsd linux netbsd openbsd solaris
+<<<<<<< HEAD
 // +build gc
 // +build !ppc64le
 // +build !ppc64
+=======
+// +build !gccgo
+>>>>>>> 79bfea2d (update vendor)
 
 package unix
 

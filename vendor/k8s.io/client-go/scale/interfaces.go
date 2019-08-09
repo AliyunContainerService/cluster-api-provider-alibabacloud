@@ -17,6 +17,7 @@ limitations under the License.
 package scale
 
 import (
+<<<<<<< HEAD
 	"context"
 
 	autoscalingapi "k8s.io/api/autoscaling/v1"
@@ -29,6 +30,15 @@ import (
 type ScalesGetter interface {
 	// Scales produces a ScaleInterface for a particular namespace.
 	// Set namespace to the empty string for non-namespaced resources.
+=======
+	autoscalingapi "k8s.io/api/autoscaling/v1"
+	"k8s.io/apimachinery/pkg/runtime/schema"
+)
+
+// ScalesGetter can produce a ScaleInterface
+// for a particular namespace.
+type ScalesGetter interface {
+>>>>>>> 79bfea2d (update vendor)
 	Scales(namespace string) ScaleInterface
 }
 
@@ -37,6 +47,7 @@ type ScalesGetter interface {
 // the scale subresource.
 type ScaleInterface interface {
 	// Get fetches the scale of the given scalable resource.
+<<<<<<< HEAD
 	Get(ctx context.Context, resource schema.GroupResource, name string, opts metav1.GetOptions) (*autoscalingapi.Scale, error)
 
 	// Update updates the scale of the given scalable resource.
@@ -44,4 +55,10 @@ type ScaleInterface interface {
 
 	// Patch patches the scale of the given scalable resource.
 	Patch(ctx context.Context, gvr schema.GroupVersionResource, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions) (*autoscalingapi.Scale, error)
+=======
+	Get(resource schema.GroupResource, name string) (*autoscalingapi.Scale, error)
+
+	// Update updates the scale of the given scalable resource.
+	Update(resource schema.GroupResource, scale *autoscalingapi.Scale) (*autoscalingapi.Scale, error)
+>>>>>>> 79bfea2d (update vendor)
 }

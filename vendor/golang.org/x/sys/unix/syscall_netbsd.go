@@ -13,7 +13,6 @@
 package unix
 
 import (
-	"runtime"
 	"syscall"
 	"unsafe"
 )
@@ -176,13 +175,6 @@ func setattrlistTimes(path string, times []Timespec, flags int) error {
 
 //sys	sysctl(mib []_C_int, old *byte, oldlen *uintptr, new *byte, newlen uintptr) (err error) = SYS___SYSCTL
 
-func IoctlGetPtmget(fd int, req uint) (*Ptmget, error) {
-	var value Ptmget
-	err := ioctl(fd, req, uintptr(unsafe.Pointer(&value)))
-	runtime.KeepAlive(value)
-	return &value, err
-}
-
 func Uname(uname *Utsname) error {
 	mib := []_C_int{CTL_KERN, KERN_OSTYPE}
 	n := unsafe.Sizeof(uname.Sysname)
@@ -229,6 +221,7 @@ func Uname(uname *Utsname) error {
 	return nil
 }
 
+<<<<<<< HEAD
 func Sendfile(outfd int, infd int, offset *int64, count int) (written int, err error) {
 	if raceenabled {
 		raceReleaseMerge(unsafe.Pointer(&ioSync))
@@ -244,6 +237,8 @@ func Statvfs(path string, buf *Statvfs_t) (err error) {
 	return Statvfs1(path, buf, ST_WAIT)
 }
 
+=======
+>>>>>>> 79bfea2d (update vendor)
 /*
  * Exposed directly
  */

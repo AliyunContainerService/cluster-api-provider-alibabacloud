@@ -12,6 +12,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+<<<<<<< HEAD
 	exec "golang.org/x/sys/execabs"
 	"os"
 	"strings"
@@ -43,6 +44,13 @@ type driverRequest struct {
 }
 
 // findExternalDriver returns the file path of a tool that supplies
+=======
+	"os/exec"
+	"strings"
+)
+
+// findExternalTool returns the file path of a tool that supplies
+>>>>>>> 79bfea2d (update vendor)
 // the build system package structure, or "" if not found."
 // If GOPACKAGESDRIVER is set in the environment findExternalTool returns its
 // value, otherwise it searches for a binary named gopackagesdriver on the PATH.
@@ -65,6 +73,7 @@ func findExternalDriver(cfg *Config) driver {
 		}
 	}
 	return func(cfg *Config, words ...string) (*driverResponse, error) {
+<<<<<<< HEAD
 		req, err := json.Marshal(driverRequest{
 			Mode:       cfg.Mode,
 			Env:        cfg.Env,
@@ -92,6 +101,28 @@ func findExternalDriver(cfg *Config) driver {
 			fmt.Fprintf(os.Stderr, "%s stderr: <<%s>>\n", cmdDebugStr(cmd), stderr)
 		}
 
+=======
+		buf := new(bytes.Buffer)
+		fullargs := []string{
+			"list",
+			fmt.Sprintf("-test=%t", cfg.Tests),
+			fmt.Sprintf("-export=%t", usesExportData(cfg)),
+			fmt.Sprintf("-deps=%t", cfg.Mode >= LoadImports),
+		}
+		for _, f := range cfg.BuildFlags {
+			fullargs = append(fullargs, fmt.Sprintf("-buildflag=%v", f))
+		}
+		fullargs = append(fullargs, "--")
+		fullargs = append(fullargs, words...)
+		cmd := exec.CommandContext(cfg.Context, tool, fullargs...)
+		cmd.Env = cfg.Env
+		cmd.Dir = cfg.Dir
+		cmd.Stdout = buf
+		cmd.Stderr = new(bytes.Buffer)
+		if err := cmd.Run(); err != nil {
+			return nil, fmt.Errorf("%v: %v: %s", tool, err, cmd.Stderr)
+		}
+>>>>>>> 79bfea2d (update vendor)
 		var response driverResponse
 		if err := json.Unmarshal(buf.Bytes(), &response); err != nil {
 			return nil, err

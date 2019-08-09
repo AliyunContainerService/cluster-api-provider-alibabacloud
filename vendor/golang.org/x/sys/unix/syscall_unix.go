@@ -9,6 +9,7 @@ package unix
 
 import (
 	"bytes"
+	"runtime"
 	"sort"
 	"sync"
 	"syscall"
@@ -21,6 +22,13 @@ var (
 	Stdin  = 0
 	Stdout = 1
 	Stderr = 2
+)
+
+const (
+	darwin64Bit    = runtime.GOOS == "darwin" && SizeofPtr == 8
+	dragonfly64Bit = runtime.GOOS == "dragonfly" && SizeofPtr == 8
+	netbsd32Bit    = runtime.GOOS == "netbsd" && SizeofPtr == 4
+	solaris64Bit   = runtime.GOOS == "solaris" && SizeofPtr == 8
 )
 
 // Do the interface allocations only once for common
@@ -382,6 +390,13 @@ func Socketpair(domain, typ, proto int) (fd [2]int, err error) {
 		fd[1] = int(fdx[1])
 	}
 	return
+}
+
+func Sendfile(outfd int, infd int, offset *int64, count int) (written int, err error) {
+	if raceenabled {
+		raceReleaseMerge(unsafe.Pointer(&ioSync))
+	}
+	return sendfile(outfd, infd, offset, count)
 }
 
 var ioSync int64

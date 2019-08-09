@@ -158,6 +158,7 @@ func (c *Controller) Start(ctx context.Context) error {
 		// TODO(pwittrock): Reconsider HandleCrash
 		defer utilruntime.HandleCrash()
 
+<<<<<<< HEAD
 		// NB(directxman12): launch the sources *before* trying to wait for the
 		// caches to sync so that they have a chance to register their intendeded
 		// caches.
@@ -168,6 +169,14 @@ func (c *Controller) Start(ctx context.Context) error {
 				return err
 			}
 		}
+=======
+	// Launch workers to process resources
+	log.Info("Starting workers", "controller", c.Name, "worker count", c.MaxConcurrentReconciles)
+	for i := 0; i < c.MaxConcurrentReconciles; i++ {
+		// Process work items
+		go wait.Until(c.worker, c.JitterPeriod, stop)
+	}
+>>>>>>> 79bfea2d (update vendor)
 
 		// Start the SharedIndexInformer factories to begin populating the SharedIndexInformer caches
 		c.Log.Info("Starting Controller")
@@ -178,6 +187,7 @@ func (c *Controller) Start(ctx context.Context) error {
 				continue
 			}
 
+<<<<<<< HEAD
 			if err := func() error {
 				// use a context with timeout for launching sources and syncing caches.
 				sourceStartCtx, cancel := context.WithTimeout(ctx, c.CacheSyncTimeout)
@@ -228,11 +238,22 @@ func (c *Controller) Start(ctx context.Context) error {
 	wg.Wait()
 	c.Log.Info("All workers finished")
 	return nil
+=======
+// worker runs a worker thread that just dequeues items, processes them, and marks them done.
+// It enforces that the reconcileHandler is never invoked concurrently with the same object.
+func (c *Controller) worker() {
+	for c.processNextWorkItem() {
+	}
+>>>>>>> 79bfea2d (update vendor)
 }
 
 // processNextWorkItem will read a single work item off the workqueue and
 // attempt to process it, by calling the reconcileHandler.
+<<<<<<< HEAD
 func (c *Controller) processNextWorkItem(ctx context.Context) bool {
+=======
+func (c *Controller) processNextWorkItem() bool {
+>>>>>>> 79bfea2d (update vendor)
 	obj, shutdown := c.Queue.Get()
 	if shutdown {
 		// Stop working
@@ -247,6 +268,7 @@ func (c *Controller) processNextWorkItem(ctx context.Context) bool {
 	// period.
 	defer c.Queue.Done(obj)
 
+<<<<<<< HEAD
 	ctrlmetrics.ActiveWorkers.WithLabelValues(c.Name).Add(1)
 	defer ctrlmetrics.ActiveWorkers.WithLabelValues(c.Name).Add(-1)
 
@@ -281,6 +303,21 @@ func (c *Controller) reconcileHandler(ctx context.Context, obj interface{}) {
 	// Make sure that the the object is a valid request.
 	req, ok := obj.(reconcile.Request)
 	if !ok {
+=======
+	return c.reconcileHandler(obj)
+}
+
+func (c *Controller) reconcileHandler(obj interface{}) bool {
+	// Update metrics after processing each item
+	reconcileStartTS := time.Now()
+	defer func() {
+		c.updateMetrics(time.Now().Sub(reconcileStartTS))
+	}()
+
+	var req reconcile.Request
+	var ok bool
+	if req, ok = obj.(reconcile.Request); !ok {
+>>>>>>> 79bfea2d (update vendor)
 		// As the item in the workqueue is actually invalid, we call
 		// Forget here else we'd go into a loop of attempting to
 		// process a work item that is invalid.
@@ -289,11 +326,15 @@ func (c *Controller) reconcileHandler(ctx context.Context, obj interface{}) {
 		// Return true, don't take a break
 		return
 	}
+<<<<<<< HEAD
 
 	log := c.Log.WithValues("name", req.Name, "namespace", req.Namespace)
 	ctx = logf.IntoContext(ctx, log)
 
 	// RunInformersAndControllers the syncHandler, passing it the Namespace/Name string of the
+=======
+	// RunInformersAndControllers the syncHandler, passing it the namespace/Name string of the
+>>>>>>> 79bfea2d (update vendor)
 	// resource to be synced.
 	if result, err := c.Do.Reconcile(ctx, req); err != nil {
 		c.Queue.AddRateLimited(req)

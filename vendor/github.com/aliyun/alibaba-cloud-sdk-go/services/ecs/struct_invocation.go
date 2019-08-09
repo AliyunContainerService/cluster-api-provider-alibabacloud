@@ -17,6 +17,7 @@ package ecs
 
 // Invocation is a nested struct in ecs response
 type Invocation struct {
+<<<<<<< HEAD
 	Name              string                                   `json:"Name" xml:"Name"`
 	PageSize          int64                                    `json:"PageSize" xml:"PageSize"`
 	Timed             bool                                     `json:"Timed" xml:"Timed"`
@@ -45,4 +46,20 @@ type Invocation struct {
 	CommandType       string                                   `json:"CommandType" xml:"CommandType"`
 	InvocationResults InvocationResults                        `json:"InvocationResults" xml:"InvocationResults"`
 	InvokeInstances   InvokeInstancesInDescribeSendFileResults `json:"InvokeInstances" xml:"InvokeInstances"`
+=======
+	CommandId         string            `json:"CommandId" xml:"CommandId"`
+	PageNumber        int64             `json:"PageNumber" xml:"PageNumber"`
+	TotalCount        int64             `json:"TotalCount" xml:"TotalCount"`
+	PageSize          int64             `json:"PageSize" xml:"PageSize"`
+	Timed             bool              `json:"Timed" xml:"Timed"`
+	Frequency         string            `json:"Frequency" xml:"Frequency"`
+	CommandName       string            `json:"CommandName" xml:"CommandName"`
+	Parameters        string            `json:"Parameters" xml:"Parameters"`
+	InvokeId          string            `json:"InvokeId" xml:"InvokeId"`
+	InvokeStatus      string            `json:"InvokeStatus" xml:"InvokeStatus"`
+	CommandContent    string            `json:"CommandContent" xml:"CommandContent"`
+	CommandType       string            `json:"CommandType" xml:"CommandType"`
+	InvocationResults InvocationResults `json:"InvocationResults" xml:"InvocationResults"`
+	InvokeInstances   InvokeInstances   `json:"InvokeInstances" xml:"InvokeInstances"`
+>>>>>>> 79bfea2d (update vendor)
 }

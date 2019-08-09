@@ -18,13 +18,20 @@ package disk
 
 import (
 	"net/http"
+<<<<<<< HEAD
 	"os"
+=======
+>>>>>>> 79bfea2d (update vendor)
 	"path/filepath"
 
 	"github.com/gregjones/httpcache"
 	"github.com/gregjones/httpcache/diskcache"
 	"github.com/peterbourgon/diskv"
+<<<<<<< HEAD
 	"k8s.io/klog/v2"
+=======
+	"k8s.io/klog"
+>>>>>>> 79bfea2d (update vendor)
 )
 
 type cacheRoundTripper struct {
@@ -36,8 +43,11 @@ type cacheRoundTripper struct {
 // corresponding requests.
 func newCacheRoundTripper(cacheDir string, rt http.RoundTripper) http.RoundTripper {
 	d := diskv.New(diskv.Options{
+<<<<<<< HEAD
 		PathPerm: os.FileMode(0750),
 		FilePerm: os.FileMode(0660),
+=======
+>>>>>>> 79bfea2d (update vendor)
 		BasePath: cacheDir,
 		TempDir:  filepath.Join(cacheDir, ".diskv-temp"),
 	})

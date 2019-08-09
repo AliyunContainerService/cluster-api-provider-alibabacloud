@@ -6,6 +6,7 @@ import metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
+<<<<<<< HEAD
 // Authentication specifies cluster-wide settings for authentication (like OAuth and
 // webhook token authenticators). The canonical name of an instance is `cluster`.
 type Authentication struct {
@@ -14,6 +15,15 @@ type Authentication struct {
 
 	// spec holds user settable values for configuration
 	// +kubebuilder:validation:Required
+=======
+// Authentication holds cluster-wide information about Authentication.  The canonical name is `cluster`
+type Authentication struct {
+	metav1.TypeMeta `json:",inline"`
+	// Standard object's metadata.
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+
+	// spec holds user settable values for configuration
+>>>>>>> 79bfea2d (update vendor)
 	// +required
 	Spec AuthenticationSpec `json:"spec"`
 	// status holds observed values from the cluster. They may not be overridden.
@@ -25,7 +35,10 @@ type AuthenticationSpec struct {
 	// type identifies the cluster managed, user facing authentication mode in use.
 	// Specifically, it manages the component that responds to login attempts.
 	// The default is IntegratedOAuth.
+<<<<<<< HEAD
 	// +optional
+=======
+>>>>>>> 79bfea2d (update vendor)
 	Type AuthenticationType `json:"type"`
 
 	// oauthMetadata contains the discovery endpoint data for OAuth 2.0
@@ -43,6 +56,7 @@ type AuthenticationSpec struct {
 	// +optional
 	OAuthMetadata ConfigMapNameReference `json:"oauthMetadata"`
 
+<<<<<<< HEAD
 	// webhookTokenAuthenticators is DEPRECATED, setting it has no effect.
 	WebhookTokenAuthenticators []DeprecatedWebhookTokenAuthenticator `json:"webhookTokenAuthenticators,omitempty"`
 
@@ -64,6 +78,15 @@ type AuthenticationSpec struct {
 	// duration.
 	// +optional
 	ServiceAccountIssuer string `json:"serviceAccountIssuer"`
+=======
+	// webhookTokenAuthenticators configures remote token reviewers.
+	// These remote authentication webhooks can be used to verify bearer tokens
+	// via the tokenreviews.authentication.k8s.io REST API.  This is required to
+	// honor bearer tokens that are provisioned by an external authentication service.
+	// The namespace for these secrets is openshift-config.
+	// +optional
+	WebhookTokenAuthenticators []WebhookTokenAuthenticator `json:"webhookTokenAuthenticators,omitempty"`
+>>>>>>> 79bfea2d (update vendor)
 }
 
 type AuthenticationStatus struct {
@@ -90,6 +113,10 @@ type AuthenticationStatus struct {
 
 type AuthenticationList struct {
 	metav1.TypeMeta `json:",inline"`
+<<<<<<< HEAD
+=======
+	// Standard object's metadata.
+>>>>>>> 79bfea2d (update vendor)
 	metav1.ListMeta `json:"metadata"`
 
 	Items []Authentication `json:"items"`
@@ -111,6 +138,7 @@ const (
 	// AuthenticationTypeKeycloak AuthenticationType = "Keycloak"
 )
 
+<<<<<<< HEAD
 // deprecatedWebhookTokenAuthenticator holds the necessary configuration options for a remote token authenticator.
 // It's the same as WebhookTokenAuthenticator but it's missing the 'required' validation on KubeConfig field.
 type DeprecatedWebhookTokenAuthenticator struct {
@@ -139,6 +167,17 @@ type WebhookTokenAuthenticator struct {
 	// If the specified kube config data is not valid, the webhook is not honored.
 	// +kubebuilder:validation:Required
 	// +required
+=======
+// webhookTokenAuthenticator holds the necessary configuration options for a remote token authenticator
+type WebhookTokenAuthenticator struct {
+	// kubeConfig contains kube config file data which describes how to access the remote webhook service.
+	// For further details, see:
+	// https://kubernetes.io/docs/reference/access-authn-authz/authentication/#webhook-token-authentication
+	// The key "kubeConfig" is used to locate the data.
+	// If the secret or expected key is not found, the webhook is not honored.
+	// If the specified kube config data is not valid, the webhook is not honored.
+	// The namespace for this secret is determined by the point of use.
+>>>>>>> 79bfea2d (update vendor)
 	KubeConfig SecretNameReference `json:"kubeConfig"`
 }
 

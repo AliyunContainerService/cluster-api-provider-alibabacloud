@@ -21,6 +21,7 @@ import (
 	"fmt"
 	"reflect"
 
+<<<<<<< HEAD
 	"k8s.io/apimachinery/pkg/api/equality"
 	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -28,6 +29,12 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/utils/pointer"
+=======
+	"k8s.io/apimachinery/pkg/api/errors"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/runtime/schema"
+>>>>>>> 79bfea2d (update vendor)
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/client/apiutil"
 )
@@ -51,6 +58,7 @@ func newAlreadyOwnedError(Object metav1.Object, Owner metav1.OwnerReference) *Al
 	}
 }
 
+<<<<<<< HEAD
 // SetControllerReference sets owner as a Controller OwnerReference on controlled.
 // This is used for garbage collection of the controlled object and for
 // reconciling the owner object on changes to controlled (with a Watch + EnqueueRequestForOwner).
@@ -58,19 +66,32 @@ func newAlreadyOwnedError(Object metav1.Object, Owner metav1.OwnerReference) *Al
 // there is another OwnerReference with Controller flag set.
 func SetControllerReference(owner, controlled metav1.Object, scheme *runtime.Scheme) error {
 	// Validate the owner.
+=======
+// SetControllerReference sets owner as a Controller OwnerReference on owned.
+// This is used for garbage collection of the owned object and for
+// reconciling the owner object on changes to owned (with a Watch + EnqueueRequestForOwner).
+// Since only one OwnerReference can be a controller, it returns an error if
+// there is another OwnerReference with Controller flag set.
+func SetControllerReference(owner, object metav1.Object, scheme *runtime.Scheme) error {
+>>>>>>> 79bfea2d (update vendor)
 	ro, ok := owner.(runtime.Object)
 	if !ok {
 		return fmt.Errorf("%T is not a runtime.Object, cannot call SetControllerReference", owner)
 	}
+<<<<<<< HEAD
 	if err := validateOwner(owner, controlled); err != nil {
 		return err
 	}
 
 	// Create a new controller ref.
+=======
+
+>>>>>>> 79bfea2d (update vendor)
 	gvk, err := apiutil.GVKForObject(ro, scheme)
 	if err != nil {
 		return err
 	}
+<<<<<<< HEAD
 	ref := metav1.OwnerReference{
 		APIVersion:         gvk.GroupVersion().String(),
 		Kind:               gvk.Kind,
@@ -153,6 +174,29 @@ func validateOwner(owner, object metav1.Object) error {
 			return fmt.Errorf("cross-namespace owner references are disallowed, owner's namespace %s, obj's namespace %s", owner.GetNamespace(), object.GetNamespace())
 		}
 	}
+=======
+
+	// Create a new ref
+	ref := *metav1.NewControllerRef(owner, schema.GroupVersionKind{Group: gvk.Group, Version: gvk.Version, Kind: gvk.Kind})
+
+	existingRefs := object.GetOwnerReferences()
+	fi := -1
+	for i, r := range existingRefs {
+		if referSameObject(ref, r) {
+			fi = i
+		} else if r.Controller != nil && *r.Controller {
+			return newAlreadyOwnedError(object, r)
+		}
+	}
+	if fi == -1 {
+		existingRefs = append(existingRefs, ref)
+	} else {
+		existingRefs[fi] = ref
+	}
+
+	// Update owner references
+	object.SetOwnerReferences(existingRefs)
+>>>>>>> 79bfea2d (update vendor)
 	return nil
 }
 
@@ -168,7 +212,11 @@ func referSameObject(a, b metav1.OwnerReference) bool {
 		return false
 	}
 
+<<<<<<< HEAD
 	return aGV.Group == bGV.Group && a.Kind == b.Kind && a.Name == b.Name
+=======
+	return aGV == bGV && a.Kind == b.Kind && a.Name == b.Name
+>>>>>>> 79bfea2d (update vendor)
 }
 
 // OperationResult is the action result of a CreateOrUpdate call
@@ -181,10 +229,13 @@ const ( // They should complete the sentence "Deployment default/foo has been ..
 	OperationResultCreated OperationResult = "created"
 	// OperationResultUpdated means that an existing resource is updated
 	OperationResultUpdated OperationResult = "updated"
+<<<<<<< HEAD
 	// OperationResultUpdatedStatus means that an existing resource and its status is updated
 	OperationResultUpdatedStatus OperationResult = "updatedStatus"
 	// OperationResultUpdatedStatusOnly means that only an existing status is updated
 	OperationResultUpdatedStatusOnly OperationResult = "updatedStatusOnly"
+=======
+>>>>>>> 79bfea2d (update vendor)
 )
 
 // CreateOrUpdate creates or updates the given object in the Kubernetes
@@ -194,8 +245,17 @@ const ( // They should complete the sentence "Deployment default/foo has been ..
 // The MutateFn is called regardless of creating or updating an object.
 //
 // It returns the executed operation and an error.
+<<<<<<< HEAD
 func CreateOrUpdate(ctx context.Context, c client.Client, obj client.Object, f MutateFn) (OperationResult, error) {
 	key := client.ObjectKeyFromObject(obj)
+=======
+func CreateOrUpdate(ctx context.Context, c client.Client, obj runtime.Object, f MutateFn) (OperationResult, error) {
+	key, err := client.ObjectKeyFromObject(obj)
+	if err != nil {
+		return OperationResultNone, err
+	}
+
+>>>>>>> 79bfea2d (update vendor)
 	if err := c.Get(ctx, key, obj); err != nil {
 		if !errors.IsNotFound(err) {
 			return OperationResultNone, err
@@ -214,7 +274,11 @@ func CreateOrUpdate(ctx context.Context, c client.Client, obj client.Object, f M
 		return OperationResultNone, err
 	}
 
+<<<<<<< HEAD
 	if equality.Semantic.DeepEqual(existing, obj) {
+=======
+	if reflect.DeepEqual(existing, obj) {
+>>>>>>> 79bfea2d (update vendor)
 		return OperationResultNone, nil
 	}
 
@@ -224,6 +288,7 @@ func CreateOrUpdate(ctx context.Context, c client.Client, obj client.Object, f M
 	return OperationResultUpdated, nil
 }
 
+<<<<<<< HEAD
 // CreateOrPatch creates or patches the given object in the Kubernetes
 // cluster. The object's desired state must be reconciled with the before
 // state inside the passed in callback MutateFn.
@@ -342,6 +407,14 @@ func mutate(f MutateFn, key client.ObjectKey, obj client.Object) error {
 		return err
 	}
 	if newKey := client.ObjectKeyFromObject(obj); key != newKey {
+=======
+// mutate wraps a MutateFn and applies validation to its result
+func mutate(f MutateFn, key client.ObjectKey, obj runtime.Object) error {
+	if err := f(); err != nil {
+		return err
+	}
+	if newKey, err := client.ObjectKeyFromObject(obj); err != nil || key != newKey {
+>>>>>>> 79bfea2d (update vendor)
 		return fmt.Errorf("MutateFn cannot mutate object name and/or object namespace")
 	}
 	return nil
@@ -349,6 +422,7 @@ func mutate(f MutateFn, key client.ObjectKey, obj client.Object) error {
 
 // MutateFn is a function which mutates the existing object into it's desired state.
 type MutateFn func() error
+<<<<<<< HEAD
 
 // AddFinalizer accepts an Object and adds the provided finalizer if not present.
 func AddFinalizer(o client.Object, finalizer string) {
@@ -389,3 +463,5 @@ func ContainsFinalizer(o client.Object, finalizer string) bool {
 //
 // Deprecated: Use client.Object instead.
 type Object = client.Object
+=======
+>>>>>>> 79bfea2d (update vendor)

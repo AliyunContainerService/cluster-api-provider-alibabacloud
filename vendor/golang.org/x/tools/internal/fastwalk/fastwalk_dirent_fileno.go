@@ -2,7 +2,10 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+<<<<<<< HEAD
 //go:build freebsd || openbsd || netbsd
+=======
+>>>>>>> 79bfea2d (update vendor)
 // +build freebsd openbsd netbsd
 
 package fastwalk

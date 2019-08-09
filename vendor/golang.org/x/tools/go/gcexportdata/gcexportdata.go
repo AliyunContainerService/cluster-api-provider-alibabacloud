@@ -16,7 +16,11 @@
 // time before the Go 1.8 release and rebuild and redeploy their
 // developer tools, which will then be able to consume both Go 1.7 and
 // Go 1.8 export data files, so they will work before and after the
+<<<<<<< HEAD
 // Go update. (See discussion at https://golang.org/issue/15651.)
+=======
+// Go update. (See discussion at https://github.com/golang/go/issues/15651.)
+>>>>>>> 79bfea2d (update vendor)
 //
 package gcexportdata // import "golang.org/x/tools/go/gcexportdata"
 
@@ -100,6 +104,7 @@ func Read(in io.Reader, fset *token.FileSet, imports map[string]*types.Package, 
 // Write writes encoded type information for the specified package to out.
 // The FileSet provides file position information for named objects.
 func Write(out io.Writer, fset *token.FileSet, pkg *types.Package) error {
+<<<<<<< HEAD
 	if _, err := io.WriteString(out, "i"); err != nil {
 		return err
 	}
@@ -130,4 +135,12 @@ func ReadBundle(in io.Reader, fset *token.FileSet, imports map[string]*types.Pac
 // Experimental: This API is experimental and may change in the future.
 func WriteBundle(out io.Writer, fset *token.FileSet, pkgs []*types.Package) error {
 	return gcimporter.IExportBundle(out, fset, pkgs)
+=======
+	b, err := gcimporter.BExportData(fset, pkg)
+	if err != nil {
+		return err
+	}
+	_, err = out.Write(b)
+	return err
+>>>>>>> 79bfea2d (update vendor)
 }

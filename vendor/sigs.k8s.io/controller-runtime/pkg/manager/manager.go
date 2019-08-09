@@ -59,10 +59,35 @@ type Manager interface {
 	// non-leaderelection mode (always running) or leader election mode (managed by leader election if enabled).
 	Add(Runnable) error
 
+<<<<<<< HEAD
 	// Elected is closed when this manager is elected leader of a group of
 	// managers, either because it won a leader election or because no leader
 	// election was configured.
 	Elected() <-chan struct{}
+=======
+	// SetFields will set any dependencies on an object for which the object has implemented the inject
+	// interface - e.g. inject.Client.
+	SetFields(interface{}) error
+
+	// Start starts all registered Controllers and blocks until the Stop channel is closed.
+	// Returns an error if there is an error starting any controller.
+	Start(<-chan struct{}) error
+
+	// GetConfig returns an initialized Config
+	GetConfig() *rest.Config
+
+	// GetScheme returns an initialized Scheme
+	GetScheme() *runtime.Scheme
+
+	// GetClient returns a client configured with the Config. This client may
+	// not be a fully "direct" client -- it may read from a cache, for
+	// instance.  See Options.NewClient for more information on how the default
+	// implementation works.
+	GetClient() client.Client
+
+	// GetFieldIndexer returns a client.FieldIndexer configured with the client
+	GetFieldIndexer() client.FieldIndexer
+>>>>>>> 79bfea2d (update vendor)
 
 	// AddMetricsExtraHandler adds an extra handler served on path to the http server that serves metrics.
 	// Might be useful to register some diagnostic endpoints e.g. pprof. Note that these endpoints meant to be

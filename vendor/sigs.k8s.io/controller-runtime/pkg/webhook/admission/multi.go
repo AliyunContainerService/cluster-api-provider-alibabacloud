@@ -22,8 +22,13 @@ import (
 	"fmt"
 	"net/http"
 
+<<<<<<< HEAD
 	jsonpatch "gomodules.xyz/jsonpatch/v2"
 	admissionv1 "k8s.io/api/admission/v1"
+=======
+	"gomodules.xyz/jsonpatch/v2"
+	admissionv1beta1 "k8s.io/api/admission/v1beta1"
+>>>>>>> 79bfea2d (update vendor)
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"sigs.k8s.io/controller-runtime/pkg/runtime/inject"

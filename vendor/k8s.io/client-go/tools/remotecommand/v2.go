@@ -142,10 +142,13 @@ func (p *streamProtocolV2) copyStdout(wg *sync.WaitGroup) {
 	go func() {
 		defer runtime.HandleCrash()
 		defer wg.Done()
+<<<<<<< HEAD
 		// make sure, packet in queue can be consumed.
 		// block in queue may lead to deadlock in conn.server
 		// issue: https://github.com/kubernetes/kubernetes/issues/96339
 		defer io.Copy(ioutil.Discard, p.remoteStdout)
+=======
+>>>>>>> 79bfea2d (update vendor)
 
 		if _, err := io.Copy(p.Stdout, p.remoteStdout); err != nil {
 			runtime.HandleError(err)
@@ -162,7 +165,10 @@ func (p *streamProtocolV2) copyStderr(wg *sync.WaitGroup) {
 	go func() {
 		defer runtime.HandleCrash()
 		defer wg.Done()
+<<<<<<< HEAD
 		defer io.Copy(ioutil.Discard, p.remoteStderr)
+=======
+>>>>>>> 79bfea2d (update vendor)
 
 		if _, err := io.Copy(p.Stderr, p.remoteStderr); err != nil {
 			runtime.HandleError(err)

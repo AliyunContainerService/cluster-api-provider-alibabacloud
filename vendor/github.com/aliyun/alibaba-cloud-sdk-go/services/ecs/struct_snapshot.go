@@ -17,6 +17,7 @@ package ecs
 
 // Snapshot is a nested struct in ecs response
 type Snapshot struct {
+<<<<<<< HEAD
 	Category                   string                  `json:"Category" xml:"Category"`
 	Usage                      string                  `json:"Usage" xml:"Usage"`
 	SourceDiskSize             string                  `json:"SourceDiskSize" xml:"SourceDiskSize"`
@@ -41,4 +42,24 @@ type Snapshot struct {
 	SourceDiskType             string                  `json:"SourceDiskType" xml:"SourceDiskType"`
 	SnapshotName               string                  `json:"SnapshotName" xml:"SnapshotName"`
 	Tags                       TagsInDescribeSnapshots `json:"Tags" xml:"Tags"`
+=======
+	SnapshotId        string                  `json:"SnapshotId" xml:"SnapshotId"`
+	SnapshotName      string                  `json:"SnapshotName" xml:"SnapshotName"`
+	Progress          string                  `json:"Progress" xml:"Progress"`
+	ProductCode       string                  `json:"ProductCode" xml:"ProductCode"`
+	SourceDiskId      string                  `json:"SourceDiskId" xml:"SourceDiskId"`
+	SourceDiskType    string                  `json:"SourceDiskType" xml:"SourceDiskType"`
+	RetentionDays     int                     `json:"RetentionDays" xml:"RetentionDays"`
+	Encrypted         bool                    `json:"Encrypted" xml:"Encrypted"`
+	SourceDiskSize    string                  `json:"SourceDiskSize" xml:"SourceDiskSize"`
+	Description       string                  `json:"Description" xml:"Description"`
+	CreationTime      string                  `json:"CreationTime" xml:"CreationTime"`
+	Status            string                  `json:"Status" xml:"Status"`
+	Usage             string                  `json:"Usage" xml:"Usage"`
+	SourceStorageType string                  `json:"SourceStorageType" xml:"SourceStorageType"`
+	RemainTime        int                     `json:"RemainTime" xml:"RemainTime"`
+	ResourceGroupId   string                  `json:"ResourceGroupId" xml:"ResourceGroupId"`
+	KMSKeyId          string                  `json:"KMSKeyId" xml:"KMSKeyId"`
+	Tags              TagsInDescribeSnapshots `json:"Tags" xml:"Tags"`
+>>>>>>> 79bfea2d (update vendor)
 }

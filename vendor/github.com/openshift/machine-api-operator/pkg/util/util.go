@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Copyright 2017 The Kubernetes Authors.
 
@@ -34,4 +35,25 @@ func Contains(list []string, strToSearch string) bool {
 		}
 	}
 	return false
+=======
+package util
+
+import (
+	"fmt"
+	"io/ioutil"
+	"strings"
+)
+
+// ServiceAccountNamespaceFile contains path to the file that contains namespace
+const ServiceAccountNamespaceFile = "/var/run/secrets/kubernetes.io/serviceaccount/namespace"
+
+// GetNamespace returns the namespace of the pod where the code is running
+func GetNamespace(namespaceFile string) (string, error) {
+	data, err := ioutil.ReadFile(namespaceFile)
+	if err != nil {
+		return "", fmt.Errorf("failed to determine namespace from %s: %v", namespaceFile, err)
+	}
+
+	return strings.TrimSpace(string(data)), nil
+>>>>>>> 79bfea2d (update vendor)
 }

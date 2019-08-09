@@ -393,6 +393,7 @@ func handleStruct(request AcsRequest, dataValue reflect.Value, prefix, name, fie
 						return
 					}
 				}
+<<<<<<< HEAD
 			} else {
 				if elementValue.Type().Kind().String() == "string" {
 					value := elementValue.String()
@@ -417,6 +418,8 @@ func handleStruct(request AcsRequest, dataValue reflect.Value, prefix, name, fie
 						}
 					}
 				}
+=======
+>>>>>>> 79bfea2d (update vendor)
 			}
 		}
 	}

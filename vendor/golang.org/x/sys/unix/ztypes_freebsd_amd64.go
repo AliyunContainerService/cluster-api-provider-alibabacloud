@@ -450,7 +450,7 @@ type Kevent_t struct {
 }
 
 type FdSet struct {
-	Bits [16]uint64
+	_ [16]uint64
 }
 
 const (

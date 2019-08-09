@@ -39,10 +39,15 @@ func Resource(resource string) schema.GroupResource {
 }
 
 var (
+<<<<<<< HEAD
 	// SchemeBuilder points to a list of functions added to Scheme.
 	SchemeBuilder = runtime.NewSchemeBuilder(addKnownTypes)
 	// AddToScheme applies all the stored functions to the scheme.
 	AddToScheme = SchemeBuilder.AddToScheme
+=======
+	SchemeBuilder = runtime.NewSchemeBuilder(addKnownTypes)
+	AddToScheme   = SchemeBuilder.AddToScheme
+>>>>>>> 79bfea2d (update vendor)
 )
 
 // Adds the list of known types to api.Scheme.

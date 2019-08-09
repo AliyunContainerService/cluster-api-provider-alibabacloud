@@ -178,10 +178,26 @@ func (c *client) RESTMapper() meta.RESTMapper {
 	return c.mapper
 }
 
+// resetGroupVersionKind is a helper function to restore and preserve GroupVersionKind on an object.
+// TODO(vincepri): Remove this function and its calls once    controller-runtime dependencies are upgraded to 1.15.
+func (c *client) resetGroupVersionKind(obj runtime.Object, gvk schema.GroupVersionKind) {
+	if gvk != schema.EmptyObjectKind.GroupVersionKind() {
+		if v, ok := obj.(schema.ObjectKind); ok {
+			v.SetGroupVersionKind(gvk)
+		}
+	}
+}
+
 // Create implements client.Client
+<<<<<<< HEAD
 func (c *client) Create(ctx context.Context, obj Object, opts ...CreateOption) error {
 	switch obj.(type) {
 	case *unstructured.Unstructured:
+=======
+func (c *client) Create(ctx context.Context, obj runtime.Object, opts ...CreateOption) error {
+	_, ok := obj.(*unstructured.Unstructured)
+	if ok {
+>>>>>>> 79bfea2d (update vendor)
 		return c.unstructuredClient.Create(ctx, obj, opts...)
 	case *metav1.PartialObjectMetadata:
 		return fmt.Errorf("cannot create using only metadata")
@@ -191,10 +207,17 @@ func (c *client) Create(ctx context.Context, obj Object, opts ...CreateOption) e
 }
 
 // Update implements client.Client
+<<<<<<< HEAD
 func (c *client) Update(ctx context.Context, obj Object, opts ...UpdateOption) error {
 	defer c.resetGroupVersionKind(obj, obj.GetObjectKind().GroupVersionKind())
 	switch obj.(type) {
 	case *unstructured.Unstructured:
+=======
+func (c *client) Update(ctx context.Context, obj runtime.Object, opts ...UpdateOption) error {
+	defer c.resetGroupVersionKind(obj, obj.GetObjectKind().GroupVersionKind())
+	_, ok := obj.(*unstructured.Unstructured)
+	if ok {
+>>>>>>> 79bfea2d (update vendor)
 		return c.unstructuredClient.Update(ctx, obj, opts...)
 	case *metav1.PartialObjectMetadata:
 		return fmt.Errorf("cannot update using only metadata -- did you mean to patch?")
@@ -204,9 +227,15 @@ func (c *client) Update(ctx context.Context, obj Object, opts ...UpdateOption) e
 }
 
 // Delete implements client.Client
+<<<<<<< HEAD
 func (c *client) Delete(ctx context.Context, obj Object, opts ...DeleteOption) error {
 	switch obj.(type) {
 	case *unstructured.Unstructured:
+=======
+func (c *client) Delete(ctx context.Context, obj runtime.Object, opts ...DeleteOption) error {
+	_, ok := obj.(*unstructured.Unstructured)
+	if ok {
+>>>>>>> 79bfea2d (update vendor)
 		return c.unstructuredClient.Delete(ctx, obj, opts...)
 	case *metav1.PartialObjectMetadata:
 		return c.metadataClient.Delete(ctx, obj, opts...)
@@ -227,11 +256,27 @@ func (c *client) DeleteAllOf(ctx context.Context, obj Object, opts ...DeleteAllO
 	}
 }
 
+// DeleteAllOf implements client.Client
+func (c *client) DeleteAllOf(ctx context.Context, obj runtime.Object, opts ...DeleteAllOfOption) error {
+	_, ok := obj.(*unstructured.Unstructured)
+	if ok {
+		return c.unstructuredClient.DeleteAllOf(ctx, obj, opts...)
+	}
+	return c.typedClient.DeleteAllOf(ctx, obj, opts...)
+}
+
 // Patch implements client.Client
+<<<<<<< HEAD
 func (c *client) Patch(ctx context.Context, obj Object, patch Patch, opts ...PatchOption) error {
 	defer c.resetGroupVersionKind(obj, obj.GetObjectKind().GroupVersionKind())
 	switch obj.(type) {
 	case *unstructured.Unstructured:
+=======
+func (c *client) Patch(ctx context.Context, obj runtime.Object, patch Patch, opts ...PatchOption) error {
+	defer c.resetGroupVersionKind(obj, obj.GetObjectKind().GroupVersionKind())
+	_, ok := obj.(*unstructured.Unstructured)
+	if ok {
+>>>>>>> 79bfea2d (update vendor)
 		return c.unstructuredClient.Patch(ctx, obj, patch, opts...)
 	case *metav1.PartialObjectMetadata:
 		return c.metadataClient.Patch(ctx, obj, patch, opts...)
@@ -255,9 +300,15 @@ func (c *client) Get(ctx context.Context, key ObjectKey, obj Object) error {
 }
 
 // List implements client.Client
+<<<<<<< HEAD
 func (c *client) List(ctx context.Context, obj ObjectList, opts ...ListOption) error {
 	switch x := obj.(type) {
 	case *unstructured.UnstructuredList:
+=======
+func (c *client) List(ctx context.Context, obj runtime.Object, opts ...ListOption) error {
+	_, ok := obj.(*unstructured.UnstructuredList)
+	if ok {
+>>>>>>> 79bfea2d (update vendor)
 		return c.unstructuredClient.List(ctx, obj, opts...)
 	case *metav1.PartialObjectMetadataList:
 		// Metadata only object should always preserve the GVK.
@@ -302,10 +353,17 @@ type statusWriter struct {
 var _ StatusWriter = &statusWriter{}
 
 // Update implements client.StatusWriter
+<<<<<<< HEAD
 func (sw *statusWriter) Update(ctx context.Context, obj Object, opts ...UpdateOption) error {
 	defer sw.client.resetGroupVersionKind(obj, obj.GetObjectKind().GroupVersionKind())
 	switch obj.(type) {
 	case *unstructured.Unstructured:
+=======
+func (sw *statusWriter) Update(ctx context.Context, obj runtime.Object, opts ...UpdateOption) error {
+	defer sw.client.resetGroupVersionKind(obj, obj.GetObjectKind().GroupVersionKind())
+	_, ok := obj.(*unstructured.Unstructured)
+	if ok {
+>>>>>>> 79bfea2d (update vendor)
 		return sw.client.unstructuredClient.UpdateStatus(ctx, obj, opts...)
 	case *metav1.PartialObjectMetadata:
 		return fmt.Errorf("cannot update status using only metadata -- did you mean to patch?")
@@ -315,10 +373,17 @@ func (sw *statusWriter) Update(ctx context.Context, obj Object, opts ...UpdateOp
 }
 
 // Patch implements client.Client
+<<<<<<< HEAD
 func (sw *statusWriter) Patch(ctx context.Context, obj Object, patch Patch, opts ...PatchOption) error {
 	defer sw.client.resetGroupVersionKind(obj, obj.GetObjectKind().GroupVersionKind())
 	switch obj.(type) {
 	case *unstructured.Unstructured:
+=======
+func (sw *statusWriter) Patch(ctx context.Context, obj runtime.Object, patch Patch, opts ...PatchOption) error {
+	defer sw.client.resetGroupVersionKind(obj, obj.GetObjectKind().GroupVersionKind())
+	_, ok := obj.(*unstructured.Unstructured)
+	if ok {
+>>>>>>> 79bfea2d (update vendor)
 		return sw.client.unstructuredClient.PatchStatus(ctx, obj, patch, opts...)
 	case *metav1.PartialObjectMetadata:
 		return sw.client.metadataClient.PatchStatus(ctx, obj, patch, opts...)

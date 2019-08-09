@@ -5,6 +5,7 @@ import metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 // +genclient
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+<<<<<<< HEAD
 // +kubebuilder:subresource:status
 
 // Infrastructure holds cluster-wide information about Infrastructure.  The canonical name is `cluster`
@@ -14,6 +15,16 @@ type Infrastructure struct {
 
 	// spec holds user settable values for configuration
 	// +kubebuilder:validation:Required
+=======
+
+// Infrastructure holds cluster-wide information about Infrastructure.  The canonical name is `cluster`
+type Infrastructure struct {
+	metav1.TypeMeta `json:",inline"`
+	// Standard object's metadata.
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+
+	// spec holds user settable values for configuration
+>>>>>>> 79bfea2d (update vendor)
 	// +required
 	Spec InfrastructureSpec `json:"spec"`
 	// status holds observed values from the cluster. They may not be overridden.
@@ -27,6 +38,7 @@ type InfrastructureSpec struct {
 	// This configuration file is used to configure the Kubernetes cloud provider integration
 	// when using the built-in cloud provider integration or the external cloud controller manager.
 	// The namespace for this config map is openshift-config.
+<<<<<<< HEAD
 	//
 	// cloudConfig should only be consumed by the kube_cloud_config controller.
 	// The controller is responsible for using the user configuration in the spec
@@ -42,6 +54,10 @@ type InfrastructureSpec struct {
 	// platformSpec holds desired information specific to the underlying
 	// infrastructure provider.
 	PlatformSpec PlatformSpec `json:"platformSpec,omitempty"`
+=======
+	// +optional
+	CloudConfig ConfigMapFileReference `json:"cloudConfig"`
+>>>>>>> 79bfea2d (update vendor)
 }
 
 // InfrastructureStatus describes the infrastructure the cluster is leveraging.
@@ -64,6 +80,7 @@ type InfrastructureStatus struct {
 	// etcdDiscoveryDomain is the domain used to fetch the SRV records for discovering
 	// etcd servers and clients.
 	// For more info: https://github.com/etcd-io/etcd/blob/329be66e8b3f9e2e6af83c123ff89297e49ebd15/Documentation/op-guide/clustering.md#dns-discovery
+<<<<<<< HEAD
 	// deprecated: as of 4.7, this field is no longer set or honored.  It will be removed in a future release.
 	EtcdDiscoveryDomain string `json:"etcdDiscoveryDomain"`
 
@@ -109,6 +126,23 @@ const (
 
 // PlatformType is a specific supported infrastructure provider.
 // +kubebuilder:validation:Enum="";AWS;Azure;BareMetal;GCP;Libvirt;OpenStack;None;VSphere;oVirt;IBMCloud;KubeVirt;EquinixMetal
+=======
+	EtcdDiscoveryDomain string `json:"etcdDiscoveryDomain"`
+
+	// apiServerURL is a valid URI with scheme(http/https), address and
+	// port.  apiServerURL can be used by components like the web console
+	// to tell users where to find the Kubernetes API.
+	APIServerURL string `json:"apiServerURL"`
+
+	// apiServerInternalURL is a valid URI with scheme(http/https),
+	// address and port.  apiServerInternalURL can be used by components
+	// like kubelets, to contact the Kubernetes API server using the
+	// infrastructure provider rather than Kubernetes networking.
+	APIServerInternalURL string `json:"apiServerInternalURI"`
+}
+
+// PlatformType is a specific supported infrastructure provider.
+>>>>>>> 79bfea2d (update vendor)
 type PlatformType string
 
 const (
@@ -135,6 +169,7 @@ const (
 
 	// VSpherePlatformType represents VMWare vSphere infrastructure.
 	VSpherePlatformType PlatformType = "VSphere"
+<<<<<<< HEAD
 
 	// OvirtPlatformType represents oVirt/RHV infrastructure.
 	OvirtPlatformType PlatformType = "oVirt"
@@ -217,6 +252,10 @@ type PlatformSpec struct {
 	EquinixMetal *EquinixMetalPlatformSpec `json:"equinixMetal,omitempty"`
 }
 
+=======
+)
+
+>>>>>>> 79bfea2d (update vendor)
 // PlatformStatus holds the current status specific to the underlying infrastructure provider
 // of the current cluster. Since these are used at status-level for the underlying cluster, it
 // is supposed that only one of the status structs is set.
@@ -226,17 +265,24 @@ type PlatformStatus struct {
 	// balancers, dynamic volume provisioning, machine creation and deletion, and
 	// other integrations are enabled. If None, no infrastructure automation is
 	// enabled. Allowed values are "AWS", "Azure", "BareMetal", "GCP", "Libvirt",
+<<<<<<< HEAD
 	// "OpenStack", "VSphere", "oVirt", "EquinixMetal", and "None". Individual components may not support
 	// all platforms, and must handle unrecognized platforms as None if they do
 	// not support that platform.
 	//
 	// This value will be synced with to the `status.platform` and `status.platformStatus.type`.
 	// Currently this value cannot be changed once set.
+=======
+	// "OpenStack", "VSphere", and "None". Individual components may not support
+	// all platforms, and must handle unrecognized platforms as None if they do
+	// not support that platform.
+>>>>>>> 79bfea2d (update vendor)
 	Type PlatformType `json:"type"`
 
 	// AWS contains settings specific to the Amazon Web Services infrastructure provider.
 	// +optional
 	AWS *AWSPlatformStatus `json:"aws,omitempty"`
+<<<<<<< HEAD
 
 	// Azure contains settings specific to the Azure infrastructure provider.
 	// +optional
@@ -301,12 +347,15 @@ type AWSPlatformSpec struct {
 	// There must be only one ServiceEndpoint for a service.
 	// +optional
 	ServiceEndpoints []AWSServiceEndpoint `json:"serviceEndpoints,omitempty"`
+=======
+>>>>>>> 79bfea2d (update vendor)
 }
 
 // AWSPlatformStatus holds the current status of the Amazon Web Services infrastructure provider.
 type AWSPlatformStatus struct {
 	// region holds the default AWS region for new AWS resources created by the cluster.
 	Region string `json:"region"`
+<<<<<<< HEAD
 
 	// ServiceEndpoints list contains custom endpoints which will override default
 	// service endpoint of AWS Services.
@@ -544,6 +593,8 @@ type EquinixMetalPlatformStatus struct {
 	// ingressIP is an external IP which routes to the default ingress controller.
 	// The IP is a suitable target of a wildcard DNS record used to resolve default route host names.
 	IngressIP string `json:"ingressIP,omitempty"`
+=======
+>>>>>>> 79bfea2d (update vendor)
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
@@ -551,7 +602,13 @@ type EquinixMetalPlatformStatus struct {
 // InfrastructureList is
 type InfrastructureList struct {
 	metav1.TypeMeta `json:",inline"`
+<<<<<<< HEAD
 	metav1.ListMeta `json:"metadata"`
 
 	Items []Infrastructure `json:"items"`
+=======
+	// Standard object's metadata.
+	metav1.ListMeta `json:"metadata"`
+	Items           []Infrastructure `json:"items"`
+>>>>>>> 79bfea2d (update vendor)
 }

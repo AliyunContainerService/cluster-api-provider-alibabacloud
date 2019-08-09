@@ -210,13 +210,20 @@ func (item *primitiveItem) VisitPrimitive(schema *proto.Primitive) {
 		}
 	case proto.Number:
 		switch item.Kind {
+<<<<<<< HEAD
 		case proto.Integer, proto.Number:
+=======
+		case proto.Number:
+>>>>>>> 79bfea2d (update vendor)
 			return
 		}
 	case proto.String:
 		return
 	}
+<<<<<<< HEAD
 	// TODO(wrong): this misses "null"
+=======
+>>>>>>> 79bfea2d (update vendor)
 
 	item.AddValidationError(InvalidTypeError{Path: schema.GetPath().String(), Expected: schema.Type, Actual: item.Kind})
 }

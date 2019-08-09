@@ -22,7 +22,11 @@ import (
 	"net/http"
 	"net/url"
 
+<<<<<<< HEAD
 	"k8s.io/klog/v2"
+=======
+	"k8s.io/klog"
+>>>>>>> 79bfea2d (update vendor)
 
 	"k8s.io/apimachinery/pkg/util/httpstream"
 	"k8s.io/apimachinery/pkg/util/remotecommand"

@@ -17,8 +17,11 @@ type ConfigMapFileReference struct {
 // The namespace must be specified at the point of use.
 type ConfigMapNameReference struct {
 	// name is the metadata.name of the referenced config map
+<<<<<<< HEAD
 	// +kubebuilder:validation:Required
 	// +required
+=======
+>>>>>>> 79bfea2d (update vendor)
 	Name string `json:"name"`
 }
 
@@ -26,8 +29,11 @@ type ConfigMapNameReference struct {
 // The namespace must be specified at the point of use.
 type SecretNameReference struct {
 	// name is the metadata.name of the referenced secret
+<<<<<<< HEAD
 	// +kubebuilder:validation:Required
 	// +required
+=======
+>>>>>>> 79bfea2d (update vendor)
 	Name string `json:"name"`
 }
 
@@ -167,7 +173,10 @@ type AdmissionPluginConfig struct {
 	// Configuration is an embedded configuration object to be used as the plugin's
 	// configuration. If present, it will be used instead of the path to the configuration file.
 	// +nullable
+<<<<<<< HEAD
 	// +kubebuilder:pruning:PreserveUnknownFields
+=======
+>>>>>>> 79bfea2d (update vendor)
 	Configuration runtime.RawExtension `json:"configuration"`
 }
 
@@ -211,7 +220,10 @@ type AuditConfig struct {
 	// as the audit policy configuration. If present, it will be used instead of
 	// the path to the policy file.
 	// +nullable
+<<<<<<< HEAD
 	// +kubebuilder:pruning:PreserveUnknownFields
+=======
+>>>>>>> 79bfea2d (update vendor)
 	PolicyConfiguration runtime.RawExtension `json:"policyConfiguration"`
 
 	// Format of saved audits (legacy or json).

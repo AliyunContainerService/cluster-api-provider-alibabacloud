@@ -86,6 +86,7 @@ type controllerManager struct {
 	// metricsListener is used to serve prometheus metrics
 	metricsListener net.Listener
 
+<<<<<<< HEAD
 	// metricsExtraHandlers contains extra handlers to register on http server that serves metrics.
 	metricsExtraHandlers map[string]http.Handler
 
@@ -100,6 +101,12 @@ type controllerManager struct {
 
 	// Readyz probe handler
 	readyzHandler *healthz.Handler
+=======
+	mu            sync.Mutex
+	started       bool
+	startedLeader bool
+	errChan       chan error
+>>>>>>> 79bfea2d (update vendor)
 
 	// Healthz probe handler
 	healthzHandler *healthz.Handler
@@ -351,6 +358,7 @@ func (cm *controllerManager) GetWebhookServer() *webhook.Server {
 	return cm.webhookServer
 }
 
+<<<<<<< HEAD
 func (cm *controllerManager) GetLogger() logr.Logger {
 	return cm.logger
 }
@@ -360,11 +368,16 @@ func (cm *controllerManager) GetControllerOptions() v1alpha1.ControllerConfigura
 }
 
 func (cm *controllerManager) serveMetrics() {
+=======
+func (cm *controllerManager) serveMetrics(stop <-chan struct{}) {
+	var metricsPath = "/metrics"
+>>>>>>> 79bfea2d (update vendor)
 	handler := promhttp.HandlerFor(metrics.Registry, promhttp.HandlerOpts{
 		ErrorHandling: promhttp.HTTPErrorOnError,
 	})
 	// TODO(JoelSpeed): Use existing Kubernetes machinery for serving metrics
 	mux := http.NewServeMux()
+<<<<<<< HEAD
 	mux.Handle(defaultMetricsEndpoint, handler)
 
 	func() {
@@ -376,12 +389,20 @@ func (cm *controllerManager) serveMetrics() {
 		}
 	}()
 
+=======
+	mux.Handle(metricsPath, handler)
+>>>>>>> 79bfea2d (update vendor)
 	server := http.Server{
 		Handler: mux,
 	}
 	// Run the server
+<<<<<<< HEAD
 	cm.startRunnable(RunnableFunc(func(_ context.Context) error {
 		cm.logger.Info("starting metrics server", "path", defaultMetricsEndpoint)
+=======
+	go func() {
+		log.Info("starting metrics server", "path", metricsPath)
+>>>>>>> 79bfea2d (update vendor)
 		if err := server.Serve(cm.metricsListener); err != nil && err != http.ErrServerClosed {
 			return err
 		}
@@ -540,6 +561,7 @@ func (cm *controllerManager) engageStopProcedure(stopComplete <-chan struct{}) e
 	defer cm.mu.Unlock()
 	cm.stopProcedureEngaged = true
 
+<<<<<<< HEAD
 	// we want to close this after the other runnables stop, because we don't
 	// want things like leader election to try and emit events on a closed
 	// channel
@@ -592,6 +614,9 @@ func (cm *controllerManager) startNonLeaderElectionRunnables() {
 
 	// Start and wait for caches.
 	cm.waitForCache(cm.internalCtx)
+=======
+	cm.waitForCache()
+>>>>>>> 79bfea2d (update vendor)
 
 	// Start the non-leaderelection Runnables after the cache has synced
 	for _, c := range cm.nonLeaderElectionRunnables {
@@ -609,7 +634,11 @@ func (cm *controllerManager) startLeaderElectionRunnables() {
 	cm.mu.Lock()
 	defer cm.mu.Unlock()
 
+<<<<<<< HEAD
 	cm.waitForCache(cm.internalCtx)
+=======
+	cm.waitForCache()
+>>>>>>> 79bfea2d (update vendor)
 
 	// Start the leader election Runnables after the cache has synced
 	for _, c := range cm.leaderElectionRunnables {
@@ -621,11 +650,16 @@ func (cm *controllerManager) startLeaderElectionRunnables() {
 	cm.startedLeader = true
 }
 
+<<<<<<< HEAD
 func (cm *controllerManager) waitForCache(ctx context.Context) {
+=======
+func (cm *controllerManager) waitForCache() {
+>>>>>>> 79bfea2d (update vendor)
 	if cm.started {
 		return
 	}
 
+<<<<<<< HEAD
 	for _, cache := range cm.caches {
 		cm.startRunnable(cache)
 	}
@@ -639,6 +673,21 @@ func (cm *controllerManager) waitForCache(ctx context.Context) {
 	// cm.started as check if we already started the cache so it must always become true.
 	// Making sure that the cache doesn't get started twice is needed to not get a "close
 	// of closed channel" panic
+=======
+	// Start the Cache. Allow the function to start the cache to be mocked out for testing
+	if cm.startCache == nil {
+		cm.startCache = cm.cache.Start
+	}
+	go func() {
+		if err := cm.startCache(cm.internalStop); err != nil {
+			cm.errChan <- err
+		}
+	}()
+
+	// Wait for the caches to sync.
+	// TODO(community): Check the return value and write a test
+	cm.cache.WaitForCacheSync(cm.internalStop)
+>>>>>>> 79bfea2d (update vendor)
 	cm.started = true
 }
 
@@ -677,12 +726,25 @@ func (cm *controllerManager) startLeaderElection() (err error) {
 		return err
 	}
 
+	ctx, cancel := context.WithCancel(context.Background())
+	go func() {
+		select {
+		case <-cm.internalStop:
+			cancel()
+		case <-ctx.Done():
+		}
+	}()
+
 	// Start the leader elector process
+<<<<<<< HEAD
 	go func() {
 		l.Run(ctx)
 		<-ctx.Done()
 		close(cm.leaderElectionStopped)
 	}()
+=======
+	go l.Run(ctx)
+>>>>>>> 79bfea2d (update vendor)
 	return nil
 }
 

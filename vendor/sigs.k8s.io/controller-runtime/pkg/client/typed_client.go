@@ -34,7 +34,11 @@ type typedClient struct {
 }
 
 // Create implements client.Client
+<<<<<<< HEAD
 func (c *typedClient) Create(ctx context.Context, obj Object, opts ...CreateOption) error {
+=======
+func (c *typedClient) Create(ctx context.Context, obj runtime.Object, opts ...CreateOption) error {
+>>>>>>> 79bfea2d (update vendor)
 	o, err := c.cache.getObjMeta(obj)
 	if err != nil {
 		return err
@@ -52,7 +56,11 @@ func (c *typedClient) Create(ctx context.Context, obj Object, opts ...CreateOpti
 }
 
 // Update implements client.Client
+<<<<<<< HEAD
 func (c *typedClient) Update(ctx context.Context, obj Object, opts ...UpdateOption) error {
+=======
+func (c *typedClient) Update(ctx context.Context, obj runtime.Object, opts ...UpdateOption) error {
+>>>>>>> 79bfea2d (update vendor)
 	o, err := c.cache.getObjMeta(obj)
 	if err != nil {
 		return err
@@ -71,7 +79,11 @@ func (c *typedClient) Update(ctx context.Context, obj Object, opts ...UpdateOpti
 }
 
 // Delete implements client.Client
+<<<<<<< HEAD
 func (c *typedClient) Delete(ctx context.Context, obj Object, opts ...DeleteOption) error {
+=======
+func (c *typedClient) Delete(ctx context.Context, obj runtime.Object, opts ...DeleteOption) error {
+>>>>>>> 79bfea2d (update vendor)
 	o, err := c.cache.getObjMeta(obj)
 	if err != nil {
 		return err
@@ -85,12 +97,21 @@ func (c *typedClient) Delete(ctx context.Context, obj Object, opts ...DeleteOpti
 		Resource(o.resource()).
 		Name(o.GetName()).
 		Body(deleteOpts.AsDeleteOptions()).
+<<<<<<< HEAD
 		Do(ctx).
+=======
+		Context(ctx).
+		Do().
+>>>>>>> 79bfea2d (update vendor)
 		Error()
 }
 
 // DeleteAllOf implements client.Client
+<<<<<<< HEAD
 func (c *typedClient) DeleteAllOf(ctx context.Context, obj Object, opts ...DeleteAllOfOption) error {
+=======
+func (c *typedClient) DeleteAllOf(ctx context.Context, obj runtime.Object, opts ...DeleteAllOfOption) error {
+>>>>>>> 79bfea2d (update vendor)
 	o, err := c.cache.getObjMeta(obj)
 	if err != nil {
 		return err
@@ -104,12 +125,21 @@ func (c *typedClient) DeleteAllOf(ctx context.Context, obj Object, opts ...Delet
 		Resource(o.resource()).
 		VersionedParams(deleteAllOfOpts.AsListOptions(), c.paramCodec).
 		Body(deleteAllOfOpts.AsDeleteOptions()).
+<<<<<<< HEAD
 		Do(ctx).
+=======
+		Context(ctx).
+		Do().
+>>>>>>> 79bfea2d (update vendor)
 		Error()
 }
 
 // Patch implements client.Client
+<<<<<<< HEAD
 func (c *typedClient) Patch(ctx context.Context, obj Object, patch Patch, opts ...PatchOption) error {
+=======
+func (c *typedClient) Patch(ctx context.Context, obj runtime.Object, patch Patch, opts ...PatchOption) error {
+>>>>>>> 79bfea2d (update vendor)
 	o, err := c.cache.getObjMeta(obj)
 	if err != nil {
 		return err
@@ -144,7 +174,11 @@ func (c *typedClient) Get(ctx context.Context, key ObjectKey, obj Object) error 
 }
 
 // List implements client.Client
+<<<<<<< HEAD
 func (c *typedClient) List(ctx context.Context, obj ObjectList, opts ...ListOption) error {
+=======
+func (c *typedClient) List(ctx context.Context, obj runtime.Object, opts ...ListOption) error {
+>>>>>>> 79bfea2d (update vendor)
 	r, err := c.cache.getResource(obj)
 	if err != nil {
 		return err
@@ -160,7 +194,11 @@ func (c *typedClient) List(ctx context.Context, obj ObjectList, opts ...ListOpti
 }
 
 // UpdateStatus used by StatusWriter to write status.
+<<<<<<< HEAD
 func (c *typedClient) UpdateStatus(ctx context.Context, obj Object, opts ...UpdateOption) error {
+=======
+func (c *typedClient) UpdateStatus(ctx context.Context, obj runtime.Object, opts ...UpdateOption) error {
+>>>>>>> 79bfea2d (update vendor)
 	o, err := c.cache.getObjMeta(obj)
 	if err != nil {
 		return err
@@ -181,7 +219,11 @@ func (c *typedClient) UpdateStatus(ctx context.Context, obj Object, opts ...Upda
 }
 
 // PatchStatus used by StatusWriter to write status.
+<<<<<<< HEAD
 func (c *typedClient) PatchStatus(ctx context.Context, obj Object, patch Patch, opts ...PatchOption) error {
+=======
+func (c *typedClient) PatchStatus(ctx context.Context, obj runtime.Object, patch Patch, opts ...PatchOption) error {
+>>>>>>> 79bfea2d (update vendor)
 	o, err := c.cache.getObjMeta(obj)
 	if err != nil {
 		return err

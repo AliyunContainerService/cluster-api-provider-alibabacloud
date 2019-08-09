@@ -21,7 +21,10 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"sigs.k8s.io/controller-runtime/pkg/builder"
 	"sigs.k8s.io/controller-runtime/pkg/client/config"
+<<<<<<< HEAD
 	cfg "sigs.k8s.io/controller-runtime/pkg/config"
+=======
+>>>>>>> 79bfea2d (update vendor)
 	"sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
 	"sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/manager"
@@ -92,11 +95,14 @@ var (
 	// * $HOME/.kube/config if exists
 	GetConfig = config.GetConfig
 
+<<<<<<< HEAD
 	// ConfigFile returns the cfg.File function for deferred config file loading,
 	// this is passed into Options{}.From() to populate the Options fields for
 	// the manager.
 	ConfigFile = cfg.File
 
+=======
+>>>>>>> 79bfea2d (update vendor)
 	// NewControllerManagedBy returns a new controller builder that will be started by the provided Manager
 	NewControllerManagedBy = builder.ControllerManagedBy
 
@@ -131,6 +137,7 @@ var (
 	// get any actual logging.
 	Log = log.Log
 
+<<<<<<< HEAD
 	// LoggerFrom returns a logger with predefined values from a context.Context.
 	// The logger, when used with controllers, can be expected to contain basic information about the object
 	// that's being reconciled like:
@@ -145,6 +152,8 @@ var (
 	// This is meant to be used in reconcilers to enrich the logger within a context with additional values.
 	LoggerInto = log.IntoContext
 
+=======
+>>>>>>> 79bfea2d (update vendor)
 	// SetLogger sets a concrete logging implementation for all deferred Loggers.
 	SetLogger = log.SetLogger
 )
