@@ -117,6 +117,7 @@ check: fmt vet lint test # Check your code
 unit: # Run unit test
 	$(DOCKER_CMD) go test -race -cover ./cmd/... ./pkg/...
 
+<<<<<<< HEAD
 .PHONY: test-e2e
 test-e2e: ## Run e2e tests
 	 hack/e2e.sh
@@ -124,6 +125,24 @@ test-e2e: ## Run e2e tests
 .PHONY: lint
 lint: ## Go lint your code
 	$(DOCKER_CMD) hack/go-lint.sh -min_confidence 0.3 $$(go list -f '{{ .ImportPath }}' ./... | grep -v -e 'github.com/AliyunContainerService/cluster-api-provider-alibabacloud/test' -e 'github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/cloud/alibabacloud/client/mock')
+=======
+#.PHONY: integration
+#integration: ## Run integration test
+#	$(DOCKER_CMD) go test -v github.com/AliyunContainerService/cluster-api-provider-alicloud/test/integration
+
+#.PHONY: build-e2e
+#build-e2e:
+#	go test -c -o bin/e2e.test github.com/AliyunContainerService/cluster-api-provider-alicloud/test/machines
+
+#.PHONY: test-e2e
+#test-e2e: ## Run e2e tests
+#	hack/e2e.sh
+
+
+#.PHONY: lint
+#lint: ## Go lint your code
+#	hack/go-lint.sh -min_confidence 0.3 $$(go list -f '{{ .ImportPath }}' ./... | grep -v -e 'sigs.k8s.io/cluster-api-provider-alicloud/test' -e 'sigs.k8s.io/cluster-api-provider-alicloud/pkg/cloud/alicloud/client/mock')
+>>>>>>> 5ed2bd4c (format)
 
 .PHONY: fmt
 fmt: ## Go fmt your code
@@ -134,9 +153,15 @@ goimports:
 	$(DOCKER_CMD) hack/goimports.sh .
 	hack/verify-diff.sh
 
+<<<<<<< HEAD
 .PHONY: vet
 vet: ## Apply go vet to all go files
 	$(DOCKER_CMD) hack/go-vet.sh ./...
+=======
+#.PHONY: vet
+#vet: ## Apply go vet to all go files
+#	hack/go-vet.sh ./...
+>>>>>>> 5ed2bd4c (format)
 
 .PHONY: help
 help:

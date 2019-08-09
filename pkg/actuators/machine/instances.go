@@ -366,6 +366,7 @@ func waitForInstancesStatus(client alibabacloudClient.Client, regionID string, i
 		timeout = InstanceDefaultTimeout
 	}
 
+<<<<<<< HEAD
 	result, err := WaitForResult(fmt.Sprintf("Wait for the instances %v state to change to %s ", instanceIds, instanceStatus), func() (stop bool, result interface{}, err error) {
 		describeInstancesRequest := ecs.CreateDescribeInstancesRequest()
 		describeInstancesRequest.RegionId = regionID
@@ -403,39 +404,40 @@ func waitForInstancesStatus(client alibabacloudClient.Client, regionID string, i
 		klog.Errorf("Wait for the instances %v state change to %v occur error %v", instanceIds, instanceStatus, err)
 =======
 	glog.Infof("The ECS instance %s created",createInstanceResponse.InstanceId)
+=======
+	glog.Infof("The ECS instance %s created", createInstanceResponse.InstanceId)
+>>>>>>> 5ed2bd4c (format)
 
 	//waitForInstance stopped
-	glog.Infof("Wait for  ECS instance %s stopped",createInstanceResponse.InstanceId)
+	glog.Infof("Wait for  ECS instance %s stopped", createInstanceResponse.InstanceId)
 	if err := client.WaitForInstance(createInstanceResponse.InstanceId, "Stopped", machineProviderConfig.RegionId, 300); err != nil {
 		glog.Errorf("Error waiting ECS instance stopped: %v", err)
 		return nil, err
 	}
-	glog.Infof("The   ECS instance %s stopped",createInstanceResponse.InstanceId)
+	glog.Infof("The   ECS instance %s stopped", createInstanceResponse.InstanceId)
 
-
-	glog.Infof("Start  ECS instance %s ",createInstanceResponse.InstanceId)
+	glog.Infof("Start  ECS instance %s ", createInstanceResponse.InstanceId)
 	//start instance
 	startInstanceRequest := ecs.CreateStartInstanceRequest()
 	startInstanceRequest.RegionId = machineProviderConfig.RegionId
 	startInstanceRequest.InstanceId = createInstanceResponse.InstanceId
 	startInstanceRequest.Scheme = "https"
 
-	_,err = client.StartInstance(startInstanceRequest)
-	if err!=nil{
+	_, err = client.StartInstance(startInstanceRequest)
+	if err != nil {
 		glog.Errorf("Error starting ECS instance: %v", err)
 		return nil, fmt.Errorf("error starting ECS instance: %v", err)
 	}
 
 	//waitForInstanceRunning
-	glog.Infof("Wait for  ECS instance %s running",createInstanceResponse.InstanceId)
+	glog.Infof("Wait for  ECS instance %s running", createInstanceResponse.InstanceId)
 
 	if err := client.WaitForInstance(createInstanceResponse.InstanceId, "Running", machineProviderConfig.RegionId, 300); err != nil {
 		glog.Errorf("Error waiting ECS instance running: %v", err)
 >>>>>>> ebdd9bd0 (update test case)
 		return nil, err
 	}
-	glog.Infof("The   ECS instance %s running",createInstanceResponse.InstanceId)
-
+	glog.Infof("The   ECS instance %s running", createInstanceResponse.InstanceId)
 
 	if result == nil {
 		return nil, nil
