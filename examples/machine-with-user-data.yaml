@@ -3,7 +3,7 @@ apiVersion: machine.openshift.io/v1beta1
 kind: Machine
 metadata:
   name: alicloud-actuator-testing-machine
-  namespace: test
+  namespace: default
   generateName: vs-master-
   labels:
     machine.openshift.io/cluster-api-cluster: alicloud-actuator-k8s
