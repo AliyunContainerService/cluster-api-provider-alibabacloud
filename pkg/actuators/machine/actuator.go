@@ -79,8 +79,8 @@ func NewActuator(params ActuatorParams) (*Actuator, error) {
 		client:                params.Client,
 		config:                params.Config,
 		aliCloudClientBuilder: params.AliCloudClientBuilder,
-		codec:         params.Codec,
-		eventRecorder: params.EventRecorder,
+		codec:                 params.Codec,
+		eventRecorder:         params.EventRecorder,
 	}
 	return actuator, nil
 }
@@ -178,26 +178,26 @@ func (a *Actuator) CreateMachine(cluster *clusterv1.Cluster, machine *machinev1.
 	}
 
 	credentialsSecretName := ""
-	if machineProviderConfig.Spec.CredentialsSecret != nil {
-		credentialsSecretName = machineProviderConfig.Spec.CredentialsSecret.Name
+	if machineProviderConfig.CredentialsSecret != nil {
+		credentialsSecretName = machineProviderConfig.CredentialsSecret.Name
 	}
-	alicloudClient, err := a.aliCloudClientBuilder(a.client, credentialsSecretName, machine.Namespace, machineProviderConfig.Spec.RegionId)
+	alicloudClient, err := a.aliCloudClientBuilder(a.client, credentialsSecretName, machine.Namespace, machineProviderConfig.RegionId)
 	if err != nil {
 		glog.Errorf("%s: unable to obtain AliCloud client: %v", machine.Name, err)
 		return nil, a.handleMachineError(machine, apierrors.CreateMachine("error creating alicloud services: %v", err), createEventAction)
 	}
 
 	userData := []byte{}
-	if machineProviderConfig.Spec.UserDataSecret != nil {
+	if machineProviderConfig.UserDataSecret != nil {
 		var userDataSecret corev1.Secret
-		err := a.client.Get(context.Background(), client.ObjectKey{Namespace: machine.Namespace, Name: machineProviderConfig.Spec.UserDataSecret.Name}, &userDataSecret)
+		err := a.client.Get(context.Background(), client.ObjectKey{Namespace: machine.Namespace, Name: machineProviderConfig.UserDataSecret.Name}, &userDataSecret)
 		if err != nil {
-			return nil, a.handleMachineError(machine, apierrors.CreateMachine("error getting user data secret %s: %v", machineProviderConfig.Spec.UserDataSecret.Name, err), createEventAction)
+			return nil, a.handleMachineError(machine, apierrors.CreateMachine("error getting user data secret %s: %v", machineProviderConfig.UserDataSecret.Name, err), createEventAction)
 		}
 		if data, exists := userDataSecret.Data[userDataSecretKey]; exists {
 			userData = data
 		} else {
-			glog.Warningf("%s: Secret %v/%v does not have %q field set. Thus, no user data applied when creating an instance.", machine.Name, machine.Namespace, machineProviderConfig.Spec.UserDataSecret.Name, userDataSecretKey)
+			glog.Warningf("%s: Secret %v/%v does not have %q field set. Thus, no user data applied when creating an instance.", machine.Name, machine.Namespace, machineProviderConfig.UserDataSecret.Name, userDataSecretKey)
 		}
 	}
 
@@ -289,10 +289,10 @@ func (a *Actuator) DeleteMachine(cluster *clusterv1.Cluster, machine *machinev1.
 		return a.handleMachineError(machine, apierrors.InvalidMachineConfiguration("error decoding MachineProviderConfig: %v", err), deleteEventAction)
 	}
 
-	region := machineProviderConfig.Spec.RegionId
+	region := machineProviderConfig.RegionId
 	credentialsSecretName := ""
-	if machineProviderConfig.Spec.CredentialsSecret != nil {
-		credentialsSecretName = machineProviderConfig.Spec.CredentialsSecret.Name
+	if machineProviderConfig.CredentialsSecret != nil {
+		credentialsSecretName = machineProviderConfig.CredentialsSecret.Name
 	}
 	aliCloudClient, err := a.aliCloudClientBuilder(a.client, credentialsSecretName, machine.Namespace, region)
 	if err != nil {
@@ -329,11 +329,11 @@ func (a *Actuator) Update(context context.Context, cluster *clusterv1.Cluster, m
 		return a.handleMachineError(machine, apierrors.InvalidMachineConfiguration("error decoding MachineProviderConfig: %v", err), updateEventAction)
 	}
 
-	region := machineProviderConfig.Spec.RegionId
+	region := machineProviderConfig.RegionId
 	glog.Infof("%s: obtaining ECS client for region", machine.Name)
 	credentialsSecretName := ""
-	if machineProviderConfig.Spec.CredentialsSecret != nil {
-		credentialsSecretName = machineProviderConfig.Spec.CredentialsSecret.Name
+	if machineProviderConfig.CredentialsSecret != nil {
+		credentialsSecretName = machineProviderConfig.CredentialsSecret.Name
 	}
 	aliCloudClient, err := a.aliCloudClientBuilder(a.client, credentialsSecretName, machine.Namespace, region)
 	if err != nil {
@@ -426,10 +426,10 @@ func (a *Actuator) getMachineInstances(cluster *clusterv1.Cluster, machine *mach
 		return nil, err
 	}
 
-	region := machineProviderConfig.Spec.RegionId
+	region := machineProviderConfig.RegionId
 	credentialsSecretName := ""
-	if machineProviderConfig.Spec.CredentialsSecret != nil {
-		credentialsSecretName = machineProviderConfig.Spec.CredentialsSecret.Name
+	if machineProviderConfig.CredentialsSecret != nil {
+		credentialsSecretName = machineProviderConfig.CredentialsSecret.Name
 	}
 	aliCloudClient, err := a.aliCloudClientBuilder(a.client, credentialsSecretName, machine.Namespace, region)
 	if err != nil {

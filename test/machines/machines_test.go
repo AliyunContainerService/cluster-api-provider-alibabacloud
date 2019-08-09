@@ -116,9 +116,9 @@ var _ = framework.SigKubeDescribe("Machines", func() {
 			f.CreateClusterAndWait(cluster)
 
 			var err error
-			alicloudClient, err = alicloudclient.NewClientFromKeys(os.Getenv("ALICLOUD_ACCESS_KEY_ID"), os.Getenv("ALICLOUD_SECRET_ACCESS_KEY"), region)
+			alicloudClient, err = alicloudclient.NewClientFromKeys(os.Getenv("ALICLOUD_ACCESS_KEY_ID"), os.Getenv("ALICLOUD_ACCESS_KEY_SECRET"), region)
 			Expect(err).NotTo(HaveOccurred())
-			acw = machineutils.NewAliCloudClientWrapper(alicloudClient,region)
+			acw = machineutils.NewAliCloudClientWrapper(alicloudClient, region)
 		})
 
 		It("Can create ECS instances", func() {

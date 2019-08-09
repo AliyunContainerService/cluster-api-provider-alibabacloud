@@ -22,6 +22,7 @@ import (
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/ecs"
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/vpc"
 	corev1 "k8s.io/api/core/v1"
+	"os"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"time"
 )
@@ -127,6 +128,7 @@ func (c *aliCloudClient) WaitForInstance(instanceId, instanceStatus, regionId st
 		describeInstancesRequest.RegionId = regionId
 		instancesIds, _ := json.Marshal([]string{instanceId})
 		describeInstancesRequest.InstanceIds = string(instancesIds)
+		describeInstancesRequest.Scheme = "https"
 		describeInstancesResponse, err := c.ecs2Client.DescribeInstances(describeInstancesRequest)
 		if err == nil {
 			if len(describeInstancesResponse.Instances.Instance) > 0 && describeInstancesResponse.Instances.Instance[0].Status == instanceStatus {
@@ -158,7 +160,10 @@ type aliCloudClient struct {
 }
 
 func NewClient(ctrlRuntimeClient client.Client, secretName, namespace, region string) (Client, error) {
-	var aliCloudConfig *providers.Configuration
+	aliCloudConfig := &providers.Configuration{
+		AccessKeyID:     os.Getenv("ALICLOUD_ACCESS_KEY_ID"),
+		AccessKeySecret: os.Getenv("ALICLOUD_ACCESS_KEY_SECRET"),
+	}
 
 	if secretName != "" {
 		var secret corev1.Secret
@@ -170,22 +175,16 @@ func NewClient(ctrlRuntimeClient client.Client, secretName, namespace, region st
 			return nil, fmt.Errorf("AliCloud credentials secret %v did not contain key %v",
 				secretName, AliCloudAccessKeyId)
 		}
+		aliCloudConfig.AccessKeyID = string(accessKeyID)
+
 		accessKeySecret, ok := secret.Data[AliCloudAccessKeySecret]
 		if !ok {
 			return nil, fmt.Errorf("AliCloud credentials secret %v did not contain key %v",
 				secretName, AliCloudAccessKeySecret)
 		}
+		aliCloudConfig.AccessKeySecret = string(accessKeySecret)
 		accessKeyStsToken, _ := secret.Data[AliCloudAccessKeyStsToken]
-
-		aliCloudConfig = &providers.Configuration{
-			AccessKeyID:       string(accessKeyID),
-			AccessKeySecret:   string(accessKeySecret),
-			AccessKeyStsToken: string(accessKeyStsToken),
-		}
-	}
-
-	if aliCloudConfig == nil {
-		return nil, fmt.Errorf("Init configuration failed, The AccessKeyID  or AccessKeySecret is empty")
+		aliCloudConfig.AccessKeyStsToken = string(accessKeyStsToken)
 	}
 
 	return initAliCloudClient(aliCloudConfig, region)

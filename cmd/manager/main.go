@@ -19,15 +19,15 @@ import (
 	"os"
 	"time"
 
+	machineactuator "github.com/AliyunContainerService/cluster-api-provider-alicloud/pkg/actuators/machine"
+	"github.com/AliyunContainerService/cluster-api-provider-alicloud/pkg/apis/alicloudprovider/v1alpha1"
+	alicloudclient "github.com/AliyunContainerService/cluster-api-provider-alicloud/pkg/client"
+	"github.com/AliyunContainerService/cluster-api-provider-alicloud/pkg/version"
 	"github.com/golang/glog"
 	clusterapis "github.com/openshift/cluster-api/pkg/apis"
 	"github.com/openshift/cluster-api/pkg/controller/machine"
 	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
 	"k8s.io/klog"
-	machineactuator "github.com/AliyunContainerService/cluster-api-provider-alicloud/pkg/actuators/machine"
-	"github.com/AliyunContainerService/cluster-api-provider-alicloud/pkg/apis/alicloudprovider/v1alpha1"
-	alicloudclient "github.com/AliyunContainerService/cluster-api-provider-alicloud/pkg/client"
-	"github.com/AliyunContainerService/cluster-api-provider-alicloud/pkg/version"
 	"sigs.k8s.io/controller-runtime/pkg/client/config"
 	"sigs.k8s.io/controller-runtime/pkg/manager"
 	"sigs.k8s.io/controller-runtime/pkg/runtime/signals"
@@ -104,11 +104,11 @@ func initActuator(mgr manager.Manager) (*machineactuator.Actuator, error) {
 	}
 
 	params := machineactuator.ActuatorParams{
-		Client:           mgr.GetClient(),
-		Config:           mgr.GetConfig(),
+		Client:                mgr.GetClient(),
+		Config:                mgr.GetConfig(),
 		AliCloudClientBuilder: alicloudclient.NewClient,
-		Codec:            codec,
-		EventRecorder:    mgr.GetEventRecorderFor("alicloud-controller"),
+		Codec:                 codec,
+		EventRecorder:         mgr.GetEventRecorderFor("alicloud-controller"),
 	}
 
 	actuator, err := machineactuator.NewActuator(params)
