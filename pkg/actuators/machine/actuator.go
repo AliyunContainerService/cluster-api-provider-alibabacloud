@@ -255,7 +255,6 @@ func (a *Actuator) updateMachineStatus(machine *machinev1.Machine, aliCloudStatu
 		return err
 	}
 
-	// TODO(vikasc): Revisit to compare complete machine status objects
 	if !equality.Semantic.DeepEqual(alicloudStatusRaw, oldAlicloudStatus) || !equality.Semantic.DeepEqual(machine.Status.Addresses, machineCopy.Status.Addresses) {
 		glog.Infof("%s: machine status has changed, updating", machine.Name)
 		time := metav1.Now()
