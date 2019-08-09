@@ -38,6 +38,7 @@ spec:
           key: node.alpha.kubernetes.io/unreachable
           operator: Exists
       containers:
+<<<<<<< HEAD
         - name: machine-controller
           image: openshift/origin-alibabacloud-machine-controllers:v4.0.0
           env:
@@ -64,3 +65,42 @@ spec:
             limits:
               cpu: 100m
               memory: 30Mi
+=======
+      - name: controller-manager
+        image: registry.cn-hangzhou.aliyuncs.com/cluster-api/origin-alicloud-machine-controllers:v0.4
+        command:
+        - "./manager"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 20Mi
+          limits:
+            cpu: 100m
+            memory: 30Mi
+      - name: machine-controller
+        image: registry.cn-hangzhou.aliyuncs.com/cluster-api/origin-alicloud-machine-controllers:v0.4
+        env:
+          - name: NODE_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
+        command:
+          - /machine-controller-manager
+        args:
+          - --logtostderr=true
+          - --v=3
+      - name: nodelink-controller
+        image: registry.cn-hangzhou.aliyuncs.com/cluster-api/machine-api-operator:v0.4
+        command:
+          - /nodelink-controller
+        args:
+          - --logtostderr=true
+          - --v=3
+        resources:
+          requests:
+            cpu: 100m
+            memory: 20Mi
+          limits:
+            cpu: 100m
+            memory: 30Mi
+>>>>>>> ac8840a3 (update image)
