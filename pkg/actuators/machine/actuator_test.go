@@ -86,10 +86,10 @@ func TestMachineEvents(t *testing.T) {
 			event: "Warning FailedCreate CreateError",
 		},
 		{
-			name:            "Create machine event failed (error launching instance)",
-			machine:         machine,
-			runInstancesErr: fmt.Errorf("error"),
-			describeInstancesReponse:&ecs.DescribeInstancesResponse{},
+			name:                     "Create machine event failed (error launching instance)",
+			machine:                  machine,
+			runInstancesErr:          fmt.Errorf("error"),
+			describeInstancesReponse: &ecs.DescribeInstancesResponse{},
 			operation: func(actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine) {
 				actuator.CreateMachine(cluster, machine)
 			},
@@ -164,7 +164,7 @@ func TestMachineEvents(t *testing.T) {
 			mockAlicloudClient.EXPECT().DescribeImages(gomock.Any()).Return(stubImages("centos_7_06_64_20G_alibase_20190619.vhd"), nil)
 
 			mockAlicloudClient.EXPECT().CreateInstance(gomock.Any()).Return(stubCreateInstance("i-bp1bsuzspukvo4t56a4f"), nil)
-			mockAlicloudClient.EXPECT().WaitForInstance(gomock.Any(),gomock.Any(),gomock.Any(),gomock.Any()).Return( nil)
+			mockAlicloudClient.EXPECT().WaitForInstance(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Return(nil)
 			mockAlicloudClient.EXPECT().DeleteInstance(gomock.Any()).Return(&ecs.DeleteInstanceResponse{}, tc.deleteInstancesErr).AnyTimes()
 			mockAlicloudClient.EXPECT().DeleteInstance(gomock.Any()).Return(&ecs.DeleteInstanceResponse{}, nil)
 
@@ -237,7 +237,7 @@ func TestActuator(t *testing.T) {
 		describeInstancesResponse *ecs.DescribeInstancesResponse
 		runInstancesErr           error
 		describeInstancesErr      error
-		deleteInstancesErr         error
+		deleteInstancesErr        error
 		lbErr                     error
 	}{
 		{
@@ -518,7 +518,7 @@ func TestActuator(t *testing.T) {
 			mockAliCloudClient.EXPECT().DescribeImages(gomock.Any()).Return(stubImages("centos_7_06_64_20G_alibase_20190619.vhd"), nil)
 
 			mockAliCloudClient.EXPECT().CreateInstance(gomock.Any()).Return(stubCreateInstance("i-bp1bsuzspukvo4t56a4f"), tc.runInstancesErr)
-			mockAliCloudClient.EXPECT().WaitForInstance(gomock.Any(),gomock.Any(),gomock.Any(),gomock.Any()).Return( nil)
+			mockAliCloudClient.EXPECT().WaitForInstance(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Return(nil)
 			mockAliCloudClient.EXPECT().DeleteInstance(gomock.Any()).Return(&ecs.DeleteInstanceResponse{}, tc.deleteInstancesErr).AnyTimes()
 
 			if tc.machine == nil {

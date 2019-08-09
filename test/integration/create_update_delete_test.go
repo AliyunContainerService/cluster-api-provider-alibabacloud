@@ -46,7 +46,7 @@ runcmd:
 func testMachineAPIResources(clusterID string) (*machinev1.Machine, *clusterv1.Cluster, *apiv1.Secret, *apiv1.Secret, error) {
 	machine := &machinev1.Machine{}
 
-	bytes, err := ioutil.ReadFile( "/Users/xiaobing/Documents/workspace/aone/go/src/github.com/AliyunContainerService/cluster-api-provider-alicloud/examples/machines.yaml")
+	bytes, err := ioutil.ReadFile("/Users/xiaobing/Documents/workspace/aone/go/src/github.com/AliyunContainerService/cluster-api-provider-alicloud/examples/machines.yaml")
 	if err != nil {
 		return nil, nil, nil, nil, err
 	}
@@ -62,7 +62,7 @@ func testMachineAPIResources(clusterID string) (*machinev1.Machine, *clusterv1.C
 		},
 		Data: map[string][]byte{
 			alicloudclient.AliCloudAccessKeyId:     []byte(os.Getenv("ALICLOUD_ACCESS_KEY_ID")),
-			alicloudclient.AliCloudAccessKeySecret: []byte(os.Getenv("ALICLOUD_SECRET_ACCESS_KEY")),
+			alicloudclient.AliCloudAccessKeySecret: []byte(os.Getenv("ALICLOUD_ACCESS_KEY_SECRET")),
 		},
 	}
 
@@ -100,7 +100,7 @@ func TestCreateAndDeleteMachine(t *testing.T) {
 	fakeClient := fake.NewFakeClient(machine, alicloudCredentialsSecret, userDataSecret)
 
 	params := machineactuator.ActuatorParams{
-		Client:           fakeClient,
+		Client:                fakeClient,
 		AliCloudClientBuilder: alicloudclient.NewClient,
 	}
 
