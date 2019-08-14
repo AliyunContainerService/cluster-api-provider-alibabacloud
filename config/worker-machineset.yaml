@@ -23,38 +23,22 @@ spec:
           node-role.kubernetes.io/compute: ""
       providerSpec:
         value:
-          apiVersion: alicloudproviderconfig.openshift.io/v1beta1
-          kind: AliCloudMachineProviderConfig
-          ami:
-            filters:
-            - name: "tag:image_stage"
-              values:
-              - "base"
-            - name: "tag:operating_system"
-              values:
-              - "rhel"
-            - name: "tag:ready"
-              values:
-              - "yes"
-          instanceType: m4.xlarge
-          placement:
-            region: us-east-1
-            availabilityZone: us-east-1a
-          subnet:
-            filters:
-              - name: "tag:Name"
-                values:
-                - "alicloud-actuator-k8s-worker-*"
-          iamInstanceProfile:
-            id: openshift_master_launch_instances
-          keyName: libra
-          securityGroups:
-            - filters:
-                - name: "tag:Name"
-                  values:
-                  - "alicloud-actuator-k8s-*"
+          apiVersion: alicloudproviderconfig.openshift.io/v1alpha1
+          kind: AlicloudMachineProviderConfig
+          instanceType: ecs.c5.xlarge
+          imageId: centos_7_06_64_20G_alibase_20190711.vhd
+          regionId: cn-hangzhou
+          securityGroupId: sg-bp16yqwdlflk32p679ik
+          vpcId: vpc-bp1td11g1i90b1fjnm7jw
+          vSwitchId: vsw-bp1ra53n8ban94mbbgb4w
+          systemDiskSize: 40
+          tags:
+            - key: openshift-node-group-config
+              value: node-config-master
+            - key: host-type
+              value: master
+            - key: sub-host-type
+              value: default
           publicIp: true
           userDataSecret:
-            name: worker-user-data-secret
-          credentialsSecret:
-            name: alicloud-credentials-secret
+            name: alicloud-actuator-user-data-secret
