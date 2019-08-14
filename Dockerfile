@@ -43,6 +43,11 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o ./manager ./vendor/gith
 # Copy the controller-manager into a thin image
 FROM registry.svc.ci.openshift.org/openshift/origin-v4.0:base
 WORKDIR /
+<<<<<<< HEAD
 COPY --from=builder /go/src/github.com/AliyunContainerService/cluster-api-provider-alicloud/manager .
 COPY --from=builder /go/src/github.com/AliyunContainerService/cluster-api-provider-alicloud/machine-controller-manager .
 >>>>>>> ac8840a3 (update image)
+=======
+COPY --from=builder /go/src/github.com/AliyunContainerService/cluster-api-provider-alicloud/manager ./
+COPY --from=builder /go/src/github.com/AliyunContainerService/cluster-api-provider-alicloud/machine-controller-manager ./
+>>>>>>> 62fa6daf (fix config)

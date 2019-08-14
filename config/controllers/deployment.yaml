@@ -12,7 +12,7 @@ spec:
     matchLabels:
       api: clusterapi
       k8s-app: controller
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels:
