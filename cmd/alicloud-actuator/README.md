@@ -11,19 +11,9 @@ $ make alicloud-actuator
 ## Prerequisities
 
 All the machine manifests assume existence for various Alicloud resources such as vpc,
-security groups, etc. In case you are starting from scratch, you can run `hack/alicloud-provision.sh` to
-create all the required resources:
+security groups, etc. :
 
-```sh
-$ cd hack
-$ ENVIRONMENT_ID=UNIQUE_ID ./alicloud-provision.sh install
-```
-
-where `UNIQUE_ID` is unique identification of your environment.
-
-Don't forget to run `./alicloud-provision.sh destroy` once you are done.
-
-## Create aws instance based on machine manifest
+## Create alicloud ECS instance based on machine manifest
 
 The `examples/userdata.yml` secret encodes the following user data:
 ```sh
@@ -32,7 +22,7 @@ echo "Ahoj" > /tmp/test
 ```
 
 ```sh
-$ ./bin/alicloud-actuator create --logtostderr -m examples/machine-with-user-data.yaml -u examples/userdata.yml --environment-id UNIQUE_ID
+$ ./bin/alicloud-actuator create --logtostderr -m examples/machine-with-user-data.yaml -u examples/userdata.yml -a examples/secret.yaml
 DEBU[0000] Describing AMI ami-a9acbbd6                   example=create-machine machine=test/alicloud-actuator-testing-machine
 Machine creation was successful! InstanceID: i-027681ebf9a842183
 ```
