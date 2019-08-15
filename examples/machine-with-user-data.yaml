@@ -62,9 +62,9 @@ spec:
       systemDiskSize: 40
       tags:
       - key: openshift-node-group-config
-        value: node-config-master
+        value: node-config-node
       - key: host-type
-        value: master
+        value: node
       - key: sub-host-type
         value: default
       publicIp: true
