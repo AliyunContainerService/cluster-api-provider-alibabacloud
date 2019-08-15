@@ -23,6 +23,12 @@ echo "Ahoj" > /tmp/test
 
 The environment variables  `ALICLOUD_ACCESS_KEY_ID` and `ALICLOUD_ACCESS_KEY_SECRET`  must  to be set.
 
+```sh 
+$ export ALICLOUD_ACCESS_KEY_ID=<YOUR_ALICLOUD_ACCESS_KEY_ID>
+$ export ALICLOUD_ACCESS_KEY_SECRET=<YOUR_ALICLOUD_ACCESS_KEY_SECRET>
+
+```
+
 ```sh
 $ ./bin/alicloud-actuator create --logtostderr -m examples/machine-with-user-data.yaml -u examples/userdata.yml
 Machine creation was successful! InstanceID: i-bp117zgballjltfnl3up```
