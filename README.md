@@ -1,6 +1,10 @@
 # OpenShift cluster-api-provider-alibabacloud
 
+<<<<<<< HEAD
 This repository hosts an implementation of a provider for AlibabaCloud for the
+=======
+This repository hosts an implementation of a provider for Alibabacloud for the
+>>>>>>> 8dbd34ff (update project name)
 OpenShift [machine-api](https://github.com/openshift/cluster-api).
 
 This provider runs as a machine-controller deployed by the
@@ -13,6 +17,7 @@ One needs to run the `imagebuilder` command instead of the `docker build`.
 
 Note: this info is RH only, it needs to be backported every time the `README.md` is synced with the upstream one.
 
+<<<<<<< HEAD
 ## Deploy machine API plane with minikube
 
 1. **Install kvm**
@@ -83,6 +88,9 @@ Note: this info is RH only, it needs to be backported every time the `README.md`
    ```
 
 ## Test locally built AlibabaCloud actuator
+=======
+## Test locally built alibabacloud actuator
+>>>>>>> 8dbd34ff (update project name)
 
 1. **Tear down machine-controller**
 
@@ -90,6 +98,7 @@ Note: this info is RH only, it needs to be backported every time the `README.md`
    controllers) running `machine-controller`. In order to run locally built one,
    simply edit `machine-api-controllers` deployment and remove `machine-controller` container from it.
 
+<<<<<<< HEAD
 2. **Build and run AlibabaCloud actuator outside of the cluster**
 
    ```sh
@@ -346,3 +355,17 @@ Note: this info is RH only, it needs to be backported every time the `README.md`
 # Upstream Implementation
 Other branches of this repository may choose to track the upstream
 Kubernetes [Cluster-API AlibabaCloud provider](https://github.com/AliyunContainerService/cluster-api-provider-alibabacloud)
+=======
+1. **Build and run alibabacloud actuator outside of the cluster**
+
+   ```sh
+   $ go build -o bin/manager github.com/AliyunContainerService/cluster-api-provider-alibabacloud/cmd/manager
+   ```
+
+   ```sh
+   $ ./bin/manager --kubeconfig ~/.kube/config --logtostderr -v 5 -alsologtostderr
+   ```
+
+
+
+>>>>>>> 8dbd34ff (update project name)

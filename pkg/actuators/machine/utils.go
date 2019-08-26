@@ -2,12 +2,21 @@ package machine
 
 import (
 	"fmt"
+<<<<<<< HEAD
 	"time"
 
 	alibabacloudproviderv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alibabacloudprovider/v1beta1"
 	machinev1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 	machinecontroller "github.com/openshift/machine-api-operator/pkg/controller/machine"
 	corev1 "k8s.io/api/core/v1"
+=======
+	providerconfigv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudprovider/v1alpha1"
+	aliCloudClient "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client"
+	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/requests"
+	"github.com/aliyun/alibaba-cloud-sdk-go/services/ecs"
+	"github.com/golang/glog"
+	machinev1 "github.com/openshift/cluster-api/pkg/apis/machine/v1beta1"
+>>>>>>> 8dbd34ff (update project name)
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/klog"
 )

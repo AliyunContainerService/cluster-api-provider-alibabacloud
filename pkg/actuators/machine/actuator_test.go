@@ -25,8 +25,19 @@ import (
 	"path/filepath"
 	"testing"
 
+<<<<<<< HEAD
 	"sigs.k8s.io/controller-runtime/pkg/envtest"
 	"sigs.k8s.io/controller-runtime/pkg/manager"
+=======
+	providerconfigv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudprovider/v1alpha1"
+	aliCloudClient "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client"
+	mockaliCloud "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client/mock"
+	clusterv1 "github.com/openshift/cluster-api/pkg/apis/cluster/v1alpha1"
+	machinev1 "github.com/openshift/cluster-api/pkg/apis/machine/v1beta1"
+
+	"k8s.io/apimachinery/pkg/types"
+	"k8s.io/client-go/kubernetes/scheme"
+>>>>>>> 8dbd34ff (update project name)
 
 	"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client/mock"
 	"github.com/golang/mock/gomock"

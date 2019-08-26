@@ -18,6 +18,27 @@ package machine
 
 import (
 	"context"
+<<<<<<< HEAD
+=======
+	"fmt"
+	"time"
+
+	providerconfigv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudprovider/v1alpha1"
+	aliClient "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client"
+	"github.com/aliyun/alibaba-cloud-sdk-go/services/ecs"
+	"github.com/golang/glog"
+	clusterv1 "github.com/openshift/cluster-api/pkg/apis/cluster/v1alpha1"
+	machinev1 "github.com/openshift/cluster-api/pkg/apis/machine/v1beta1"
+	clustererror "github.com/openshift/cluster-api/pkg/controller/error"
+	apierrors "github.com/openshift/cluster-api/pkg/errors"
+	corev1 "k8s.io/api/core/v1"
+	"k8s.io/apimachinery/pkg/api/equality"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/client-go/rest"
+	"k8s.io/client-go/tools/record"
+	"sigs.k8s.io/controller-runtime/pkg/client"
+)
+>>>>>>> 8dbd34ff (update project name)
 
 	alibabacloudClient "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client"
 

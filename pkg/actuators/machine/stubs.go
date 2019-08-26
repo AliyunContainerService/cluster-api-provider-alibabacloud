@@ -16,6 +16,15 @@ import (
 	alibabacloudproviderv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alibabacloudprovider/v1beta1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+<<<<<<< HEAD
+=======
+
+	providerconfigv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudprovider/v1alpha1"
+	"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/test/utils"
+	clusterv1 "github.com/openshift/cluster-api/pkg/apis/cluster/v1alpha1"
+	machinev1 "github.com/openshift/cluster-api/pkg/apis/machine/v1beta1"
+	machinecontroller "github.com/openshift/cluster-api/pkg/controller/machine"
+>>>>>>> 8dbd34ff (update project name)
 )
 
 const (

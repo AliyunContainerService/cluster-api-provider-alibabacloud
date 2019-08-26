@@ -22,6 +22,7 @@ import (
 	"time"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/version"
 
 	"github.com/openshift/machine-api-operator/pkg/metrics"
@@ -49,6 +50,12 @@ import (
 	"github.com/AliyunContainerService/cluster-api-provider-alicloud/pkg/apis/alicloudprovider/v1alpha1"
 	alicloudclient "github.com/AliyunContainerService/cluster-api-provider-alicloud/pkg/client"
 	"github.com/AliyunContainerService/cluster-api-provider-alicloud/pkg/version"
+=======
+	machineactuator "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/actuators/machine"
+	"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudprovider/v1alpha1"
+	alicloudclient "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client"
+	"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/version"
+>>>>>>> 8dbd34ff (update project name)
 	"github.com/golang/glog"
 	clusterapis "github.com/openshift/cluster-api/pkg/apis"
 	"github.com/openshift/cluster-api/pkg/controller/machine"
