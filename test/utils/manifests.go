@@ -5,8 +5,8 @@ import (
 	machinev1beta1 "github.com/openshift/cluster-api/pkg/apis/machine/v1beta1"
 	"os"
 
-	providerconfigv1 "github.com/AliyunContainerService/cluster-api-provider-alicloud/pkg/apis/alicloudprovider/v1alpha1"
-	alicloudclient "github.com/AliyunContainerService/cluster-api-provider-alicloud/pkg/client"
+	providerconfigv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudprovider/v1alpha1"
+	alicloudclient "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client"
 	apiv1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )

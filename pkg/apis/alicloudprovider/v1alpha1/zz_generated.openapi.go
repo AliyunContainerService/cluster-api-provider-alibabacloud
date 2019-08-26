@@ -24,9 +24,9 @@ import (
 
 func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenAPIDefinition {
 	return map[string]common.OpenAPIDefinition{
-		"github.com/AliyunContainerService/cluster-api-provider-alicloud/pkg/apis/alicloudproviderconfig/v1alpha1.AlicloudMachineProviderConfig": schema_pkg_apis_alicloudproviderconfig_v1alpha1_AlicloudMachineProviderConfig(ref),
-		"github.com/AliyunContainerService/cluster-api-provider-alicloud/pkg/apis/alicloudproviderconfig/v1alpha1.AlicloudMachineProviderSpec":   schema_pkg_apis_alicloudproviderconfig_v1alpha1_AlicloudMachineProviderConfigSpec(ref),
-		"github.com/AliyunContainerService/cluster-api-provider-alicloud/pkg/apis/alicloudproviderconfig/v1alpha1.AlicloudMachineProviderStatus": schema_pkg_apis_alicloudproviderconfig_v1alpha1_AlicloudMachineProviderConfigStatus(ref),
+		"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudproviderconfig/v1alpha1.AlicloudMachineProviderConfig": schema_pkg_apis_alicloudproviderconfig_v1alpha1_AlicloudMachineProviderConfig(ref),
+		"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudproviderconfig/v1alpha1.AlicloudMachineProviderSpec":   schema_pkg_apis_alicloudproviderconfig_v1alpha1_AlicloudMachineProviderConfigSpec(ref),
+		"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudproviderconfig/v1alpha1.AlicloudMachineProviderStatus": schema_pkg_apis_alicloudproviderconfig_v1alpha1_AlicloudMachineProviderConfigStatus(ref),
 	}
 }
 
@@ -57,19 +57,19 @@ func schema_pkg_apis_alicloudproviderconfig_v1alpha1_AlicloudMachineProviderConf
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/AliyunContainerService/cluster-api-provider-alicloud/pkg/apis/alicloudproviderconfig/v1alpha1.AlicloudMachineProviderSpec"),
+							Ref: ref("github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudproviderconfig/v1alpha1.AlicloudMachineProviderSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/AliyunContainerService/cluster-api-provider-alicloud/pkg/apis/alicloudproviderconfig/v1alpha1.AlicloudMachineProviderStatus"),
+							Ref: ref("github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudproviderconfig/v1alpha1.AlicloudMachineProviderStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"github.com/AliyunContainerService/cluster-api-provider-alicloud/pkg/apis/alicloudproviderconfig/v1alpha1.AlicloudMachineProviderSpec", "github.com/AliyunContainerService/cluster-api-provider-alicloud/pkg/apis/alicloudproviderconfig/v1alpha1.AlicloudMachineProviderStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudproviderconfig/v1alpha1.AlicloudMachineProviderSpec", "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudproviderconfig/v1alpha1.AlicloudMachineProviderStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 

@@ -19,7 +19,7 @@ GOGCFLAGS ?= -gcflags=all="-N -l"
 endif
 
 VERSION     ?= $(shell git describe --always --abbrev=7)
-REPO_PATH   ?= github.com/AliyunContainerService/cluster-api-provider-alicloud
+REPO_PATH   ?= github.com/AliyunContainerService/cluster-api-provider-alibabacloud
 LD_FLAGS    ?= -X $(REPO_PATH)/pkg/version.Version=$(VERSION) -extldflags "-static"
 MUTABLE_TAG ?= latest
 IMAGE        = origin-alicloud-machine-controllers
@@ -33,7 +33,7 @@ ifeq ($(NO_DOCKER), 1)
   IMAGE_BUILD_CMD = imagebuilder
   CGO_ENABLED = 1
 else
-  DOCKER_CMD := docker run --rm -e CGO_ENABLED=1 -v "$(PWD)":/go/src/github.com/AliyunContainerService/cluster-api-provider-alicloud:Z -w /go/src/github.com/AliyunContainerService/cluster-api-provider-alicloud openshift/origin-release:golang-1.12
+  DOCKER_CMD := docker run --rm -e CGO_ENABLED=1 -v "$(PWD)":/go/src/github.com/AliyunContainerService/cluster-api-provider-alibabacloud:Z -w /go/src/github.com/AliyunContainerService/cluster-api-provider-alibabacloud openshift/origin-release:golang-1.12
   IMAGE_BUILD_CMD = docker build
 endif
 
@@ -49,7 +49,7 @@ vendor:
 
 .PHONY: generate
 generate:
-	go install $(GOGCFLAGS) -ldflags '-extldflags "-static"' github.com/AliyunContainerService/cluster-api-provider-alicloud/vendor/github.com/golang/mock/mockgen
+	go install $(GOGCFLAGS) -ldflags '-extldflags "-static"' github.com/AliyunContainerService/cluster-api-provider-alibabacloud/vendor/github.com/golang/mock/mockgen
 	go generate ./pkg/... ./cmd/...
 
 .PHONY: test
@@ -66,7 +66,7 @@ build: ## build binaries
                "$(REPO_PATH)/vendor/github.com/openshift/cluster-api/cmd/manager"
 
 alicloud-actuator:
-	$(DOCKER_CMD) go build $(GOGCFLAGS) -o bin/alicloud-actuator github.com/AliyunContainerService/cluster-api-provider-alicloud/cmd/alicloud-actuator
+	$(DOCKER_CMD) go build $(GOGCFLAGS) -o bin/alicloud-actuator github.com/AliyunContainerService/cluster-api-provider-alibabacloud/cmd/alicloud-actuator
 
 .PHONY: images
 images: ## Create images
@@ -90,11 +90,11 @@ unit: # Run unit test
 
 #.PHONY: integration
 #integration: ## Run integration test
-#	$(DOCKER_CMD) go test -v github.com/AliyunContainerService/cluster-api-provider-alicloud/test/integration
+#	$(DOCKER_CMD) go test -v github.com/AliyunContainerService/cluster-api-provider-alibabacloud/test/integration
 
 #.PHONY: build-e2e
 #build-e2e:
-#	go test -c -o bin/e2e.test github.com/AliyunContainerService/cluster-api-provider-alicloud/test/machines
+#	go test -c -o bin/e2e.test github.com/AliyunContainerService/cluster-api-provider-alibabacloud/test/machines
 
 #.PHONY: test-e2e
 #test-e2e: ## Run e2e tests
@@ -103,7 +103,7 @@ unit: # Run unit test
 
 #.PHONY: lint
 #lint: ## Go lint your code
-#	hack/go-lint.sh -min_confidence 0.3 $$(go list -f '{{ .ImportPath }}' ./... | grep -v -e 'sigs.k8s.io/cluster-api-provider-alicloud/test' -e 'sigs.k8s.io/cluster-api-provider-alicloud/pkg/cloud/alicloud/client/mock')
+#	hack/go-lint.sh -min_confidence 0.3 $$(go list -f '{{ .ImportPath }}' ./... | grep -v -e 'sigs.k8s.io/cluster-api-provider-alibabacloud/test' -e 'sigs.k8s.io/cluster-api-provider-alibabacloud/pkg/cloud/alicloud/client/mock')
 
 .PHONY: fmt
 fmt: ## Go fmt your code
