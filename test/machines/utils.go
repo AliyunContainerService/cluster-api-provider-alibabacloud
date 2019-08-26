@@ -9,7 +9,7 @@ import (
 
 	"github.com/openshift/cluster-api-actuator-pkg/pkg/e2e/framework"
 
-	providerconfigv1 "github.com/AliyunContainerService/cluster-api-provider-alicloud/pkg/apis/alicloudprovider/v1alpha1"
+	providerconfigv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudprovider/v1alpha1"
 )
 
 func createSecretAndWait(f *framework.Framework, secret *apiv1.Secret) {
