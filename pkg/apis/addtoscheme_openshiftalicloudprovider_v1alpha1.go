@@ -14,7 +14,7 @@ limitations under the License.
 package apis
 
 import (
-	"github.com/AliyunContainerService/cluster-api-provider-alicloud/pkg/apis/alicloudprovider/v1alpha1"
+	"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudprovider/v1alpha1"
 )
 
 func init() {

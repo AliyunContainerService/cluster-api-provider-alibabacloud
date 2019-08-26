@@ -18,8 +18,8 @@ import (
 	"fmt"
 	"time"
 
-	providerconfigv1 "github.com/AliyunContainerService/cluster-api-provider-alicloud/pkg/apis/alicloudprovider/v1alpha1"
-	aliClient "github.com/AliyunContainerService/cluster-api-provider-alicloud/pkg/client"
+	providerconfigv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudprovider/v1alpha1"
+	aliClient "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client"
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/ecs"
 	"github.com/golang/glog"
 	clusterv1 "github.com/openshift/cluster-api/pkg/apis/cluster/v1alpha1"

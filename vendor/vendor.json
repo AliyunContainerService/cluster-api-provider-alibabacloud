@@ -393,5 +393,5 @@
 			"revisionTime": "2019-05-29T14:38:33Z"
 		}
 	],
-	"rootPath": "github.com/AliyunContainerService/cluster-api-provider-alicloud"
+	"rootPath": "github.com/AliyunContainerService/cluster-api-provider-alibabacloud"
 }
