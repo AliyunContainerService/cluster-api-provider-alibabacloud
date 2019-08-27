@@ -165,6 +165,7 @@ func TestMachineEvents(t *testing.T) {
 
 			mockAlicloudClient.EXPECT().CreateInstance(gomock.Any()).Return(stubCreateInstance("i-bp1bsuzspukvo4t56a4f"), nil)
 			mockAlicloudClient.EXPECT().WaitForInstance(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Return(nil)
+			mockAlicloudClient.EXPECT().WaitForInstance(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Return(nil)
 			mockAlicloudClient.EXPECT().DeleteInstance(gomock.Any()).Return(&ecs.DeleteInstanceResponse{}, tc.deleteInstancesErr).AnyTimes()
 			mockAlicloudClient.EXPECT().DeleteInstance(gomock.Any()).Return(&ecs.DeleteInstanceResponse{}, nil)
 
@@ -201,7 +202,7 @@ func TestActuator(t *testing.T) {
 		t.Fatalf("unable to build codec: %v", err)
 	}
 
-	getMachineStatus := func(objectClient client.Client, machine *machinev1.Machine) (*providerconfigv1.AlicloudMachineProviderStatus, error) {
+	getMachineStatus := func(objectClient client.Client, machine *machinev1.Machine) (*providerconfigv1.AlibabaCloudMachineProviderStatus, error) {
 		// Get updated machine object from the cluster client
 		key := types.NamespacedName{
 			Namespace: machine.Namespace,
@@ -213,7 +214,7 @@ func TestActuator(t *testing.T) {
 			return nil, fmt.Errorf("unable to retrieve machine: %v", err)
 		}
 
-		machineStatus := &providerconfigv1.AlicloudMachineProviderStatus{}
+		machineStatus := &providerconfigv1.AlibabaCloudMachineProviderStatus{}
 		if err := codec.DecodeProviderStatus(updatedMachine.Status.ProviderStatus, machineStatus); err != nil {
 			return nil, fmt.Errorf("error decoding machine provider status: %v", err)
 		}
@@ -518,6 +519,7 @@ func TestActuator(t *testing.T) {
 			mockAliCloudClient.EXPECT().DescribeImages(gomock.Any()).Return(stubImages("centos_7_06_64_20G_alibase_20190619.vhd"), nil)
 
 			mockAliCloudClient.EXPECT().CreateInstance(gomock.Any()).Return(stubCreateInstance("i-bp1bsuzspukvo4t56a4f"), tc.runInstancesErr)
+			mockAliCloudClient.EXPECT().WaitForInstance(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Return(nil)
 			mockAliCloudClient.EXPECT().WaitForInstance(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Return(nil)
 			mockAliCloudClient.EXPECT().DeleteInstance(gomock.Any()).Return(&ecs.DeleteInstanceResponse{}, tc.deleteInstancesErr).AnyTimes()
 

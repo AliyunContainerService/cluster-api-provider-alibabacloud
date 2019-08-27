@@ -31,5 +31,11 @@ Note: this info is RH only, it needs to be backported every time the `README.md`
    $ ./bin/manager --kubeconfig ~/.kube/config --logtostderr -v 5 -alsologtostderr
    ```
 
+2. **Build and run alibabacloud actuator outside of the cluster**
+
+   ```sh
+   $ go build -o bin/alicloud-actuator github.com/AliyunContainerService/cluster-api-provider-alibabacloud/cmd/alicloud-actuator
+   ```
+
 
 

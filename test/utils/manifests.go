@@ -25,8 +25,8 @@ func GenerateAlicloudCredentialsSecretFromEnv(secretName, namespace string) *api
 	}
 }
 
-func testingAlicloudMachineProviderSpec(alicloudCredentialsSecretName string, clusterID string) *providerconfigv1.AlicloudMachineProviderConfig {
-	return &providerconfigv1.AlicloudMachineProviderConfig{
+func testingAlicloudMachineProviderSpec(alicloudCredentialsSecretName string, clusterID string) *providerconfigv1.AlibabaCloudMachineProviderConfig {
+	return &providerconfigv1.AlibabaCloudMachineProviderConfig{
 		ImageId: "centos_7_06_64_20G_alibase_20190619.vhd",
 		CredentialsSecret: &apiv1.LocalObjectReference{
 			Name: alicloudCredentialsSecretName,
