@@ -207,6 +207,7 @@ func TestMachineEvents(t *testing.T) {
 
 			mockAlicloudClient.EXPECT().CreateInstance(gomock.Any()).Return(stubCreateInstance("i-bp1bsuzspukvo4t56a4f"), nil)
 			mockAlicloudClient.EXPECT().WaitForInstance(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Return(nil)
+			mockAlicloudClient.EXPECT().WaitForInstance(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Return(nil)
 			mockAlicloudClient.EXPECT().DeleteInstance(gomock.Any()).Return(&ecs.DeleteInstanceResponse{}, tc.deleteInstancesErr).AnyTimes()
 			mockAlicloudClient.EXPECT().DeleteInstance(gomock.Any()).Return(&ecs.DeleteInstanceResponse{}, nil)
 
@@ -248,18 +249,41 @@ func TestMachineEvents(t *testing.T) {
 		log.Fatal(err)
 	}
 
+<<<<<<< HEAD
 	mgrCtx, cancel := context.WithCancel(context.Background())
 	go func() {
 		if err := mgr.Start(mgrCtx); err != nil {
 			log.Fatal(err)
+=======
+	getMachineStatus := func(objectClient client.Client, machine *machinev1.Machine) (*providerconfigv1.AlibabaCloudMachineProviderStatus, error) {
+		// Get updated machine object from the cluster client
+		key := types.NamespacedName{
+			Namespace: machine.Namespace,
+			Name:      machine.Name,
+		}
+		updatedMachine := machinev1.Machine{}
+		err := objectClient.Get(context.Background(), client.ObjectKey(key), &updatedMachine)
+		if err != nil {
+			return nil, fmt.Errorf("unable to retrieve machine: %v", err)
+>>>>>>> c7e62b88 (fix testcase)
 		}
 	}()
 	defer cancel()
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	k8sClient = mgr.GetClient()
 	eventRecorder = mgr.GetEventRecorderFor("alibabacloud-controller")
 =======
+=======
+		machineStatus := &providerconfigv1.AlibabaCloudMachineProviderStatus{}
+		if err := codec.DecodeProviderStatus(updatedMachine.Status.ProviderStatus, machineStatus); err != nil {
+			return nil, fmt.Errorf("error decoding machine provider status: %v", err)
+		}
+		return machineStatus, nil
+	}
+
+>>>>>>> c7e62b88 (fix testcase)
 	machineInvalidProviderConfig := machine.DeepCopy()
 	machineInvalidProviderConfig.Spec.ProviderSpec.Value = nil
 
@@ -678,6 +702,7 @@ func Test_HandleMachineErrors(t *testing.T) {
 		actuator := NewActuator(params)
 =======
 			mockAliCloudClient.EXPECT().CreateInstance(gomock.Any()).Return(stubCreateInstance("i-bp1bsuzspukvo4t56a4f"), tc.runInstancesErr)
+			mockAliCloudClient.EXPECT().WaitForInstance(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Return(nil)
 			mockAliCloudClient.EXPECT().WaitForInstance(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Return(nil)
 			mockAliCloudClient.EXPECT().DeleteInstance(gomock.Any()).Return(&ecs.DeleteInstanceResponse{}, tc.deleteInstancesErr).AnyTimes()
 >>>>>>> ebdd9bd0 (update test case)

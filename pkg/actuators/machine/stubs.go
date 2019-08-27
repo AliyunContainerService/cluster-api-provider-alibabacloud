@@ -110,8 +110,8 @@ runcmd:
 - [ cat, /root/node_bootstrap/node_settings.yaml]
 `
 
-func stubProviderConfig() *providerconfigv1.AlicloudMachineProviderConfig {
-	return &providerconfigv1.AlicloudMachineProviderConfig{
+func stubProviderConfig() *providerconfigv1.AlibabaCloudMachineProviderConfig {
+	return &providerconfigv1.AlibabaCloudMachineProviderConfig{
 		ImageId: "centos_7_06_64_20G_alibase_20190619.vhd",
 		CredentialsSecret: &apiv1.LocalObjectReference{
 			Name: alicloudCredentialsSecretName,

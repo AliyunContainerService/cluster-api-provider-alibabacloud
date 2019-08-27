@@ -90,7 +90,7 @@ func runInstances(machine *machinev1.Machine, machineProviderConfig *alibabaclou
 	imageID, err := getImageID(machineKey, machineProviderConfig, client)
 =======
 //
-func createInstance(machine *machinev1.Machine, machineProviderConfig *providerconfigv1.AlicloudMachineProviderConfig, userData []byte, client aliClient.Client) (*ecs.Instance, error) {
+func createInstance(machine *machinev1.Machine, machineProviderConfig *providerconfigv1.AlibabaCloudMachineProviderConfig, userData []byte, client aliClient.Client) (*ecs.Instance, error) {
 	securityGroupsID, err := checkSecurityGroupsID(machineProviderConfig.VpcId, machineProviderConfig.RegionId, machineProviderConfig.SecurityGroupId, client)
 >>>>>>> ebdd9bd0 (update test case)
 	if err != nil {

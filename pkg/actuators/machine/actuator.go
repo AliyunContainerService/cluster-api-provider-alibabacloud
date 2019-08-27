@@ -119,12 +119,60 @@ func (a *Actuator) handleMachineError(machine *machinev1.Machine, err *machineap
 func (a *Actuator) Create(ctx context.Context, machine *machinev1.Machine) error {
 	klog.Infof("%s actuator creating machine to namespace %s", machine.Name, machine.Namespace)
 
+<<<<<<< HEAD
 	scope, err := newMachineScope(machineScopeParams{
 		Context:                   ctx,
 		client:                    a.client,
 		machine:                   machine,
 		alibabacloudClientBuilder: a.alibabacloudClientBuilder,
 		configManagedClient:       a.configManagedClient,
+=======
+	return a.updateStatus(machine, instance)
+}
+
+// updateStatus calculates the new machine status, checks if anything has changed, and updates if so.
+func (a *Actuator) updateStatus(machine *machinev1.Machine, instance *ecs.Instance) error {
+
+	glog.Infof("%s: Updating status", machine.Name)
+
+	// Starting with a fresh status as we assume full control of it here.
+	alicloudStatus := &providerconfigv1.AlibabaCloudMachineProviderStatus{}
+	if err := a.codec.DecodeProviderStatus(machine.Status.ProviderStatus, alicloudStatus); err != nil {
+		glog.Errorf("%s: Error decoding machine provider status: %v", machine.Name, err)
+		return err
+	}
+
+	// Save this, we need to check if it changed later.
+	networkAddresses := []corev1.NodeAddress{}
+
+	// Instance may have existed but been deleted outside our control, clear it's status if so:
+	if instance == nil {
+		alicloudStatus.InstanceID = nil
+		alicloudStatus.InstanceStatus = nil
+	} else {
+		alicloudStatus.InstanceID = &instance.InstanceId
+		alicloudStatus.InstanceStatus = &instance.Status
+		if len(instance.PublicIpAddress.IpAddress) > 0 {
+			networkAddresses = append(networkAddresses, corev1.NodeAddress{
+				Type:    corev1.NodeExternalIP,
+				Address: instance.PublicIpAddress.IpAddress[0],
+			})
+		}
+		if len(instance.InnerIpAddress.IpAddress) > 0 {
+			networkAddresses = append(networkAddresses, corev1.NodeAddress{
+				Type:    corev1.NodeInternalIP,
+				Address: instance.InnerIpAddress.IpAddress[0],
+			})
+		}
+	}
+	glog.Infof("%s: finished calculating Alicloud status", machine.Name)
+
+	alicloudStatus.Conditions = setAliCloudMachineProviderCondition(alicloudStatus.Conditions, providerconfigv1.AlibabaCloudMachineProviderCondition{
+		Type:    providerconfigv1.MachineCreation,
+		Status:  corev1.ConditionTrue,
+		Reason:  MachineCreationSucceeded,
+		Message: "machine successfully created",
+>>>>>>> c7e62b88 (fix testcase)
 	})
 
 <<<<<<< HEAD
@@ -188,6 +236,7 @@ func (a *Actuator) CreateMachine(cluster *clusterv1.Cluster, machine *machinev1.
 func (a *Actuator) Update(ctx context.Context, machine *machinev1.Machine) error {
 	klog.Infof("%s actuator updating machine to namespace %s", machine.Name, machine.Namespace)
 
+<<<<<<< HEAD
 	scope, err := newMachineScope(machineScopeParams{
 		Context:                   ctx,
 		client:                    a.client,
@@ -196,6 +245,33 @@ func (a *Actuator) Update(ctx context.Context, machine *machinev1.Machine) error
 		configManagedClient:       a.configManagedClient,
 	})
 
+=======
+	glog.Infof("%s: updating machine conditions", machine.Name)
+
+	aliCloudStatus := &providerconfigv1.AlibabaCloudMachineProviderStatus{}
+	if err := a.codec.DecodeProviderStatus(machine.Status.ProviderStatus, aliCloudStatus); err != nil {
+		glog.Errorf("%s: error decoding machine provider status: %v", machine.Name, err)
+		return err
+	}
+
+	aliCloudStatus.Conditions = setAliCloudMachineProviderCondition(aliCloudStatus.Conditions, providerconfigv1.AlibabaCloudMachineProviderCondition{
+		Type:    conditionType,
+		Status:  corev1.ConditionTrue,
+		Reason:  reason,
+		Message: msg,
+	})
+
+	if err := a.updateMachineStatus(machine, aliCloudStatus, nil); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+//update status
+func (a *Actuator) updateMachineStatus(machine *machinev1.Machine, aliCloudStatus *providerconfigv1.AlibabaCloudMachineProviderStatus, networkAddresses []corev1.NodeAddress) error {
+	alicloudStatusRaw, err := a.codec.EncodeProviderStatus(aliCloudStatus)
+>>>>>>> c7e62b88 (fix testcase)
 	if err != nil {
 		return a.handleMachineError(machine, machineapierrors.InvalidMachineConfiguration("failed to create machine %q scope: %v", machine.Name, err), updateEventAction)
 	}
@@ -210,7 +286,7 @@ func (a *Actuator) Update(ctx context.Context, machine *machinev1.Machine) error
 		machineCopy.Status.Addresses = networkAddresses
 	}
 
-	oldAlicloudStatus := &providerconfigv1.AlicloudMachineProviderStatus{}
+	oldAlicloudStatus := &providerconfigv1.AlibabaCloudMachineProviderStatus{}
 	if err := a.codec.DecodeProviderStatus(machine.Status.ProviderStatus, oldAlicloudStatus); err != nil {
 		glog.Errorf("%s: error updating machine status: %v", machine.Name, err)
 		return err

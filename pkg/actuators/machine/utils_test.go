@@ -20,10 +20,10 @@ func init() {
 
 func TestProviderConfigFromMachine(t *testing.T) {
 
-	providerConfig := &providerconfigv1.AlicloudMachineProviderConfig{
+	providerConfig := &providerconfigv1.AlibabaCloudMachineProviderConfig{
 		TypeMeta: metav1.TypeMeta{
 			APIVersion: "alicloudproviderconfig.openshift.io/v1alpha1",
-			Kind:       "AlicloudMachineProviderConfig",
+			Kind:       "AlibabaCloudMachineProviderConfig",
 		},
 		ImageId: "centos_7_06_64_20G_alibase_20190619.vhd",
 		CredentialsSecret: &corev1.LocalObjectReference{

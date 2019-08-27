@@ -21,6 +21,7 @@ import (
 	"k8s.io/klog"
 )
 
+<<<<<<< HEAD
 // upstreamMachineClusterIDLabel is the label that a machine must have to identify the cluster to which it belongs
 const upstreamMachineClusterIDLabel = "sigs.k8s.io/cluster-api-cluster"
 
@@ -32,13 +33,26 @@ func supportedInstanceStates() []string {
 		ECSInstanceStatusRunning,
 		ECSInstanceStatusStopping,
 		ECSInstanceStatusStopped,
+=======
+// providerConfigFromMachine gets the machine provider config MachineSetSpec from the
+// specified cluster-api MachineSpec.
+func providerConfigFromMachine(machine *machinev1.Machine, codec *providerconfigv1.AlicloudProviderConfigCodec) (*providerconfigv1.AlibabaCloudMachineProviderConfig, error) {
+	if machine.Spec.ProviderSpec.Value == nil {
+		return nil, fmt.Errorf("unable to find machine provider config: Spec.ProviderSpec.Value is not set")
+>>>>>>> c7e62b88 (fix testcase)
 	}
 }
 
+<<<<<<< HEAD
 // validateMachine check the label that a machine must have to identify the cluster to which it belongs is present.
 func validateMachine(machine machinev1.Machine) error {
 	if machine.Labels[machinev1.MachineClusterIDLabel] == "" {
 		return machinecontroller.InvalidMachineConfiguration("%v: missing %q label", machine.GetName(), machinev1.MachineClusterIDLabel)
+=======
+	var config providerconfigv1.AlibabaCloudMachineProviderConfig
+	if err := codec.DecodeProviderSpec(&machine.Spec.ProviderSpec, &config); err != nil {
+		return nil, err
+>>>>>>> c7e62b88 (fix testcase)
 	}
 
 <<<<<<< HEAD
@@ -52,6 +66,7 @@ func validateMachine(machine machinev1.Machine) error {
 func getClusterID(machine *machinev1.Machine) (string, bool) {
 	clusterID, ok := machine.Labels[machinev1.MachineClusterIDLabel]
 
+<<<<<<< HEAD
 	if !ok {
 		clusterID, ok = machine.Labels[upstreamMachineClusterIDLabel]
 	}
@@ -64,6 +79,16 @@ func conditionSuccess() alibabacloudproviderv1.AlibabaCloudMachineProviderCondit
 		Status:  corev1.ConditionTrue,
 		Reason:  alibabacloudproviderv1.MachineCreationSucceeded,
 		Message: "Machine successfully created",
+=======
+func shouldUpdateCondition(
+	oldCondition providerconfigv1.AlibabaCloudMachineProviderCondition,
+	newCondition providerconfigv1.AlibabaCloudMachineProviderCondition,
+) bool {
+	if oldCondition.Status != newCondition.Status ||
+		oldCondition.Reason != newCondition.Reason ||
+		oldCondition.Message != newCondition.Message {
+		return true
+>>>>>>> c7e62b88 (fix testcase)
 	}
 }
 
@@ -81,6 +106,7 @@ func conditionFailed() alibabacloudproviderv1.AlibabaCloudMachineProviderConditi
 // a condition will be added to the slice
 // If the machine does already have a condition with the specified type,
 // the condition will be updated if either of the following are true.
+<<<<<<< HEAD
 func setMachineProviderCondition(condition alibabacloudproviderv1.AlibabaCloudMachineProviderCondition, conditions []alibabacloudproviderv1.AlibabaCloudMachineProviderCondition) []alibabacloudproviderv1.AlibabaCloudMachineProviderCondition {
 	now := metav1.Now()
 
@@ -88,6 +114,27 @@ func setMachineProviderCondition(condition alibabacloudproviderv1.AlibabaCloudMa
 		condition.LastProbeTime = now
 		condition.LastTransitionTime = now
 		conditions = append(conditions, condition)
+=======
+// 1) Requested Status is different than existing status.
+// 2) requested Reason is different that existing one.
+// 3) requested Message is different that existing one.
+func setAliCloudMachineProviderCondition(conditions []providerconfigv1.AlibabaCloudMachineProviderCondition, newCondition providerconfigv1.AlibabaCloudMachineProviderCondition) []providerconfigv1.AlibabaCloudMachineProviderCondition {
+	now := metav1.Now()
+	currentCondition := findMachineProviderCondition(conditions, newCondition.Type)
+	if currentCondition == nil {
+		glog.Infof("Adding new provider condition %v", newCondition)
+		conditions = append(
+			conditions,
+			providerconfigv1.AlibabaCloudMachineProviderCondition{
+				Type:               newCondition.Type,
+				Status:             newCondition.Status,
+				Reason:             newCondition.Reason,
+				Message:            newCondition.Message,
+				LastTransitionTime: now,
+				LastProbeTime:      now,
+			},
+		)
+>>>>>>> c7e62b88 (fix testcase)
 	} else {
 		updateExistingCondition(&condition, existingCondition)
 	}
@@ -95,9 +142,17 @@ func setMachineProviderCondition(condition alibabacloudproviderv1.AlibabaCloudMa
 	return conditions
 }
 
+<<<<<<< HEAD
 func findProviderCondition(conditions []alibabacloudproviderv1.AlibabaCloudMachineProviderCondition, conditionType alibabacloudproviderv1.AlibabaCloudMachineProviderConditionType) *alibabacloudproviderv1.AlibabaCloudMachineProviderCondition {
 	for i := range conditions {
 		if conditions[i].Type == conditionType {
+=======
+// findMachineProviderCondition finds in the machine the condition that has the
+// specified condition type. If none exists, then returns nil.
+func findMachineProviderCondition(conditions []providerconfigv1.AlibabaCloudMachineProviderCondition, conditionType providerconfigv1.AliCloudMachineProviderConditionType) *providerconfigv1.AlibabaCloudMachineProviderCondition {
+	for i, condition := range conditions {
+		if condition.Type == conditionType {
+>>>>>>> c7e62b88 (fix testcase)
 			return &conditions[i]
 		}
 	}
