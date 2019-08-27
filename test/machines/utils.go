@@ -25,21 +25,21 @@ func createSecretAndWait(f *framework.Framework, secret *apiv1.Secret) {
 	Expect(err).NotTo(HaveOccurred())
 }
 
-func getMachineProviderStatus(f *framework.Framework, machine *MachineV1beta1.Machine) *providerconfigv1.AlicloudMachineProviderStatus {
+func getMachineProviderStatus(f *framework.Framework, machine *MachineV1beta1.Machine) *providerconfigv1.AlibabaCloudMachineProviderStatus {
 	machine, err := f.CAPIClient.MachineV1beta1().Machines(machine.Namespace).Get(machine.Name, metav1.GetOptions{})
 	Expect(err).NotTo(HaveOccurred())
 
 	codec, err := providerconfigv1.NewCodec()
 	Expect(err).NotTo(HaveOccurred())
 
-	machineProviderStatus := &providerconfigv1.AlicloudMachineProviderStatus{}
+	machineProviderStatus := &providerconfigv1.AlibabaCloudMachineProviderStatus{}
 	err = codec.DecodeProviderStatus(machine.Status.ProviderStatus, machineProviderStatus)
 	Expect(err).NotTo(HaveOccurred())
 
 	return machineProviderStatus
 }
 
-func getMachineCondition(f *framework.Framework, machine *MachineV1beta1.Machine) providerconfigv1.AliCloudMachineProviderCondition {
+func getMachineCondition(f *framework.Framework, machine *MachineV1beta1.Machine) providerconfigv1.AlibabaCloudMachineProviderCondition {
 	conditions := getMachineProviderStatus(f, machine).Conditions
 	Expect(len(conditions)).To(Equal(1), "ambiguous conditions: %#v", conditions)
 	return conditions[0]
