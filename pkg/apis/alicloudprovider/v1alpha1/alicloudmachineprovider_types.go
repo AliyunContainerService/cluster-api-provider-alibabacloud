@@ -25,7 +25,7 @@ const (
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
-// AlicloudMachineProviderSpec defines the desired state of AlicloudMachineProviderConfig
+// AlicloudMachineProviderSpec defines the desired state of AlibabaCloudMachineProviderConfig
 // +k8s:openapi-gen=true
 //type AlicloudMachineProviderSpec struct {
 //	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
@@ -187,9 +187,9 @@ type DataDiskSpecification struct {
 	SnapshotId string `json:"snapshotId"`
 }
 
-// AlicloudMachineProviderStatus defines the observed state of AlicloudMachineProviderConfig
+// AlibabaCloudMachineProviderStatus defines the observed state of AlibabaCloudMachineProviderConfig
 // +k8s:openapi-gen=true
-type AlicloudMachineProviderStatus struct {
+type AlibabaCloudMachineProviderStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "operator-sdk generate k8s" to regenerate code after modifying this file
 	// Add custom validation using kubebuilder tags: https://book-v1.book.kubebuilder.io/beyond_basics/generating_crd.html
@@ -206,15 +206,15 @@ type AlicloudMachineProviderStatus struct {
 
 	// Conditions is a set of conditions associated with the Machine to indicate
 	// errors or other status
-	Conditions []AliCloudMachineProviderCondition `json:"conditions,omitempty"`
+	Conditions []AlibabaCloudMachineProviderCondition `json:"conditions,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// AlicloudMachineProviderConfig is the Schema for the alicloudmachineproviderconfigs API
+// AlibabaCloudMachineProviderConfig is the Schema for the alicloudmachineproviderconfigs API
 // +k8s:openapi-gen=true
 // +kubebuilder:subresource:status
-type AlicloudMachineProviderConfig struct {
+type AlibabaCloudMachineProviderConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
@@ -311,15 +311,15 @@ type AlicloudMachineProviderConfig struct {
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// AlicloudMachineProviderList contains a list of AlicloudMachineProviderConfig
-type AlicloudMachineProviderList struct {
+// AlibabaCloudMachineProviderList contains a list of AlibabaCloudMachineProviderConfig
+type AlibabaCloudMachineProviderList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []AlicloudMachineProviderConfig `json:"items"`
+	Items           []AlibabaCloudMachineProviderConfig `json:"items"`
 }
 
-// AliCloudMachineProviderCondition is a condition in a AlicloudMachineProviderStatus
-type AliCloudMachineProviderCondition struct {
+// AlibabaCloudMachineProviderCondition is a condition in a AlibabaCloudMachineProviderStatus
+type AlibabaCloudMachineProviderCondition struct {
 	// Type is the type of the condition.
 	Type AliCloudMachineProviderConditionType `json:"type"`
 	// Status is the status of the condition.
@@ -339,5 +339,5 @@ type AliCloudMachineProviderCondition struct {
 }
 
 func init() {
-	SchemeBuilder.Register(&AlicloudMachineProviderConfig{}, &AlicloudMachineProviderList{}, &AlicloudMachineProviderStatus{})
+	SchemeBuilder.Register(&AlibabaCloudMachineProviderConfig{}, &AlibabaCloudMachineProviderList{}, &AlibabaCloudMachineProviderStatus{})
 }

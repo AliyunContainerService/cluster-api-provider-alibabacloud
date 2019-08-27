@@ -29,12 +29,12 @@ import (
 
 // providerConfigFromMachine gets the machine provider config MachineSetSpec from the
 // specified cluster-api MachineSpec.
-func providerConfigFromMachine(machine *machinev1.Machine, codec *providerconfigv1.AlicloudProviderConfigCodec) (*providerconfigv1.AlicloudMachineProviderConfig, error) {
+func providerConfigFromMachine(machine *machinev1.Machine, codec *providerconfigv1.AlicloudProviderConfigCodec) (*providerconfigv1.AlibabaCloudMachineProviderConfig, error) {
 	if machine.Spec.ProviderSpec.Value == nil {
 		return nil, fmt.Errorf("unable to find machine provider config: Spec.ProviderSpec.Value is not set")
 	}
 
-	var config providerconfigv1.AlicloudMachineProviderConfig
+	var config providerconfigv1.AlibabaCloudMachineProviderConfig
 	if err := codec.DecodeProviderSpec(&machine.Spec.ProviderSpec, &config); err != nil {
 		return nil, err
 	}
@@ -49,8 +49,8 @@ const (
 )
 
 func shouldUpdateCondition(
-	oldCondition providerconfigv1.AliCloudMachineProviderCondition,
-	newCondition providerconfigv1.AliCloudMachineProviderCondition,
+	oldCondition providerconfigv1.AlibabaCloudMachineProviderCondition,
+	newCondition providerconfigv1.AlibabaCloudMachineProviderCondition,
 ) bool {
 	if oldCondition.Status != newCondition.Status ||
 		oldCondition.Reason != newCondition.Reason ||
@@ -69,14 +69,14 @@ func shouldUpdateCondition(
 // 1) Requested Status is different than existing status.
 // 2) requested Reason is different that existing one.
 // 3) requested Message is different that existing one.
-func setAliCloudMachineProviderCondition(conditions []providerconfigv1.AliCloudMachineProviderCondition, newCondition providerconfigv1.AliCloudMachineProviderCondition) []providerconfigv1.AliCloudMachineProviderCondition {
+func setAliCloudMachineProviderCondition(conditions []providerconfigv1.AlibabaCloudMachineProviderCondition, newCondition providerconfigv1.AlibabaCloudMachineProviderCondition) []providerconfigv1.AlibabaCloudMachineProviderCondition {
 	now := metav1.Now()
 	currentCondition := findMachineProviderCondition(conditions, newCondition.Type)
 	if currentCondition == nil {
 		glog.Infof("Adding new provider condition %v", newCondition)
 		conditions = append(
 			conditions,
-			providerconfigv1.AliCloudMachineProviderCondition{
+			providerconfigv1.AlibabaCloudMachineProviderCondition{
 				Type:               newCondition.Type,
 				Status:             newCondition.Status,
 				Reason:             newCondition.Reason,
@@ -105,7 +105,7 @@ func setAliCloudMachineProviderCondition(conditions []providerconfigv1.AliCloudM
 
 // findMachineProviderCondition finds in the machine the condition that has the
 // specified condition type. If none exists, then returns nil.
-func findMachineProviderCondition(conditions []providerconfigv1.AliCloudMachineProviderCondition, conditionType providerconfigv1.AliCloudMachineProviderConditionType) *providerconfigv1.AliCloudMachineProviderCondition {
+func findMachineProviderCondition(conditions []providerconfigv1.AlibabaCloudMachineProviderCondition, conditionType providerconfigv1.AliCloudMachineProviderConditionType) *providerconfigv1.AlibabaCloudMachineProviderCondition {
 	for i, condition := range conditions {
 		if condition.Type == conditionType {
 			return &conditions[i]
