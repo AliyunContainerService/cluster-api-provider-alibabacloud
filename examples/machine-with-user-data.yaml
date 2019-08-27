@@ -1,0 +1,35 @@
+---
+apiVersion: machine.openshift.io/v1beta1
+kind: Machine
+metadata:
+  name: alicloud-actuator-testing-machine
+  namespace: default
+  generateName: vs-master-
+  labels:
+    machine.openshift.io/cluster-api-cluster: alicloud-actuator-k8s
+spec:
+  metadata:
+    labels:
+      node-role.kubernetes.io/master: ""
+      node-role.kubernetes.io/infra: ""
+  providerSpec:
+    value:
+      apiVersion: alicloudproviderconfig.openshift.io/v1alpha1
+      kind: AlicloudMachineProviderConfig
+      instanceType: ecs.c5.xlarge
+      imageId: centos_7_06_64_20G_alibase_20190711.vhd
+      regionId: cn-hangzhou
+      securityGroupId: sg-bp16yqwdlflk32p679ik
+      vpcId: vpc-bp1td11g1i90b1fjnm7jw
+      vSwitchId: vsw-bp1ra53n8ban94mbbgb4w
+      systemDiskSize: 40
+      tags:
+      - key: openshift-node-group-config
+        value: node-config-node
+      - key: host-type
+        value: node
+      - key: sub-host-type
+        value: default
+      publicIp: true
+      userDataSecret:
+        name: alicloud-actuator-user-data-secret
