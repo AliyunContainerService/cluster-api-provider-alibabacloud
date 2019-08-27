@@ -118,7 +118,7 @@ func (a *Actuator) updateStatus(machine *machinev1.Machine, instance *ecs.Instan
 	glog.Infof("%s: Updating status", machine.Name)
 
 	// Starting with a fresh status as we assume full control of it here.
-	alicloudStatus := &providerconfigv1.AlicloudMachineProviderStatus{}
+	alicloudStatus := &providerconfigv1.AlibabaCloudMachineProviderStatus{}
 	if err := a.codec.DecodeProviderStatus(machine.Status.ProviderStatus, alicloudStatus); err != nil {
 		glog.Errorf("%s: Error decoding machine provider status: %v", machine.Name, err)
 		return err
@@ -149,7 +149,7 @@ func (a *Actuator) updateStatus(machine *machinev1.Machine, instance *ecs.Instan
 	}
 	glog.Infof("%s: finished calculating Alicloud status", machine.Name)
 
-	alicloudStatus.Conditions = setAliCloudMachineProviderCondition(alicloudStatus.Conditions, providerconfigv1.AliCloudMachineProviderCondition{
+	alicloudStatus.Conditions = setAliCloudMachineProviderCondition(alicloudStatus.Conditions, providerconfigv1.AlibabaCloudMachineProviderCondition{
 		Type:    providerconfigv1.MachineCreation,
 		Status:  corev1.ConditionTrue,
 		Reason:  MachineCreationSucceeded,
@@ -215,13 +215,13 @@ func (a *Actuator) updateMachineProviderConditions(machine *machinev1.Machine, c
 
 	glog.Infof("%s: updating machine conditions", machine.Name)
 
-	aliCloudStatus := &providerconfigv1.AlicloudMachineProviderStatus{}
+	aliCloudStatus := &providerconfigv1.AlibabaCloudMachineProviderStatus{}
 	if err := a.codec.DecodeProviderStatus(machine.Status.ProviderStatus, aliCloudStatus); err != nil {
 		glog.Errorf("%s: error decoding machine provider status: %v", machine.Name, err)
 		return err
 	}
 
-	aliCloudStatus.Conditions = setAliCloudMachineProviderCondition(aliCloudStatus.Conditions, providerconfigv1.AliCloudMachineProviderCondition{
+	aliCloudStatus.Conditions = setAliCloudMachineProviderCondition(aliCloudStatus.Conditions, providerconfigv1.AlibabaCloudMachineProviderCondition{
 		Type:    conditionType,
 		Status:  corev1.ConditionTrue,
 		Reason:  reason,
@@ -236,7 +236,7 @@ func (a *Actuator) updateMachineProviderConditions(machine *machinev1.Machine, c
 }
 
 //update status
-func (a *Actuator) updateMachineStatus(machine *machinev1.Machine, aliCloudStatus *providerconfigv1.AlicloudMachineProviderStatus, networkAddresses []corev1.NodeAddress) error {
+func (a *Actuator) updateMachineStatus(machine *machinev1.Machine, aliCloudStatus *providerconfigv1.AlibabaCloudMachineProviderStatus, networkAddresses []corev1.NodeAddress) error {
 	alicloudStatusRaw, err := a.codec.EncodeProviderStatus(aliCloudStatus)
 	if err != nil {
 		glog.Errorf("%s: error encoding Alicloud provider status: %v", machine.Name, err)
@@ -249,7 +249,7 @@ func (a *Actuator) updateMachineStatus(machine *machinev1.Machine, aliCloudStatu
 		machineCopy.Status.Addresses = networkAddresses
 	}
 
-	oldAlicloudStatus := &providerconfigv1.AlicloudMachineProviderStatus{}
+	oldAlicloudStatus := &providerconfigv1.AlibabaCloudMachineProviderStatus{}
 	if err := a.codec.DecodeProviderStatus(machine.Status.ProviderStatus, oldAlicloudStatus); err != nil {
 		glog.Errorf("%s: error updating machine status: %v", machine.Name, err)
 		return err

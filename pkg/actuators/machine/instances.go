@@ -17,7 +17,7 @@ import (
 )
 
 //
-func createInstance(machine *machinev1.Machine, machineProviderConfig *providerconfigv1.AlicloudMachineProviderConfig, userData []byte, client aliClient.Client) (*ecs.Instance, error) {
+func createInstance(machine *machinev1.Machine, machineProviderConfig *providerconfigv1.AlibabaCloudMachineProviderConfig, userData []byte, client aliClient.Client) (*ecs.Instance, error) {
 	securityGroupsID, err := checkSecurityGroupsID(machineProviderConfig.VpcId, machineProviderConfig.RegionId, machineProviderConfig.SecurityGroupId, client)
 	if err != nil {
 		return nil, fmt.Errorf("error getting security groups ID: %v", err)

@@ -1,6 +1,6 @@
 package v1alpha1
 
-// AliCloudMachineProviderConditionType is a valid value for AliCloudMachineProviderCondition.Type
+// AliCloudMachineProviderConditionType is a valid value for AlibabaCloudMachineProviderCondition.Type
 type AliCloudMachineProviderConditionType string
 
 // Valid conditions for an AliCloud machine instance
