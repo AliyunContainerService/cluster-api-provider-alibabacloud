@@ -21,7 +21,7 @@ Note: this info is RH only, it needs to be backported every time the `README.md`
    controllers) running `machine-controller`. In order to run locally built one,
    simply edit `machine-api-controllers` deployment and remove `machine-controller` container from it.
 
-1. **Build and run alibabacloud actuator outside of the cluster**
+2. **Build and run alibabacloud actuator outside of the cluster**
 
    ```sh
    $ go build -o bin/manager github.com/AliyunContainerService/cluster-api-provider-alibabacloud/cmd/manager
@@ -31,11 +31,38 @@ Note: this info is RH only, it needs to be backported every time the `README.md`
    $ ./bin/manager --kubeconfig ~/.kube/config --logtostderr -v 5 -alsologtostderr
    ```
 
-2. **Build and run alibabacloud actuator outside of the cluster**
+3. **Build and run alibabacloud actuator outside of the cluster**
 
    ```sh
    $ go build -o bin/alicloud-actuator github.com/AliyunContainerService/cluster-api-provider-alibabacloud/cmd/alicloud-actuator
    ```
+
+4. **Run machine controller in a kubernetes cluser.**
+   
+   Deploy crds
+   
+   ```sh
+   $ kubectl apply -f ./config/crds/
+   ```
+   
+   Deploy rbac
+   
+   ```sh
+   $ kubectl apply -f ./config/rbac/
+   ```   
+   
+   Before you deploy machine-controller, you edit the file ./config/configmap/user_config.yaml first, and fill your info ,and then 
+   
+   ```sh
+   $ kubectl apply  -f ./config/configmap/
+   ```   
+   
+   
+   ```sh
+   $ kubectl apply -f ./config/controllers/
+   ```   
+   
+
 
 
 
