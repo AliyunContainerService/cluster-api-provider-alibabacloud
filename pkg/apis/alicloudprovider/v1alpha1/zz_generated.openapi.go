@@ -24,13 +24,13 @@ import (
 
 func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenAPIDefinition {
 	return map[string]common.OpenAPIDefinition{
-		"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudproviderconfig/v1alpha1.AlibabaCloudMachineProviderConfig": schema_pkg_apis_alicloudproviderconfig_v1alpha1_AlicloudMachineProviderConfig(ref),
-		"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudproviderconfig/v1alpha1.AlicloudMachineProviderSpec":   schema_pkg_apis_alicloudproviderconfig_v1alpha1_AlicloudMachineProviderConfigSpec(ref),
-		"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudproviderconfig/v1alpha1.AlibabaCloudMachineProviderStatus": schema_pkg_apis_alicloudproviderconfig_v1alpha1_AlicloudMachineProviderConfigStatus(ref),
+		"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alibabacloudproviderconfig/v1alpha1.AlibabaCloudMachineProviderConfig": schema_pkg_apis_alibabacloudproviderconfig_v1alpha1_AlibabaCloudMachineProviderConfig(ref),
+		"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alibabacloudproviderconfig/v1alpha1.AlibabaCloudMachineProviderSpec":   schema_pkg_apis_alibabacloudproviderconfig_v1alpha1_AlibabaCloudMachineProviderConfigSpec(ref),
+		"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alibabacloudproviderconfig/v1alpha1.AlibabaCloudMachineProviderStatus": schema_pkg_apis_alibabacloudproviderconfig_v1alpha1_AlibabaCloudMachineProviderConfigStatus(ref),
 	}
 }
 
-func schema_pkg_apis_alicloudproviderconfig_v1alpha1_AlicloudMachineProviderConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_alibabacloudproviderconfig_v1alpha1_AlibabaCloudMachineProviderConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -73,7 +73,7 @@ func schema_pkg_apis_alicloudproviderconfig_v1alpha1_AlicloudMachineProviderConf
 	}
 }
 
-func schema_pkg_apis_alicloudproviderconfig_v1alpha1_AlicloudMachineProviderConfigSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_alibabacloudproviderconfig_v1alpha1_AlibabaCloudMachineProviderConfigSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -85,7 +85,7 @@ func schema_pkg_apis_alicloudproviderconfig_v1alpha1_AlicloudMachineProviderConf
 	}
 }
 
-func schema_pkg_apis_alicloudproviderconfig_v1alpha1_AlicloudMachineProviderConfigStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_alibabacloudproviderconfig_v1alpha1_AlibabaCloudMachineProviderConfigStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{

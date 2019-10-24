@@ -18,7 +18,7 @@ security groups, etc. :
 The `examples/userdata.yml` secret encodes the following user data:
 ```sh
 #!/bin/bash
-echo "Ahoj" > /tmp/test
+echo "Hello Alibaba" > /tmp/test
 ```
 
 The environment variables  `ALICLOUD_ACCESS_KEY_ID` and `ALICLOUD_ACCESS_KEY_SECRET`  must  to be set.
