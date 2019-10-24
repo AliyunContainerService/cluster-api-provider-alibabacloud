@@ -99,6 +99,7 @@ Note: this info is RH only, it needs to be backported every time the `README.md`
    simply edit `machine-api-controllers` deployment and remove `machine-controller` container from it.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 2. **Build and run AlibabaCloud actuator outside of the cluster**
 
    ```sh
@@ -357,6 +358,9 @@ Other branches of this repository may choose to track the upstream
 Kubernetes [Cluster-API AlibabaCloud provider](https://github.com/AliyunContainerService/cluster-api-provider-alibabacloud)
 =======
 1. **Build and run alibabacloud actuator outside of the cluster**
+=======
+2. **Build and run alibabacloud actuator outside of the cluster**
+>>>>>>> fc426375 (fix manager run error)
 
    ```sh
    $ go build -o bin/manager github.com/AliyunContainerService/cluster-api-provider-alibabacloud/cmd/manager
@@ -366,11 +370,38 @@ Kubernetes [Cluster-API AlibabaCloud provider](https://github.com/AliyunContaine
    $ ./bin/manager --kubeconfig ~/.kube/config --logtostderr -v 5 -alsologtostderr
    ```
 
-2. **Build and run alibabacloud actuator outside of the cluster**
+3. **Build and run alibabacloud actuator outside of the cluster**
 
    ```sh
    $ go build -o bin/alicloud-actuator github.com/AliyunContainerService/cluster-api-provider-alibabacloud/cmd/alicloud-actuator
    ```
+
+4. **Run machine controller in a kubernetes cluser.**
+   
+   Deploy crds
+   
+   ```sh
+   $ kubectl apply -f ./config/crds/
+   ```
+   
+   Deploy rbac
+   
+   ```sh
+   $ kubectl apply -f ./config/rbac/
+   ```   
+   
+   Before you deploy machine-controller, you edit the file ./config/configmap/user_config.yaml first, and fill your info ,and then 
+   
+   ```sh
+   $ kubectl apply  -f ./config/configmap/
+   ```   
+   
+   
+   ```sh
+   $ kubectl apply -f ./config/controllers/
+   ```   
+   
+
 
 
 

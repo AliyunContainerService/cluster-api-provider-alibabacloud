@@ -12,7 +12,7 @@ spec:
     matchLabels:
       api: clusterapi
       k8s-app: controller
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -67,35 +67,25 @@ spec:
               memory: 30Mi
 =======
       - name: controller-manager
-        image: registry.cn-hangzhou.aliyuncs.com/cluster-api/origin-alicloud-machine-controllers:v0.4
+        image: registry.cn-hangzhou.aliyuncs.com/cluster-api/origin-alicloud-machine-controllers:v0.5
         command:
-        - "./manager"
-        resources:
-          requests:
-            cpu: 100m
-            memory: 20Mi
-          limits:
-            cpu: 100m
-            memory: 30Mi
-      - name: machine-controller
-        image: registry.cn-hangzhou.aliyuncs.com/cluster-api/origin-alicloud-machine-controllers:v0.4
+        - "./machine-controller-manager"
         env:
+          - name: ALICLOUD_ACCESS_KEY_ID
+            valueFrom:
+              configMapKeyRef:
+                key: ALICLOUD_ACCESS_KEY_ID
+                name: my-cluster-api-config
+          - name: ALICLOUD_ACCESS_KEY_SECRET
+            valueFrom:
+              configMapKeyRef:
+                key: ALICLOUD_ACCESS_KEY_SECRET
+                name: my-cluster-api-config
           - name: NODE_NAME
             valueFrom:
-              fieldRef:
-                fieldPath: spec.nodeName
-        command:
-          - /machine-controller-manager
-        args:
-          - --logtostderr=true
-          - --v=3
-      - name: nodelink-controller
-        image: registry.cn-hangzhou.aliyuncs.com/cluster-api/machine-api-operator:v0.4
-        command:
-          - /nodelink-controller
-        args:
-          - --logtostderr=true
-          - --v=3
+              configMapKeyRef:
+                key: NODE_NAME
+                name: my-cluster-api-config
         resources:
           requests:
             cpu: 100m
@@ -103,4 +93,8 @@ spec:
           limits:
             cpu: 100m
             memory: 30Mi
+<<<<<<< HEAD
 >>>>>>> ac8840a3 (update image)
+=======
+
+>>>>>>> fc426375 (fix manager run error)

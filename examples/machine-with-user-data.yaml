@@ -52,11 +52,11 @@ spec:
   providerSpec:
     value:
       apiVersion: alicloudproviderconfig.openshift.io/v1alpha1
-      kind: AlicloudMachineProviderConfig
+      kind: AlibabaCloudMachineProviderConfig
       instanceType: ecs.c5.xlarge
       imageId: centos_7_06_64_20G_alibase_20190711.vhd
       regionId: cn-hangzhou
-      securityGroupId: sg-bp16yqwdlflk32p679ik
+      securityGroupId: sg-bp1517hncuo5e64hg4rw
       vpcId: vpc-bp1td11g1i90b1fjnm7jw
       vSwitchId: vsw-bp1ra53n8ban94mbbgb4w
       systemDiskSize: 40
