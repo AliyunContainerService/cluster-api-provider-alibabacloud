@@ -1,0 +1,9 @@
+kubectl apply  apiVersion: v1
+  data:
+    ALICLOUD_ACCESS_KEY_ID: <Your AccessKeyId>
+    ALICLOUD_ACCESS_KEY_SECRET: <Your AccessKeyScret>
+    NODE_NAME: cluster-api
+  kind: ConfigMap
+  metadata:
+    name: my-cluster-api-config
+    namespace: default
