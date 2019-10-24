@@ -129,10 +129,6 @@ func deleteCommand() *cobra.Command {
 				return err
 			}
 
-			if err != nil {
-				return fmt.Errorf("unable to create read resources: %v", err)
-			}
-
 			actuator, err := createActuator(machine, alicloudCredentials, userData)
 			if err != nil {
 				return fmt.Errorf("unable to create actuator: %v", err)
