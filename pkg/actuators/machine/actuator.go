@@ -140,10 +140,10 @@ func (a *Actuator) updateStatus(machine *machinev1.Machine, instance *ecs.Instan
 				Address: instance.PublicIpAddress.IpAddress[0],
 			})
 		}
-		if len(instance.InnerIpAddress.IpAddress) > 0 {
+		if len(instance.PrivateIpAddress.IpAddress) > 0 {
 			networkAddresses = append(networkAddresses, corev1.NodeAddress{
 				Type:    corev1.NodeInternalIP,
-				Address: instance.InnerIpAddress.IpAddress[0],
+				Address: instance.PrivateIpAddress.IpAddress[0],
 			})
 		}
 	}
@@ -445,7 +445,7 @@ func getClusterID(machine *machinev1.Machine) (string, bool) {
 	clusterID, ok := machine.Labels[providerconfigv1.ClusterIDLabel]
 	// NOTE: This block can be removed after the label renaming transition to machine.openshift.io
 	if !ok {
-		clusterID, ok = machine.Labels["sigs.k8s.io/cluster-api-cluster"]
+		clusterID, ok = machine.Labels["machine.openshift.io/cluster-api-cluster"]
 	}
 	return clusterID, ok
 }
