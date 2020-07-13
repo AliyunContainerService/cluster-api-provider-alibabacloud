@@ -145,8 +145,10 @@ func stubInstance(imageID, instanceID string) ecs.Instance {
 		PublicIpAddress: ecs.PublicIpAddressInDescribeInstances{
 			IpAddress: []string{"1.1.1.1"},
 		},
-		PrivateIpAddress: ecs.PrivateIpAddressInDescribeInstances{
-			IpAddress: []string{"1.1.1.1"},
+		VpcAttributes: ecs.VpcAttributes{
+			PrivateIpAddress: ecs.VpcAttributes.PrivateIpAddressInDescribeInstances {
+				IpAddress: []string{"1.1.1.1"},
+			}
 		},
 		Tags: ecs.TagsInDescribeInstances{
 			Tag: []ecs.Tag{

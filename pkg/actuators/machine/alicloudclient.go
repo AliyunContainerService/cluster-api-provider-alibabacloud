@@ -48,11 +48,11 @@ func (client *AliCloudClientWrapper) GetPrivateIP(machine *machinev1beta1.Machin
 		return "", err
 	}
 
-	if len(instance.PrivateIpAddress.IpAddress) <= 0 {
+	if len(instance.VpcAttributes.PrivateIpAddress.IpAddress) <= 0 {
 		return "", fmt.Errorf("machine instance private ip not set")
 	}
 
-	return instance.PrivateIpAddress.IpAddress[0], nil
+	return instance.VpcAttributes.PrivateIpAddress.IpAddress[0], nil
 }
 
 var _ types.CloudProviderClient = &AliCloudClientWrapper{}

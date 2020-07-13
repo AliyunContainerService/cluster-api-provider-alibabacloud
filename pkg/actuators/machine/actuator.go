@@ -140,10 +140,10 @@ func (a *Actuator) updateStatus(machine *machinev1.Machine, instance *ecs.Instan
 				Address: instance.PublicIpAddress.IpAddress[0],
 			})
 		}
-		if len(instance.PrivateIpAddress.IpAddress) > 0 {
+		if len(instance.VpcAttributes.PrivateIpAddress.IpAddress) > 0 {
 			networkAddresses = append(networkAddresses, corev1.NodeAddress{
 				Type:    corev1.NodeInternalIP,
-				Address: instance.PrivateIpAddress.IpAddress[0],
+				Address: instance.VpcAttributes.PrivateIpAddress.IpAddress[0],
 			})
 		}
 	}
