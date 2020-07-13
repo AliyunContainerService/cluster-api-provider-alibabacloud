@@ -146,6 +146,10 @@ func (a *Actuator) updateStatus(machine *machinev1.Machine, instance *ecs.Instan
 				Address: instance.VpcAttributes.PrivateIpAddress.IpAddress[0],
 			})
 		}
+		networkAddresses = append(networkAddresses, corev1.NodeAddress{
+			Type:    corev1.NodeInternalDNS,
+			Address: Join([]string{"cn-beijing", alicloudStatus.InstanceID}, "."),
+		})
 	}
 	glog.Infof("%s: finished calculating Alicloud status", machine.Name)
 
