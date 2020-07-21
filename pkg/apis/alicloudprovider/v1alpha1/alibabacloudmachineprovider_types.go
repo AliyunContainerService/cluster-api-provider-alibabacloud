@@ -268,6 +268,9 @@ type AlibabaCloudMachineProviderConfig struct {
 	//The tags  of the instance
 	Tags []TagSpecification `json:"tags,omitempty"`
 
+	InstanceChargeType string `json:"instanceChargeType"`
+
+	SpotStrategy string `json:"spotStrategy"`
 	/**
 	The category of the system disk. The default value of the non-optimized instance for phased-out instance types for which I/O optimization is not performed is cloud. The default value for other instances is cloud_efficiency. Valid values:
 
