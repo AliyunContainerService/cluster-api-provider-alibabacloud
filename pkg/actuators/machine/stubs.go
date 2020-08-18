@@ -13,9 +13,8 @@ import (
 
 	providerconfigv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudprovider/v1alpha1"
 	"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/test/utils"
-	clusterv1 "github.com/openshift/cluster-api/pkg/apis/cluster/v1alpha1"
-	machinev1 "github.com/openshift/cluster-api/pkg/apis/machine/v1beta1"
-	machinecontroller "github.com/openshift/cluster-api/pkg/controller/machine"
+	machinev1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
+	machinecontroller "github.com/openshift/machine-api-operator/pkg/controller/machine"
 )
 
 const (
@@ -95,7 +94,7 @@ func stubMachine() (*machinev1.Machine, error) {
 		},
 
 		Spec: machinev1.MachineSpec{
-			ObjectMeta: metav1.ObjectMeta{
+			 ObjectMeta: machinev1.ObjectMeta{
 				Labels: map[string]string{
 					"node-role.kubernetes.io/master": "",
 					"node-role.kubernetes.io/infra":  "",
@@ -106,15 +105,6 @@ func stubMachine() (*machinev1.Machine, error) {
 	}
 
 	return machine, nil
-}
-
-func stubCluster() *clusterv1.Cluster {
-	return &clusterv1.Cluster{
-		ObjectMeta: metav1.ObjectMeta{
-			Name:      clusterID,
-			Namespace: defaultNamespace,
-		},
-	}
 }
 
 func stubUserDataSecret() *corev1.Secret {
@@ -146,7 +136,7 @@ func stubInstance(imageID, instanceID string) ecs.Instance {
 			IpAddress: []string{"1.1.1.1"},
 		},
 		VpcAttributes: ecs.VpcAttributes{
-			PrivateIpAddress: ecs.PrivateIpAddressInDescribeInstances {
+			PrivateIpAddress: ecs.PrivateIpAddressInDescribeInstances{
 				IpAddress: []string{"1.1.1.1"},
 			},
 		},

@@ -9,5 +9,5 @@ fi
 if dep check | grep -q cluster-api-actuator-pkg; then
 	exit 1
 fi
-dep ensure -update github.com/openshift/cluster-api-actuator-pkg
+dep ensure -update github.com/openshift/machine-api-operator-actuator-pkg
 git diff --exit-code

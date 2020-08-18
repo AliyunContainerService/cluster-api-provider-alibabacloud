@@ -60,10 +60,10 @@ bin:
 
 .PHONY: build
 build: ## build binaries
-	$(DOCKER_CMD) go build $(GOGCFLAGS) -o "bin/machine-controller-manager" \
+	go build $(GOGCFLAGS) -mod=mod -o "bin/machine-controller-manager" \
                -ldflags "$(LD_FLAGS)" "$(REPO_PATH)/cmd/manager"
-	$(DOCKER_CMD) go build $(GOGCFLAGS) -o bin/manager -ldflags '-extldflags "-static"' \
-               "$(REPO_PATH)/vendor/github.com/openshift/cluster-api/cmd/manager"
+#	$(DOCKER_CMD) go build $(GOGCFLAGS) -o bin/manager -ldflags '-extldflags "-static"' \
+               "$(REPO_PATH)/vendor/github.com/openshift/machine-api-operator/cmd/manager"
 
 alicloud-actuator:
 	$(DOCKER_CMD) go build $(GOGCFLAGS) -o bin/alicloud-actuator github.com/AliyunContainerService/cluster-api-provider-alibabacloud/cmd/alicloud-actuator

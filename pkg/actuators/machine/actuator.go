@@ -16,17 +16,15 @@ package machine
 import (
 	"context"
 	"fmt"
-	"time"
 	"strings"
+	"time"
 
 	providerconfigv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudprovider/v1alpha1"
 	aliClient "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client"
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/ecs"
 	"github.com/golang/glog"
-	clusterv1 "github.com/openshift/cluster-api/pkg/apis/cluster/v1alpha1"
-	machinev1 "github.com/openshift/cluster-api/pkg/apis/machine/v1beta1"
-	clustererror "github.com/openshift/cluster-api/pkg/controller/error"
-	apierrors "github.com/openshift/cluster-api/pkg/errors"
+	machinev1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
+	machinecontroller "github.com/openshift/machine-api-operator/pkg/controller/machine"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/equality"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -88,19 +86,19 @@ func NewActuator(params ActuatorParams) (*Actuator, error) {
 
 // Set corresponding event based on error. It also returns the original error
 // for convenience, so callers can do "return handleMachineError(...)".
-func (a *Actuator) handleMachineError(machine *machinev1.Machine, err *apierrors.MachineError, eventAction string) error {
+func (a *Actuator) handleMachineError(machine *machinev1.Machine, err error, eventAction string) error {
 	if eventAction != noEventAction {
-		a.eventRecorder.Eventf(machine, corev1.EventTypeWarning, "Failed"+eventAction, "%v", err.Reason)
+		a.eventRecorder.Eventf(machine, corev1.EventTypeWarning, "Failed"+eventAction, "%v", err)
 	}
 
-	glog.Errorf("%s: Machine error: %v", machine.Name, err.Message)
+	glog.Errorf("%s: Machine error: %v", machine.Name, err)
 	return err
 }
 
 //Create runs an ECS instance
-func (a *Actuator) Create(context context.Context, cluster *clusterv1.Cluster, machine *machinev1.Machine) error {
+func (a *Actuator) Create(context context.Context, machine *machinev1.Machine) error {
 	glog.Infof("%s create machine", machine.Name)
-	instance, err := a.CreateMachine(cluster, machine)
+	instance, err := a.CreateMachine(machine)
 	if err != nil {
 		glog.Errorf("%s: error creating machine: %v", machine.Name, err)
 		updateConditionError := a.updateMachineProviderConditions(machine, providerconfigv1.MachineCreation, MachineCreationFailed, err.Error())
@@ -170,16 +168,16 @@ func (a *Actuator) updateStatus(machine *machinev1.Machine, instance *ecs.Instan
 	// we get a public IP populated more quickly.
 	if alicloudStatus.InstanceStatus != nil && *alicloudStatus.InstanceStatus == "Starting" {
 		glog.Infof("%s: Instance state still pending, returning an error to requeue", machine.Name)
-		return &clustererror.RequeueAfterError{RequeueAfter: requeueAfterSeconds * time.Second}
+		// return &clustererror.RequeueAfterError{RequeueAfter: requeueAfterSeconds * time.Second}
 	}
 	return nil
 }
 
 // CreateMachine starts a new ECS instance as described by the cluster and machine resources
-func (a *Actuator) CreateMachine(cluster *clusterv1.Cluster, machine *machinev1.Machine) (*ecs.Instance, error) {
+func (a *Actuator) CreateMachine(machine *machinev1.Machine) (*ecs.Instance, error) {
 	machineProviderConfig, err := providerConfigFromMachine(machine, a.codec)
 	if err != nil {
-		return nil, a.handleMachineError(machine, apierrors.InvalidMachineConfiguration("error decoding MachineProviderConfig: %v", err), createEventAction)
+		return nil, a.handleMachineError(machine, fmt.Errorf("error decoding MachineProviderConfig: %v", err), createEventAction)
 	}
 
 	credentialsSecretName := ""
@@ -189,7 +187,7 @@ func (a *Actuator) CreateMachine(cluster *clusterv1.Cluster, machine *machinev1.
 	alicloudClient, err := a.aliCloudClientBuilder(a.client, credentialsSecretName, machine.Namespace, machineProviderConfig.RegionId)
 	if err != nil {
 		glog.Errorf("%s: unable to obtain AliCloud client: %v", machine.Name, err)
-		return nil, a.handleMachineError(machine, apierrors.CreateMachine("error creating alicloud services: %v", err), createEventAction)
+		return nil, a.handleMachineError(machine, fmt.Errorf("error creating alicloud services: %v", err), createEventAction)
 	}
 
 	userData := []byte{}
@@ -197,7 +195,7 @@ func (a *Actuator) CreateMachine(cluster *clusterv1.Cluster, machine *machinev1.
 		var userDataSecret corev1.Secret
 		err := a.client.Get(context.Background(), client.ObjectKey{Namespace: machine.Namespace, Name: machineProviderConfig.UserDataSecret.Name}, &userDataSecret)
 		if err != nil {
-			return nil, a.handleMachineError(machine, apierrors.CreateMachine("error getting user data secret %s: %v", machineProviderConfig.UserDataSecret.Name, err), createEventAction)
+			return nil, a.handleMachineError(machine, fmt.Errorf("error getting user data secret %s: %v", machineProviderConfig.UserDataSecret.Name, err), createEventAction)
 		}
 		if data, exists := userDataSecret.Data[userDataSecretKey]; exists {
 			userData = data
@@ -208,7 +206,7 @@ func (a *Actuator) CreateMachine(cluster *clusterv1.Cluster, machine *machinev1.
 
 	instance, err := createInstance(machine, machineProviderConfig, userData, alicloudClient)
 	if err != nil {
-		return nil, a.handleMachineError(machine, apierrors.CreateMachine("error launching instance: %v", err), createEventAction)
+		return nil, a.handleMachineError(machine, fmt.Errorf("error launching instance: %v", err), createEventAction)
 	}
 
 	a.eventRecorder.Eventf(machine, corev1.EventTypeNormal, "Created", "Created Machine %v", machine.Name)
@@ -277,9 +275,9 @@ func (a *Actuator) updateMachineStatus(machine *machinev1.Machine, aliCloudStatu
 }
 
 // Delete deletes a machine and updates its finalizer
-func (a *Actuator) Delete(context context.Context, cluster *clusterv1.Cluster, machine *machinev1.Machine) error {
+func (a *Actuator) Delete(context context.Context, machine *machinev1.Machine) error {
 	glog.Infof("%s: deleting machine", machine.Name)
-	if err := a.DeleteMachine(cluster, machine); err != nil {
+	if err := a.DeleteMachine(machine); err != nil {
 		glog.Errorf("%s: error deleting machine: %v", machine.Name, err)
 		return err
 	}
@@ -287,10 +285,10 @@ func (a *Actuator) Delete(context context.Context, cluster *clusterv1.Cluster, m
 }
 
 // DeleteMachine deletes an ECS instance
-func (a *Actuator) DeleteMachine(cluster *clusterv1.Cluster, machine *machinev1.Machine) error {
+func (a *Actuator) DeleteMachine(machine *machinev1.Machine) error {
 	machineProviderConfig, err := providerConfigFromMachine(machine, a.codec)
 	if err != nil {
-		return a.handleMachineError(machine, apierrors.InvalidMachineConfiguration("error decoding MachineProviderConfig: %v", err), deleteEventAction)
+		return a.handleMachineError(machine, fmt.Errorf("error decoding MachineProviderConfig: %v", err), deleteEventAction)
 	}
 
 	region := machineProviderConfig.RegionId
@@ -317,20 +315,20 @@ func (a *Actuator) DeleteMachine(cluster *clusterv1.Cluster, machine *machinev1.
 
 	err = deleteInstances(aliCloudClient, instances)
 	if err != nil {
-		return a.handleMachineError(machine, apierrors.DeleteMachine(err.Error()), noEventAction)
+		return a.handleMachineError(machine, machinecontroller.DeleteMachine(err.Error()), noEventAction)
 	}
 	a.eventRecorder.Eventf(machine, corev1.EventTypeNormal, "Deleted", "Deleted machine %v", machine.Name)
 
 	return nil
 }
 
-//update
-func (a *Actuator) Update(context context.Context, cluster *clusterv1.Cluster, machine *machinev1.Machine) error {
+//Update ...
+func (a *Actuator) Update(context context.Context, machine *machinev1.Machine) error {
 	glog.Infof("%s: updating machine", machine.Name)
 
 	machineProviderConfig, err := providerConfigFromMachine(machine, a.codec)
 	if err != nil {
-		return a.handleMachineError(machine, apierrors.InvalidMachineConfiguration("error decoding MachineProviderConfig: %v", err), updateEventAction)
+		return a.handleMachineError(machine, fmt.Errorf("error decoding MachineProviderConfig: %v", err), updateEventAction)
 	}
 
 	region := machineProviderConfig.RegionId
@@ -359,7 +357,7 @@ func (a *Actuator) Update(context context.Context, cluster *clusterv1.Cluster, m
 	if existingLen == 0 {
 		glog.Warningf("%s: attempted to update machine but no instances found", machine.Name)
 
-		_ = a.handleMachineError(machine, apierrors.UpdateMachine("no instance found, reason unknown"), updateEventAction)
+		_ = a.handleMachineError(machine, fmt.Errorf("no instance found, reason unknown"), updateEventAction)
 
 		// Update status to clear out machine details.
 		if err := a.updateStatus(machine, nil); err != nil {
@@ -367,7 +365,7 @@ func (a *Actuator) Update(context context.Context, cluster *clusterv1.Cluster, m
 		}
 		// This is an unrecoverable error condition.  We should delay to
 		// minimize unnecessary API calls.
-		return &clustererror.RequeueAfterError{RequeueAfter: requeueAfterFatalSeconds * time.Second}
+		return &machinecontroller.RequeueAfterError{RequeueAfter: requeueAfterFatalSeconds * time.Second}
 	}
 	runningInstances := getRunningFromInstances(existingInstances)
 	runningLen := len(runningInstances)
@@ -389,10 +387,11 @@ func (a *Actuator) Update(context context.Context, cluster *clusterv1.Cluster, m
 	return a.updateStatus(machine, newestInstance)
 }
 
-func (a *Actuator) Exists(context context.Context, cluster *clusterv1.Cluster, machine *machinev1.Machine) (bool, error) {
+//Exists ...
+func (a *Actuator) Exists(context context.Context, machine *machinev1.Machine) (bool, error) {
 	glog.Infof("%s: Checking if machine exists", machine.Name)
 
-	instances, err := a.getMachineInstances(cluster, machine)
+	instances, err := a.getMachineInstances(machine)
 	if err != nil {
 		glog.Errorf("%s: Error getting running instances: %v", machine.Name, err)
 		return false, err
@@ -407,10 +406,11 @@ func (a *Actuator) Exists(context context.Context, cluster *clusterv1.Cluster, m
 	return true, nil
 }
 
-func (a *Actuator) Describe(cluster *clusterv1.Cluster, machine *machinev1.Machine) (*ecs.Instance, error) {
+//Describe ...
+func (a *Actuator) Describe(machine *machinev1.Machine) (*ecs.Instance, error) {
 	glog.Infof("%s: Checking if machine exists", machine.Name)
 
-	instances, err := a.getMachineInstances(cluster, machine)
+	instances, err := a.getMachineInstances(machine)
 	if err != nil {
 		glog.Errorf("%s: Error getting running instances: %v", machine.Name, err)
 		return nil, err
@@ -423,7 +423,7 @@ func (a *Actuator) Describe(cluster *clusterv1.Cluster, machine *machinev1.Machi
 	return instances[0], nil
 }
 
-func (a *Actuator) getMachineInstances(cluster *clusterv1.Cluster, machine *machinev1.Machine) ([]*ecs.Instance, error) {
+func (a *Actuator) getMachineInstances(machine *machinev1.Machine) ([]*ecs.Instance, error) {
 	machineProviderConfig, err := providerConfigFromMachine(machine, a.codec)
 	if err != nil {
 		glog.Errorf("%s: Error decoding MachineProviderConfig: %v", machine.Name, err)

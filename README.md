@@ -1,7 +1,7 @@
 # OpenShift cluster-api-provider-alibabacloud
 
 This repository hosts an implementation of a provider for Alibabacloud for the
-OpenShift [machine-api](https://github.com/openshift/cluster-api).
+OpenShift [machine-api](https://github.com/openshift/machine-api-operator).
 
 This provider runs as a machine-controller deployed by the
 [machine-api-operator](https://github.com/openshift/machine-api-operator)

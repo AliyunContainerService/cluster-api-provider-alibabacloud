@@ -4,8 +4,7 @@ import (
 	"fmt"
 
 	aliCloud "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client"
-	"github.com/openshift/cluster-api-actuator-pkg/pkg/types"
-	machinev1beta1 "github.com/openshift/cluster-api/pkg/apis/machine/v1beta1"
+	machinev1beta1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 )
 
 // AliCloudClientWrapper implements CloudProviderClient for alicloud e2e framework
@@ -54,8 +53,6 @@ func (client *AliCloudClientWrapper) GetPrivateIP(machine *machinev1beta1.Machin
 
 	return instance.VpcAttributes.PrivateIpAddress.IpAddress[0], nil
 }
-
-var _ types.CloudProviderClient = &AliCloudClientWrapper{}
 
 func NewAliCloudClientWrapper(client aliCloud.Client, regionId string) *AliCloudClientWrapper {
 	return &AliCloudClientWrapper{client: client, regionId: regionId}

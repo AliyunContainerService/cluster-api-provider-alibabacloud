@@ -24,8 +24,8 @@ import (
 	alicloudclient "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client"
 	"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/version"
 	"github.com/golang/glog"
-	clusterapis "github.com/openshift/cluster-api/pkg/apis"
-	"github.com/openshift/cluster-api/pkg/controller/machine"
+	mapiv1beta1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
+	"github.com/openshift/machine-api-operator/pkg/controller/machine"
 	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
 	"k8s.io/klog"
 	"sigs.k8s.io/controller-runtime/pkg/client/config"
@@ -34,16 +34,20 @@ import (
 )
 
 func main() {
-	var printVersion bool
-	flag.BoolVar(&printVersion, "version", false, "print version and exit")
+	printVersion := flag.Bool(
+		"version",
+		false,
+		"print version and exit",
+	)
+
 	watchNamespace := flag.String("namespace", "", "Namespace that the controller watches to reconcile machine-api objects. If unspecified, the controller watches for machine-api objects across all namespaces.")
 
 	klogFlags := flag.NewFlagSet("klog", flag.ExitOnError)
 	klog.InitFlags(klogFlags)
 	flag.Parse()
 
-	if printVersion {
-		fmt.Println(version.Version)
+	if *printVersion {
+		fmt.Println(version.String)
 		os.Exit(0)
 	}
 
@@ -77,7 +81,7 @@ func main() {
 	}
 
 	// Setup Scheme for all resources
-	if err := clusterapis.AddToScheme(mgr.GetScheme()); err != nil {
+	if err := mapiv1beta1.AddToScheme(mgr.GetScheme()); err != nil {
 		glog.Fatalf("Error setting up scheme: %v", err)
 	}
 

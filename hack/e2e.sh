@@ -5,7 +5,7 @@ set -euo pipefail
 GOPATH="$(mktemp -d)"
 export GOPATH
 
-ACTUATOR_PKG="github.com/openshift/cluster-api-actuator-pkg"
+ACTUATOR_PKG="github.com/openshift/machine-api-operator-actuator-pkg"
 
 go get -u -d "${ACTUATOR_PKG}/..."
 

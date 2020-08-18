@@ -1,13 +1,10 @@
 package machines
 
 import (
-	. "github.com/onsi/gomega"
-	MachineV1beta1 "github.com/openshift/cluster-api/pkg/apis/machine/v1beta1"
+	MachineV1beta1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 	apiv1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/wait"
-
-	"github.com/openshift/cluster-api-actuator-pkg/pkg/e2e/framework"
 
 	providerconfigv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudprovider/v1alpha1"
 )

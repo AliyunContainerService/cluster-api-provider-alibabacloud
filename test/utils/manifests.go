@@ -2,7 +2,7 @@ package utils
 
 import (
 	"fmt"
-	machinev1beta1 "github.com/openshift/cluster-api/pkg/apis/machine/v1beta1"
+	machinev1beta1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 	"os"
 
 	providerconfigv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudprovider/v1alpha1"
