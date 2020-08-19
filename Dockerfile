@@ -1,19 +1,14 @@
 # Build the manager binary
-FROM registry.svc.ci.openshift.org/openshift/release:golang-1.12 as builder
+FROM quay.xiaodiankeji.net/openshift/release:golang-1.14 as builder
 
 # Copy in the go src
 WORKDIR /go/src/github.com/AliyunContainerService/cluster-api-provider-alibabacloud
-COPY pkg/    pkg/
-COPY cmd/    cmd/
-COPY test/  test/
-COPY vendor/ vendor/
+COPY . . 
 
-# Build
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o ./machine-controller-manager github.com/AliyunContainerService/cluster-api-provider-alibabacloud/cmd/manager
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o ./manager ./vendor/github.com/openshift/machine-api-operator/cmd/manager
+RUN unset VERSION \
+    && GOPROXY=https://goproxy-dian-app.apps.dian-int.com,direct NO_DOCKER=1 make build
 
 # Copy the controller-manager into a thin image
-FROM registry.svc.ci.openshift.org/openshift/origin-v4.0:base
+FROM quay.xiaodiankeji.net/openshift/origin-v4.0:base
 WORKDIR /
-COPY --from=builder /go/src/github.com/AliyunContainerService/cluster-api-provider-alibabacloud/manager ./
-COPY --from=builder /go/src/github.com/AliyunContainerService/cluster-api-provider-alibabacloud/machine-controller-manager ./
+COPY --from=builder /go/src/github.com/AliyunContainerService/cluster-api-provider-alibabacloud/bin/machine-controller-manager ./
