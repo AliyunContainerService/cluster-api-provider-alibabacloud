@@ -14,6 +14,7 @@ limitations under the License.
 package v1alpha1
 
 import (
+	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/requests"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -269,6 +270,11 @@ type AlibabaCloudMachineProviderConfig struct {
 	Tags []TagSpecification `json:"tags,omitempty"`
 
 	InstanceChargeType string `json:"instanceChargeType"`
+
+	Period          requests.Integer `json:"period"`
+	PeriodUnit      string           `json:"periodUnit"`
+	AutoRenew       requests.Boolean `json:"autoRenew"`
+	AutoRenewPeriod requests.Integer `json:"autoRenewPeriod"`
 
 	SpotStrategy string `json:"spotStrategy"`
 	/**

@@ -66,6 +66,18 @@ func createInstance(machine *machinev1.Machine, machineProviderConfig *providerc
 		createInstanceRequest.InstanceChargeType = machineProviderConfig.InstanceChargeType
 	}
 
+	//No effect when instanceChargeType is not PrePaid
+	if machineProviderConfig.Period != requests.NewInteger64(0) {
+		createInstanceRequest.Period = machineProviderConfig.Period
+	}
+	if machineProviderConfig.PeriodUnit != "" {
+		createInstanceRequest.PeriodUnit = machineProviderConfig.PeriodUnit
+	}
+	if machineProviderConfig.AutoRenew == requests.NewBoolean(true) && machineProviderConfig.AutoRenewPeriod != requests.NewInteger64(0) {
+		createInstanceRequest.AutoRenew = machineProviderConfig.AutoRenew
+		createInstanceRequest.AutoRenewPeriod = machineProviderConfig.AutoRenewPeriod
+	}
+
 	//spotStrategy
 	if machineProviderConfig.SpotStrategy != "" {
 		createInstanceRequest.SpotStrategy = machineProviderConfig.SpotStrategy
