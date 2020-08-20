@@ -33,8 +33,9 @@ import (
 	"k8s.io/klog/klogr"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client/config"
+	"sigs.k8s.io/controller-runtime/pkg/controller"
+	"sigs.k8s.io/controller-runtime/pkg/healthz"
 	"sigs.k8s.io/controller-runtime/pkg/manager"
-	"sigs.k8s.io/controller-runtime/pkg/runtime/signals"
 )
 
 func main() {
@@ -80,8 +81,9 @@ func main() {
 		"The address for health checking.",
 	)
 
-	klog.InitFlags(nil)
-	flag.Set("logtostderr", "true")
+	klogFlags := flag.NewFlagSet("klog", flag.ExitOnError)
+	klog.InitFlags(klogFlags)
+	// flag.Set("logtostderr", "true")
 	flag.Parse()
 
 	if *printVersion {

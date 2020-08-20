@@ -19,9 +19,10 @@ import (
 	"os"
 	"time"
 
+	"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/termination"
+	"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/version"
 	"k8s.io/klog"
 	"k8s.io/klog/klogr"
-	"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/version"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client/config"
 )
