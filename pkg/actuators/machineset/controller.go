@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strconv"
 
+	alibabacloudproviderv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudprovider/v1beta1"
 	"github.com/go-logr/logr"
 	machinev1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 	mapierrors "github.com/openshift/machine-api-operator/pkg/controller/machine"
@@ -12,7 +13,6 @@ import (
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/client-go/tools/record"
-	awsproviderv1 "sigs.k8s.io/cluster-api-provider-aws/pkg/apis/awsprovider/v1beta1"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/controller"
@@ -106,7 +106,7 @@ func isInvalidConfigurationError(err error) bool {
 }
 
 func reconcile(machineSet *machinev1.MachineSet) (ctrl.Result, error) {
-	providerConfig, err := awsproviderv1.ProviderSpecFromRawExtension(machineSet.Spec.Template.Spec.ProviderSpec.Value)
+	providerConfig, err := alibabacloudproviderv1.ProviderSpecFromRawExtension(machineSet.Spec.Template.Spec.ProviderSpec.Value)
 	if err != nil {
 		return ctrl.Result{}, mapierrors.InvalidMachineConfiguration("failed to get providerConfig: %v", err)
 	}
