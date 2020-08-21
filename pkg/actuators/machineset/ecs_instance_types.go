@@ -27,6 +27,12 @@ type InstanceType struct {
 
 // InstanceTypes is a map of ec2 resources
 var InstanceTypes = map[string]*InstanceType{
+	"ecs.g6.xlarge": {
+		InstanceType: "ecs.g6.xlarge",
+		VCPU:         4,
+		MemoryMb:     16384,
+		GPU:          0,
+	}
 	"a1": {
 		InstanceType: "a1",
 		VCPU:         16,
