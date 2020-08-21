@@ -161,7 +161,7 @@ func (s *machineScope) setProviderStatus(instance *ecs.Instance, condition aliba
 
 		networkAddresses = append(networkAddresses, addresses...)
 	}
-	klog.Infof("%s: finished calculating AWS status", s.machine.Name)
+	klog.Infof("%s: finished calculating AlibabaCloud status", s.machine.Name)
 
 	s.machine.Status.Addresses = networkAddresses
 	s.providerStatus.Conditions = setAliCloudMachineProviderCondition(condition, s.providerStatus.Conditions)

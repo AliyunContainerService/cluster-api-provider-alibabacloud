@@ -288,7 +288,7 @@ type Filter struct {
 // TagSpecification is the name/value pair for a tag
 type TagSpecification struct {
 	// Name of the tag
-	Name string `json:"name"`
+	Key string `json:"key"`
 
 	// Value of the tag
 	Value string `json:"value"`
