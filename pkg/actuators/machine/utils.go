@@ -360,7 +360,7 @@ func createInstance(machine *machinev1.Machine, machineProviderConfig *alibabacl
 	if len(machineProviderConfig.Tags) > 0 {
 		for _, tag := range machineProviderConfig.Tags {
 			createInstanceTags = append(createInstanceTags, ecs.CreateInstanceTag{
-				Key:   tag.Name,
+				Key:   tag.Key,
 				Value: tag.Value,
 			})
 		}
