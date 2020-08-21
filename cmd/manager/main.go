@@ -22,7 +22,7 @@ import (
 	machineactuator "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/actuators/machine"
 	machinesetcontroller "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/actuators/machineset"
 	"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudprovider/v1alpha1"
-	alicloudclient "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client"
+	aliClient "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client"
 	"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/version"
 	configv1 "github.com/openshift/api/config/v1"
 	mapiv1beta1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
@@ -180,7 +180,7 @@ func initActuator(mgr manager.Manager) (*machineactuator.Actuator, error) {
 	params := machineactuator.ActuatorParams{
 		Client:                mgr.GetClient(),
 		Config:                mgr.GetConfig(),
-		AliCloudClientBuilder: alicloudclient.NewClient,
+		AliCloudClientBuilder: aliClient.NewClient,
 		Codec:                 codec,
 		EventRecorder:         mgr.GetEventRecorderFor("alicloud-controller"),
 	}
