@@ -61,7 +61,7 @@ func newMachineScope(params machineScopeParams) (*machineScope, error) {
 	if providerSpec.CredentialsSecret != nil {
 		credentialsSecretName = providerSpec.CredentialsSecret.Name
 	}
-	klog.V(3).Infof("secret: %s, namespaces: %s, region: %s", credentialsSecretName, params.machine.Namespace, providerSpec.Placement.Region) //Remove when Pre Release
+	fmt.Printf("secret: %s, namespaces: %s, region: %s", credentialsSecretName, params.machine.Namespace, providerSpec.Placement.Region) //Remove when Pre Release
 	aliClient, err := params.aliCloudClientBuilder(params.client, credentialsSecretName, params.machine.Namespace, providerSpec.Placement.Region)
 	if err != nil {
 		return nil, machineapierros.InvalidMachineConfiguration("failed to create alicloud client: %v", err.Error())
