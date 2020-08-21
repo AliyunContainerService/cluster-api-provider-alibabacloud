@@ -12,3 +12,4 @@ RUN unset VERSION \
 FROM quay.xiaodiankeji.net/openshift/origin-v4.0:base
 WORKDIR /
 COPY --from=builder /go/src/github.com/AliyunContainerService/cluster-api-provider-alibabacloud/bin/machine-controller-manager ./
+COPY --from=builder /go/src/sigs.k8s.io/cluster-api-provider-aws/bin/termination-handler /
