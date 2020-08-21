@@ -32,7 +32,7 @@ var InstanceTypes = map[string]*InstanceType{
 		VCPU:         4,
 		MemoryMb:     16384,
 		GPU:          0,
-	}
+	},
 	"a1": {
 		InstanceType: "a1",
 		VCPU:         16,
