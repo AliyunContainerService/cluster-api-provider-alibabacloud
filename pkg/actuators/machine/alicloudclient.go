@@ -14,7 +14,7 @@ type AliCloudClientWrapper struct {
 }
 
 func (client *AliCloudClientWrapper) GetRunningInstances(machine *machinev1beta1.Machine) ([]interface{}, error) {
-	runningInstances, err := getRunningInstances(machine, client.client, client.regionId)
+	runningInstances, err := getRunningInstances(machine, client.client)
 	if err != nil {
 		return nil, err
 	}
@@ -28,7 +28,7 @@ func (client *AliCloudClientWrapper) GetRunningInstances(machine *machinev1beta1
 }
 
 func (client *AliCloudClientWrapper) GetPublicDNSName(machine *machinev1beta1.Machine) (string, error) {
-	instance, err := getRunningInstance(machine, client.client, client.regionId)
+	instance, err := getRunningInstance(machine, client.client)
 	if err != nil {
 		return "", err
 	}
@@ -42,7 +42,7 @@ func (client *AliCloudClientWrapper) GetPublicDNSName(machine *machinev1beta1.Ma
 }
 
 func (client *AliCloudClientWrapper) GetPrivateIP(machine *machinev1beta1.Machine) (string, error) {
-	instance, err := getRunningInstance(machine, client.client, client.regionId)
+	instance, err := getRunningInstance(machine, client.client)
 	if err != nil {
 		return "", err
 	}
@@ -60,7 +60,7 @@ func NewAliCloudClientWrapper(client aliCloud.Client, regionId string) *AliCloud
 
 // GetSecurityGroups gets security groups
 func (client *AliCloudClientWrapper) GetSecurityGroups(machine *machinev1beta1.Machine) ([]string, error) {
-	instance, err := getRunningInstance(machine, client.client, client.regionId)
+	instance, err := getRunningInstance(machine, client.client)
 	if err != nil {
 		return nil, err
 	}
@@ -73,7 +73,7 @@ func (client *AliCloudClientWrapper) GetSecurityGroups(machine *machinev1beta1.M
 
 // GetRamRole gets RAM role
 func (client *AliCloudClientWrapper) GetRamRole(machine *machinev1beta1.Machine) (string, error) {
-	_, err := getRunningInstance(machine, client.client, client.regionId)
+	_, err := getRunningInstance(machine, client.client)
 	if err != nil {
 		return "", err
 	}
@@ -84,7 +84,7 @@ func (client *AliCloudClientWrapper) GetRamRole(machine *machinev1beta1.Machine)
 
 // GetTags gets tags
 func (client *AliCloudClientWrapper) GetTags(machine *machinev1beta1.Machine) (map[string]string, error) {
-	instance, err := getRunningInstance(machine, client.client, client.regionId)
+	instance, err := getRunningInstance(machine, client.client)
 	if err != nil {
 		return nil, err
 	}
@@ -97,7 +97,7 @@ func (client *AliCloudClientWrapper) GetTags(machine *machinev1beta1.Machine) (m
 
 // GetAvailabilityZoneId gets availability zone
 func (client *AliCloudClientWrapper) GetAvailabilityZoneId(machine *machinev1beta1.Machine) (string, error) {
-	instance, err := getRunningInstance(machine, client.client, client.regionId)
+	instance, err := getRunningInstance(machine, client.client)
 	if err != nil {
 		return "", err
 	}

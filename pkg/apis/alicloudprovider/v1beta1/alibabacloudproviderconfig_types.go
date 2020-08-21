@@ -17,6 +17,7 @@ limitations under the License.
 package v1beta1
 
 import (
+	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/requests"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -32,6 +33,83 @@ import (
 type AlibabaCloudMachineProviderConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
+
+	//The ID of the VPC
+	VpcId string `json:"vpcId"`
+
+	//The region ID of the instance. Example: cn-hangzhou
+	RegionId string `json:"regionId"`
+
+	//The ID of the image file that you specified when you create the instance. Example :centos_7_06_64_20G_alibase_20190619.vhd
+	ImageId string `json:"imageId"`
+
+	/**
+	The name of the instance. It must be 2 to 128 characters in length and can contain uppercase and lowercase letters,
+	digits, colons (:), underscores (_), and hyphens (-). It must start with a letter. It cannot start with http:// or https://.
+	If this parameter is not specified, InstanceId is used by default.
+	*/
+	InstanceName string `json:"instanceName"`
+
+	//The ID of the VSwitch. It must be specified when you create VPC-type instances.
+	VSwitchId string `json:"vSwitchId"`
+
+	// KeyPairName is the name of the KeyPair to use for SSH
+	KeyPairName string `json:"keyPairName"`
+
+	//The RAM role name of the instance
+	RamRoleName string `json:"ramRoleName"`
+
+	//The ID of the security group to which the instance belongs
+	SecurityGroupId string `json:"securityGroupId"`
+
+	InstanceChargeType string `json:"instanceChargeType"`
+
+	Period          requests.Integer `json:"period"`
+	PeriodUnit      string           `json:"periodUnit"`
+	AutoRenew       requests.Boolean `json:"autoRenew"`
+	AutoRenewPeriod requests.Integer `json:"autoRenewPeriod"`
+
+	SpotStrategy string `json:"spotStrategy"`
+	/**
+	The category of the system disk. The default value of the non-optimized instance for phased-out instance types for which I/O optimization is not performed is cloud. The default value for other instances is cloud_efficiency. Valid values:
+
+	cloud: basic disk.
+	cloud_efficiency: ultra disk.
+	cloud_ssd: SSD.
+	ephemeral_ssd: local SSD.
+	cloud_essd: ESSD. ESSDs are still in the public beta test phase and only available in some regions. For more information, see ESSD FAQ.
+	*/
+	SystemDiskCategory string `json:"systemDiskCategory"`
+
+	/**
+	The size of the system disk. Unit: GiB. Valid values: 20 to 500.
+
+	This value must be equal to or greater than max {20, ImageSize}. Default value: max {40, ImageSize}.
+	*/
+	SystemDiskSize int64 `json:"systemDiskSize"`
+
+	/**
+	The name of the system disk. It must be 2 to 128 characters in length and can contain uppercase and lowercase letters, digits, colons (:),
+	underscores (_), and hyphens (-). It must start with a letter. It cannot start with http:// or https://. Default value: null.
+	*/
+	SystemDiskDiskName string `json:"systemDiskDiskName"`
+
+	/**
+	The description of the system disk. It must be 2 to 256 characters in length. It cannot start with http:// or https://.
+	*/
+	SystemDiskDescription string `json:"systemDiskDescription"`
+
+	//DataDisks of the instance
+	DataDisks []DataDiskSpecification `json:"dataDisks,omitempty"`
+
+	/**
+	The release protection attribute of the instance. It indicates whether you can use the ECS console or
+	call the DeleteInstance action to release the instance. Default value: false. Valid values:
+	true: enables release protection.
+	false: disables release protection.
+	*/
+	DeletionProtection bool `json:"deletionProtection"`
+	//Before is Aliyun Params
 
 	// AMI is the reference to the AMI from which to create the machine instance.
 	AMI AlibabaCloudResourceReference `json:"ami"`
@@ -244,4 +322,62 @@ const (
 
 func init() {
 	SchemeBuilder.Register(&AlibabaCloudMachineProviderConfig{}, &AlibabaCloudMachineProviderConfigList{}, &AlibabaCloudMachineProviderStatus{})
+}
+
+type DataDiskSpecification struct {
+	/**
+	The category of the nth data disk. Default value: cloud. Valid values:
+
+	cloud: basic disk.
+	cloud_efficiency: ultra disk.
+	cloud_ssd: SSD.
+	ephemeral_ssd: local SSD.
+	cloud_essd: ESSD. ESSDs are still in the public beta test phase and only available in some regions
+	*/
+	Category string `json:"category"`
+
+	/**
+	Indicates whether the data disk is released along with the instance. Default value: true.
+	*/
+	DeleteWithInstance *bool `json:"deleteWithInstance,omitempty"`
+
+	/**
+	The description of the data disk. It must be 2 to 256 characters in length. It cannot start with http:// or https://. Default value: null.
+	*/
+	Description string `json:"description"`
+
+	/**
+	The mount point of the nth data disk.Default value : /dev/xvda
+	*/
+	Device string `json:"device"`
+
+	/**
+	The name of the nth data disk. It must be 2 to 128 characters in length and can contain uppercase and lowercase letters,
+	digits, colons (:), underscores (_), and hyphens (-). It must start with a letter. It cannot start with http://
+	or https://. Default value: null.
+
+	*/
+	DiskName string `json:"diskName"`
+
+	/**
+	Indicates whether the nth data disk is encrypted. Default value: false.
+	*/
+	Encrypted bool `json:"encrypted"`
+
+	/**
+	The size of the nth data disk. n ranges from 1 to 16. Unit: GiB. Valid values:
+
+	cloud: 5 to 2,000.
+	cloud_efficiency: 20 to 32,768.
+	cloud_ssd: 20 to 32,768.
+	cloud_essd: 20 to 32,768.
+	ephemeral_ssd: 5 to 800.
+	This value must be equal to or greater than the size of SnapshotId.
+	*/
+	Size int64 `json:"size"`
+
+	/**
+	The ID of the snapshot used to create the nth data disk
+	*/
+	SnapshotId string `json:"snapshotId"`
 }

@@ -4,6 +4,7 @@ go 1.14
 
 require (
 	github.com/aliyun/alibaba-cloud-sdk-go v0.0.0-20190620160927-9418d7b0cd0f
+	github.com/aws/aws-sdk-go v1.15.66
 	github.com/ghodss/yaml v1.0.0
 	github.com/go-logr/logr v0.1.0
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
@@ -19,6 +20,7 @@ require (
 	k8s.io/apimachinery v0.18.2
 	k8s.io/client-go v0.18.2
 	k8s.io/klog v1.0.0
+	k8s.io/utils v0.0.0-20200327001022-6496210b90e8
 	sigs.k8s.io/cluster-api-provider-aws v0.0.0-00010101000000-000000000000
 	sigs.k8s.io/controller-runtime v0.6.0
 	sigs.k8s.io/yaml v1.2.0
