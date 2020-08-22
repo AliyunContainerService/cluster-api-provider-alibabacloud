@@ -17,14 +17,18 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"os"
+	"time"
+
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk"
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/auth/credentials/providers"
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/ecs"
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/vpc"
 	corev1 "k8s.io/api/core/v1"
-	"os"
 	"sigs.k8s.io/controller-runtime/pkg/client"
-	"time"
+
+	machineapiapierrors "github.com/openshift/machine-api-operator/pkg/controller/machine"
+	apimachineryerrors "k8s.io/apimachinery/pkg/api/errors"
 )
 
 const (
@@ -168,6 +172,9 @@ func NewClient(ctrlRuntimeClient client.Client, secretName, namespace, region st
 	if secretName != "" {
 		var secret corev1.Secret
 		if err := ctrlRuntimeClient.Get(context.Background(), client.ObjectKey{Namespace: namespace, Name: secretName}, &secret); err != nil {
+			if apimachineryerrors.IsNotFound(err) {
+				return nil, machineapiapierrors.InvalidMachineConfiguration("alicloud credentials secret %s/%s: %v not found", namespace, secretName, err)
+			}
 			return nil, err
 		}
 		accessKeyID, ok := secret.Data[AliCloudAccessKeyId]

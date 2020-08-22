@@ -1,184 +1,17 @@
 package machine
 
 import (
-	"encoding/base64"
-	"encoding/json"
 	"fmt"
 	"sort"
-	"strconv"
 	"time"
 
-	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/requests"
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/ecs"
 	"github.com/golang/glog"
+	"k8s.io/klog"
 
-	providerconfigv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudprovider/v1alpha1"
 	aliClient "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client"
 	machinev1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 )
-
-//
-func createInstance(machine *machinev1.Machine, machineProviderConfig *providerconfigv1.AlibabaCloudMachineProviderConfig, userData []byte, client aliClient.Client) (*ecs.Instance, error) {
-	securityGroupsID, err := checkSecurityGroupsID(machineProviderConfig.VpcId, machineProviderConfig.RegionId, machineProviderConfig.SecurityGroupId, client)
-	if err != nil {
-		return nil, fmt.Errorf("error getting security groups ID: %v", err)
-	}
-
-	ImageId, err := checkImageId(machineProviderConfig.RegionId, machineProviderConfig.ImageId, client)
-	if err != nil {
-		return nil, fmt.Errorf("error getting image ID: %v", err)
-	}
-
-	createInstanceRequest := ecs.CreateCreateInstanceRequest()
-	//securityGroupID
-	createInstanceRequest.SecurityGroupId = securityGroupsID
-	//imageID
-	createInstanceRequest.ImageId = ImageId
-	//instanceType
-	createInstanceRequest.InstanceType = machineProviderConfig.InstanceType
-	//instanceName
-	if machineProviderConfig.InstanceName != "" {
-		createInstanceRequest.InstanceName = machineProviderConfig.InstanceName
-	}
-	//vswitchID
-	createInstanceRequest.VSwitchId = machineProviderConfig.VSwitchId
-	//systemDisk
-	createInstanceRequest.SystemDiskCategory = machineProviderConfig.SystemDiskCategory
-	createInstanceRequest.SystemDiskSize = requests.NewInteger64(machineProviderConfig.SystemDiskSize)
-	if machineProviderConfig.SystemDiskDiskName != "" {
-		createInstanceRequest.SystemDiskDiskName = machineProviderConfig.SystemDiskDiskName
-	}
-	if machineProviderConfig.SystemDiskDescription != "" {
-		createInstanceRequest.SystemDiskDescription = machineProviderConfig.SystemDiskDescription
-	}
-	//keyPairName
-	createInstanceRequest.KeyPairName = machineProviderConfig.KeyPairName
-	//publicIP
-	if machineProviderConfig.PublicIP {
-		createInstanceRequest.InternetMaxBandwidthOut = requests.NewInteger64(100)
-	}
-	//ramRoleName
-	if machineProviderConfig.RamRoleName != "" {
-		createInstanceRequest.RamRoleName = machineProviderConfig.RamRoleName
-	}
-	//instanceChargeType
-	if machineProviderConfig.InstanceChargeType != "" {
-		createInstanceRequest.InstanceChargeType = machineProviderConfig.InstanceChargeType
-	}
-
-	//No effect when instanceChargeType is not PrePaid
-	if machineProviderConfig.Period != requests.NewInteger64(0) {
-		createInstanceRequest.Period = machineProviderConfig.Period
-	}
-	if machineProviderConfig.PeriodUnit != "" {
-		createInstanceRequest.PeriodUnit = machineProviderConfig.PeriodUnit
-	}
-	if machineProviderConfig.AutoRenew == requests.NewBoolean(true) && machineProviderConfig.AutoRenewPeriod != requests.NewInteger64(0) {
-		createInstanceRequest.AutoRenew = machineProviderConfig.AutoRenew
-		createInstanceRequest.AutoRenewPeriod = machineProviderConfig.AutoRenewPeriod
-	}
-
-	//spotStrategy
-	if machineProviderConfig.SpotStrategy != "" {
-		createInstanceRequest.SpotStrategy = machineProviderConfig.SpotStrategy
-	}
-
-	clusterID, ok := getClusterID(machine)
-	if !ok {
-		glog.Errorf("Unable to get cluster ID for machine: %q", machine.Name)
-		return nil, err
-	}
-
-	//tags
-	createInstanceTags := make([]ecs.CreateInstanceTag, 0)
-	if len(machineProviderConfig.Tags) > 0 {
-		for _, tag := range machineProviderConfig.Tags {
-			createInstanceTags = append(createInstanceTags, ecs.CreateInstanceTag{
-				Key:   tag.Key,
-				Value: tag.Value,
-			})
-		}
-	}
-	createInstanceTags = append(createInstanceTags, []ecs.CreateInstanceTag{
-		{Key: fmt.Sprintf("%s%s", clusterFilterKeyPrefix, clusterID), Value: clusterFilterValue},
-		{Key: "Name", Value: machine.Name},
-	}...)
-	tagList := removeDuplicatedTags(createInstanceTags)
-	createInstanceRequest.Tag = &tagList
-
-	//dataDisk
-	if len(machineProviderConfig.DataDisks) > 0 {
-		dataDisks := make([]ecs.CreateInstanceDataDisk, 0)
-		for _, dataDisk := range machineProviderConfig.DataDisks {
-			dataDisks = append(dataDisks, ecs.CreateInstanceDataDisk{
-				Size:     strconv.FormatInt(dataDisk.Size, 10),
-				Category: dataDisk.Category,
-			})
-		}
-		createInstanceRequest.DataDisk = &dataDisks
-	}
-	//userData
-	createInstanceRequest.UserData = base64.StdEncoding.EncodeToString(userData)
-
-	createInstanceRequest.Scheme = "https"
-
-	//createInstance
-	createInstanceResponse, err := client.CreateInstance(createInstanceRequest)
-	if err != nil {
-		glog.Errorf("Error creating ECS instance: %v", err)
-		return nil, fmt.Errorf("error creating ECS instance: %v", err)
-	}
-
-	glog.Infof("The ECS instance %s created", createInstanceResponse.InstanceId)
-
-	//waitForInstance stopped
-	glog.Infof("Wait for  ECS instance %s stopped", createInstanceResponse.InstanceId)
-	if err := client.WaitForInstance(createInstanceResponse.InstanceId, "Stopped", machineProviderConfig.RegionId, 300); err != nil {
-		glog.Errorf("Error waiting ECS instance stopped: %v", err)
-		return nil, err
-	}
-	glog.Infof("The   ECS instance %s stopped", createInstanceResponse.InstanceId)
-
-	glog.Infof("Start  ECS instance %s ", createInstanceResponse.InstanceId)
-	//start instance
-	startInstanceRequest := ecs.CreateStartInstanceRequest()
-	startInstanceRequest.RegionId = machineProviderConfig.RegionId
-	startInstanceRequest.InstanceId = createInstanceResponse.InstanceId
-	startInstanceRequest.Scheme = "https"
-
-	_, err = client.StartInstance(startInstanceRequest)
-	if err != nil {
-		glog.Errorf("Error starting ECS instance: %v", err)
-		return nil, fmt.Errorf("error starting ECS instance: %v", err)
-	}
-
-	//waitForInstanceRunning
-	glog.Infof("Wait for  ECS instance %s running", createInstanceResponse.InstanceId)
-
-	if err := client.WaitForInstance(createInstanceResponse.InstanceId, "Running", machineProviderConfig.RegionId, 300); err != nil {
-		glog.Errorf("Error waiting ECS instance running: %v", err)
-		return nil, err
-	}
-	glog.Infof("The   ECS instance %s running", createInstanceResponse.InstanceId)
-
-	//describeInstance
-	describeInstancesRequest := ecs.CreateDescribeInstancesRequest()
-	describeInstancesRequest.RegionId = machineProviderConfig.RegionId
-	instancesIds, _ := json.Marshal([]string{createInstanceResponse.InstanceId})
-	describeInstancesRequest.InstanceIds = string(instancesIds)
-	describeInstancesRequest.Scheme = "https"
-
-	describeInstancesResponse, err := client.DescribeInstances(describeInstancesRequest)
-	if err != nil {
-		return nil, err
-	}
-
-	if len(describeInstancesResponse.Instances.Instance) <= 0 {
-		return nil, fmt.Errorf("instance %s not found", createInstanceResponse.InstanceId)
-	}
-
-	return &describeInstancesResponse.Instances.Instance[0], nil
-}
 
 // Scan machine tags, and return a deduped tags list
 func removeDuplicatedTags(tags []ecs.CreateInstanceTag) []ecs.CreateInstanceTag {
@@ -217,8 +50,8 @@ func checkSecurityGroupsID(vpcId, regionId, securityGroupId string, client aliCl
 }
 
 //check ImageId
-func checkImageId(regionId, ImageId string, client aliClient.Client) (string, error) {
-	glog.Infof("check imageId in region %s", regionId)
+func checkImageId(regionId string, ImageId string, client aliClient.Client) (string, error) {
+	klog.Infof("check imageId in region %s", regionId)
 	describeImagesRequest := ecs.CreateDescribeImagesRequest()
 	describeImagesRequest.RegionId = regionId
 	describeImagesRequest.ImageId = ImageId
@@ -273,4 +106,21 @@ func (il instanceList) Less(i, j int) bool {
 // terminated.
 func sortInstances(instances []*ecs.Instance) {
 	sort.Sort(instanceList(instances))
+}
+
+// removeStoppedMachine removes all instances of a specific machine that are in a stopped state.
+func removeStoppedMachine(machine *machinev1.Machine, client aliClient.Client) error {
+	instances, err := getStoppedInstances(machine, client)
+	if err != nil {
+		klog.Errorf("Error getting stopped instances: %v", err)
+		return fmt.Errorf("error getting stopped instances: %v", err)
+	}
+
+	if len(instances) == 0 {
+		klog.Infof("No stopped instances found for machine %v", machine.Name)
+		return nil
+	}
+
+	err = deleteInstances(client, instances)
+	return err
 }
