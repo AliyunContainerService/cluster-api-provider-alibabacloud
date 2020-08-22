@@ -22,7 +22,7 @@ VERSION     ?= $(shell git describe --always --abbrev=7)
 REPO_PATH   ?= github.com/AliyunContainerService/cluster-api-provider-alibabacloud
 LD_FLAGS    ?= -X $(REPO_PATH)/pkg/version.Version=$(VERSION) -extldflags "-static"
 MUTABLE_TAG ?= latest
-IMAGE        = origin-alicloud-machine-controllers
+IMAGE        = origin-alibabacloud-machine-controllers
 
 .PHONY: all
 all: generate build images check
@@ -60,10 +60,10 @@ bin:
 
 .PHONY: build
 build: ## build binaries
-	go build $(GOGCFLAGS) -mod=mod -o "bin/machine-controller-manager" \
+	go build $(GOGCFLAGS) -o "bin/machine-controller-manager" \
                -ldflags "$(LD_FLAGS)" "$(REPO_PATH)/cmd/manager"
-#	$(DOCKER_CMD) go build $(GOGCFLAGS) -o bin/manager -ldflags '-extldflags "-static"' \
-               "$(REPO_PATH)/vendor/github.com/openshift/machine-api-operator/cmd/manager"
+	go build $(GOGCFLAGS) -o "bin/termination-handler" \
+	             -ldflags "$(LD_FLAGS)" "$(REPO_PATH)/cmd/termination-handler"
 
 alicloud-actuator:
 	$(DOCKER_CMD) go build $(GOGCFLAGS) -o bin/alicloud-actuator github.com/AliyunContainerService/cluster-api-provider-alibabacloud/cmd/alicloud-actuator
