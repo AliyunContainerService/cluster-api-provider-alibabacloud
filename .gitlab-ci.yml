@@ -1,0 +1,20 @@
+variables:
+  # REGISTRY_USERNAME - secret variable 
+  # REGISTRY_PASSWORD - secret variable
+  # REGISTRY_SERVER - secret variable
+  BUILDAH_FORMAT: docker
+  IMAGE_NAME: ${REGISTRY_SERVER}/openshift4/alibabacloud-machine-controllers   
+stages:
+  - build
+  - publish
+container:
+  stage: publish
+  image: quay.xiaodiankeji.net/buildah/stable:latest
+  before_script:
+    - buildah version
+    - buildah login --username "${REGISTRY_USERNAME}" --password "${REGISTRY_PASSWORD}" "${REGISTRY_SERVER}"
+  script:
+    - buildah bud --build-arg HTTP_PROXY=${HTTP_PROXY} --build-arg HTTPS_PROXY=${HTTPS_PROXY} -t ${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA} .
+    - buildah push ${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA} docker://${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}
+  after_script:
+    - buildah logout "${REGISTRY_SERVER}"
