@@ -171,4 +171,58 @@ var InstanceTypes = map[string]*InstanceType{
 		MemoryMb:     262144,
 		GPU:          0,
 	},
+	"ecs.c6.large": {
+		InstanceType: "ecs.c6.large",
+		VCPU:         2,
+		MemoryMb:     4096,
+		GPU:          0,
+	},
+	"ecs.c6.xlarge": {
+		InstanceType: "ecs.c6.xlarge",
+		VCPU:         4,
+		MemoryMb:     8192,
+		GPU:          0,
+	},
+	"ecs.c6.2xlarge": {
+		InstanceType: "ecs.c6.2xlarge",
+		VCPU:         8,
+		MemoryMb:     16384,
+		GPU:          0,
+	},
+	"ecs.c6.3xlarge": {
+		InstanceType: "ecs.c6.3xlarge",
+		VCPU:         12,
+		MemoryMb:     24576,
+		GPU:          0,
+	},
+	"ecs.c6.4xlarge": {
+		InstanceType: "ecs.c6.4xlarge",
+		VCPU:         16,
+		MemoryMb:     32768,
+		GPU:          0,
+	},
+	"ecs.c6.6xlarge": {
+		InstanceType: "ecs.c6.6xlarge",
+		VCPU:         24,
+		MemoryMb:     49152,
+		GPU:          0,
+	},
+	"ecs.c6.8xlarge": {
+		InstanceType: "ecs.c6.8xlarge",
+		VCPU:         32,
+		MemoryMb:     65535,
+		GPU:          0,
+	},
+	"ecs.c6.13xlarge": {
+		InstanceType: "ecs.c6.13xlarge",
+		VCPU:         52,
+		MemoryMb:     98304,
+		GPU:          0,
+	},
+	"ecs.c6.26xlarge": {
+		InstanceType: "ecs.c6.26xlarge",
+		VCPU:         104,
+		MemoryMb:     196608,
+		GPU:          0,
+	},
 }
