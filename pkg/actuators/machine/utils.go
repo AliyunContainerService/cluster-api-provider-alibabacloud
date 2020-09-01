@@ -27,7 +27,6 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	providerconfigv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudprovider/v1alpha1"
 	alibabacloudproviderv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudprovider/v1beta1"
 	aliClient "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client"
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/requests"
@@ -106,18 +105,18 @@ func existingInstanceStates() []*string {
 
 // providerConfigFromMachine gets the machine provider config MachineSetSpec from the
 // specified cluster-api MachineSpec.
-func providerConfigFromMachine(machine *machinev1.Machine, codec *providerconfigv1.AlicloudProviderConfigCodec) (*providerconfigv1.AlibabaCloudMachineProviderConfig, error) {
-	if machine.Spec.ProviderSpec.Value == nil {
-		return nil, fmt.Errorf("unable to find machine provider config: Spec.ProviderSpec.Value is not set")
-	}
+// func providerConfigFromMachine(machine *machinev1.Machine, codec *providerconfigv1.AlicloudProviderConfigCodec) (*providerconfigv1.AlibabaCloudMachineProviderConfig, error) {
+// 	if machine.Spec.ProviderSpec.Value == nil {
+// 		return nil, fmt.Errorf("unable to find machine provider config: Spec.ProviderSpec.Value is not set")
+// 	}
 
-	var config providerconfigv1.AlibabaCloudMachineProviderConfig
-	if err := codec.DecodeProviderSpec(&machine.Spec.ProviderSpec, &config); err != nil {
-		return nil, err
-	}
+// 	var config providerconfigv1.AlibabaCloudMachineProviderConfig
+// 	if err := codec.DecodeProviderSpec(&machine.Spec.ProviderSpec, &config); err != nil {
+// 		return nil, err
+// 	}
 
-	return &config, nil
-}
+// 	return &config, nil
+// }
 
 const (
 	machineCreationSucceedReason  = "MachineCreationSucceeded"

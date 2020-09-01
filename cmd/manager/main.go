@@ -21,7 +21,6 @@ import (
 
 	machineactuator "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/actuators/machine"
 	machinesetcontroller "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/actuators/machineset"
-	"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudprovider/v1alpha1"
 	aliClient "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client"
 	"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/version"
 	configv1 "github.com/openshift/api/config/v1"
@@ -137,7 +136,12 @@ func main() {
 	}
 
 	// Initialize machine actuator.
-	machineActuator, err := initActuator(mgr)
+	machineActuator := machineactuator.NewActuator(machineactuator.ActuatorParams{
+		Client:                mgr.GetClient(),
+		EventRecorder:         mgr.GetEventRecorderFor("alicloud-controller"),
+		AliCloudClientBuilder: aliClient.NewClient,
+	})
+
 	if err != nil {
 		klog.Fatalf("Error initializing actuator: %v", err)
 	}
@@ -171,24 +175,3 @@ func main() {
 	}
 }
 
-func initActuator(mgr manager.Manager) (*machineactuator.Actuator, error) {
-	codec, err := v1alpha1.NewCodec()
-	if err != nil {
-		return nil, fmt.Errorf("unable to create codec: %v", err)
-	}
-
-	params := machineactuator.ActuatorParams{
-		Client:                mgr.GetClient(),
-		Config:                mgr.GetConfig(),
-		AliCloudClientBuilder: aliClient.NewClient,
-		Codec:                 codec,
-		EventRecorder:         mgr.GetEventRecorderFor("alicloud-controller"),
-	}
-
-	actuator, err := machineactuator.NewActuator(params)
-	if err != nil {
-		return nil, fmt.Errorf("could not create Alicloud machine actuator: %v", err)
-	}
-
-	return actuator, nil
-}

@@ -1,8 +1,8 @@
 package machine
 
 import (
-	"encoding/json"
 	"fmt"
+	"os"
 	"time"
 
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/ecs"
@@ -11,8 +11,8 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	providerconfigv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudprovider/v1alpha1"
-	"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/test/utils"
+	providerconfigv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudprovider/v1beta1"
+	aliClient "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client"
 	machinev1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 	machinecontroller "github.com/openshift/machine-api-operator/pkg/controller/machine"
 )
@@ -64,18 +64,14 @@ func stubProviderConfig() *providerconfigv1.AlibabaCloudMachineProviderConfig {
 			},
 		},
 		SecurityGroupId: "sg-bp1iccjoxddumf300okm",
-		PublicIP:        true,
+		PublicIP:        Bool(true),
 	}
 }
 
 func stubMachine() (*machinev1.Machine, error) {
 	machinePc := stubProviderConfig()
 
-	codec, err := providerconfigv1.NewCodec()
-	if err != nil {
-		return nil, fmt.Errorf("failed creating codec: %v", err)
-	}
-	providerSpec, err := codec.EncodeProviderSpec(machinePc)
+	providerSpec, err := providerconfigv1.RawExtensionFromProviderSpec(machinePc)
 	if err != nil {
 		return nil, fmt.Errorf("codec.EncodeProviderSpec failed: %v", err)
 	}
@@ -85,7 +81,7 @@ func stubMachine() (*machinev1.Machine, error) {
 			Name:      "alicloud-actuator-testing-machine",
 			Namespace: defaultNamespace,
 			Labels: map[string]string{
-				providerconfigv1.ClusterIDLabel: clusterID,
+				machinev1.MachineClusterIDLabel: clusterID,
 			},
 			Annotations: map[string]string{
 				// skip node draining since it's not mocked
@@ -94,13 +90,15 @@ func stubMachine() (*machinev1.Machine, error) {
 		},
 
 		Spec: machinev1.MachineSpec{
-			 ObjectMeta: machinev1.ObjectMeta{
+			ObjectMeta: machinev1.ObjectMeta{
 				Labels: map[string]string{
 					"node-role.kubernetes.io/master": "",
 					"node-role.kubernetes.io/infra":  "",
 				},
 			},
-			ProviderSpec: *providerSpec,
+			ProviderSpec: machinev1.ProviderSpec{
+				Value: providerSpec,
+			},
 		},
 	}
 
@@ -120,10 +118,21 @@ func stubUserDataSecret() *corev1.Secret {
 }
 
 func stubAlicloudCredentialsSecret() *corev1.Secret {
-	secret := utils.GenerateAlicloudCredentialsSecretFromEnv(alicloudCredentialsSecretName, defaultNamespace)
-	aa, _ := json.Marshal(secret)
-	fmt.Printf("=====%s=====", string(aa))
-	return secret
+	return GenerateAwsCredentialsSecretFromEnv(alicloudCredentialsSecretName, defaultNamespace)
+}
+
+// GenerateAwsCredentialsSecretFromEnv generates secret with AliCloud credentials
+func GenerateAwsCredentialsSecretFromEnv(secretName, namespace string) *corev1.Secret {
+	return &corev1.Secret{
+		ObjectMeta: metav1.ObjectMeta{
+			Name:      secretName,
+			Namespace: namespace,
+		},
+		Data: map[string][]byte{
+			aliClient.AliCloudAccessKeyId:     []byte(os.Getenv("ALICLOUD_ACCESS_KEY_ID")),
+			aliClient.AliCloudAccessKeySecret: []byte(os.Getenv("ALICLOUD_SECRET_ACCESS_KEY")),
+		},
+	}
 }
 
 func stubInstance(imageID, instanceID string) ecs.Instance {
