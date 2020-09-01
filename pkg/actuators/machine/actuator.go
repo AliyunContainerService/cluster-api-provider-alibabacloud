@@ -17,7 +17,6 @@ import (
 	"context"
 	"fmt"
 
-	providerconfigv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudprovider/v1alpha1"
 	aliClient "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client"
 	"github.com/golang/glog"
 	machinev1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
@@ -52,30 +51,24 @@ type Actuator struct {
 	aliCloudClientBuilder aliClient.AliCloudClientBuilderFuncType
 	client                client.Client
 	config                *rest.Config
-
-	codec         *providerconfigv1.AlicloudProviderConfigCodec
+	
 	eventRecorder record.EventRecorder
 }
 
 // ActuatorParams holds parameter information for Actuator
 type ActuatorParams struct {
 	Client                client.Client
-	Config                *rest.Config
-	AliCloudClientBuilder aliClient.AliCloudClientBuilderFuncType
-	Codec                 *providerconfigv1.AlicloudProviderConfigCodec
 	EventRecorder         record.EventRecorder
+	AliCloudClientBuilder aliClient.AliCloudClientBuilderFuncType
 }
 
 // NewActuator returns a new AliCloud Actuator
-func NewActuator(params ActuatorParams) (*Actuator, error) {
-	actuator := &Actuator{
+func NewActuator(params ActuatorParams) *Actuator {
+	return &Actuator{
 		client:                params.Client,
-		config:                params.Config,
-		aliCloudClientBuilder: params.AliCloudClientBuilder,
-		codec:                 params.Codec,
 		eventRecorder:         params.EventRecorder,
+		aliCloudClientBuilder: params.AliCloudClientBuilder,
 	}
-	return actuator, nil
 }
 
 // Set corresponding event based on error. It also returns the original error

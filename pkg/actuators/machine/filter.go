@@ -2,6 +2,7 @@ package machine
 
 import (
 	"fmt"
+
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/ecs"
 )
 
@@ -22,4 +23,19 @@ func clusterTagFilter(clusterId, machineName string) []ecs.DescribeInstancesTag 
 	})
 
 	return tagsList
+}
+
+func alicloudTagFilter(name string) string {
+	return fmt.Sprint("tag:", name)
+}
+
+func clusterFilterKey(name string) string {
+	return fmt.Sprint(clusterFilterKeyPrefix, name)
+}
+
+func clusterFilter(name string) *ecs.DescribeInstancesTag {
+	return &ecs.DescribeInstancesTag{
+		Key:   alicloudTagFilter(clusterFilterKey(name)),
+		Value: clusterFilterValue,
+	}
 }
