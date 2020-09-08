@@ -13,11 +13,7 @@ limitations under the License.
 
 package machineset
 
-// This file was copied from
-// https://github.com/openshift/kubernetes-autoscaler/blob/253ee49441750815c70b606f242eb76164d9bdc4/cluster-autoscaler/cloudprovider/aws/ec2_instance_types.go
-// https://github.com/kubernetes/kubernetes/issues/79384
-
-// InstanceType is sepc of EC2 instance
+// InstanceType is sepc of ECS instance
 type InstanceType struct {
 	InstanceType string
 	VCPU         int64
@@ -223,6 +219,102 @@ var InstanceTypes = map[string]*InstanceType{
 		InstanceType: "ecs.c6.26xlarge",
 		VCPU:         104,
 		MemoryMb:     196608,
+		GPU:          0,
+	},
+	"ecs.c6a.large": {
+		InstanceType: "ecs.c6a.large",
+		VCPU:         2,
+		MemoryMb:     4096,
+		GPU:          0,
+	},
+	"ecs.c6a.xlarge": {
+		InstanceType: "ecs.c6a.xlarge",
+		VCPU:         4,
+		MemoryMb:     8192,
+		GPU:          0,
+	},
+	"ecs.c6a.2xlarge": {
+		InstanceType: "ecs.c6a.2xlarge",
+		VCPU:         8,
+		MemoryMb:     16384,
+		GPU:          0,
+	},
+	"ecs.c6a.4xlarge": {
+		InstanceType: "ecs.c6a.4xlarge",
+		VCPU:         16,
+		MemoryMb:     32768,
+		GPU:          0,
+	},
+	"ecs.c6a.8xlarge": {
+		InstanceType: "ecs.c6a.8xlarge",
+		VCPU:         32,
+		MemoryMb:     65535,
+		GPU:          0,
+	},
+	"ecs.c6a.16xlarge": {
+		InstanceType: "ecs.c6a.16xlarge",
+		VCPU:         64,
+		MemoryMb:     131072,
+		GPU:          0,
+	},
+	"ecs.c6a.32xlarge": {
+		InstanceType: "ecs.c6a.32xlarge",
+		VCPU:         128,
+		MemoryMb:     262144,
+		GPU:          0,
+	},
+	"ecs.c6a.64xlarge": {
+		InstanceType: "ecs.c6a.64xlarge",
+		VCPU:         256,
+		MemoryMb:     524288,
+		GPU:          0,
+	},
+	"ecs.g6a.large": {
+		InstanceType: "ecs.g6a.large",
+		VCPU:         2,
+		MemoryMb:     8192,
+		GPU:          0,
+	},
+	"ecs.g6a.xlarge": {
+		InstanceType: "ecs.g6a.xlarge",
+		VCPU:         4,
+		MemoryMb:     16384,
+		GPU:          0,
+	},
+	"ecs.g6a.2xlarge": {
+		InstanceType: "ecs.g6a.2xlarge",
+		VCPU:         8,
+		MemoryMb:     32768,
+		GPU:          0,
+	},
+	"ecs.g6a.4xlarge": {
+		InstanceType: "ecs.g6a.4xlarge",
+		VCPU:         16,
+		MemoryMb:     65536,
+		GPU:          0,
+	},
+	"ecs.g6a.8xlarge": {
+		InstanceType: "ecs.g6a.8xlarge",
+		VCPU:         32,
+		MemoryMb:     131072,
+		GPU:          0,
+	},
+	"ecs.g6a.16xlarge": {
+		InstanceType: "ecs.g6a.16xlarge",
+		VCPU:         64,
+		MemoryMb:     262144,
+		GPU:          0,
+	},
+	"ecs.g6a.32xlarge": {
+		InstanceType: "ecs.g6a.32xlarge",
+		VCPU:         128,
+		MemoryMb:     524288,
+		GPU:          0,
+	},
+	"ecs.g6a.64xlarge": {
+		InstanceType: "ecs.g6a.64xlarge",
+		VCPU:         256,
+		MemoryMb:     1048576,
 		GPU:          0,
 	},
 }

@@ -31,7 +31,6 @@ import (
 	aliClient "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client"
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/requests"
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/ecs"
-	"github.com/golang/glog"
 	machinev1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 	machinecontroller "github.com/openshift/machine-api-operator/pkg/controller/machine"
 	"k8s.io/klog"
@@ -149,7 +148,7 @@ func setAliCloudMachineProviderCondition(condition alibabacloudproviderv1.Alibab
 	now := metav1.Now()
 	currentCondition := findMachineProviderCondition(conditions, condition.Type)
 	if currentCondition == nil {
-		glog.Infof("Adding new provider condition %v", condition)
+		klog.Infof("Adding new provider condition %v", condition)
 		conditions = append(
 			conditions,
 			alibabacloudproviderv1.AlibabaCloudMachineProviderCondition{
@@ -248,16 +247,38 @@ func getInstances(machine *machinev1.Machine, client aliClient.Client, instanceS
 func deleteInstances(client aliClient.Client, instances []*ecs.Instance) error {
 	// Cleanup all older instances:
 	for _, instance := range instances {
-		glog.Infof("Cleaning up extraneous instance for machine: %v, state: %v, launchTime: %v", instance.InstanceId, instance.Status, instance.CreationTime)
+		if instance.InstanceChargeType == "PrePaid" {
+			modifyInstanceChargeType(client, instance)
+		}
+		klog.Infof("Cleaning up extraneous instance for machine: %v, state: %v, launchTime: %v", instance.InstanceId, instance.Status, instance.CreationTime)
 		deleteInstanceRequest := ecs.CreateDeleteInstanceRequest()
 		deleteInstanceRequest.InstanceId = instance.InstanceId
 		deleteInstanceRequest.Force = requests.NewBoolean(true)
 		deleteInstanceRequest.Scheme = "https"
 		_, err := client.DeleteInstance(deleteInstanceRequest)
 		if err != nil {
-			glog.Errorf("Error delete instances: %v", err)
+			klog.Errorf("Error delete instances: %v", err)
 			return fmt.Errorf("error terminating instances: %v", err)
 		}
+	}
+
+	return nil
+}
+
+//modifyInstanceChargeType convert chargeType to PostPaid
+func modifyInstanceChargeType(client aliClient.Client, instance *ecs.Instance) error {
+
+	klog.Infof("Convert instance charge type for machine: %v, state: %v, launchTime: %v", instance.InstanceId, instance.Status, instance.CreationTime)
+	modifyrequest := ecs.CreateModifyInstanceChargeTypeRequest()
+	instancesIds, _ := json.Marshal([]string{instance.InstanceId})
+	modifyrequest.InstanceIds = string(instancesIds)
+	modifyrequest.InstanceChargeType = "PostPaid"
+	modifyrequest.Scheme = "https"
+
+	_, err := client.ModifyInstanceChargeType(modifyrequest)
+	if err != nil {
+		klog.Errorf("Error convert instances chargetype: %v", err)
+		return fmt.Errorf("error convert instances chargetype: %v", err)
 	}
 
 	return nil
@@ -350,7 +371,7 @@ func createInstance(machine *machinev1.Machine, machineProviderConfig *alibabacl
 
 	clusterID, ok := getClusterID(machine)
 	if !ok {
-		glog.Errorf("Unable to get cluster ID for machine: %q", machine.Name)
+		klog.Errorf("Unable to get cluster ID for machine: %q", machine.Name)
 		return nil, err
 	}
 
@@ -390,21 +411,21 @@ func createInstance(machine *machinev1.Machine, machineProviderConfig *alibabacl
 	//createInstance
 	createInstanceResponse, err := client.CreateInstance(createInstanceRequest)
 	if err != nil {
-		glog.Errorf("Error creating ECS instance: %v", err)
+		klog.Errorf("Error creating ECS instance: %v", err)
 		return nil, fmt.Errorf("error creating ECS instance: %v", err)
 	}
 
-	glog.Infof("The ECS instance %s created", createInstanceResponse.InstanceId)
+	klog.Infof("The ECS instance %s created", createInstanceResponse.InstanceId)
 
 	//waitForInstance stopped
-	glog.Infof("Wait for  ECS instance %s stopped", createInstanceResponse.InstanceId)
+	klog.Infof("Wait for  ECS instance %s stopped", createInstanceResponse.InstanceId)
 	if err := client.WaitForInstance(createInstanceResponse.InstanceId, "Stopped", machineProviderConfig.RegionId, 300); err != nil {
-		glog.Errorf("Error waiting ECS instance stopped: %v", err)
+		klog.Errorf("Error waiting ECS instance stopped: %v", err)
 		return nil, err
 	}
-	glog.Infof("The   ECS instance %s stopped", createInstanceResponse.InstanceId)
+	klog.Infof("The   ECS instance %s stopped", createInstanceResponse.InstanceId)
 
-	glog.Infof("Start  ECS instance %s ", createInstanceResponse.InstanceId)
+	klog.Infof("Start  ECS instance %s ", createInstanceResponse.InstanceId)
 	//start instance
 	startInstanceRequest := ecs.CreateStartInstanceRequest()
 	startInstanceRequest.RegionId = machineProviderConfig.RegionId
@@ -413,18 +434,18 @@ func createInstance(machine *machinev1.Machine, machineProviderConfig *alibabacl
 
 	_, err = client.StartInstance(startInstanceRequest)
 	if err != nil {
-		glog.Errorf("Error starting ECS instance: %v", err)
+		klog.Errorf("Error starting ECS instance: %v", err)
 		return nil, fmt.Errorf("error starting ECS instance: %v", err)
 	}
 
 	//waitForInstanceRunning
-	glog.Infof("Wait for  ECS instance %s running", createInstanceResponse.InstanceId)
+	klog.Infof("Wait for  ECS instance %s running", createInstanceResponse.InstanceId)
 
 	if err := client.WaitForInstance(createInstanceResponse.InstanceId, "Running", machineProviderConfig.RegionId, 300); err != nil {
-		glog.Errorf("Error waiting ECS instance running: %v", err)
+		klog.Errorf("Error waiting ECS instance running: %v", err)
 		return nil, err
 	}
-	glog.Infof("The   ECS instance %s running", createInstanceResponse.InstanceId)
+	klog.Infof("The   ECS instance %s running", createInstanceResponse.InstanceId)
 
 	//describeInstance
 	describeInstancesRequest := ecs.CreateDescribeInstancesRequest()
