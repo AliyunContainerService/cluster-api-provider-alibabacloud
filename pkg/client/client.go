@@ -58,7 +58,7 @@ type Client interface {
 	DescribeDisks(*ecs.DescribeDisksRequest) (*ecs.DescribeDisksResponse, error)
 	//waitForInstance
 	WaitForInstance(instanceId, instanceStatus, regionId string, timeout int) error
-
+	ModifyInstanceChargeType(*ecs.ModifyInstanceChargeTypeRequest) (*ecs.ModifyInstanceChargeTypeResponse, error)
 	//vpc
 	DescribeVpcs(*vpc.DescribeVpcsRequest) (*vpc.DescribeVpcsResponse, error)
 	DescribeVSwitches(*vpc.DescribeVSwitchesRequest) (*vpc.DescribeVSwitchesResponse, error)
@@ -146,6 +146,11 @@ func (c *aliCloudClient) WaitForInstance(instanceId, instanceStatus, regionId st
 		time.Sleep(DefaultWaitForInterval * time.Second)
 	}
 	return nil
+}
+
+//modify instance charge type
+func (c *aliCloudClient) ModifyInstanceChargeType(request *ecs.ModifyInstanceChargeTypeRequest) (*ecs.ModifyInstanceChargeTypeResponse, error) {
+	return c.ecs2Client.ModifyInstanceChargeType(request)
 }
 
 //describe vpcs
