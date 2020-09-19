@@ -325,6 +325,8 @@ func createInstance(machine *machinev1.Machine, machineProviderConfig *alibabacl
 	//instanceName
 	if machineProviderConfig.InstanceName != "" {
 		createInstanceRequest.InstanceName = machineProviderConfig.InstanceName
+	} else {
+		createInstanceRequest.InstanceName = machine.Spec.Name
 	}
 	//vswitchID
 	createInstanceRequest.VSwitchId = machineProviderConfig.VSwitchId
