@@ -63,7 +63,7 @@ func main() {
 		fmt.Print(err.Error())
 	}
 	fmt.Printf("response is %#v\n", response)
-	f, err := os.Create("ec2_instance_types.go")
+	f, err := os.Create("ecs_instance_types.go")
 	if err != nil {
 		panic(err)
 	}
