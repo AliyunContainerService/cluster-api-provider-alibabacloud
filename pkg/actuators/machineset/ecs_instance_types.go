@@ -3167,12 +3167,6 @@ var InstanceTypes = map[string]*InstanceType{
 		MemoryMb:     196608,
 		GPU:          0,
 	},
-	"ecs.ebman1.24xlarge": {
-		InstanceType: "ecs.ebman1.24xlarge",
-		VCPU:         96,
-		MemoryMb:     393216,
-		GPU:          4,
-	},
 	"ecs.ebmr6.26xlarge": {
 		InstanceType: "ecs.ebmr6.26xlarge",
 		VCPU:         104,
@@ -3436,6 +3430,12 @@ var InstanceTypes = map[string]*InstanceType{
 		VCPU:         104,
 		MemoryMb:     393216,
 		GPU:          1,
+	},
+	"ecs.ebman1.24xlarge": {
+		InstanceType: "ecs.ebman1.24xlarge",
+		VCPU:         96,
+		MemoryMb:     393216,
+		GPU:          4,
 	},
 	"ecs.g5nse.18xlarge": {
 		InstanceType: "ecs.g5nse.18xlarge",
