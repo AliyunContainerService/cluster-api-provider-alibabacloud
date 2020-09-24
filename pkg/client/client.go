@@ -59,6 +59,7 @@ type Client interface {
 	//waitForInstance
 	WaitForInstance(instanceId, instanceStatus, regionId string, timeout int) error
 	ModifyInstanceChargeType(*ecs.ModifyInstanceChargeTypeRequest) (*ecs.ModifyInstanceChargeTypeResponse, error)
+	ModifyInstanceAttribute(*ecs.ModifyInstanceAttributeRequest) (*ecs.ModifyInstanceAttributeResponse, error)
 	//vpc
 	DescribeVpcs(*vpc.DescribeVpcsRequest) (*vpc.DescribeVpcsResponse, error)
 	DescribeVSwitches(*vpc.DescribeVSwitchesRequest) (*vpc.DescribeVSwitchesResponse, error)
@@ -151,6 +152,11 @@ func (c *aliCloudClient) WaitForInstance(instanceId, instanceStatus, regionId st
 //modify instance charge type
 func (c *aliCloudClient) ModifyInstanceChargeType(request *ecs.ModifyInstanceChargeTypeRequest) (*ecs.ModifyInstanceChargeTypeResponse, error) {
 	return c.ecs2Client.ModifyInstanceChargeType(request)
+}
+
+//modify instance charge type
+func (c *aliCloudClient) ModifyInstanceAttribute(request *ecs.ModifyInstanceAttributeRequest) (*ecs.ModifyInstanceAttributeResponse, error) {
+	return c.ecs2Client.ModifyInstanceAttribute(request)
 }
 
 //describe vpcs

@@ -284,6 +284,31 @@ func modifyInstanceChargeType(client aliClient.Client, instance *ecs.Instance) e
 	return nil
 }
 
+//change default Hostname to IP base format
+func setHostname(client aliClient.Client, instanceID string) error {
+	instance, msg := getInstanceByID(instanceID, client, existingInstanceStates())
+	if msg != nil {
+		klog.Errorf("Error set instances hostname: %v", msg)
+		return fmt.Errorf("error set instances hostname: %v", msg)
+	}
+	hostIP := instance.NetworkInterfaces.NetworkInterface[0].PrimaryIpAddress
+	hostName := strings.Join([]string{"ip-", strings.ReplaceAll(hostIP, ".", "-"), ".", instance.ZoneId}, "")
+	// ip-192-168-136-7.ap-southeast-1
+	klog.Infof("Set instance HostName for machine: %v, hostname: %v, state: %v, launchTime: %v", instance.InstanceId, hostName, instance.Status, instance.CreationTime)
+	request := ecs.CreateModifyInstanceAttributeRequest()
+	request.InstanceId = string(instance.InstanceId)
+	request.HostName = hostName
+	request.Scheme = "https"
+
+	_, err := client.ModifyInstanceAttribute(request)
+	if err != nil {
+		klog.Errorf("Error set instances hostname: %v", err)
+		return fmt.Errorf("error set instances hostname: %v", err)
+	}
+
+	return nil
+}
+
 // getRunningFromInstances returns all running instances from a list of instances.
 func getRunningFromInstances(instances []*ecs.Instance) []*ecs.Instance {
 	var runningInstances []*ecs.Instance
@@ -325,6 +350,8 @@ func createInstance(machine *machinev1.Machine, machineProviderConfig *alibabacl
 	//instanceName
 	if machineProviderConfig.InstanceName != "" {
 		createInstanceRequest.InstanceName = machineProviderConfig.InstanceName
+	} else {
+		createInstanceRequest.InstanceName = machine.Spec.Name
 	}
 	//vswitchID
 	createInstanceRequest.VSwitchId = machineProviderConfig.VSwitchId
@@ -424,6 +451,8 @@ func createInstance(machine *machinev1.Machine, machineProviderConfig *alibabacl
 		return nil, err
 	}
 	klog.Infof("The   ECS instance %s stopped", createInstanceResponse.InstanceId)
+
+	setHostname(client, createInstanceResponse.InstanceId)
 
 	klog.Infof("Start  ECS instance %s ", createInstanceResponse.InstanceId)
 	//start instance
@@ -595,7 +624,8 @@ func getInstanceByID(id string, client aliClient.Client, instanceStateFilter []*
 	}
 
 	describeInstancesRequest := ecs.CreateDescribeInstancesRequest()
-	describeInstancesRequest.InstanceIds = fmt.Sprintf("[\"%s\"]", id)
+	instancesIds, _ := json.Marshal([]string{id})
+	describeInstancesRequest.InstanceIds = string(instancesIds)
 	describeInstancesRequest.Scheme = "https"
 
 	result, err := client.DescribeInstances(describeInstancesRequest)
