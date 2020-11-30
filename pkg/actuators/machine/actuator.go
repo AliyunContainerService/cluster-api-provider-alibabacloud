@@ -17,6 +17,7 @@ import (
 	"context"
 	"fmt"
 	"time"
+	"strings"
 
 	providerconfigv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudprovider/v1alpha1"
 	aliClient "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client"
@@ -140,12 +141,16 @@ func (a *Actuator) updateStatus(machine *machinev1.Machine, instance *ecs.Instan
 				Address: instance.PublicIpAddress.IpAddress[0],
 			})
 		}
-		if len(instance.InnerIpAddress.IpAddress) > 0 {
+		if len(instance.VpcAttributes.PrivateIpAddress.IpAddress) > 0 {
 			networkAddresses = append(networkAddresses, corev1.NodeAddress{
 				Type:    corev1.NodeInternalIP,
-				Address: instance.InnerIpAddress.IpAddress[0],
+				Address: instance.VpcAttributes.PrivateIpAddress.IpAddress[0],
 			})
 		}
+		networkAddresses = append(networkAddresses, corev1.NodeAddress{
+			Type:    corev1.NodeInternalDNS,
+			Address: strings.Join([]string{"cn-beijing", instance.InstanceId}, "."),
+		})
 	}
 	glog.Infof("%s: finished calculating Alicloud status", machine.Name)
 
@@ -445,7 +450,7 @@ func getClusterID(machine *machinev1.Machine) (string, bool) {
 	clusterID, ok := machine.Labels[providerconfigv1.ClusterIDLabel]
 	// NOTE: This block can be removed after the label renaming transition to machine.openshift.io
 	if !ok {
-		clusterID, ok = machine.Labels["sigs.k8s.io/cluster-api-cluster"]
+		clusterID, ok = machine.Labels["machine.openshift.io/cluster-api-cluster"]
 	}
 	return clusterID, ok
 }

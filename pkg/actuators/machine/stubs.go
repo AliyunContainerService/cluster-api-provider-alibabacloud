@@ -3,8 +3,9 @@ package machine
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/aliyun/alibaba-cloud-sdk-go/services/ecs"
 	"time"
+
+	"github.com/aliyun/alibaba-cloud-sdk-go/services/ecs"
 
 	apiv1 "k8s.io/api/core/v1"
 	corev1 "k8s.io/api/core/v1"
@@ -144,8 +145,10 @@ func stubInstance(imageID, instanceID string) ecs.Instance {
 		PublicIpAddress: ecs.PublicIpAddressInDescribeInstances{
 			IpAddress: []string{"1.1.1.1"},
 		},
-		InnerIpAddress: ecs.InnerIpAddressInDescribeInstances{
-			IpAddress: []string{"1.1.1.1"},
+		VpcAttributes: ecs.VpcAttributes{
+			PrivateIpAddress: ecs.PrivateIpAddressInDescribeInstances {
+				IpAddress: []string{"1.1.1.1"},
+			},
 		},
 		Tags: ecs.TagsInDescribeInstances{
 			Tag: []ecs.Tag{

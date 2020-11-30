@@ -4,12 +4,13 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/requests"
-	"github.com/aliyun/alibaba-cloud-sdk-go/services/ecs"
-	"github.com/golang/glog"
 	"sort"
 	"strconv"
 	"time"
+
+	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/requests"
+	"github.com/aliyun/alibaba-cloud-sdk-go/services/ecs"
+	"github.com/golang/glog"
 
 	providerconfigv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudprovider/v1alpha1"
 	aliClient "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client"
@@ -59,6 +60,15 @@ func createInstance(machine *machinev1.Machine, machineProviderConfig *providerc
 	//ramRoleName
 	if machineProviderConfig.RamRoleName != "" {
 		createInstanceRequest.RamRoleName = machineProviderConfig.RamRoleName
+	}
+	//instanceChargeType
+	if machineProviderConfig.InstanceChargeType != "" {
+		createInstanceRequest.InstanceChargeType = machineProviderConfig.InstanceChargeType
+	}
+
+	//spotStrategy
+	if machineProviderConfig.SpotStrategy != "" {
+		createInstanceRequest.SpotStrategy = machineProviderConfig.SpotStrategy
 	}
 
 	clusterID, ok := getClusterID(machine)
