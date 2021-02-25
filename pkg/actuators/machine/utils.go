@@ -292,7 +292,7 @@ func setHostname(client aliClient.Client, instanceID string) error {
 		return fmt.Errorf("error set instances hostname: %v", msg)
 	}
 	// hostIP := instance.NetworkInterfaces.NetworkInterface[0].PrimaryIpAddress
-	hostName := strings.Join([]string{instance.RegionId, ".", instance.ZoneId}, "")
+	hostName := strings.Join([]string{instance.RegionId, ".", instance.InstanceId}, "")
 	// ip-192-168-136-7.ap-southeast-1
 	klog.Infof("Set instance HostName for machine: %v, hostname: %v, state: %v, launchTime: %v", instance.InstanceId, hostName, instance.Status, instance.CreationTime)
 	request := ecs.CreateModifyInstanceAttributeRequest()
