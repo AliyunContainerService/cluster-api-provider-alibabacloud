@@ -21,7 +21,6 @@ import (
 )
 
 // PublishVpnRouteEntry invokes the vpc.PublishVpnRouteEntry API synchronously
-// api document: https://help.aliyun.com/api/vpc/publishvpnrouteentry.html
 func (client *Client) PublishVpnRouteEntry(request *PublishVpnRouteEntryRequest) (response *PublishVpnRouteEntryResponse, err error) {
 	response = CreatePublishVpnRouteEntryResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) PublishVpnRouteEntry(request *PublishVpnRouteEntryRequest)
 }
 
 // PublishVpnRouteEntryWithChan invokes the vpc.PublishVpnRouteEntry API asynchronously
-// api document: https://help.aliyun.com/api/vpc/publishvpnrouteentry.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) PublishVpnRouteEntryWithChan(request *PublishVpnRouteEntryRequest) (<-chan *PublishVpnRouteEntryResponse, <-chan error) {
 	responseChan := make(chan *PublishVpnRouteEntryResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) PublishVpnRouteEntryWithChan(request *PublishVpnRouteEntry
 }
 
 // PublishVpnRouteEntryWithCallback invokes the vpc.PublishVpnRouteEntry API asynchronously
-// api document: https://help.aliyun.com/api/vpc/publishvpnrouteentry.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) PublishVpnRouteEntryWithCallback(request *PublishVpnRouteEntryRequest, callback func(response *PublishVpnRouteEntryResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,15 +72,15 @@ func (client *Client) PublishVpnRouteEntryWithCallback(request *PublishVpnRouteE
 type PublishVpnRouteEntryRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
+	ClientToken          string           `position:"Query" name:"ClientToken"`
+	RouteType            string           `position:"Query" name:"RouteType"`
 	PublishVpc           requests.Boolean `position:"Query" name:"PublishVpc"`
 	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
-	ClientToken          string           `position:"Query" name:"ClientToken"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	VpnGatewayId         string           `position:"Query" name:"VpnGatewayId"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
 	RouteDest            string           `position:"Query" name:"RouteDest"`
 	NextHop              string           `position:"Query" name:"NextHop"`
-	RouteType            string           `position:"Query" name:"RouteType"`
 }
 
 // PublishVpnRouteEntryResponse is the response struct for api PublishVpnRouteEntry
@@ -100,6 +95,7 @@ func CreatePublishVpnRouteEntryRequest() (request *PublishVpnRouteEntryRequest) 
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "PublishVpnRouteEntry", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

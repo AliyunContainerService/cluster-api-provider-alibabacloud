@@ -21,7 +21,6 @@ import (
 )
 
 // DeleteNatGateway invokes the vpc.DeleteNatGateway API synchronously
-// api document: https://help.aliyun.com/api/vpc/deletenatgateway.html
 func (client *Client) DeleteNatGateway(request *DeleteNatGatewayRequest) (response *DeleteNatGatewayResponse, err error) {
 	response = CreateDeleteNatGatewayResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) DeleteNatGateway(request *DeleteNatGatewayRequest) (respon
 }
 
 // DeleteNatGatewayWithChan invokes the vpc.DeleteNatGateway API asynchronously
-// api document: https://help.aliyun.com/api/vpc/deletenatgateway.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DeleteNatGatewayWithChan(request *DeleteNatGatewayRequest) (<-chan *DeleteNatGatewayResponse, <-chan error) {
 	responseChan := make(chan *DeleteNatGatewayResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) DeleteNatGatewayWithChan(request *DeleteNatGatewayRequest)
 }
 
 // DeleteNatGatewayWithCallback invokes the vpc.DeleteNatGateway API asynchronously
-// api document: https://help.aliyun.com/api/vpc/deletenatgateway.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DeleteNatGatewayWithCallback(request *DeleteNatGatewayRequest, callback func(response *DeleteNatGatewayResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,11 +72,11 @@ func (client *Client) DeleteNatGatewayWithCallback(request *DeleteNatGatewayRequ
 type DeleteNatGatewayRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
+	NatGatewayId         string           `position:"Query" name:"NatGatewayId"`
 	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
-	Force                requests.Boolean `position:"Query" name:"Force"`
-	NatGatewayId         string           `position:"Query" name:"NatGatewayId"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
+	Force                requests.Boolean `position:"Query" name:"Force"`
 }
 
 // DeleteNatGatewayResponse is the response struct for api DeleteNatGateway
@@ -96,6 +91,7 @@ func CreateDeleteNatGatewayRequest() (request *DeleteNatGatewayRequest) {
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "DeleteNatGateway", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

@@ -21,7 +21,6 @@ import (
 )
 
 // CreateVpnConnection invokes the vpc.CreateVpnConnection API synchronously
-// api document: https://help.aliyun.com/api/vpc/createvpnconnection.html
 func (client *Client) CreateVpnConnection(request *CreateVpnConnectionRequest) (response *CreateVpnConnectionResponse, err error) {
 	response = CreateCreateVpnConnectionResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) CreateVpnConnection(request *CreateVpnConnectionRequest) (
 }
 
 // CreateVpnConnectionWithChan invokes the vpc.CreateVpnConnection API asynchronously
-// api document: https://help.aliyun.com/api/vpc/createvpnconnection.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) CreateVpnConnectionWithChan(request *CreateVpnConnectionRequest) (<-chan *CreateVpnConnectionResponse, <-chan error) {
 	responseChan := make(chan *CreateVpnConnectionResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) CreateVpnConnectionWithChan(request *CreateVpnConnectionRe
 }
 
 // CreateVpnConnectionWithCallback invokes the vpc.CreateVpnConnection API asynchronously
-// api document: https://help.aliyun.com/api/vpc/createvpnconnection.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) CreateVpnConnectionWithCallback(request *CreateVpnConnectionRequest, callback func(response *CreateVpnConnectionResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -78,19 +73,23 @@ type CreateVpnConnectionRequest struct {
 	*requests.RpcRequest
 	IkeConfig            string           `position:"Query" name:"IkeConfig"`
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	RemoteSubnet         string           `position:"Query" name:"RemoteSubnet"`
-	EffectImmediately    requests.Boolean `position:"Query" name:"EffectImmediately"`
 	AutoConfigRoute      requests.Boolean `position:"Query" name:"AutoConfigRoute"`
-	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	ClientToken          string           `position:"Query" name:"ClientToken"`
-	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	IpsecConfig          string           `position:"Query" name:"IpsecConfig"`
-	VpnGatewayId         string           `position:"Query" name:"VpnGatewayId"`
-	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
+	BgpConfig            string           `position:"Query" name:"BgpConfig"`
 	HealthCheckConfig    string           `position:"Query" name:"HealthCheckConfig"`
 	CustomerGatewayId    string           `position:"Query" name:"CustomerGatewayId"`
 	LocalSubnet          string           `position:"Query" name:"LocalSubnet"`
+	RemoteSubnet         string           `position:"Query" name:"RemoteSubnet"`
+	EffectImmediately    requests.Boolean `position:"Query" name:"EffectImmediately"`
+	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
+	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
+	VpnGatewayId         string           `position:"Query" name:"VpnGatewayId"`
+	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
+	EnableDpd            requests.Boolean `position:"Query" name:"EnableDpd"`
+	RemoteCaCertificate  string           `position:"Query" name:"RemoteCaCertificate"`
 	Name                 string           `position:"Query" name:"Name"`
+	EnableNatTraversal   requests.Boolean `position:"Query" name:"EnableNatTraversal"`
 }
 
 // CreateVpnConnectionResponse is the response struct for api CreateVpnConnection
@@ -108,6 +107,7 @@ func CreateCreateVpnConnectionRequest() (request *CreateVpnConnectionRequest) {
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "CreateVpnConnection", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

@@ -1,0 +1,49 @@
+---
+apiVersion: machine.openshift.io/v1beta1
+kind: MachineSet
+metadata:
+  name: worker-machineset
+  namespace: default
+  labels:
+    machine.openshift.io/cluster-api-cluster: alibabacloud-actuator-k8s
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      machine.openshift.io/cluster-api-machineset: worker-machine
+      machine.openshift.io/cluster-api-cluster: alibabacloud-actuator-k8s
+  template:
+    metadata:
+      labels:
+        machine.openshift.io/cluster-api-machineset: worker-machine
+        machine.openshift.io/cluster-api-cluster: alibabacloud-actuator-k8s
+    spec:
+      metadata:
+        labels:
+          node-role.kubernetes.io/compute: ""
+      providerSpec:
+        value:
+          apiVersion: alibabacloudproviderconfig.openshift.io/v1alpha1
+          kind: AlibabaCloudMachineProviderConfig
+          instanceType: ecs.c6.2xlarge
+          imageId: centos_7_9_x64_20G_alibase_20210318.vhd
+          regionId: cn-beijing
+          zoneId: cn-beijing-f
+          securityGroupId: sg-2zeebk9qd965vc2xqq4x
+          vpcId: vpc-2ze4u29pd4lniym7i1xnp
+          vSwitchId: vsw-2ze567qrl5das7q8s4rei
+          systemDiskCategory: cloud_essd
+          systemDiskSize: 120
+          internetMaxBandwidthOut: 100
+          password: Hello1234
+          tags:
+            - key: openshift-node-group-config
+              value: node-config-node
+            - key: host-type
+              value: node
+            - key: sub-host-type
+              value: default
+          userDataSecret:
+            name: worker-user-data-secret
+          credentialsSecret:
+            name: alibabacloud-credentials-secret

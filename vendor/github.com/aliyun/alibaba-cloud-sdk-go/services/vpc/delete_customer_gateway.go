@@ -21,7 +21,6 @@ import (
 )
 
 // DeleteCustomerGateway invokes the vpc.DeleteCustomerGateway API synchronously
-// api document: https://help.aliyun.com/api/vpc/deletecustomergateway.html
 func (client *Client) DeleteCustomerGateway(request *DeleteCustomerGatewayRequest) (response *DeleteCustomerGatewayResponse, err error) {
 	response = CreateDeleteCustomerGatewayResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) DeleteCustomerGateway(request *DeleteCustomerGatewayReques
 }
 
 // DeleteCustomerGatewayWithChan invokes the vpc.DeleteCustomerGateway API asynchronously
-// api document: https://help.aliyun.com/api/vpc/deletecustomergateway.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DeleteCustomerGatewayWithChan(request *DeleteCustomerGatewayRequest) (<-chan *DeleteCustomerGatewayResponse, <-chan error) {
 	responseChan := make(chan *DeleteCustomerGatewayResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) DeleteCustomerGatewayWithChan(request *DeleteCustomerGatew
 }
 
 // DeleteCustomerGatewayWithCallback invokes the vpc.DeleteCustomerGateway API asynchronously
-// api document: https://help.aliyun.com/api/vpc/deletecustomergateway.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DeleteCustomerGatewayWithCallback(request *DeleteCustomerGatewayRequest, callback func(response *DeleteCustomerGatewayResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,11 +72,11 @@ func (client *Client) DeleteCustomerGatewayWithCallback(request *DeleteCustomerG
 type DeleteCustomerGatewayRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	ClientToken          string           `position:"Query" name:"ClientToken"`
+	CustomerGatewayId    string           `position:"Query" name:"CustomerGatewayId"`
+	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
-	CustomerGatewayId    string           `position:"Query" name:"CustomerGatewayId"`
 }
 
 // DeleteCustomerGatewayResponse is the response struct for api DeleteCustomerGateway
@@ -96,6 +91,7 @@ func CreateDeleteCustomerGatewayRequest() (request *DeleteCustomerGatewayRequest
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "DeleteCustomerGateway", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

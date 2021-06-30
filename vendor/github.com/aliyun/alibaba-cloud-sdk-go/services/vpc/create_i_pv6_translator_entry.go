@@ -21,7 +21,6 @@ import (
 )
 
 // CreateIPv6TranslatorEntry invokes the vpc.CreateIPv6TranslatorEntry API synchronously
-// api document: https://help.aliyun.com/api/vpc/createipv6translatorentry.html
 func (client *Client) CreateIPv6TranslatorEntry(request *CreateIPv6TranslatorEntryRequest) (response *CreateIPv6TranslatorEntryResponse, err error) {
 	response = CreateCreateIPv6TranslatorEntryResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) CreateIPv6TranslatorEntry(request *CreateIPv6TranslatorEnt
 }
 
 // CreateIPv6TranslatorEntryWithChan invokes the vpc.CreateIPv6TranslatorEntry API asynchronously
-// api document: https://help.aliyun.com/api/vpc/createipv6translatorentry.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) CreateIPv6TranslatorEntryWithChan(request *CreateIPv6TranslatorEntryRequest) (<-chan *CreateIPv6TranslatorEntryResponse, <-chan error) {
 	responseChan := make(chan *CreateIPv6TranslatorEntryResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) CreateIPv6TranslatorEntryWithChan(request *CreateIPv6Trans
 }
 
 // CreateIPv6TranslatorEntryWithCallback invokes the vpc.CreateIPv6TranslatorEntry API asynchronously
-// api document: https://help.aliyun.com/api/vpc/createipv6translatorentry.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) CreateIPv6TranslatorEntryWithCallback(request *CreateIPv6TranslatorEntryRequest, callback func(response *CreateIPv6TranslatorEntryResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,18 +72,18 @@ func (client *Client) CreateIPv6TranslatorEntryWithCallback(request *CreateIPv6T
 type CreateIPv6TranslatorEntryRequest struct {
 	*requests.RpcRequest
 	BackendIpv4Port      requests.Integer `position:"Query" name:"BackendIpv4Port"`
-	AclId                string           `position:"Query" name:"AclId"`
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	EntryName            string           `position:"Query" name:"EntryName"`
-	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
-	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
 	AclStatus            string           `position:"Query" name:"AclStatus"`
 	EntryBandwidth       requests.Integer `position:"Query" name:"EntryBandwidth"`
 	AclType              string           `position:"Query" name:"AclType"`
 	AllocateIpv6Port     requests.Integer `position:"Query" name:"AllocateIpv6Port"`
 	EntryDescription     string           `position:"Query" name:"EntryDescription"`
 	BackendIpv4Addr      string           `position:"Query" name:"BackendIpv4Addr"`
+	AclId                string           `position:"Query" name:"AclId"`
+	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
+	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
+	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
 	TransProtocol        string           `position:"Query" name:"TransProtocol"`
 	Ipv6TranslatorId     string           `position:"Query" name:"Ipv6TranslatorId"`
 }
@@ -106,6 +101,7 @@ func CreateCreateIPv6TranslatorEntryRequest() (request *CreateIPv6TranslatorEntr
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "CreateIPv6TranslatorEntry", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

@@ -21,7 +21,6 @@ import (
 )
 
 // DescribeVpnGateways invokes the vpc.DescribeVpnGateways API synchronously
-// api document: https://help.aliyun.com/api/vpc/describevpngateways.html
 func (client *Client) DescribeVpnGateways(request *DescribeVpnGatewaysRequest) (response *DescribeVpnGatewaysResponse, err error) {
 	response = CreateDescribeVpnGatewaysResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) DescribeVpnGateways(request *DescribeVpnGatewaysRequest) (
 }
 
 // DescribeVpnGatewaysWithChan invokes the vpc.DescribeVpnGateways API asynchronously
-// api document: https://help.aliyun.com/api/vpc/describevpngateways.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DescribeVpnGatewaysWithChan(request *DescribeVpnGatewaysRequest) (<-chan *DescribeVpnGatewaysResponse, <-chan error) {
 	responseChan := make(chan *DescribeVpnGatewaysResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) DescribeVpnGatewaysWithChan(request *DescribeVpnGatewaysRe
 }
 
 // DescribeVpnGatewaysWithCallback invokes the vpc.DescribeVpnGateways API asynchronously
-// api document: https://help.aliyun.com/api/vpc/describevpngateways.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DescribeVpnGatewaysWithCallback(request *DescribeVpnGatewaysRequest, callback func(response *DescribeVpnGatewaysResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -76,16 +71,24 @@ func (client *Client) DescribeVpnGatewaysWithCallback(request *DescribeVpnGatewa
 // DescribeVpnGatewaysRequest is the request struct for api DescribeVpnGateways
 type DescribeVpnGatewaysRequest struct {
 	*requests.RpcRequest
-	BusinessStatus       string           `position:"Query" name:"BusinessStatus"`
-	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
-	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
-	VpcId                string           `position:"Query" name:"VpcId"`
-	PageSize             requests.Integer `position:"Query" name:"PageSize"`
-	VpnGatewayId         string           `position:"Query" name:"VpnGatewayId"`
-	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
-	PageNumber           requests.Integer `position:"Query" name:"PageNumber"`
-	Status               string           `position:"Query" name:"Status"`
+	ResourceOwnerId        requests.Integer          `position:"Query" name:"ResourceOwnerId"`
+	IncludeReservationData requests.Boolean          `position:"Query" name:"IncludeReservationData"`
+	PageNumber             requests.Integer          `position:"Query" name:"PageNumber"`
+	PageSize               requests.Integer          `position:"Query" name:"PageSize"`
+	Tag                    *[]DescribeVpnGatewaysTag `position:"Query" name:"Tag"  type:"Repeated"`
+	BusinessStatus         string                    `position:"Query" name:"BusinessStatus"`
+	ResourceOwnerAccount   string                    `position:"Query" name:"ResourceOwnerAccount"`
+	OwnerAccount           string                    `position:"Query" name:"OwnerAccount"`
+	VpnGatewayId           string                    `position:"Query" name:"VpnGatewayId"`
+	OwnerId                requests.Integer          `position:"Query" name:"OwnerId"`
+	VpcId                  string                    `position:"Query" name:"VpcId"`
+	Status                 string                    `position:"Query" name:"Status"`
+}
+
+// DescribeVpnGatewaysTag is a repeated param struct in DescribeVpnGatewaysRequest
+type DescribeVpnGatewaysTag struct {
+	Value string `name:"Value"`
+	Key   string `name:"Key"`
 }
 
 // DescribeVpnGatewaysResponse is the response struct for api DescribeVpnGateways
@@ -104,6 +107,7 @@ func CreateDescribeVpnGatewaysRequest() (request *DescribeVpnGatewaysRequest) {
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "DescribeVpnGateways", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

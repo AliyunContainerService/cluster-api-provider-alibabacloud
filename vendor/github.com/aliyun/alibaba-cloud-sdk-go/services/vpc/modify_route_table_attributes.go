@@ -21,7 +21,6 @@ import (
 )
 
 // ModifyRouteTableAttributes invokes the vpc.ModifyRouteTableAttributes API synchronously
-// api document: https://help.aliyun.com/api/vpc/modifyroutetableattributes.html
 func (client *Client) ModifyRouteTableAttributes(request *ModifyRouteTableAttributesRequest) (response *ModifyRouteTableAttributesResponse, err error) {
 	response = CreateModifyRouteTableAttributesResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) ModifyRouteTableAttributes(request *ModifyRouteTableAttrib
 }
 
 // ModifyRouteTableAttributesWithChan invokes the vpc.ModifyRouteTableAttributes API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifyroutetableattributes.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyRouteTableAttributesWithChan(request *ModifyRouteTableAttributesRequest) (<-chan *ModifyRouteTableAttributesResponse, <-chan error) {
 	responseChan := make(chan *ModifyRouteTableAttributesResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) ModifyRouteTableAttributesWithChan(request *ModifyRouteTab
 }
 
 // ModifyRouteTableAttributesWithCallback invokes the vpc.ModifyRouteTableAttributes API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifyroutetableattributes.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyRouteTableAttributesWithCallback(request *ModifyRouteTableAttributesRequest, callback func(response *ModifyRouteTableAttributesResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,16 +72,16 @@ func (client *Client) ModifyRouteTableAttributesWithCallback(request *ModifyRout
 type ModifyRouteTableAttributesRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
+	Description          string           `position:"Query" name:"Description"`
+	RouteTableName       string           `position:"Query" name:"RouteTableName"`
+	ResourceUid          requests.Integer `position:"Query" name:"ResourceUid"`
+	RouteTableId         string           `position:"Query" name:"RouteTableId"`
 	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	Bandwidth            string           `position:"Query" name:"Bandwidth"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
-	Description          string           `position:"Query" name:"Description"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
 	KbpsBandwidth        string           `position:"Query" name:"KbpsBandwidth"`
-	RouteTableName       string           `position:"Query" name:"RouteTableName"`
-	ResourceUid          requests.Integer `position:"Query" name:"ResourceUid"`
 	ResourceBid          string           `position:"Query" name:"ResourceBid"`
-	RouteTableId         string           `position:"Query" name:"RouteTableId"`
 }
 
 // ModifyRouteTableAttributesResponse is the response struct for api ModifyRouteTableAttributes
@@ -104,6 +99,7 @@ func CreateModifyRouteTableAttributesRequest() (request *ModifyRouteTableAttribu
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "ModifyRouteTableAttributes", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

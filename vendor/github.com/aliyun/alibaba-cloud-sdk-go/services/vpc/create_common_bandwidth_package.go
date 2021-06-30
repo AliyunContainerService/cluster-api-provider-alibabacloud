@@ -21,7 +21,6 @@ import (
 )
 
 // CreateCommonBandwidthPackage invokes the vpc.CreateCommonBandwidthPackage API synchronously
-// api document: https://help.aliyun.com/api/vpc/createcommonbandwidthpackage.html
 func (client *Client) CreateCommonBandwidthPackage(request *CreateCommonBandwidthPackageRequest) (response *CreateCommonBandwidthPackageResponse, err error) {
 	response = CreateCreateCommonBandwidthPackageResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) CreateCommonBandwidthPackage(request *CreateCommonBandwidt
 }
 
 // CreateCommonBandwidthPackageWithChan invokes the vpc.CreateCommonBandwidthPackage API asynchronously
-// api document: https://help.aliyun.com/api/vpc/createcommonbandwidthpackage.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) CreateCommonBandwidthPackageWithChan(request *CreateCommonBandwidthPackageRequest) (<-chan *CreateCommonBandwidthPackageResponse, <-chan error) {
 	responseChan := make(chan *CreateCommonBandwidthPackageResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) CreateCommonBandwidthPackageWithChan(request *CreateCommon
 }
 
 // CreateCommonBandwidthPackageWithCallback invokes the vpc.CreateCommonBandwidthPackage API asynchronously
-// api document: https://help.aliyun.com/api/vpc/createcommonbandwidthpackage.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) CreateCommonBandwidthPackageWithCallback(request *CreateCommonBandwidthPackageRequest, callback func(response *CreateCommonBandwidthPackageResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,15 +72,15 @@ func (client *Client) CreateCommonBandwidthPackageWithCallback(request *CreateCo
 type CreateCommonBandwidthPackageRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	ClientToken          string           `position:"Query" name:"ClientToken"`
-	Bandwidth            requests.Integer `position:"Query" name:"Bandwidth"`
-	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	ISP                  string           `position:"Query" name:"ISP"`
 	Description          string           `position:"Query" name:"Description"`
-	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
 	ResourceGroupId      string           `position:"Query" name:"ResourceGroupId"`
 	Zone                 string           `position:"Query" name:"Zone"`
+	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
+	Bandwidth            requests.Integer `position:"Query" name:"Bandwidth"`
+	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
+	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
 	InternetChargeType   string           `position:"Query" name:"InternetChargeType"`
 	Name                 string           `position:"Query" name:"Name"`
 	Ratio                requests.Integer `position:"Query" name:"Ratio"`
@@ -105,6 +100,7 @@ func CreateCreateCommonBandwidthPackageRequest() (request *CreateCommonBandwidth
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "CreateCommonBandwidthPackage", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

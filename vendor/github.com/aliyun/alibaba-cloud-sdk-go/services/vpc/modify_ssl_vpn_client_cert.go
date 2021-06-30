@@ -21,7 +21,6 @@ import (
 )
 
 // ModifySslVpnClientCert invokes the vpc.ModifySslVpnClientCert API synchronously
-// api document: https://help.aliyun.com/api/vpc/modifysslvpnclientcert.html
 func (client *Client) ModifySslVpnClientCert(request *ModifySslVpnClientCertRequest) (response *ModifySslVpnClientCertResponse, err error) {
 	response = CreateModifySslVpnClientCertResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) ModifySslVpnClientCert(request *ModifySslVpnClientCertRequ
 }
 
 // ModifySslVpnClientCertWithChan invokes the vpc.ModifySslVpnClientCert API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifysslvpnclientcert.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifySslVpnClientCertWithChan(request *ModifySslVpnClientCertRequest) (<-chan *ModifySslVpnClientCertResponse, <-chan error) {
 	responseChan := make(chan *ModifySslVpnClientCertResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) ModifySslVpnClientCertWithChan(request *ModifySslVpnClient
 }
 
 // ModifySslVpnClientCertWithCallback invokes the vpc.ModifySslVpnClientCert API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifysslvpnclientcert.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifySslVpnClientCertWithCallback(request *ModifySslVpnClientCertRequest, callback func(response *ModifySslVpnClientCertResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,12 +72,12 @@ func (client *Client) ModifySslVpnClientCertWithCallback(request *ModifySslVpnCl
 type ModifySslVpnClientCertRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	ClientToken          string           `position:"Query" name:"ClientToken"`
-	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
-	Name                 string           `position:"Query" name:"Name"`
-	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
 	SslVpnClientCertId   string           `position:"Query" name:"SslVpnClientCertId"`
+	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
+	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
+	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
+	Name                 string           `position:"Query" name:"Name"`
 }
 
 // ModifySslVpnClientCertResponse is the response struct for api ModifySslVpnClientCert
@@ -99,6 +94,7 @@ func CreateModifySslVpnClientCertRequest() (request *ModifySslVpnClientCertReque
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "ModifySslVpnClientCert", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

@@ -21,7 +21,6 @@ import (
 )
 
 // RecoverVirtualBorderRouter invokes the vpc.RecoverVirtualBorderRouter API synchronously
-// api document: https://help.aliyun.com/api/vpc/recovervirtualborderrouter.html
 func (client *Client) RecoverVirtualBorderRouter(request *RecoverVirtualBorderRouterRequest) (response *RecoverVirtualBorderRouterResponse, err error) {
 	response = CreateRecoverVirtualBorderRouterResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) RecoverVirtualBorderRouter(request *RecoverVirtualBorderRo
 }
 
 // RecoverVirtualBorderRouterWithChan invokes the vpc.RecoverVirtualBorderRouter API asynchronously
-// api document: https://help.aliyun.com/api/vpc/recovervirtualborderrouter.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) RecoverVirtualBorderRouterWithChan(request *RecoverVirtualBorderRouterRequest) (<-chan *RecoverVirtualBorderRouterResponse, <-chan error) {
 	responseChan := make(chan *RecoverVirtualBorderRouterResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) RecoverVirtualBorderRouterWithChan(request *RecoverVirtual
 }
 
 // RecoverVirtualBorderRouterWithCallback invokes the vpc.RecoverVirtualBorderRouter API asynchronously
-// api document: https://help.aliyun.com/api/vpc/recovervirtualborderrouter.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) RecoverVirtualBorderRouterWithCallback(request *RecoverVirtualBorderRouterRequest, callback func(response *RecoverVirtualBorderRouterResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,10 +72,10 @@ func (client *Client) RecoverVirtualBorderRouterWithCallback(request *RecoverVir
 type RecoverVirtualBorderRouterRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	ClientToken          string           `position:"Query" name:"ClientToken"`
-	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	VbrId                string           `position:"Query" name:"VbrId"`
+	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
+	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
 }
 
@@ -96,6 +91,7 @@ func CreateRecoverVirtualBorderRouterRequest() (request *RecoverVirtualBorderRou
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "RecoverVirtualBorderRouter", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

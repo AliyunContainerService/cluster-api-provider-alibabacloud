@@ -21,7 +21,6 @@ import (
 )
 
 // ModifyCommonBandwidthPackagePayType invokes the vpc.ModifyCommonBandwidthPackagePayType API synchronously
-// api document: https://help.aliyun.com/api/vpc/modifycommonbandwidthpackagepaytype.html
 func (client *Client) ModifyCommonBandwidthPackagePayType(request *ModifyCommonBandwidthPackagePayTypeRequest) (response *ModifyCommonBandwidthPackagePayTypeResponse, err error) {
 	response = CreateModifyCommonBandwidthPackagePayTypeResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) ModifyCommonBandwidthPackagePayType(request *ModifyCommonB
 }
 
 // ModifyCommonBandwidthPackagePayTypeWithChan invokes the vpc.ModifyCommonBandwidthPackagePayType API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifycommonbandwidthpackagepaytype.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyCommonBandwidthPackagePayTypeWithChan(request *ModifyCommonBandwidthPackagePayTypeRequest) (<-chan *ModifyCommonBandwidthPackagePayTypeResponse, <-chan error) {
 	responseChan := make(chan *ModifyCommonBandwidthPackagePayTypeResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) ModifyCommonBandwidthPackagePayTypeWithChan(request *Modif
 }
 
 // ModifyCommonBandwidthPackagePayTypeWithCallback invokes the vpc.ModifyCommonBandwidthPackagePayType API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifycommonbandwidthpackagepaytype.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyCommonBandwidthPackagePayTypeWithCallback(request *ModifyCommonBandwidthPackagePayTypeRequest, callback func(response *ModifyCommonBandwidthPackagePayTypeResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,15 +72,15 @@ func (client *Client) ModifyCommonBandwidthPackagePayTypeWithCallback(request *M
 type ModifyCommonBandwidthPackagePayTypeRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
+	Duration             requests.Integer `position:"Query" name:"Duration"`
+	ResourceUid          requests.Integer `position:"Query" name:"ResourceUid"`
 	BandwidthPackageId   string           `position:"Query" name:"BandwidthPackageId"`
 	AutoPay              requests.Boolean `position:"Query" name:"AutoPay"`
 	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	Bandwidth            string           `position:"Query" name:"Bandwidth"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
-	Duration             requests.Integer `position:"Query" name:"Duration"`
 	KbpsBandwidth        string           `position:"Query" name:"KbpsBandwidth"`
-	ResourceUid          requests.Integer `position:"Query" name:"ResourceUid"`
 	ResourceBid          string           `position:"Query" name:"ResourceBid"`
 	PayType              string           `position:"Query" name:"PayType"`
 	PricingCycle         string           `position:"Query" name:"PricingCycle"`
@@ -106,6 +101,7 @@ func CreateModifyCommonBandwidthPackagePayTypeRequest() (request *ModifyCommonBa
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "ModifyCommonBandwidthPackagePayType", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

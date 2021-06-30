@@ -36,5 +36,7 @@ type CommonBandwidthPackage struct {
 	ReservationActiveTime         string                                             `json:"ReservationActiveTime" xml:"ReservationActiveTime"`
 	ReservationOrderType          string                                             `json:"ReservationOrderType" xml:"ReservationOrderType"`
 	ISP                           string                                             `json:"ISP" xml:"ISP"`
+	DeletionProtection            bool                                               `json:"DeletionProtection" xml:"DeletionProtection"`
+	ServiceManaged                int                                                `json:"ServiceManaged" xml:"ServiceManaged"`
 	PublicIpAddresses             PublicIpAddressesInDescribeCommonBandwidthPackages `json:"PublicIpAddresses" xml:"PublicIpAddresses"`
 }

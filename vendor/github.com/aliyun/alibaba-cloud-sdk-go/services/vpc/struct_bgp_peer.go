@@ -33,4 +33,7 @@ type BgpPeer struct {
 	IsFake        string `json:"IsFake" xml:"IsFake"`
 	RouteLimit    string `json:"RouteLimit" xml:"RouteLimit"`
 	RegionId      string `json:"RegionId" xml:"RegionId"`
+	EnableBfd     bool   `json:"EnableBfd" xml:"EnableBfd"`
+	IpVersion     string `json:"IpVersion" xml:"IpVersion"`
+	BfdMultiHop   int    `json:"BfdMultiHop" xml:"BfdMultiHop"`
 }

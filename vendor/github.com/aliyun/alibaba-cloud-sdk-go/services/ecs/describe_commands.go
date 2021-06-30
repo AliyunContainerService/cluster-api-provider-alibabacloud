@@ -21,7 +21,6 @@ import (
 )
 
 // DescribeCommands invokes the ecs.DescribeCommands API synchronously
-// api document: https://help.aliyun.com/api/ecs/describecommands.html
 func (client *Client) DescribeCommands(request *DescribeCommandsRequest) (response *DescribeCommandsResponse, err error) {
 	response = CreateDescribeCommandsResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) DescribeCommands(request *DescribeCommandsRequest) (respon
 }
 
 // DescribeCommandsWithChan invokes the ecs.DescribeCommands API asynchronously
-// api document: https://help.aliyun.com/api/ecs/describecommands.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DescribeCommandsWithChan(request *DescribeCommandsRequest) (<-chan *DescribeCommandsResponse, <-chan error) {
 	responseChan := make(chan *DescribeCommandsResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) DescribeCommandsWithChan(request *DescribeCommandsRequest)
 }
 
 // DescribeCommandsWithCallback invokes the ecs.DescribeCommands API asynchronously
-// api document: https://help.aliyun.com/api/ecs/describecommands.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DescribeCommandsWithCallback(request *DescribeCommandsRequest, callback func(response *DescribeCommandsResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -81,6 +76,8 @@ type DescribeCommandsRequest struct {
 	Type                 string           `position:"Query" name:"Type"`
 	CommandId            string           `position:"Query" name:"CommandId"`
 	PageNumber           requests.Integer `position:"Query" name:"PageNumber"`
+	Provider             string           `position:"Query" name:"Provider"`
+	ContentEncoding      string           `position:"Query" name:"ContentEncoding"`
 	PageSize             requests.Integer `position:"Query" name:"PageSize"`
 	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
@@ -104,6 +101,7 @@ func CreateDescribeCommandsRequest() (request *DescribeCommandsRequest) {
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Ecs", "2014-05-26", "DescribeCommands", "ecs", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

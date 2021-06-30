@@ -21,7 +21,6 @@ import (
 )
 
 // CreateSslVpnServer invokes the vpc.CreateSslVpnServer API synchronously
-// api document: https://help.aliyun.com/api/vpc/createsslvpnserver.html
 func (client *Client) CreateSslVpnServer(request *CreateSslVpnServerRequest) (response *CreateSslVpnServerResponse, err error) {
 	response = CreateCreateSslVpnServerResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) CreateSslVpnServer(request *CreateSslVpnServerRequest) (re
 }
 
 // CreateSslVpnServerWithChan invokes the vpc.CreateSslVpnServer API asynchronously
-// api document: https://help.aliyun.com/api/vpc/createsslvpnserver.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) CreateSslVpnServerWithChan(request *CreateSslVpnServerRequest) (<-chan *CreateSslVpnServerResponse, <-chan error) {
 	responseChan := make(chan *CreateSslVpnServerResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) CreateSslVpnServerWithChan(request *CreateSslVpnServerRequ
 }
 
 // CreateSslVpnServerWithCallback invokes the vpc.CreateSslVpnServer API asynchronously
-// api document: https://help.aliyun.com/api/vpc/createsslvpnserver.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) CreateSslVpnServerWithCallback(request *CreateSslVpnServerRequest, callback func(response *CreateSslVpnServerResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -76,19 +71,22 @@ func (client *Client) CreateSslVpnServerWithCallback(request *CreateSslVpnServer
 // CreateSslVpnServerRequest is the request struct for api CreateSslVpnServer
 type CreateSslVpnServerRequest struct {
 	*requests.RpcRequest
-	Cipher               string           `position:"Query" name:"Cipher"`
-	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	ClientIpPool         string           `position:"Query" name:"ClientIpPool"`
-	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
-	ClientToken          string           `position:"Query" name:"ClientToken"`
-	Compress             requests.Boolean `position:"Query" name:"Compress"`
-	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
-	VpnGatewayId         string           `position:"Query" name:"VpnGatewayId"`
-	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
-	LocalSubnet          string           `position:"Query" name:"LocalSubnet"`
-	Port                 requests.Integer `position:"Query" name:"Port"`
-	Proto                string           `position:"Query" name:"Proto"`
-	Name                 string           `position:"Query" name:"Name"`
+	ResourceOwnerId       requests.Integer `position:"Query" name:"ResourceOwnerId"`
+	ClientToken           string           `position:"Query" name:"ClientToken"`
+	LocalSubnet           string           `position:"Query" name:"LocalSubnet"`
+	IDaaSRegionId         string           `position:"Query" name:"IDaaSRegionId"`
+	EnableMultiFactorAuth requests.Boolean `position:"Query" name:"EnableMultiFactorAuth"`
+	IDaaSInstanceId       string           `position:"Query" name:"IDaaSInstanceId"`
+	Cipher                string           `position:"Query" name:"Cipher"`
+	ClientIpPool          string           `position:"Query" name:"ClientIpPool"`
+	ResourceOwnerAccount  string           `position:"Query" name:"ResourceOwnerAccount"`
+	Compress              requests.Boolean `position:"Query" name:"Compress"`
+	OwnerAccount          string           `position:"Query" name:"OwnerAccount"`
+	VpnGatewayId          string           `position:"Query" name:"VpnGatewayId"`
+	OwnerId               requests.Integer `position:"Query" name:"OwnerId"`
+	Port                  requests.Integer `position:"Query" name:"Port"`
+	Proto                 string           `position:"Query" name:"Proto"`
+	Name                  string           `position:"Query" name:"Name"`
 }
 
 // CreateSslVpnServerResponse is the response struct for api CreateSslVpnServer
@@ -105,6 +103,7 @@ func CreateCreateSslVpnServerRequest() (request *CreateSslVpnServerRequest) {
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "CreateSslVpnServer", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

@@ -21,7 +21,6 @@ import (
 )
 
 // ModifyCommonBandwidthPackageAttribute invokes the vpc.ModifyCommonBandwidthPackageAttribute API synchronously
-// api document: https://help.aliyun.com/api/vpc/modifycommonbandwidthpackageattribute.html
 func (client *Client) ModifyCommonBandwidthPackageAttribute(request *ModifyCommonBandwidthPackageAttributeRequest) (response *ModifyCommonBandwidthPackageAttributeResponse, err error) {
 	response = CreateModifyCommonBandwidthPackageAttributeResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) ModifyCommonBandwidthPackageAttribute(request *ModifyCommo
 }
 
 // ModifyCommonBandwidthPackageAttributeWithChan invokes the vpc.ModifyCommonBandwidthPackageAttribute API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifycommonbandwidthpackageattribute.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyCommonBandwidthPackageAttributeWithChan(request *ModifyCommonBandwidthPackageAttributeRequest) (<-chan *ModifyCommonBandwidthPackageAttributeResponse, <-chan error) {
 	responseChan := make(chan *ModifyCommonBandwidthPackageAttributeResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) ModifyCommonBandwidthPackageAttributeWithChan(request *Mod
 }
 
 // ModifyCommonBandwidthPackageAttributeWithCallback invokes the vpc.ModifyCommonBandwidthPackageAttribute API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifycommonbandwidthpackageattribute.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyCommonBandwidthPackageAttributeWithCallback(request *ModifyCommonBandwidthPackageAttributeRequest, callback func(response *ModifyCommonBandwidthPackageAttributeResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,12 +72,12 @@ func (client *Client) ModifyCommonBandwidthPackageAttributeWithCallback(request 
 type ModifyCommonBandwidthPackageAttributeRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
+	Description          string           `position:"Query" name:"Description"`
 	BandwidthPackageId   string           `position:"Query" name:"BandwidthPackageId"`
 	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
-	Name                 string           `position:"Query" name:"Name"`
-	Description          string           `position:"Query" name:"Description"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
+	Name                 string           `position:"Query" name:"Name"`
 }
 
 // ModifyCommonBandwidthPackageAttributeResponse is the response struct for api ModifyCommonBandwidthPackageAttribute
@@ -97,6 +92,7 @@ func CreateModifyCommonBandwidthPackageAttributeRequest() (request *ModifyCommon
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "ModifyCommonBandwidthPackageAttribute", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

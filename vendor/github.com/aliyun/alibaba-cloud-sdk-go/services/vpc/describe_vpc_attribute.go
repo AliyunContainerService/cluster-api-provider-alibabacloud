@@ -21,7 +21,6 @@ import (
 )
 
 // DescribeVpcAttribute invokes the vpc.DescribeVpcAttribute API synchronously
-// api document: https://help.aliyun.com/api/vpc/describevpcattribute.html
 func (client *Client) DescribeVpcAttribute(request *DescribeVpcAttributeRequest) (response *DescribeVpcAttributeResponse, err error) {
 	response = CreateDescribeVpcAttributeResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) DescribeVpcAttribute(request *DescribeVpcAttributeRequest)
 }
 
 // DescribeVpcAttributeWithChan invokes the vpc.DescribeVpcAttribute API asynchronously
-// api document: https://help.aliyun.com/api/vpc/describevpcattribute.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DescribeVpcAttributeWithChan(request *DescribeVpcAttributeRequest) (<-chan *DescribeVpcAttributeResponse, <-chan error) {
 	responseChan := make(chan *DescribeVpcAttributeResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) DescribeVpcAttributeWithChan(request *DescribeVpcAttribute
 }
 
 // DescribeVpcAttributeWithCallback invokes the vpc.DescribeVpcAttribute API asynchronously
-// api document: https://help.aliyun.com/api/vpc/describevpcattribute.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DescribeVpcAttributeWithCallback(request *DescribeVpcAttributeRequest, callback func(response *DescribeVpcAttributeResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,34 +72,40 @@ func (client *Client) DescribeVpcAttributeWithCallback(request *DescribeVpcAttri
 type DescribeVpcAttributeRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
-	VpcId                string           `position:"Query" name:"VpcId"`
-	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	IsDefault            requests.Boolean `position:"Query" name:"IsDefault"`
+	DryRun               requests.Boolean `position:"Query" name:"DryRun"`
+	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
+	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
+	VpcId                string           `position:"Query" name:"VpcId"`
 }
 
 // DescribeVpcAttributeResponse is the response struct for api DescribeVpcAttribute
 type DescribeVpcAttributeResponse struct {
 	*responses.BaseResponse
-	RequestId          string                               `json:"RequestId" xml:"RequestId"`
-	VpcId              string                               `json:"VpcId" xml:"VpcId"`
-	RegionId           string                               `json:"RegionId" xml:"RegionId"`
-	Status             string                               `json:"Status" xml:"Status"`
-	VpcName            string                               `json:"VpcName" xml:"VpcName"`
-	CreationTime       string                               `json:"CreationTime" xml:"CreationTime"`
-	CidrBlock          string                               `json:"CidrBlock" xml:"CidrBlock"`
-	Ipv6CidrBlock      string                               `json:"Ipv6CidrBlock" xml:"Ipv6CidrBlock"`
-	VRouterId          string                               `json:"VRouterId" xml:"VRouterId"`
-	Description        string                               `json:"Description" xml:"Description"`
-	IsDefault          bool                                 `json:"IsDefault" xml:"IsDefault"`
-	ClassicLinkEnabled bool                                 `json:"ClassicLinkEnabled" xml:"ClassicLinkEnabled"`
-	ResourceGroupId    string                               `json:"ResourceGroupId" xml:"ResourceGroupId"`
-	NetworkAclNum      string                               `json:"NetworkAclNum" xml:"NetworkAclNum"`
-	VSwitchIds         VSwitchIdsInDescribeVpcAttribute     `json:"VSwitchIds" xml:"VSwitchIds"`
-	UserCidrs          UserCidrsInDescribeVpcAttribute      `json:"UserCidrs" xml:"UserCidrs"`
-	AssociatedCens     AssociatedCensInDescribeVpcAttribute `json:"AssociatedCens" xml:"AssociatedCens"`
-	CloudResources     CloudResourcesInDescribeVpcAttribute `json:"CloudResources" xml:"CloudResources"`
+	RequestId            string                                    `json:"RequestId" xml:"RequestId"`
+	VpcId                string                                    `json:"VpcId" xml:"VpcId"`
+	RegionId             string                                    `json:"RegionId" xml:"RegionId"`
+	Status               string                                    `json:"Status" xml:"Status"`
+	VpcName              string                                    `json:"VpcName" xml:"VpcName"`
+	CreationTime         string                                    `json:"CreationTime" xml:"CreationTime"`
+	CidrBlock            string                                    `json:"CidrBlock" xml:"CidrBlock"`
+	Ipv6CidrBlock        string                                    `json:"Ipv6CidrBlock" xml:"Ipv6CidrBlock"`
+	VRouterId            string                                    `json:"VRouterId" xml:"VRouterId"`
+	Description          string                                    `json:"Description" xml:"Description"`
+	IsDefault            bool                                      `json:"IsDefault" xml:"IsDefault"`
+	ClassicLinkEnabled   bool                                      `json:"ClassicLinkEnabled" xml:"ClassicLinkEnabled"`
+	ResourceGroupId      string                                    `json:"ResourceGroupId" xml:"ResourceGroupId"`
+	NetworkAclNum        string                                    `json:"NetworkAclNum" xml:"NetworkAclNum"`
+	OwnerId              int64                                     `json:"OwnerId" xml:"OwnerId"`
+	DhcpOptionsSetId     string                                    `json:"DhcpOptionsSetId" xml:"DhcpOptionsSetId"`
+	DhcpOptionsSetStatus string                                    `json:"DhcpOptionsSetStatus" xml:"DhcpOptionsSetStatus"`
+	VSwitchIds           VSwitchIdsInDescribeVpcAttribute          `json:"VSwitchIds" xml:"VSwitchIds"`
+	UserCidrs            UserCidrsInDescribeVpcAttribute           `json:"UserCidrs" xml:"UserCidrs"`
+	SecondaryCidrBlocks  SecondaryCidrBlocksInDescribeVpcAttribute `json:"SecondaryCidrBlocks" xml:"SecondaryCidrBlocks"`
+	AssociatedCens       AssociatedCensInDescribeVpcAttribute      `json:"AssociatedCens" xml:"AssociatedCens"`
+	CloudResources       CloudResourcesInDescribeVpcAttribute      `json:"CloudResources" xml:"CloudResources"`
+	Ipv6CidrBlocks       Ipv6CidrBlocksInDescribeVpcAttribute      `json:"Ipv6CidrBlocks" xml:"Ipv6CidrBlocks"`
 }
 
 // CreateDescribeVpcAttributeRequest creates a request to invoke DescribeVpcAttribute API
@@ -113,6 +114,7 @@ func CreateDescribeVpcAttributeRequest() (request *DescribeVpcAttributeRequest) 
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "DescribeVpcAttribute", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 
