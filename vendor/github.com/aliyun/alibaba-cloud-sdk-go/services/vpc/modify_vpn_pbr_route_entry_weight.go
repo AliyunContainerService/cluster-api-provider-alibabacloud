@@ -21,7 +21,6 @@ import (
 )
 
 // ModifyVpnPbrRouteEntryWeight invokes the vpc.ModifyVpnPbrRouteEntryWeight API synchronously
-// api document: https://help.aliyun.com/api/vpc/modifyvpnpbrrouteentryweight.html
 func (client *Client) ModifyVpnPbrRouteEntryWeight(request *ModifyVpnPbrRouteEntryWeightRequest) (response *ModifyVpnPbrRouteEntryWeightResponse, err error) {
 	response = CreateModifyVpnPbrRouteEntryWeightResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) ModifyVpnPbrRouteEntryWeight(request *ModifyVpnPbrRouteEnt
 }
 
 // ModifyVpnPbrRouteEntryWeightWithChan invokes the vpc.ModifyVpnPbrRouteEntryWeight API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifyvpnpbrrouteentryweight.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyVpnPbrRouteEntryWeightWithChan(request *ModifyVpnPbrRouteEntryWeightRequest) (<-chan *ModifyVpnPbrRouteEntryWeightResponse, <-chan error) {
 	responseChan := make(chan *ModifyVpnPbrRouteEntryWeightResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) ModifyVpnPbrRouteEntryWeightWithChan(request *ModifyVpnPbr
 }
 
 // ModifyVpnPbrRouteEntryWeightWithCallback invokes the vpc.ModifyVpnPbrRouteEntryWeight API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifyvpnpbrrouteentryweight.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyVpnPbrRouteEntryWeightWithCallback(request *ModifyVpnPbrRouteEntryWeightRequest, callback func(response *ModifyVpnPbrRouteEntryWeightResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -78,15 +73,16 @@ type ModifyVpnPbrRouteEntryWeightRequest struct {
 	*requests.RpcRequest
 	RouteSource          string           `position:"Query" name:"RouteSource"`
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	ClientToken          string           `position:"Query" name:"ClientToken"`
+	NewWeight            requests.Integer `position:"Query" name:"NewWeight"`
+	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	Weight               requests.Integer `position:"Query" name:"Weight"`
 	VpnGatewayId         string           `position:"Query" name:"VpnGatewayId"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
-	NewWeight            requests.Integer `position:"Query" name:"NewWeight"`
 	RouteDest            string           `position:"Query" name:"RouteDest"`
 	NextHop              string           `position:"Query" name:"NextHop"`
+	OverlayMode          string           `position:"Query" name:"OverlayMode"`
 }
 
 // ModifyVpnPbrRouteEntryWeightResponse is the response struct for api ModifyVpnPbrRouteEntryWeight
@@ -101,6 +97,7 @@ func CreateModifyVpnPbrRouteEntryWeightRequest() (request *ModifyVpnPbrRouteEntr
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "ModifyVpnPbrRouteEntryWeight", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

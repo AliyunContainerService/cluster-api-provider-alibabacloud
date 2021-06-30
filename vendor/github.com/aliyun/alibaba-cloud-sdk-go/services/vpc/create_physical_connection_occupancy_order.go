@@ -21,7 +21,6 @@ import (
 )
 
 // CreatePhysicalConnectionOccupancyOrder invokes the vpc.CreatePhysicalConnectionOccupancyOrder API synchronously
-// api document: https://help.aliyun.com/api/vpc/createphysicalconnectionoccupancyorder.html
 func (client *Client) CreatePhysicalConnectionOccupancyOrder(request *CreatePhysicalConnectionOccupancyOrderRequest) (response *CreatePhysicalConnectionOccupancyOrderResponse, err error) {
 	response = CreateCreatePhysicalConnectionOccupancyOrderResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) CreatePhysicalConnectionOccupancyOrder(request *CreatePhys
 }
 
 // CreatePhysicalConnectionOccupancyOrderWithChan invokes the vpc.CreatePhysicalConnectionOccupancyOrder API asynchronously
-// api document: https://help.aliyun.com/api/vpc/createphysicalconnectionoccupancyorder.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) CreatePhysicalConnectionOccupancyOrderWithChan(request *CreatePhysicalConnectionOccupancyOrderRequest) (<-chan *CreatePhysicalConnectionOccupancyOrderResponse, <-chan error) {
 	responseChan := make(chan *CreatePhysicalConnectionOccupancyOrderResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) CreatePhysicalConnectionOccupancyOrderWithChan(request *Cr
 }
 
 // CreatePhysicalConnectionOccupancyOrderWithCallback invokes the vpc.CreatePhysicalConnectionOccupancyOrder API asynchronously
-// api document: https://help.aliyun.com/api/vpc/createphysicalconnectionoccupancyorder.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) CreatePhysicalConnectionOccupancyOrderWithCallback(request *CreatePhysicalConnectionOccupancyOrderRequest, callback func(response *CreatePhysicalConnectionOccupancyOrderResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -76,15 +71,15 @@ func (client *Client) CreatePhysicalConnectionOccupancyOrderWithCallback(request
 // CreatePhysicalConnectionOccupancyOrderRequest is the request struct for api CreatePhysicalConnectionOccupancyOrder
 type CreatePhysicalConnectionOccupancyOrderRequest struct {
 	*requests.RpcRequest
-	Period               requests.Integer `position:"Query" name:"Period"`
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
+	ClientToken          string           `position:"Query" name:"ClientToken"`
+	InstanceChargeType   string           `position:"Query" name:"InstanceChargeType"`
+	Period               requests.Integer `position:"Query" name:"Period"`
 	AutoPay              requests.Boolean `position:"Query" name:"AutoPay"`
 	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
-	ClientToken          string           `position:"Query" name:"ClientToken"`
-	PhysicalConnectionId string           `position:"Query" name:"PhysicalConnectionId"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
-	InstanceChargeType   string           `position:"Query" name:"InstanceChargeType"`
+	PhysicalConnectionId string           `position:"Query" name:"PhysicalConnectionId"`
 	PricingCycle         string           `position:"Query" name:"PricingCycle"`
 }
 
@@ -100,6 +95,7 @@ func CreateCreatePhysicalConnectionOccupancyOrderRequest() (request *CreatePhysi
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "CreatePhysicalConnectionOccupancyOrder", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

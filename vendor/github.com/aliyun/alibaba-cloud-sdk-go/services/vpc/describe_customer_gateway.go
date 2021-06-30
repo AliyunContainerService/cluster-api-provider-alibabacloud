@@ -21,7 +21,6 @@ import (
 )
 
 // DescribeCustomerGateway invokes the vpc.DescribeCustomerGateway API synchronously
-// api document: https://help.aliyun.com/api/vpc/describecustomergateway.html
 func (client *Client) DescribeCustomerGateway(request *DescribeCustomerGatewayRequest) (response *DescribeCustomerGatewayResponse, err error) {
 	response = CreateDescribeCustomerGatewayResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) DescribeCustomerGateway(request *DescribeCustomerGatewayRe
 }
 
 // DescribeCustomerGatewayWithChan invokes the vpc.DescribeCustomerGateway API asynchronously
-// api document: https://help.aliyun.com/api/vpc/describecustomergateway.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DescribeCustomerGatewayWithChan(request *DescribeCustomerGatewayRequest) (<-chan *DescribeCustomerGatewayResponse, <-chan error) {
 	responseChan := make(chan *DescribeCustomerGatewayResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) DescribeCustomerGatewayWithChan(request *DescribeCustomerG
 }
 
 // DescribeCustomerGatewayWithCallback invokes the vpc.DescribeCustomerGateway API asynchronously
-// api document: https://help.aliyun.com/api/vpc/describecustomergateway.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DescribeCustomerGatewayWithCallback(request *DescribeCustomerGatewayRequest, callback func(response *DescribeCustomerGatewayResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,10 +72,10 @@ func (client *Client) DescribeCustomerGatewayWithCallback(request *DescribeCusto
 type DescribeCustomerGatewayRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
+	CustomerGatewayId    string           `position:"Query" name:"CustomerGatewayId"`
 	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
-	CustomerGatewayId    string           `position:"Query" name:"CustomerGatewayId"`
 }
 
 // DescribeCustomerGatewayResponse is the response struct for api DescribeCustomerGateway
@@ -92,6 +87,7 @@ type DescribeCustomerGatewayResponse struct {
 	Name              string `json:"Name" xml:"Name"`
 	Description       string `json:"Description" xml:"Description"`
 	CreateTime        int64  `json:"CreateTime" xml:"CreateTime"`
+	Asn               int    `json:"Asn" xml:"Asn"`
 }
 
 // CreateDescribeCustomerGatewayRequest creates a request to invoke DescribeCustomerGateway API
@@ -100,6 +96,7 @@ func CreateDescribeCustomerGatewayRequest() (request *DescribeCustomerGatewayReq
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "DescribeCustomerGateway", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

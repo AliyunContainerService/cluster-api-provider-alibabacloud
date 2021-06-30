@@ -21,7 +21,6 @@ import (
 )
 
 // ModifyPhysicalConnectionAttribute invokes the vpc.ModifyPhysicalConnectionAttribute API synchronously
-// api document: https://help.aliyun.com/api/vpc/modifyphysicalconnectionattribute.html
 func (client *Client) ModifyPhysicalConnectionAttribute(request *ModifyPhysicalConnectionAttributeRequest) (response *ModifyPhysicalConnectionAttributeResponse, err error) {
 	response = CreateModifyPhysicalConnectionAttributeResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) ModifyPhysicalConnectionAttribute(request *ModifyPhysicalC
 }
 
 // ModifyPhysicalConnectionAttributeWithChan invokes the vpc.ModifyPhysicalConnectionAttribute API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifyphysicalconnectionattribute.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyPhysicalConnectionAttributeWithChan(request *ModifyPhysicalConnectionAttributeRequest) (<-chan *ModifyPhysicalConnectionAttributeResponse, <-chan error) {
 	responseChan := make(chan *ModifyPhysicalConnectionAttributeResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) ModifyPhysicalConnectionAttributeWithChan(request *ModifyP
 }
 
 // ModifyPhysicalConnectionAttributeWithCallback invokes the vpc.ModifyPhysicalConnectionAttribute API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifyphysicalconnectionattribute.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyPhysicalConnectionAttributeWithCallback(request *ModifyPhysicalConnectionAttributeRequest, callback func(response *ModifyPhysicalConnectionAttributeResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -76,16 +71,16 @@ func (client *Client) ModifyPhysicalConnectionAttributeWithCallback(request *Mod
 // ModifyPhysicalConnectionAttributeRequest is the request struct for api ModifyPhysicalConnectionAttribute
 type ModifyPhysicalConnectionAttributeRequest struct {
 	*requests.RpcRequest
-	RedundantPhysicalConnectionId string           `position:"Query" name:"RedundantPhysicalConnectionId"`
-	PeerLocation                  string           `position:"Query" name:"PeerLocation"`
 	ResourceOwnerId               requests.Integer `position:"Query" name:"ResourceOwnerId"`
 	PortType                      string           `position:"Query" name:"PortType"`
 	CircuitCode                   string           `position:"Query" name:"CircuitCode"`
-	Bandwidth                     requests.Integer `position:"Query" name:"bandwidth"`
 	ClientToken                   string           `position:"Query" name:"ClientToken"`
+	Description                   string           `position:"Query" name:"Description"`
+	RedundantPhysicalConnectionId string           `position:"Query" name:"RedundantPhysicalConnectionId"`
+	PeerLocation                  string           `position:"Query" name:"PeerLocation"`
+	Bandwidth                     requests.Integer `position:"Query" name:"bandwidth"`
 	ResourceOwnerAccount          string           `position:"Query" name:"ResourceOwnerAccount"`
 	OwnerAccount                  string           `position:"Query" name:"OwnerAccount"`
-	Description                   string           `position:"Query" name:"Description"`
 	OwnerId                       requests.Integer `position:"Query" name:"OwnerId"`
 	LineOperator                  string           `position:"Query" name:"LineOperator"`
 	PhysicalConnectionId          string           `position:"Query" name:"PhysicalConnectionId"`
@@ -104,6 +99,7 @@ func CreateModifyPhysicalConnectionAttributeRequest() (request *ModifyPhysicalCo
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "ModifyPhysicalConnectionAttribute", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

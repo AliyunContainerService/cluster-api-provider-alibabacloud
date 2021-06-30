@@ -21,7 +21,6 @@ import (
 )
 
 // DeleteExpressConnect invokes the vpc.DeleteExpressConnect API synchronously
-// api document: https://help.aliyun.com/api/vpc/deleteexpressconnect.html
 func (client *Client) DeleteExpressConnect(request *DeleteExpressConnectRequest) (response *DeleteExpressConnectResponse, err error) {
 	response = CreateDeleteExpressConnectResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) DeleteExpressConnect(request *DeleteExpressConnectRequest)
 }
 
 // DeleteExpressConnectWithChan invokes the vpc.DeleteExpressConnect API asynchronously
-// api document: https://help.aliyun.com/api/vpc/deleteexpressconnect.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DeleteExpressConnectWithChan(request *DeleteExpressConnectRequest) (<-chan *DeleteExpressConnectResponse, <-chan error) {
 	responseChan := make(chan *DeleteExpressConnectResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) DeleteExpressConnectWithChan(request *DeleteExpressConnect
 }
 
 // DeleteExpressConnectWithCallback invokes the vpc.DeleteExpressConnect API asynchronously
-// api document: https://help.aliyun.com/api/vpc/deleteexpressconnect.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DeleteExpressConnectWithCallback(request *DeleteExpressConnectRequest, callback func(response *DeleteExpressConnectResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,12 +72,12 @@ func (client *Client) DeleteExpressConnectWithCallback(request *DeleteExpressCon
 type DeleteExpressConnectRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	ClientToken          string           `position:"Query" name:"ClientToken"`
+	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
-	Force                requests.Boolean `position:"Query" name:"Force"`
 	RouterInterfaceId    string           `position:"Query" name:"RouterInterfaceId"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
+	Force                requests.Boolean `position:"Query" name:"Force"`
 }
 
 // DeleteExpressConnectResponse is the response struct for api DeleteExpressConnect
@@ -97,6 +92,7 @@ func CreateDeleteExpressConnectRequest() (request *DeleteExpressConnectRequest) 
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "DeleteExpressConnect", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

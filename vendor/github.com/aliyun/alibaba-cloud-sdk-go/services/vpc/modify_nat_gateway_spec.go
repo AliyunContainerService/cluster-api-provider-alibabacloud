@@ -21,7 +21,6 @@ import (
 )
 
 // ModifyNatGatewaySpec invokes the vpc.ModifyNatGatewaySpec API synchronously
-// api document: https://help.aliyun.com/api/vpc/modifynatgatewayspec.html
 func (client *Client) ModifyNatGatewaySpec(request *ModifyNatGatewaySpecRequest) (response *ModifyNatGatewaySpecResponse, err error) {
 	response = CreateModifyNatGatewaySpecResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) ModifyNatGatewaySpec(request *ModifyNatGatewaySpecRequest)
 }
 
 // ModifyNatGatewaySpecWithChan invokes the vpc.ModifyNatGatewaySpec API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifynatgatewayspec.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyNatGatewaySpecWithChan(request *ModifyNatGatewaySpecRequest) (<-chan *ModifyNatGatewaySpecResponse, <-chan error) {
 	responseChan := make(chan *ModifyNatGatewaySpecResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) ModifyNatGatewaySpecWithChan(request *ModifyNatGatewaySpec
 }
 
 // ModifyNatGatewaySpecWithCallback invokes the vpc.ModifyNatGatewaySpec API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifynatgatewayspec.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyNatGatewaySpecWithCallback(request *ModifyNatGatewaySpecRequest, callback func(response *ModifyNatGatewaySpecResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,13 +72,13 @@ func (client *Client) ModifyNatGatewaySpecWithCallback(request *ModifyNatGateway
 type ModifyNatGatewaySpecRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
+	ClientToken          string           `position:"Query" name:"ClientToken"`
+	Spec                 string           `position:"Query" name:"Spec"`
+	NatGatewayId         string           `position:"Query" name:"NatGatewayId"`
 	AutoPay              requests.Boolean `position:"Query" name:"AutoPay"`
 	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
-	ClientToken          string           `position:"Query" name:"ClientToken"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
-	NatGatewayId         string           `position:"Query" name:"NatGatewayId"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
-	Spec                 string           `position:"Query" name:"Spec"`
 }
 
 // ModifyNatGatewaySpecResponse is the response struct for api ModifyNatGatewaySpec
@@ -98,6 +93,7 @@ func CreateModifyNatGatewaySpecRequest() (request *ModifyNatGatewaySpecRequest) 
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "ModifyNatGatewaySpec", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

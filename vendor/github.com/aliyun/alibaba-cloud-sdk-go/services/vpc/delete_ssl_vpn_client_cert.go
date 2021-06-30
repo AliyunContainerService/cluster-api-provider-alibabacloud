@@ -21,7 +21,6 @@ import (
 )
 
 // DeleteSslVpnClientCert invokes the vpc.DeleteSslVpnClientCert API synchronously
-// api document: https://help.aliyun.com/api/vpc/deletesslvpnclientcert.html
 func (client *Client) DeleteSslVpnClientCert(request *DeleteSslVpnClientCertRequest) (response *DeleteSslVpnClientCertResponse, err error) {
 	response = CreateDeleteSslVpnClientCertResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) DeleteSslVpnClientCert(request *DeleteSslVpnClientCertRequ
 }
 
 // DeleteSslVpnClientCertWithChan invokes the vpc.DeleteSslVpnClientCert API asynchronously
-// api document: https://help.aliyun.com/api/vpc/deletesslvpnclientcert.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DeleteSslVpnClientCertWithChan(request *DeleteSslVpnClientCertRequest) (<-chan *DeleteSslVpnClientCertResponse, <-chan error) {
 	responseChan := make(chan *DeleteSslVpnClientCertResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) DeleteSslVpnClientCertWithChan(request *DeleteSslVpnClient
 }
 
 // DeleteSslVpnClientCertWithCallback invokes the vpc.DeleteSslVpnClientCert API asynchronously
-// api document: https://help.aliyun.com/api/vpc/deletesslvpnclientcert.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DeleteSslVpnClientCertWithCallback(request *DeleteSslVpnClientCertRequest, callback func(response *DeleteSslVpnClientCertResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,11 +72,11 @@ func (client *Client) DeleteSslVpnClientCertWithCallback(request *DeleteSslVpnCl
 type DeleteSslVpnClientCertRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	ClientToken          string           `position:"Query" name:"ClientToken"`
+	SslVpnClientCertId   string           `position:"Query" name:"SslVpnClientCertId"`
+	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
-	SslVpnClientCertId   string           `position:"Query" name:"SslVpnClientCertId"`
 }
 
 // DeleteSslVpnClientCertResponse is the response struct for api DeleteSslVpnClientCert
@@ -96,6 +91,7 @@ func CreateDeleteSslVpnClientCertRequest() (request *DeleteSslVpnClientCertReque
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "DeleteSslVpnClientCert", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 
