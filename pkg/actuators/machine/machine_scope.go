@@ -216,13 +216,7 @@ func extractNodeAddressesFromInstance(instance *ecs.Instance) ([]corev1.NodeAddr
 		return nil, fmt.Errorf("the ecs instance is nil")
 =======
 
-		domainNames, err := s.getCustomDomainFromDHCP(instance.VpcAttributes.VpcId)
-
-		if err != nil {
-			return err
-		}
-
-		addresses, err := extractNodeAddresses(instance, domainNames)
+		addresses, err := extractNodeAddresses(instance, []string{})
 		if err != nil {
 			klog.Errorf("%s: Error extracting instance IP addresses: %v", s.machine.Name, err)
 			return err
@@ -298,6 +292,7 @@ func extractNodeAddresses(instance *ecs.Instance, domainNames []string) ([]corev
 	return addresses, nil
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 func (s *machineScope) getCustomDomainFromDHCP(vpcID string) ([]string, error) {
@@ -333,3 +328,5 @@ func (s *machineScope) getCustomDomainFromDHCP(vpcID string) ([]string, error) {
 	return nil, nil
 }
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> ecfeb08f (remove unused code)

@@ -28,12 +28,12 @@ spec:
       password: FILLIN
 =======
       instanceType: ecs.c6.2xlarge
-      imageId: centos_7_9_x64_20G_alibase_20210318.vhd
+      imageId:
       regionId: cn-beijing
       zoneId: cn-beijing-f
-      securityGroupId: sg-2zeebk9qd965vc2xqq4x
-      vpcId: vpc-2ze4u29pd4lniym7i1xnp
-      vSwitchId: vsw-2ze567qrl5das7q8s4rei
+      securityGroupId:
+      vpcId:
+      vSwitchId:
       systemDiskCategory: cloud_essd
       systemDiskSize: 120
       internetMaxBandwidthOut: 100

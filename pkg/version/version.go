@@ -34,14 +34,18 @@ var (
 var (
 	// Raw is the string representation of the version. This will be replaced
 	// with the calculated version at build time.
-	Raw = "v0.0.0-was-not-built-properly"
+	Raw = "v0.1.0-alpha.1"
 
 	// Version is semver representation of the version.
 	Version = semver.MustParse(strings.TrimLeft(Raw, "v"))
 
 	// String is the human-friendly representation of the version.
+<<<<<<< HEAD
 	String = fmt.Sprintf("ClusterAPIProvideralibabacloud %s", Raw)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	String = fmt.Sprintf("ClusterAPIProviderAlibabaCloud %s", Raw)
+>>>>>>> ecfeb08f (remove unused code)
 )
 
 type Info struct {

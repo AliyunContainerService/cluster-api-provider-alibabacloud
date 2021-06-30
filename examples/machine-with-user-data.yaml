@@ -12,6 +12,7 @@ metadata:
 spec:
   metadata:
     labels:
+<<<<<<< HEAD
       node-role.kubernetes.io/infra: ""
   providerSpec:
     value:
@@ -52,18 +53,20 @@ spec:
   metadata:
     labels:
       # node-role.kubernetes.io/worker: ""
+=======
+>>>>>>> ecfeb08f (remove unused code)
       node-role.kubernetes.io/infra: ""
   providerSpec:
     value:
       apiVersion: alibabacloudproviderconfig.openshift.io/v1alpha1
       kind: AlibabaCloudMachineProviderConfig
       instanceType: ecs.c6.2xlarge
-      imageId: centos_7_9_x64_20G_alibase_20210318.vhd
+      imageId:
       regionId: cn-beijing
       zoneId: cn-beijing-f
-      securityGroupId: sg-2zeebk9qd965vc2xqq4x
-      vpcId: vpc-2ze4u29pd4lniym7i1xnp
-      vSwitchId: vsw-2ze567qrl5das7q8s4rei
+      securityGroupId:
+      vpcId:
+      vSwitchId:
       systemDiskCategory: cloud_essd
       systemDiskSize: 120
       internetMaxBandwidthOut: 100
@@ -83,7 +86,10 @@ spec:
         name: alibabacloud-worker-user-data-secret
       credentialsSecret:
         name: alibabacloud-credentials-secret
+<<<<<<< HEAD
   versions:
     kubelet: 1.10.1
     controlPlane: 1.10.1
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> ecfeb08f (remove unused code)

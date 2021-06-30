@@ -44,7 +44,7 @@ spec:
           image: openshift/origin-alibabacloud-machine-controllers:v4.0.0
 =======
         - name: controller-manager
-          image: openshift/origin-aws-machine-controllers:v4.0.0
+          image: openshift/origin-alibabacloud-machine-controllers:v4.0.0
           command:
             - "./manager"
           resources:
@@ -55,8 +55,12 @@ spec:
               cpu: 100m
               memory: 30Mi
         - name: machine-controller
+<<<<<<< HEAD
           image: openshift/origin-aws-machine-controllers:v4.0.0
 >>>>>>> 7e2c5241 (remove test case)
+=======
+          image: openshift/origin-alibabacloud-machine-controllers:v4.0.0
+>>>>>>> ecfeb08f (remove unused code)
           env:
             - name: NODE_NAME
               valueFrom:

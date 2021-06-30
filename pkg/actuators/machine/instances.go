@@ -166,28 +166,6 @@ func createInstance(machine *machinev1.Machine, machineProviderConfig *providerc
 	if err != nil {
 		return nil, mapierrors.InvalidMachineConfiguration("error getting security groups ID: %v", err)
 	}
-	//subnetIDs, err := getSubnetIDs(machineKey, machineProviderConfig.Subnet, machineProviderConfig.Placement.AvailabilityZone, client)
-	//if err != nil {
-	//	return nil, mapierrors.InvalidMachineConfiguration("error getting subnet IDs: %v", err)
-	//}
-	//if len(subnetIDs) > 1 {
-	//	klog.Warningf("More than one subnet id returned, only first one will be used")
-	//}
-	//
-	//// build list of networkInterfaces (just 1 for now)
-	//var networkInterfaces = []*ec2.InstanceNetworkInterfaceSpecification{
-	//	{
-	//		DeviceIndex:              aws.Int64(machineProviderConfig.DeviceIndex),
-	//		AssociatePublicIpAddress: machineProviderConfig.PublicIP,
-	//		SubnetId:                 subnetIDs[0],
-	//		Groups:                   securityGroupsIDs,
-	//	},
-	//}
-	//
-	//blockDeviceMappings, err := getBlockDeviceMappings(machineKey, machineProviderConfig.BlockDevices, *amiID, client)
-	//if err != nil {
-	//	return nil, mapierrors.InvalidMachineConfiguration("error getting blockDeviceMappings: %v", err)
-	//}
 
 	clusterID, ok := getClusterID(machine)
 	if !ok {
@@ -987,12 +965,6 @@ func getInstanceByID(instanceID string, regionID string, client alibabacloudClie
 	if err != nil {
 		return nil, err
 	}
-
-	//if len(result.Reservations) != 1 {
-	//	return nil, fmt.Errorf("found %d reservations for instance-id %s", len(result.Reservations), id)
-	//}
-	//
-	//reservation := result.Reservations[0]
 
 	if len(result.Instances.Instance) != 1 {
 		return nil, fmt.Errorf("found %d instances for instance-id %s", len(result.Instances.Instance), instanceID)
