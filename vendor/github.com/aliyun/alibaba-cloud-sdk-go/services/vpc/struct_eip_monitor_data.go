@@ -17,10 +17,10 @@ package vpc
 
 // EipMonitorData is a nested struct in vpc response
 type EipMonitorData struct {
-	EipRX        int    `json:"EipRX" xml:"EipRX"`
-	EipTX        int    `json:"EipTX" xml:"EipTX"`
-	EipFlow      int    `json:"EipFlow" xml:"EipFlow"`
-	EipBandwidth int    `json:"EipBandwidth" xml:"EipBandwidth"`
+	EipTX        int64  `json:"EipTX" xml:"EipTX"`
 	EipPackets   int    `json:"EipPackets" xml:"EipPackets"`
 	TimeStamp    string `json:"TimeStamp" xml:"TimeStamp"`
+	EipFlow      int    `json:"EipFlow" xml:"EipFlow"`
+	EipBandwidth int    `json:"EipBandwidth" xml:"EipBandwidth"`
+	EipRX        int64  `json:"EipRX" xml:"EipRX"`
 }

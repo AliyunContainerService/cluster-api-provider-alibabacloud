@@ -21,7 +21,6 @@ import (
 )
 
 // CreateForwardEntry invokes the vpc.CreateForwardEntry API synchronously
-// api document: https://help.aliyun.com/api/vpc/createforwardentry.html
 func (client *Client) CreateForwardEntry(request *CreateForwardEntryRequest) (response *CreateForwardEntryResponse, err error) {
 	response = CreateCreateForwardEntryResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) CreateForwardEntry(request *CreateForwardEntryRequest) (re
 }
 
 // CreateForwardEntryWithChan invokes the vpc.CreateForwardEntry API asynchronously
-// api document: https://help.aliyun.com/api/vpc/createforwardentry.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) CreateForwardEntryWithChan(request *CreateForwardEntryRequest) (<-chan *CreateForwardEntryResponse, <-chan error) {
 	responseChan := make(chan *CreateForwardEntryResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) CreateForwardEntryWithChan(request *CreateForwardEntryRequ
 }
 
 // CreateForwardEntryWithCallback invokes the vpc.CreateForwardEntry API asynchronously
-// api document: https://help.aliyun.com/api/vpc/createforwardentry.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) CreateForwardEntryWithCallback(request *CreateForwardEntryRequest, callback func(response *CreateForwardEntryResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,15 +72,17 @@ func (client *Client) CreateForwardEntryWithCallback(request *CreateForwardEntry
 type CreateForwardEntryRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
+	ClientToken          string           `position:"Query" name:"ClientToken"`
+	ForwardTableId       string           `position:"Query" name:"ForwardTableId"`
+	InternalIp           string           `position:"Query" name:"InternalIp"`
+	ExternalIp           string           `position:"Query" name:"ExternalIp"`
 	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	IpProtocol           string           `position:"Query" name:"IpProtocol"`
 	ForwardEntryName     string           `position:"Query" name:"ForwardEntryName"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
-	ForwardTableId       string           `position:"Query" name:"ForwardTableId"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
-	InternalIp           string           `position:"Query" name:"InternalIp"`
 	InternalPort         string           `position:"Query" name:"InternalPort"`
-	ExternalIp           string           `position:"Query" name:"ExternalIp"`
+	PortBreak            requests.Boolean `position:"Query" name:"PortBreak"`
 	ExternalPort         string           `position:"Query" name:"ExternalPort"`
 }
 
@@ -102,6 +99,7 @@ func CreateCreateForwardEntryRequest() (request *CreateForwardEntryRequest) {
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "CreateForwardEntry", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

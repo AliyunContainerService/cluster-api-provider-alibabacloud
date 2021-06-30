@@ -21,7 +21,6 @@ import (
 )
 
 // DescribeVpnRouteEntries invokes the vpc.DescribeVpnRouteEntries API synchronously
-// api document: https://help.aliyun.com/api/vpc/describevpnrouteentries.html
 func (client *Client) DescribeVpnRouteEntries(request *DescribeVpnRouteEntriesRequest) (response *DescribeVpnRouteEntriesResponse, err error) {
 	response = CreateDescribeVpnRouteEntriesResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) DescribeVpnRouteEntries(request *DescribeVpnRouteEntriesRe
 }
 
 // DescribeVpnRouteEntriesWithChan invokes the vpc.DescribeVpnRouteEntries API asynchronously
-// api document: https://help.aliyun.com/api/vpc/describevpnrouteentries.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DescribeVpnRouteEntriesWithChan(request *DescribeVpnRouteEntriesRequest) (<-chan *DescribeVpnRouteEntriesResponse, <-chan error) {
 	responseChan := make(chan *DescribeVpnRouteEntriesResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) DescribeVpnRouteEntriesWithChan(request *DescribeVpnRouteE
 }
 
 // DescribeVpnRouteEntriesWithCallback invokes the vpc.DescribeVpnRouteEntries API asynchronously
-// api document: https://help.aliyun.com/api/vpc/describevpnrouteentries.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DescribeVpnRouteEntriesWithCallback(request *DescribeVpnRouteEntriesRequest, callback func(response *DescribeVpnRouteEntriesResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,12 +72,13 @@ func (client *Client) DescribeVpnRouteEntriesWithCallback(request *DescribeVpnRo
 type DescribeVpnRouteEntriesRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
+	PageNumber           requests.Integer `position:"Query" name:"PageNumber"`
+	PageSize             requests.Integer `position:"Query" name:"PageSize"`
+	RouteEntryType       string           `position:"Query" name:"RouteEntryType"`
 	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
-	PageSize             requests.Integer `position:"Query" name:"PageSize"`
 	VpnGatewayId         string           `position:"Query" name:"VpnGatewayId"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
-	PageNumber           requests.Integer `position:"Query" name:"PageNumber"`
 }
 
 // DescribeVpnRouteEntriesResponse is the response struct for api DescribeVpnRouteEntries
@@ -101,6 +97,7 @@ func CreateDescribeVpnRouteEntriesRequest() (request *DescribeVpnRouteEntriesReq
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "DescribeVpnRouteEntries", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

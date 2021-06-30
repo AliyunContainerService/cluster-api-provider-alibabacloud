@@ -21,7 +21,6 @@ import (
 )
 
 // RemoveGlobalAccelerationInstanceIp invokes the vpc.RemoveGlobalAccelerationInstanceIp API synchronously
-// api document: https://help.aliyun.com/api/vpc/removeglobalaccelerationinstanceip.html
 func (client *Client) RemoveGlobalAccelerationInstanceIp(request *RemoveGlobalAccelerationInstanceIpRequest) (response *RemoveGlobalAccelerationInstanceIpResponse, err error) {
 	response = CreateRemoveGlobalAccelerationInstanceIpResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) RemoveGlobalAccelerationInstanceIp(request *RemoveGlobalAc
 }
 
 // RemoveGlobalAccelerationInstanceIpWithChan invokes the vpc.RemoveGlobalAccelerationInstanceIp API asynchronously
-// api document: https://help.aliyun.com/api/vpc/removeglobalaccelerationinstanceip.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) RemoveGlobalAccelerationInstanceIpWithChan(request *RemoveGlobalAccelerationInstanceIpRequest) (<-chan *RemoveGlobalAccelerationInstanceIpResponse, <-chan error) {
 	responseChan := make(chan *RemoveGlobalAccelerationInstanceIpResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) RemoveGlobalAccelerationInstanceIpWithChan(request *Remove
 }
 
 // RemoveGlobalAccelerationInstanceIpWithCallback invokes the vpc.RemoveGlobalAccelerationInstanceIp API asynchronously
-// api document: https://help.aliyun.com/api/vpc/removeglobalaccelerationinstanceip.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) RemoveGlobalAccelerationInstanceIpWithCallback(request *RemoveGlobalAccelerationInstanceIpRequest, callback func(response *RemoveGlobalAccelerationInstanceIpResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,11 +72,11 @@ func (client *Client) RemoveGlobalAccelerationInstanceIpWithCallback(request *Re
 type RemoveGlobalAccelerationInstanceIpRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId              requests.Integer `position:"Query" name:"ResourceOwnerId"`
+	GlobalAccelerationInstanceId string           `position:"Query" name:"GlobalAccelerationInstanceId"`
 	ResourceOwnerAccount         string           `position:"Query" name:"ResourceOwnerAccount"`
 	OwnerAccount                 string           `position:"Query" name:"OwnerAccount"`
-	IpInstanceId                 string           `position:"Query" name:"IpInstanceId"`
 	OwnerId                      requests.Integer `position:"Query" name:"OwnerId"`
-	GlobalAccelerationInstanceId string           `position:"Query" name:"GlobalAccelerationInstanceId"`
+	IpInstanceId                 string           `position:"Query" name:"IpInstanceId"`
 }
 
 // RemoveGlobalAccelerationInstanceIpResponse is the response struct for api RemoveGlobalAccelerationInstanceIp
@@ -96,6 +91,7 @@ func CreateRemoveGlobalAccelerationInstanceIpRequest() (request *RemoveGlobalAcc
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "RemoveGlobalAccelerationInstanceIp", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

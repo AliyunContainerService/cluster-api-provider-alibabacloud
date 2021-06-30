@@ -21,7 +21,6 @@ import (
 )
 
 // DescribeBgpPeers invokes the vpc.DescribeBgpPeers API synchronously
-// api document: https://help.aliyun.com/api/vpc/describebgppeers.html
 func (client *Client) DescribeBgpPeers(request *DescribeBgpPeersRequest) (response *DescribeBgpPeersResponse, err error) {
 	response = CreateDescribeBgpPeersResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) DescribeBgpPeers(request *DescribeBgpPeersRequest) (respon
 }
 
 // DescribeBgpPeersWithChan invokes the vpc.DescribeBgpPeers API asynchronously
-// api document: https://help.aliyun.com/api/vpc/describebgppeers.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DescribeBgpPeersWithChan(request *DescribeBgpPeersRequest) (<-chan *DescribeBgpPeersResponse, <-chan error) {
 	responseChan := make(chan *DescribeBgpPeersResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) DescribeBgpPeersWithChan(request *DescribeBgpPeersRequest)
 }
 
 // DescribeBgpPeersWithCallback invokes the vpc.DescribeBgpPeers API asynchronously
-// api document: https://help.aliyun.com/api/vpc/describebgppeers.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DescribeBgpPeersWithCallback(request *DescribeBgpPeersRequest, callback func(response *DescribeBgpPeersResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,15 +72,15 @@ func (client *Client) DescribeBgpPeersWithCallback(request *DescribeBgpPeersRequ
 type DescribeBgpPeersRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
-	RouterId             string           `position:"Query" name:"RouterId"`
-	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
-	PageSize             requests.Integer `position:"Query" name:"PageSize"`
 	BgpGroupId           string           `position:"Query" name:"BgpGroupId"`
-	BgpPeerId            string           `position:"Query" name:"BgpPeerId"`
-	IsDefault            requests.Boolean `position:"Query" name:"IsDefault"`
-	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
 	PageNumber           requests.Integer `position:"Query" name:"PageNumber"`
+	PageSize             requests.Integer `position:"Query" name:"PageSize"`
+	IsDefault            requests.Boolean `position:"Query" name:"IsDefault"`
+	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
+	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
+	BgpPeerId            string           `position:"Query" name:"BgpPeerId"`
+	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
+	RouterId             string           `position:"Query" name:"RouterId"`
 }
 
 // DescribeBgpPeersResponse is the response struct for api DescribeBgpPeers
@@ -104,6 +99,7 @@ func CreateDescribeBgpPeersRequest() (request *DescribeBgpPeersRequest) {
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "DescribeBgpPeers", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

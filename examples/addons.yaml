@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: alicloud-credentials-secret
+  name: alibabacloud-credentials-secret
   namespace: default
 type: Opaque
 data:
-  alicloud_access_key_id:
-  alicloud_access_key_secret:
+  accessKeyID:
+  accessKeySecret:

@@ -21,7 +21,6 @@ import (
 )
 
 // ModifyIPv6TranslatorAclAttribute invokes the vpc.ModifyIPv6TranslatorAclAttribute API synchronously
-// api document: https://help.aliyun.com/api/vpc/modifyipv6translatoraclattribute.html
 func (client *Client) ModifyIPv6TranslatorAclAttribute(request *ModifyIPv6TranslatorAclAttributeRequest) (response *ModifyIPv6TranslatorAclAttributeResponse, err error) {
 	response = CreateModifyIPv6TranslatorAclAttributeResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) ModifyIPv6TranslatorAclAttribute(request *ModifyIPv6Transl
 }
 
 // ModifyIPv6TranslatorAclAttributeWithChan invokes the vpc.ModifyIPv6TranslatorAclAttribute API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifyipv6translatoraclattribute.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyIPv6TranslatorAclAttributeWithChan(request *ModifyIPv6TranslatorAclAttributeRequest) (<-chan *ModifyIPv6TranslatorAclAttributeResponse, <-chan error) {
 	responseChan := make(chan *ModifyIPv6TranslatorAclAttributeResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) ModifyIPv6TranslatorAclAttributeWithChan(request *ModifyIP
 }
 
 // ModifyIPv6TranslatorAclAttributeWithCallback invokes the vpc.ModifyIPv6TranslatorAclAttribute API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifyipv6translatoraclattribute.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyIPv6TranslatorAclAttributeWithCallback(request *ModifyIPv6TranslatorAclAttributeRequest, callback func(response *ModifyIPv6TranslatorAclAttributeResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -76,11 +71,11 @@ func (client *Client) ModifyIPv6TranslatorAclAttributeWithCallback(request *Modi
 // ModifyIPv6TranslatorAclAttributeRequest is the request struct for api ModifyIPv6TranslatorAclAttribute
 type ModifyIPv6TranslatorAclAttributeRequest struct {
 	*requests.RpcRequest
-	AclId                string           `position:"Query" name:"AclId"`
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
 	AclName              string           `position:"Query" name:"AclName"`
-	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	ClientToken          string           `position:"Query" name:"ClientToken"`
+	AclId                string           `position:"Query" name:"AclId"`
+	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
 }
@@ -97,6 +92,7 @@ func CreateModifyIPv6TranslatorAclAttributeRequest() (request *ModifyIPv6Transla
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "ModifyIPv6TranslatorAclAttribute", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

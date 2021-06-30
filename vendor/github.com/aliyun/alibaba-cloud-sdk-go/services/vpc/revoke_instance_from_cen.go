@@ -21,7 +21,6 @@ import (
 )
 
 // RevokeInstanceFromCen invokes the vpc.RevokeInstanceFromCen API synchronously
-// api document: https://help.aliyun.com/api/vpc/revokeinstancefromcen.html
 func (client *Client) RevokeInstanceFromCen(request *RevokeInstanceFromCenRequest) (response *RevokeInstanceFromCenResponse, err error) {
 	response = CreateRevokeInstanceFromCenResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) RevokeInstanceFromCen(request *RevokeInstanceFromCenReques
 }
 
 // RevokeInstanceFromCenWithChan invokes the vpc.RevokeInstanceFromCen API asynchronously
-// api document: https://help.aliyun.com/api/vpc/revokeinstancefromcen.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) RevokeInstanceFromCenWithChan(request *RevokeInstanceFromCenRequest) (<-chan *RevokeInstanceFromCenResponse, <-chan error) {
 	responseChan := make(chan *RevokeInstanceFromCenResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) RevokeInstanceFromCenWithChan(request *RevokeInstanceFromC
 }
 
 // RevokeInstanceFromCenWithCallback invokes the vpc.RevokeInstanceFromCen API asynchronously
-// api document: https://help.aliyun.com/api/vpc/revokeinstancefromcen.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) RevokeInstanceFromCenWithCallback(request *RevokeInstanceFromCenRequest, callback func(response *RevokeInstanceFromCenResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,14 +72,14 @@ func (client *Client) RevokeInstanceFromCenWithCallback(request *RevokeInstanceF
 type RevokeInstanceFromCenRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	InstanceId           string           `position:"Query" name:"InstanceId"`
-	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	CenId                string           `position:"Query" name:"CenId"`
 	ClientToken          string           `position:"Query" name:"ClientToken"`
-	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
-	InstanceType         string           `position:"Query" name:"InstanceType"`
 	CenOwnerId           requests.Integer `position:"Query" name:"CenOwnerId"`
+	InstanceType         string           `position:"Query" name:"InstanceType"`
+	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
+	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
+	InstanceId           string           `position:"Query" name:"InstanceId"`
 }
 
 // RevokeInstanceFromCenResponse is the response struct for api RevokeInstanceFromCen
@@ -99,6 +94,7 @@ func CreateRevokeInstanceFromCenRequest() (request *RevokeInstanceFromCenRequest
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "RevokeInstanceFromCen", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

@@ -21,7 +21,6 @@ import (
 )
 
 // CreateRouteEntry invokes the vpc.CreateRouteEntry API synchronously
-// api document: https://help.aliyun.com/api/vpc/createrouteentry.html
 func (client *Client) CreateRouteEntry(request *CreateRouteEntryRequest) (response *CreateRouteEntryResponse, err error) {
 	response = CreateCreateRouteEntryResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) CreateRouteEntry(request *CreateRouteEntryRequest) (respon
 }
 
 // CreateRouteEntryWithChan invokes the vpc.CreateRouteEntry API asynchronously
-// api document: https://help.aliyun.com/api/vpc/createrouteentry.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) CreateRouteEntryWithChan(request *CreateRouteEntryRequest) (<-chan *CreateRouteEntryResponse, <-chan error) {
 	responseChan := make(chan *CreateRouteEntryResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) CreateRouteEntryWithChan(request *CreateRouteEntryRequest)
 }
 
 // CreateRouteEntryWithCallback invokes the vpc.CreateRouteEntry API asynchronously
-// api document: https://help.aliyun.com/api/vpc/createrouteentry.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) CreateRouteEntryWithCallback(request *CreateRouteEntryRequest, callback func(response *CreateRouteEntryResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -78,16 +73,17 @@ type CreateRouteEntryRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer               `position:"Query" name:"ResourceOwnerId"`
 	RouteEntryName       string                         `position:"Query" name:"RouteEntryName"`
-	ResourceOwnerAccount string                         `position:"Query" name:"ResourceOwnerAccount"`
 	ClientToken          string                         `position:"Query" name:"ClientToken"`
+	Description          string                         `position:"Query" name:"Description"`
+	NextHopId            string                         `position:"Query" name:"NextHopId"`
+	NextHopType          string                         `position:"Query" name:"NextHopType"`
+	RouteTableId         string                         `position:"Query" name:"RouteTableId"`
+	ResourceOwnerAccount string                         `position:"Query" name:"ResourceOwnerAccount"`
 	DestinationCidrBlock string                         `position:"Query" name:"DestinationCidrBlock"`
 	OwnerAccount         string                         `position:"Query" name:"OwnerAccount"`
 	OwnerId              requests.Integer               `position:"Query" name:"OwnerId"`
 	PrivateIpAddress     string                         `position:"Query" name:"PrivateIpAddress"`
-	NextHopId            string                         `position:"Query" name:"NextHopId"`
-	NextHopType          string                         `position:"Query" name:"NextHopType"`
 	NextHopList          *[]CreateRouteEntryNextHopList `position:"Query" name:"NextHopList"  type:"Repeated"`
-	RouteTableId         string                         `position:"Query" name:"RouteTableId"`
 }
 
 // CreateRouteEntryNextHopList is a repeated param struct in CreateRouteEntryRequest
@@ -100,7 +96,8 @@ type CreateRouteEntryNextHopList struct {
 // CreateRouteEntryResponse is the response struct for api CreateRouteEntry
 type CreateRouteEntryResponse struct {
 	*responses.BaseResponse
-	RequestId string `json:"RequestId" xml:"RequestId"`
+	RequestId    string `json:"RequestId" xml:"RequestId"`
+	RouteEntryId string `json:"RouteEntryId" xml:"RouteEntryId"`
 }
 
 // CreateCreateRouteEntryRequest creates a request to invoke CreateRouteEntry API
@@ -109,6 +106,7 @@ func CreateCreateRouteEntryRequest() (request *CreateRouteEntryRequest) {
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "CreateRouteEntry", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

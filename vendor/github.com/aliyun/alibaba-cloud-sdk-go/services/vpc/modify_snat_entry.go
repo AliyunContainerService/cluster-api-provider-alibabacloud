@@ -21,7 +21,6 @@ import (
 )
 
 // ModifySnatEntry invokes the vpc.ModifySnatEntry API synchronously
-// api document: https://help.aliyun.com/api/vpc/modifysnatentry.html
 func (client *Client) ModifySnatEntry(request *ModifySnatEntryRequest) (response *ModifySnatEntryResponse, err error) {
 	response = CreateModifySnatEntryResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) ModifySnatEntry(request *ModifySnatEntryRequest) (response
 }
 
 // ModifySnatEntryWithChan invokes the vpc.ModifySnatEntry API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifysnatentry.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifySnatEntryWithChan(request *ModifySnatEntryRequest) (<-chan *ModifySnatEntryResponse, <-chan error) {
 	responseChan := make(chan *ModifySnatEntryResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) ModifySnatEntryWithChan(request *ModifySnatEntryRequest) (
 }
 
 // ModifySnatEntryWithCallback invokes the vpc.ModifySnatEntry API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifysnatentry.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifySnatEntryWithCallback(request *ModifySnatEntryRequest, callback func(response *ModifySnatEntryResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,13 +72,14 @@ func (client *Client) ModifySnatEntryWithCallback(request *ModifySnatEntryReques
 type ModifySnatEntryRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
+	ClientToken          string           `position:"Query" name:"ClientToken"`
+	SnatIp               string           `position:"Query" name:"SnatIp"`
+	SnatEntryId          string           `position:"Query" name:"SnatEntryId"`
 	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
-	SnatEntryName        string           `position:"Query" name:"SnatEntryName"`
 	SnatTableId          string           `position:"Query" name:"SnatTableId"`
-	SnatEntryId          string           `position:"Query" name:"SnatEntryId"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
-	SnatIp               string           `position:"Query" name:"SnatIp"`
+	SnatEntryName        string           `position:"Query" name:"SnatEntryName"`
 }
 
 // ModifySnatEntryResponse is the response struct for api ModifySnatEntry
@@ -98,6 +94,7 @@ func CreateModifySnatEntryRequest() (request *ModifySnatEntryRequest) {
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "ModifySnatEntry", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

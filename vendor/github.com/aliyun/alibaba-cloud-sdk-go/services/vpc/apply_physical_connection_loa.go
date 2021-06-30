@@ -21,7 +21,6 @@ import (
 )
 
 // ApplyPhysicalConnectionLOA invokes the vpc.ApplyPhysicalConnectionLOA API synchronously
-// api document: https://help.aliyun.com/api/vpc/applyphysicalconnectionloa.html
 func (client *Client) ApplyPhysicalConnectionLOA(request *ApplyPhysicalConnectionLOARequest) (response *ApplyPhysicalConnectionLOAResponse, err error) {
 	response = CreateApplyPhysicalConnectionLOAResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) ApplyPhysicalConnectionLOA(request *ApplyPhysicalConnectio
 }
 
 // ApplyPhysicalConnectionLOAWithChan invokes the vpc.ApplyPhysicalConnectionLOA API asynchronously
-// api document: https://help.aliyun.com/api/vpc/applyphysicalconnectionloa.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ApplyPhysicalConnectionLOAWithChan(request *ApplyPhysicalConnectionLOARequest) (<-chan *ApplyPhysicalConnectionLOAResponse, <-chan error) {
 	responseChan := make(chan *ApplyPhysicalConnectionLOAResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) ApplyPhysicalConnectionLOAWithChan(request *ApplyPhysicalC
 }
 
 // ApplyPhysicalConnectionLOAWithCallback invokes the vpc.ApplyPhysicalConnectionLOA API asynchronously
-// api document: https://help.aliyun.com/api/vpc/applyphysicalconnectionloa.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ApplyPhysicalConnectionLOAWithCallback(request *ApplyPhysicalConnectionLOARequest, callback func(response *ApplyPhysicalConnectionLOAResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,17 +72,17 @@ func (client *Client) ApplyPhysicalConnectionLOAWithCallback(request *ApplyPhysi
 type ApplyPhysicalConnectionLOARequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer                    `position:"Query" name:"ResourceOwnerId"`
-	PeerLocation         string                              `position:"Query" name:"PeerLocation"`
 	ClientToken          string                              `position:"Query" name:"ClientToken"`
+	LineType             string                              `position:"Query" name:"LineType"`
+	Si                   string                              `position:"Query" name:"Si"`
+	PeerLocation         string                              `position:"Query" name:"PeerLocation"`
 	ResourceOwnerAccount string                              `position:"Query" name:"ResourceOwnerAccount"`
 	Bandwidth            requests.Integer                    `position:"Query" name:"Bandwidth"`
-	LineType             string                              `position:"Query" name:"LineType"`
 	OwnerAccount         string                              `position:"Query" name:"OwnerAccount"`
 	ConstructionTime     string                              `position:"Query" name:"ConstructionTime"`
 	OwnerId              requests.Integer                    `position:"Query" name:"OwnerId"`
 	InstanceId           string                              `position:"Query" name:"InstanceId"`
 	CompanyName          string                              `position:"Query" name:"CompanyName"`
-	Si                   string                              `position:"Query" name:"Si"`
 	PMInfo               *[]ApplyPhysicalConnectionLOAPMInfo `position:"Query" name:"PMInfo"  type:"Repeated"`
 }
 
@@ -112,6 +107,7 @@ func CreateApplyPhysicalConnectionLOARequest() (request *ApplyPhysicalConnection
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "ApplyPhysicalConnectionLOA", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

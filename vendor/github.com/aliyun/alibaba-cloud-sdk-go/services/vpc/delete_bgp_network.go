@@ -21,7 +21,6 @@ import (
 )
 
 // DeleteBgpNetwork invokes the vpc.DeleteBgpNetwork API synchronously
-// api document: https://help.aliyun.com/api/vpc/deletebgpnetwork.html
 func (client *Client) DeleteBgpNetwork(request *DeleteBgpNetworkRequest) (response *DeleteBgpNetworkResponse, err error) {
 	response = CreateDeleteBgpNetworkResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) DeleteBgpNetwork(request *DeleteBgpNetworkRequest) (respon
 }
 
 // DeleteBgpNetworkWithChan invokes the vpc.DeleteBgpNetwork API asynchronously
-// api document: https://help.aliyun.com/api/vpc/deletebgpnetwork.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DeleteBgpNetworkWithChan(request *DeleteBgpNetworkRequest) (<-chan *DeleteBgpNetworkResponse, <-chan error) {
 	responseChan := make(chan *DeleteBgpNetworkResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) DeleteBgpNetworkWithChan(request *DeleteBgpNetworkRequest)
 }
 
 // DeleteBgpNetworkWithCallback invokes the vpc.DeleteBgpNetwork API asynchronously
-// api document: https://help.aliyun.com/api/vpc/deletebgpnetwork.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DeleteBgpNetworkWithCallback(request *DeleteBgpNetworkRequest, callback func(response *DeleteBgpNetworkResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,11 +72,11 @@ func (client *Client) DeleteBgpNetworkWithCallback(request *DeleteBgpNetworkRequ
 type DeleteBgpNetworkRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	ClientToken          string           `position:"Query" name:"ClientToken"`
-	RouterId             string           `position:"Query" name:"RouterId"`
+	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
+	RouterId             string           `position:"Query" name:"RouterId"`
 	DstCidrBlock         string           `position:"Query" name:"DstCidrBlock"`
 }
 
@@ -97,6 +92,7 @@ func CreateDeleteBgpNetworkRequest() (request *DeleteBgpNetworkRequest) {
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "DeleteBgpNetwork", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

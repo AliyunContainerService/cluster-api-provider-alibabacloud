@@ -21,7 +21,6 @@ import (
 )
 
 // CreatePhysicalConnectionSetupOrder invokes the vpc.CreatePhysicalConnectionSetupOrder API synchronously
-// api document: https://help.aliyun.com/api/vpc/createphysicalconnectionsetuporder.html
 func (client *Client) CreatePhysicalConnectionSetupOrder(request *CreatePhysicalConnectionSetupOrderRequest) (response *CreatePhysicalConnectionSetupOrderResponse, err error) {
 	response = CreateCreatePhysicalConnectionSetupOrderResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) CreatePhysicalConnectionSetupOrder(request *CreatePhysical
 }
 
 // CreatePhysicalConnectionSetupOrderWithChan invokes the vpc.CreatePhysicalConnectionSetupOrder API asynchronously
-// api document: https://help.aliyun.com/api/vpc/createphysicalconnectionsetuporder.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) CreatePhysicalConnectionSetupOrderWithChan(request *CreatePhysicalConnectionSetupOrderRequest) (<-chan *CreatePhysicalConnectionSetupOrderResponse, <-chan error) {
 	responseChan := make(chan *CreatePhysicalConnectionSetupOrderResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) CreatePhysicalConnectionSetupOrderWithChan(request *Create
 }
 
 // CreatePhysicalConnectionSetupOrderWithCallback invokes the vpc.CreatePhysicalConnectionSetupOrder API asynchronously
-// api document: https://help.aliyun.com/api/vpc/createphysicalconnectionsetuporder.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) CreatePhysicalConnectionSetupOrderWithCallback(request *CreatePhysicalConnectionSetupOrderRequest, callback func(response *CreatePhysicalConnectionSetupOrderResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,11 +72,11 @@ func (client *Client) CreatePhysicalConnectionSetupOrderWithCallback(request *Cr
 type CreatePhysicalConnectionSetupOrderRequest struct {
 	*requests.RpcRequest
 	AccessPointId                 string           `position:"Query" name:"AccessPointId"`
-	RedundantPhysicalConnectionId string           `position:"Query" name:"RedundantPhysicalConnectionId"`
 	ResourceOwnerId               requests.Integer `position:"Query" name:"ResourceOwnerId"`
 	PortType                      string           `position:"Query" name:"PortType"`
-	AutoPay                       requests.Boolean `position:"Query" name:"AutoPay"`
 	ClientToken                   string           `position:"Query" name:"ClientToken"`
+	RedundantPhysicalConnectionId string           `position:"Query" name:"RedundantPhysicalConnectionId"`
+	AutoPay                       requests.Boolean `position:"Query" name:"AutoPay"`
 	ResourceOwnerAccount          string           `position:"Query" name:"ResourceOwnerAccount"`
 	OwnerAccount                  string           `position:"Query" name:"OwnerAccount"`
 	OwnerId                       requests.Integer `position:"Query" name:"OwnerId"`
@@ -91,8 +86,9 @@ type CreatePhysicalConnectionSetupOrderRequest struct {
 // CreatePhysicalConnectionSetupOrderResponse is the response struct for api CreatePhysicalConnectionSetupOrder
 type CreatePhysicalConnectionSetupOrderResponse struct {
 	*responses.BaseResponse
-	RequestId string `json:"RequestId" xml:"RequestId"`
-	OrderId   string `json:"OrderId" xml:"OrderId"`
+	RequestId            string `json:"RequestId" xml:"RequestId"`
+	OrderId              string `json:"OrderId" xml:"OrderId"`
+	PhysicalConnectionId string `json:"PhysicalConnectionId" xml:"PhysicalConnectionId"`
 }
 
 // CreateCreatePhysicalConnectionSetupOrderRequest creates a request to invoke CreatePhysicalConnectionSetupOrder API
@@ -101,6 +97,7 @@ func CreateCreatePhysicalConnectionSetupOrderRequest() (request *CreatePhysicalC
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "CreatePhysicalConnectionSetupOrder", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

@@ -21,7 +21,6 @@ import (
 )
 
 // CreateFlowLog invokes the vpc.CreateFlowLog API synchronously
-// api document: https://help.aliyun.com/api/vpc/createflowlog.html
 func (client *Client) CreateFlowLog(request *CreateFlowLogRequest) (response *CreateFlowLogResponse, err error) {
 	response = CreateCreateFlowLogResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) CreateFlowLog(request *CreateFlowLogRequest) (response *Cr
 }
 
 // CreateFlowLogWithChan invokes the vpc.CreateFlowLog API asynchronously
-// api document: https://help.aliyun.com/api/vpc/createflowlog.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) CreateFlowLogWithChan(request *CreateFlowLogRequest) (<-chan *CreateFlowLogResponse, <-chan error) {
 	responseChan := make(chan *CreateFlowLogResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) CreateFlowLogWithChan(request *CreateFlowLogRequest) (<-ch
 }
 
 // CreateFlowLogWithCallback invokes the vpc.CreateFlowLog API asynchronously
-// api document: https://help.aliyun.com/api/vpc/createflowlog.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) CreateFlowLogWithCallback(request *CreateFlowLogRequest, callback func(response *CreateFlowLogResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,12 +72,12 @@ func (client *Client) CreateFlowLogWithCallback(request *CreateFlowLogRequest, c
 type CreateFlowLogRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
+	Description          string           `position:"Query" name:"Description"`
 	ResourceId           string           `position:"Query" name:"ResourceId"`
 	ProjectName          string           `position:"Query" name:"ProjectName"`
 	LogStoreName         string           `position:"Query" name:"LogStoreName"`
 	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
-	Description          string           `position:"Query" name:"Description"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
 	ResourceType         string           `position:"Query" name:"ResourceType"`
 	TrafficType          string           `position:"Query" name:"TrafficType"`
@@ -103,6 +98,7 @@ func CreateCreateFlowLogRequest() (request *CreateFlowLogRequest) {
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "CreateFlowLog", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 
