@@ -25,51 +25,51 @@ spec:
       nodeSelector:
         node-role.kubernetes.io/master: ""
       tolerations:
-      - effect: NoSchedule
-        key: node-role.kubernetes.io/master
-      - key: CriticalAddonsOnly
-        operator: Exists
-      - effect: NoExecute
-        key: node.alpha.kubernetes.io/notReady
-        operator: Exists
-      - effect: NoExecute
-        key: node.alpha.kubernetes.io/unreachable
-        operator: Exists
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
+        - key: CriticalAddonsOnly
+          operator: Exists
+        - effect: NoExecute
+          key: node.alpha.kubernetes.io/notReady
+          operator: Exists
+        - effect: NoExecute
+          key: node.alpha.kubernetes.io/unreachable
+          operator: Exists
       containers:
-      - name: controller-manager
-        image: openshift/origin-alibabacloud-machine-controllers:v4.0.0
-        command:
-        - "./manager"
-        resources:
-          requests:
-            cpu: 100m
-            memory: 20Mi
-          limits:
-            cpu: 100m
-            memory: 30Mi
-      - name: machine-controller
-        image: openshift/origin-alibabacloud-machine-controllers:v4.0.0
-        env:
-          - name: NODE_NAME
-            valueFrom:
-              fieldRef:
-                fieldPath: spec.nodeName
-        command:
-          - /machine-controller-manager
-        args:
-          - --logtostderr=true
-          - --v=3
-      - name: nodelink-controller
-        image: openshift/origin-machine-api-operator:latest
-        command:
-          - /nodelink-controller
-        args:
-          - --logtostderr=true
-          - --v=3
-        resources:
-          requests:
-            cpu: 100m
-            memory: 20Mi
-          limits:
-            cpu: 100m
-            memory: 30Mi
+        - name: controller-manager
+          image: openshift/origin-aws-machine-controllers:v4.0.0
+          command:
+            - "./manager"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 20Mi
+            limits:
+              cpu: 100m
+              memory: 30Mi
+        - name: machine-controller
+          image: openshift/origin-aws-machine-controllers:v4.0.0
+          env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          command:
+            - /machine-controller-manager
+          args:
+            - --logtostderr=true
+            - --v=3
+        - name: nodelink-controller
+          image: openshift/origin-machine-api-operator:latest
+          command:
+            - /nodelink-controller
+          args:
+            - --logtostderr=true
+            - --v=3
+          resources:
+            requests:
+              cpu: 100m
+              memory: 20Mi
+            limits:
+              cpu: 100m
+              memory: 30Mi
