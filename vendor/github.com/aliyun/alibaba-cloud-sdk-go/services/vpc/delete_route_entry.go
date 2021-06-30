@@ -21,7 +21,6 @@ import (
 )
 
 // DeleteRouteEntry invokes the vpc.DeleteRouteEntry API synchronously
-// api document: https://help.aliyun.com/api/vpc/deleterouteentry.html
 func (client *Client) DeleteRouteEntry(request *DeleteRouteEntryRequest) (response *DeleteRouteEntryResponse, err error) {
 	response = CreateDeleteRouteEntryResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) DeleteRouteEntry(request *DeleteRouteEntryRequest) (respon
 }
 
 // DeleteRouteEntryWithChan invokes the vpc.DeleteRouteEntry API asynchronously
-// api document: https://help.aliyun.com/api/vpc/deleterouteentry.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DeleteRouteEntryWithChan(request *DeleteRouteEntryRequest) (<-chan *DeleteRouteEntryResponse, <-chan error) {
 	responseChan := make(chan *DeleteRouteEntryResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) DeleteRouteEntryWithChan(request *DeleteRouteEntryRequest)
 }
 
 // DeleteRouteEntryWithCallback invokes the vpc.DeleteRouteEntry API asynchronously
-// api document: https://help.aliyun.com/api/vpc/deleterouteentry.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DeleteRouteEntryWithCallback(request *DeleteRouteEntryRequest, callback func(response *DeleteRouteEntryResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,14 +72,14 @@ func (client *Client) DeleteRouteEntryWithCallback(request *DeleteRouteEntryRequ
 type DeleteRouteEntryRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer               `position:"Query" name:"ResourceOwnerId"`
+	NextHopId            string                         `position:"Query" name:"NextHopId"`
+	RouteTableId         string                         `position:"Query" name:"RouteTableId"`
 	ResourceOwnerAccount string                         `position:"Query" name:"ResourceOwnerAccount"`
-	RouteEntryId         string                         `position:"Query" name:"RouteEntryId"`
 	DestinationCidrBlock string                         `position:"Query" name:"DestinationCidrBlock"`
 	OwnerAccount         string                         `position:"Query" name:"OwnerAccount"`
-	NextHopId            string                         `position:"Query" name:"NextHopId"`
 	OwnerId              requests.Integer               `position:"Query" name:"OwnerId"`
+	RouteEntryId         string                         `position:"Query" name:"RouteEntryId"`
 	NextHopList          *[]DeleteRouteEntryNextHopList `position:"Query" name:"NextHopList"  type:"Repeated"`
-	RouteTableId         string                         `position:"Query" name:"RouteTableId"`
 }
 
 // DeleteRouteEntryNextHopList is a repeated param struct in DeleteRouteEntryRequest
@@ -105,6 +100,7 @@ func CreateDeleteRouteEntryRequest() (request *DeleteRouteEntryRequest) {
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "DeleteRouteEntry", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

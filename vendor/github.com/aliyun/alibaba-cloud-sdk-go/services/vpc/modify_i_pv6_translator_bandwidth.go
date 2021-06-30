@@ -21,7 +21,6 @@ import (
 )
 
 // ModifyIPv6TranslatorBandwidth invokes the vpc.ModifyIPv6TranslatorBandwidth API synchronously
-// api document: https://help.aliyun.com/api/vpc/modifyipv6translatorbandwidth.html
 func (client *Client) ModifyIPv6TranslatorBandwidth(request *ModifyIPv6TranslatorBandwidthRequest) (response *ModifyIPv6TranslatorBandwidthResponse, err error) {
 	response = CreateModifyIPv6TranslatorBandwidthResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) ModifyIPv6TranslatorBandwidth(request *ModifyIPv6Translato
 }
 
 // ModifyIPv6TranslatorBandwidthWithChan invokes the vpc.ModifyIPv6TranslatorBandwidth API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifyipv6translatorbandwidth.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyIPv6TranslatorBandwidthWithChan(request *ModifyIPv6TranslatorBandwidthRequest) (<-chan *ModifyIPv6TranslatorBandwidthResponse, <-chan error) {
 	responseChan := make(chan *ModifyIPv6TranslatorBandwidthResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) ModifyIPv6TranslatorBandwidthWithChan(request *ModifyIPv6T
 }
 
 // ModifyIPv6TranslatorBandwidthWithCallback invokes the vpc.ModifyIPv6TranslatorBandwidth API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifyipv6translatorbandwidth.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyIPv6TranslatorBandwidthWithCallback(request *ModifyIPv6TranslatorBandwidthRequest, callback func(response *ModifyIPv6TranslatorBandwidthResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,13 +72,13 @@ func (client *Client) ModifyIPv6TranslatorBandwidthWithCallback(request *ModifyI
 type ModifyIPv6TranslatorBandwidthRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
+	ClientToken          string           `position:"Query" name:"ClientToken"`
 	AutoPay              requests.Boolean `position:"Query" name:"AutoPay"`
 	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
-	ClientToken          string           `position:"Query" name:"ClientToken"`
 	Bandwidth            requests.Integer `position:"Query" name:"Bandwidth"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
-	Ipv6TranslatorId     string           `position:"Query" name:"Ipv6TranslatorId"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
+	Ipv6TranslatorId     string           `position:"Query" name:"Ipv6TranslatorId"`
 }
 
 // ModifyIPv6TranslatorBandwidthResponse is the response struct for api ModifyIPv6TranslatorBandwidth
@@ -99,6 +94,7 @@ func CreateModifyIPv6TranslatorBandwidthRequest() (request *ModifyIPv6Translator
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "ModifyIPv6TranslatorBandwidth", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

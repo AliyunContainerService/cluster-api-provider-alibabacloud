@@ -21,7 +21,6 @@ import (
 )
 
 // DeleteBgpGroup invokes the vpc.DeleteBgpGroup API synchronously
-// api document: https://help.aliyun.com/api/vpc/deletebgpgroup.html
 func (client *Client) DeleteBgpGroup(request *DeleteBgpGroupRequest) (response *DeleteBgpGroupResponse, err error) {
 	response = CreateDeleteBgpGroupResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) DeleteBgpGroup(request *DeleteBgpGroupRequest) (response *
 }
 
 // DeleteBgpGroupWithChan invokes the vpc.DeleteBgpGroup API asynchronously
-// api document: https://help.aliyun.com/api/vpc/deletebgpgroup.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DeleteBgpGroupWithChan(request *DeleteBgpGroupRequest) (<-chan *DeleteBgpGroupResponse, <-chan error) {
 	responseChan := make(chan *DeleteBgpGroupResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) DeleteBgpGroupWithChan(request *DeleteBgpGroupRequest) (<-
 }
 
 // DeleteBgpGroupWithCallback invokes the vpc.DeleteBgpGroup API asynchronously
-// api document: https://help.aliyun.com/api/vpc/deletebgpgroup.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DeleteBgpGroupWithCallback(request *DeleteBgpGroupRequest, callback func(response *DeleteBgpGroupResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,10 +72,10 @@ func (client *Client) DeleteBgpGroupWithCallback(request *DeleteBgpGroupRequest,
 type DeleteBgpGroupRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	ClientToken          string           `position:"Query" name:"ClientToken"`
-	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	BgpGroupId           string           `position:"Query" name:"BgpGroupId"`
+	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
+	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
 }
 
@@ -96,6 +91,7 @@ func CreateDeleteBgpGroupRequest() (request *DeleteBgpGroupRequest) {
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "DeleteBgpGroup", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

@@ -21,7 +21,6 @@ import (
 )
 
 // DescribeRouteTables invokes the vpc.DescribeRouteTables API synchronously
-// api document: https://help.aliyun.com/api/vpc/describeroutetables.html
 func (client *Client) DescribeRouteTables(request *DescribeRouteTablesRequest) (response *DescribeRouteTablesResponse, err error) {
 	response = CreateDescribeRouteTablesResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) DescribeRouteTables(request *DescribeRouteTablesRequest) (
 }
 
 // DescribeRouteTablesWithChan invokes the vpc.DescribeRouteTables API asynchronously
-// api document: https://help.aliyun.com/api/vpc/describeroutetables.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DescribeRouteTablesWithChan(request *DescribeRouteTablesRequest) (<-chan *DescribeRouteTablesResponse, <-chan error) {
 	responseChan := make(chan *DescribeRouteTablesResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) DescribeRouteTablesWithChan(request *DescribeRouteTablesRe
 }
 
 // DescribeRouteTablesWithCallback invokes the vpc.DescribeRouteTables API asynchronously
-// api document: https://help.aliyun.com/api/vpc/describeroutetables.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DescribeRouteTablesWithCallback(request *DescribeRouteTablesRequest, callback func(response *DescribeRouteTablesResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -78,17 +73,17 @@ type DescribeRouteTablesRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
 	VRouterId            string           `position:"Query" name:"VRouterId"`
+	Type                 string           `position:"Query" name:"Type"`
+	PageNumber           requests.Integer `position:"Query" name:"PageNumber"`
+	ResourceGroupId      string           `position:"Query" name:"ResourceGroupId"`
+	RouteTableName       string           `position:"Query" name:"RouteTableName"`
+	PageSize             requests.Integer `position:"Query" name:"PageSize"`
+	RouteTableId         string           `position:"Query" name:"RouteTableId"`
 	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
-	Type                 string           `position:"Query" name:"Type"`
-	PageNumber           requests.Integer `position:"Query" name:"PageNumber"`
 	RouterType           string           `position:"Query" name:"RouterType"`
-	ResourceGroupId      string           `position:"Query" name:"ResourceGroupId"`
-	RouteTableName       string           `position:"Query" name:"RouteTableName"`
 	RouterId             string           `position:"Query" name:"RouterId"`
-	PageSize             requests.Integer `position:"Query" name:"PageSize"`
-	RouteTableId         string           `position:"Query" name:"RouteTableId"`
 }
 
 // DescribeRouteTablesResponse is the response struct for api DescribeRouteTables
@@ -107,6 +102,7 @@ func CreateDescribeRouteTablesRequest() (request *DescribeRouteTablesRequest) {
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "DescribeRouteTables", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

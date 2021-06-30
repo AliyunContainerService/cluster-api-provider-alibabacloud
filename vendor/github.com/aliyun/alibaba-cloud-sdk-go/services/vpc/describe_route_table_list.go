@@ -21,7 +21,6 @@ import (
 )
 
 // DescribeRouteTableList invokes the vpc.DescribeRouteTableList API synchronously
-// api document: https://help.aliyun.com/api/vpc/describeroutetablelist.html
 func (client *Client) DescribeRouteTableList(request *DescribeRouteTableListRequest) (response *DescribeRouteTableListResponse, err error) {
 	response = CreateDescribeRouteTableListResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) DescribeRouteTableList(request *DescribeRouteTableListRequ
 }
 
 // DescribeRouteTableListWithChan invokes the vpc.DescribeRouteTableList API asynchronously
-// api document: https://help.aliyun.com/api/vpc/describeroutetablelist.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DescribeRouteTableListWithChan(request *DescribeRouteTableListRequest) (<-chan *DescribeRouteTableListResponse, <-chan error) {
 	responseChan := make(chan *DescribeRouteTableListResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) DescribeRouteTableListWithChan(request *DescribeRouteTable
 }
 
 // DescribeRouteTableListWithCallback invokes the vpc.DescribeRouteTableList API asynchronously
-// api document: https://help.aliyun.com/api/vpc/describeroutetablelist.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DescribeRouteTableListWithCallback(request *DescribeRouteTableListRequest, callback func(response *DescribeRouteTableListResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,18 +72,18 @@ func (client *Client) DescribeRouteTableListWithCallback(request *DescribeRouteT
 type DescribeRouteTableListRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer             `position:"Query" name:"ResourceOwnerId"`
-	ResourceOwnerAccount string                       `position:"Query" name:"ResourceOwnerAccount"`
-	OwnerAccount         string                       `position:"Query" name:"OwnerAccount"`
-	OwnerId              requests.Integer             `position:"Query" name:"OwnerId"`
 	PageNumber           requests.Integer             `position:"Query" name:"PageNumber"`
-	RouterType           string                       `position:"Query" name:"RouterType"`
 	ResourceGroupId      string                       `position:"Query" name:"ResourceGroupId"`
 	RouteTableName       string                       `position:"Query" name:"RouteTableName"`
-	RouterId             string                       `position:"Query" name:"RouterId"`
-	VpcId                string                       `position:"Query" name:"VpcId"`
 	PageSize             requests.Integer             `position:"Query" name:"PageSize"`
 	Tag                  *[]DescribeRouteTableListTag `position:"Query" name:"Tag"  type:"Repeated"`
 	RouteTableId         string                       `position:"Query" name:"RouteTableId"`
+	ResourceOwnerAccount string                       `position:"Query" name:"ResourceOwnerAccount"`
+	OwnerAccount         string                       `position:"Query" name:"OwnerAccount"`
+	OwnerId              requests.Integer             `position:"Query" name:"OwnerId"`
+	RouterType           string                       `position:"Query" name:"RouterType"`
+	RouterId             string                       `position:"Query" name:"RouterId"`
+	VpcId                string                       `position:"Query" name:"VpcId"`
 }
 
 // DescribeRouteTableListTag is a repeated param struct in DescribeRouteTableListRequest
@@ -116,6 +111,7 @@ func CreateDescribeRouteTableListRequest() (request *DescribeRouteTableListReque
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "DescribeRouteTableList", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

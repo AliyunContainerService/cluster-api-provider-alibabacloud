@@ -21,7 +21,6 @@ import (
 )
 
 // DescribeVSwitches invokes the vpc.DescribeVSwitches API synchronously
-// api document: https://help.aliyun.com/api/vpc/describevswitches.html
 func (client *Client) DescribeVSwitches(request *DescribeVSwitchesRequest) (response *DescribeVSwitchesResponse, err error) {
 	response = CreateDescribeVSwitchesResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) DescribeVSwitches(request *DescribeVSwitchesRequest) (resp
 }
 
 // DescribeVSwitchesWithChan invokes the vpc.DescribeVSwitches API asynchronously
-// api document: https://help.aliyun.com/api/vpc/describevswitches.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DescribeVSwitchesWithChan(request *DescribeVSwitchesRequest) (<-chan *DescribeVSwitchesResponse, <-chan error) {
 	responseChan := make(chan *DescribeVSwitchesResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) DescribeVSwitchesWithChan(request *DescribeVSwitchesReques
 }
 
 // DescribeVSwitchesWithCallback invokes the vpc.DescribeVSwitches API asynchronously
-// api document: https://help.aliyun.com/api/vpc/describevswitches.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DescribeVSwitchesWithCallback(request *DescribeVSwitchesRequest, callback func(response *DescribeVSwitchesResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,19 +72,21 @@ func (client *Client) DescribeVSwitchesWithCallback(request *DescribeVSwitchesRe
 type DescribeVSwitchesRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer        `position:"Query" name:"ResourceOwnerId"`
-	ResourceOwnerAccount string                  `position:"Query" name:"ResourceOwnerAccount"`
-	OwnerAccount         string                  `position:"Query" name:"OwnerAccount"`
-	OwnerId              requests.Integer        `position:"Query" name:"OwnerId"`
 	PageNumber           requests.Integer        `position:"Query" name:"PageNumber"`
-	VSwitchId            string                  `position:"Query" name:"VSwitchId"`
 	ResourceGroupId      string                  `position:"Query" name:"ResourceGroupId"`
-	VpcId                string                  `position:"Query" name:"VpcId"`
-	VSwitchName          string                  `position:"Query" name:"VSwitchName"`
 	PageSize             requests.Integer        `position:"Query" name:"PageSize"`
-	ZoneId               string                  `position:"Query" name:"ZoneId"`
 	Tag                  *[]DescribeVSwitchesTag `position:"Query" name:"Tag"  type:"Repeated"`
 	IsDefault            requests.Boolean        `position:"Query" name:"IsDefault"`
 	RouteTableId         string                  `position:"Query" name:"RouteTableId"`
+	DryRun               requests.Boolean        `position:"Query" name:"DryRun"`
+	ResourceOwnerAccount string                  `position:"Query" name:"ResourceOwnerAccount"`
+	OwnerAccount         string                  `position:"Query" name:"OwnerAccount"`
+	OwnerId              requests.Integer        `position:"Query" name:"OwnerId"`
+	VSwitchId            string                  `position:"Query" name:"VSwitchId"`
+	VSwitchOwnerId       requests.Integer        `position:"Query" name:"VSwitchOwnerId"`
+	VpcId                string                  `position:"Query" name:"VpcId"`
+	VSwitchName          string                  `position:"Query" name:"VSwitchName"`
+	ZoneId               string                  `position:"Query" name:"ZoneId"`
 }
 
 // DescribeVSwitchesTag is a repeated param struct in DescribeVSwitchesRequest
@@ -114,6 +111,7 @@ func CreateDescribeVSwitchesRequest() (request *DescribeVSwitchesRequest) {
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "DescribeVSwitches", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

@@ -21,7 +21,6 @@ import (
 )
 
 // ModifyFlowLogAttribute invokes the vpc.ModifyFlowLogAttribute API synchronously
-// api document: https://help.aliyun.com/api/vpc/modifyflowlogattribute.html
 func (client *Client) ModifyFlowLogAttribute(request *ModifyFlowLogAttributeRequest) (response *ModifyFlowLogAttributeResponse, err error) {
 	response = CreateModifyFlowLogAttributeResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) ModifyFlowLogAttribute(request *ModifyFlowLogAttributeRequ
 }
 
 // ModifyFlowLogAttributeWithChan invokes the vpc.ModifyFlowLogAttribute API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifyflowlogattribute.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyFlowLogAttributeWithChan(request *ModifyFlowLogAttributeRequest) (<-chan *ModifyFlowLogAttributeResponse, <-chan error) {
 	responseChan := make(chan *ModifyFlowLogAttributeResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) ModifyFlowLogAttributeWithChan(request *ModifyFlowLogAttri
 }
 
 // ModifyFlowLogAttributeWithCallback invokes the vpc.ModifyFlowLogAttribute API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifyflowlogattribute.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyFlowLogAttributeWithCallback(request *ModifyFlowLogAttributeRequest, callback func(response *ModifyFlowLogAttributeResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,9 +72,9 @@ func (client *Client) ModifyFlowLogAttributeWithCallback(request *ModifyFlowLogA
 type ModifyFlowLogAttributeRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
+	Description          string           `position:"Query" name:"Description"`
 	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
-	Description          string           `position:"Query" name:"Description"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
 	FlowLogId            string           `position:"Query" name:"FlowLogId"`
 	FlowLogName          string           `position:"Query" name:"FlowLogName"`
@@ -98,6 +93,7 @@ func CreateModifyFlowLogAttributeRequest() (request *ModifyFlowLogAttributeReque
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "ModifyFlowLogAttribute", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

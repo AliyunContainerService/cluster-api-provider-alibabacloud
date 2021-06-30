@@ -21,7 +21,6 @@ import (
 )
 
 // ModifyVpnGatewayAttribute invokes the vpc.ModifyVpnGatewayAttribute API synchronously
-// api document: https://help.aliyun.com/api/vpc/modifyvpngatewayattribute.html
 func (client *Client) ModifyVpnGatewayAttribute(request *ModifyVpnGatewayAttributeRequest) (response *ModifyVpnGatewayAttributeResponse, err error) {
 	response = CreateModifyVpnGatewayAttributeResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) ModifyVpnGatewayAttribute(request *ModifyVpnGatewayAttribu
 }
 
 // ModifyVpnGatewayAttributeWithChan invokes the vpc.ModifyVpnGatewayAttribute API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifyvpngatewayattribute.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyVpnGatewayAttributeWithChan(request *ModifyVpnGatewayAttributeRequest) (<-chan *ModifyVpnGatewayAttributeResponse, <-chan error) {
 	responseChan := make(chan *ModifyVpnGatewayAttributeResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) ModifyVpnGatewayAttributeWithChan(request *ModifyVpnGatewa
 }
 
 // ModifyVpnGatewayAttributeWithCallback invokes the vpc.ModifyVpnGatewayAttribute API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifyvpngatewayattribute.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyVpnGatewayAttributeWithCallback(request *ModifyVpnGatewayAttributeRequest, callback func(response *ModifyVpnGatewayAttributeResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,13 +72,14 @@ func (client *Client) ModifyVpnGatewayAttributeWithCallback(request *ModifyVpnGa
 type ModifyVpnGatewayAttributeRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	ClientToken          string           `position:"Query" name:"ClientToken"`
-	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
-	Name                 string           `position:"Query" name:"Name"`
 	Description          string           `position:"Query" name:"Description"`
+	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
+	AutoPropagate        requests.Boolean `position:"Query" name:"AutoPropagate"`
+	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	VpnGatewayId         string           `position:"Query" name:"VpnGatewayId"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
+	Name                 string           `position:"Query" name:"Name"`
 }
 
 // ModifyVpnGatewayAttributeResponse is the response struct for api ModifyVpnGatewayAttribute
@@ -102,6 +98,8 @@ type ModifyVpnGatewayAttributeResponse struct {
 	Description    string `json:"Description" xml:"Description"`
 	Status         string `json:"Status" xml:"Status"`
 	BusinessStatus string `json:"BusinessStatus" xml:"BusinessStatus"`
+	EnableBgp      bool   `json:"EnableBgp" xml:"EnableBgp"`
+	AutoPropagate  bool   `json:"AutoPropagate" xml:"AutoPropagate"`
 }
 
 // CreateModifyVpnGatewayAttributeRequest creates a request to invoke ModifyVpnGatewayAttribute API
@@ -110,6 +108,7 @@ func CreateModifyVpnGatewayAttributeRequest() (request *ModifyVpnGatewayAttribut
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "ModifyVpnGatewayAttribute", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

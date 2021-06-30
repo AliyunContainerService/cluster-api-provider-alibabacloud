@@ -21,7 +21,6 @@ import (
 )
 
 // DeleteSnatEntry invokes the vpc.DeleteSnatEntry API synchronously
-// api document: https://help.aliyun.com/api/vpc/deletesnatentry.html
 func (client *Client) DeleteSnatEntry(request *DeleteSnatEntryRequest) (response *DeleteSnatEntryResponse, err error) {
 	response = CreateDeleteSnatEntryResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) DeleteSnatEntry(request *DeleteSnatEntryRequest) (response
 }
 
 // DeleteSnatEntryWithChan invokes the vpc.DeleteSnatEntry API asynchronously
-// api document: https://help.aliyun.com/api/vpc/deletesnatentry.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DeleteSnatEntryWithChan(request *DeleteSnatEntryRequest) (<-chan *DeleteSnatEntryResponse, <-chan error) {
 	responseChan := make(chan *DeleteSnatEntryResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) DeleteSnatEntryWithChan(request *DeleteSnatEntryRequest) (
 }
 
 // DeleteSnatEntryWithCallback invokes the vpc.DeleteSnatEntry API asynchronously
-// api document: https://help.aliyun.com/api/vpc/deletesnatentry.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DeleteSnatEntryWithCallback(request *DeleteSnatEntryRequest, callback func(response *DeleteSnatEntryResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,10 +72,11 @@ func (client *Client) DeleteSnatEntryWithCallback(request *DeleteSnatEntryReques
 type DeleteSnatEntryRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
+	ClientToken          string           `position:"Query" name:"ClientToken"`
+	SnatEntryId          string           `position:"Query" name:"SnatEntryId"`
 	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	SnatTableId          string           `position:"Query" name:"SnatTableId"`
-	SnatEntryId          string           `position:"Query" name:"SnatEntryId"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
 }
 
@@ -96,6 +92,7 @@ func CreateDeleteSnatEntryRequest() (request *DeleteSnatEntryRequest) {
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "DeleteSnatEntry", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

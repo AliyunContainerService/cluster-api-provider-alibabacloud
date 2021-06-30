@@ -21,7 +21,6 @@ import (
 )
 
 // AddBgpNetwork invokes the vpc.AddBgpNetwork API synchronously
-// api document: https://help.aliyun.com/api/vpc/addbgpnetwork.html
 func (client *Client) AddBgpNetwork(request *AddBgpNetworkRequest) (response *AddBgpNetworkResponse, err error) {
 	response = CreateAddBgpNetworkResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) AddBgpNetwork(request *AddBgpNetworkRequest) (response *Ad
 }
 
 // AddBgpNetworkWithChan invokes the vpc.AddBgpNetwork API asynchronously
-// api document: https://help.aliyun.com/api/vpc/addbgpnetwork.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) AddBgpNetworkWithChan(request *AddBgpNetworkRequest) (<-chan *AddBgpNetworkResponse, <-chan error) {
 	responseChan := make(chan *AddBgpNetworkResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) AddBgpNetworkWithChan(request *AddBgpNetworkRequest) (<-ch
 }
 
 // AddBgpNetworkWithCallback invokes the vpc.AddBgpNetwork API asynchronously
-// api document: https://help.aliyun.com/api/vpc/addbgpnetwork.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) AddBgpNetworkWithCallback(request *AddBgpNetworkRequest, callback func(response *AddBgpNetworkResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,12 +72,12 @@ func (client *Client) AddBgpNetworkWithCallback(request *AddBgpNetworkRequest, c
 type AddBgpNetworkRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	ClientToken          string           `position:"Query" name:"ClientToken"`
-	RouterId             string           `position:"Query" name:"RouterId"`
-	VpcId                string           `position:"Query" name:"VpcId"`
+	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
+	RouterId             string           `position:"Query" name:"RouterId"`
+	VpcId                string           `position:"Query" name:"VpcId"`
 	DstCidrBlock         string           `position:"Query" name:"DstCidrBlock"`
 }
 
@@ -98,6 +93,7 @@ func CreateAddBgpNetworkRequest() (request *AddBgpNetworkRequest) {
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "AddBgpNetwork", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

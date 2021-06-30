@@ -7,19 +7,19 @@ if [ $# -lt 1 ]; then
     exit 1
 fi
 
-if [ -z "$ALICLOUD_ACCESS_KEY_ID" ]; then
-    echo "error: ALICLOUD_ACCESS_KEY_ID is not set in the environment" 2>&1
+if [ -z "$ALIBABACLOUD_ACCESS_KEY_ID" ]; then
+    echo "error: ALIBABACLOUD_ACCESS_KEY_ID is not set in the environment" 2>&1
     exit 1
 fi
 
-if [ -z "$ALICLOUD_ACCESS_KEY_SECRET" ]; then
-    echo "error: ALICLOUD_ACCESS_KEY_SECRET is not set in the environment" 2>&1
+if [ -z "$ALIBABACLOUD_SECRET_ACCESS_KEY" ]; then
+    echo "error: ALIBABACLOUD_SECRET_ACCESS_KEY is not set in the environment" 2>&1
     exit 1
 fi
 
-x=$(echo -n "$ALICLOUD_ACCESS_KEY_ID" | base64)
-y=$(echo -n "$ALICLOUD_ACCESS_KEY_SECRET" | base64)
+x=$(echo -n "$ALIBABACLOUD_ACCESS_KEY_ID" | base64)
+y=$(echo -n "$ALIBABACLOUD_SECRET_ACCESS_KEY" | base64)
 
-sed -e "s/alicloud_access_key_id:.*/alicloud_access_key_id: $x/" \
-    -e "s/alicloud_access_key_secret:.*/alicloud_access_key_secret: $y/" \
+sed -e "s/accessKeyID:.*/accessKeyID: $x/" \
+    -e "s/accessKeySecret:.*/accessKeySecret: $y/" \
     "$1"

@@ -21,7 +21,6 @@ import (
 )
 
 // ModifyRouterInterfaceSpec invokes the vpc.ModifyRouterInterfaceSpec API synchronously
-// api document: https://help.aliyun.com/api/vpc/modifyrouterinterfacespec.html
 func (client *Client) ModifyRouterInterfaceSpec(request *ModifyRouterInterfaceSpecRequest) (response *ModifyRouterInterfaceSpecResponse, err error) {
 	response = CreateModifyRouterInterfaceSpecResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) ModifyRouterInterfaceSpec(request *ModifyRouterInterfaceSp
 }
 
 // ModifyRouterInterfaceSpecWithChan invokes the vpc.ModifyRouterInterfaceSpec API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifyrouterinterfacespec.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyRouterInterfaceSpecWithChan(request *ModifyRouterInterfaceSpecRequest) (<-chan *ModifyRouterInterfaceSpecResponse, <-chan error) {
 	responseChan := make(chan *ModifyRouterInterfaceSpecResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) ModifyRouterInterfaceSpecWithChan(request *ModifyRouterInt
 }
 
 // ModifyRouterInterfaceSpecWithCallback invokes the vpc.ModifyRouterInterfaceSpec API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifyrouterinterfacespec.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyRouterInterfaceSpecWithCallback(request *ModifyRouterInterfaceSpecRequest, callback func(response *ModifyRouterInterfaceSpecResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,12 +72,12 @@ func (client *Client) ModifyRouterInterfaceSpecWithCallback(request *ModifyRoute
 type ModifyRouterInterfaceSpecRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	ClientToken          string           `position:"Query" name:"ClientToken"`
+	Spec                 string           `position:"Query" name:"Spec"`
+	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	RouterInterfaceId    string           `position:"Query" name:"RouterInterfaceId"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
-	Spec                 string           `position:"Query" name:"Spec"`
 }
 
 // ModifyRouterInterfaceSpecResponse is the response struct for api ModifyRouterInterfaceSpec
@@ -98,6 +93,7 @@ func CreateModifyRouterInterfaceSpecRequest() (request *ModifyRouterInterfaceSpe
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "ModifyRouterInterfaceSpec", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

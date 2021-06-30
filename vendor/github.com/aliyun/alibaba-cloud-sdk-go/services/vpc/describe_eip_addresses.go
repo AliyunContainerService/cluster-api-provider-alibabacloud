@@ -21,7 +21,6 @@ import (
 )
 
 // DescribeEipAddresses invokes the vpc.DescribeEipAddresses API synchronously
-// api document: https://help.aliyun.com/api/vpc/describeeipaddresses.html
 func (client *Client) DescribeEipAddresses(request *DescribeEipAddressesRequest) (response *DescribeEipAddressesResponse, err error) {
 	response = CreateDescribeEipAddressesResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) DescribeEipAddresses(request *DescribeEipAddressesRequest)
 }
 
 // DescribeEipAddressesWithChan invokes the vpc.DescribeEipAddresses API asynchronously
-// api document: https://help.aliyun.com/api/vpc/describeeipaddresses.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DescribeEipAddressesWithChan(request *DescribeEipAddressesRequest) (<-chan *DescribeEipAddressesResponse, <-chan error) {
 	responseChan := make(chan *DescribeEipAddressesResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) DescribeEipAddressesWithChan(request *DescribeEipAddresses
 }
 
 // DescribeEipAddressesWithCallback invokes the vpc.DescribeEipAddresses API asynchronously
-// api document: https://help.aliyun.com/api/vpc/describeeipaddresses.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DescribeEipAddressesWithCallback(request *DescribeEipAddressesRequest, callback func(response *DescribeEipAddressesResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,14 +72,9 @@ func (client *Client) DescribeEipAddressesWithCallback(request *DescribeEipAddre
 type DescribeEipAddressesRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId        requests.Integer           `position:"Query" name:"ResourceOwnerId"`
-	ResourceOwnerAccount   string                     `position:"Query" name:"ResourceOwnerAccount"`
 	Filter2Value           string                     `position:"Query" name:"Filter.2.Value"`
 	ISP                    string                     `position:"Query" name:"ISP"`
-	OwnerAccount           string                     `position:"Query" name:"OwnerAccount"`
 	AllocationId           string                     `position:"Query" name:"AllocationId"`
-	Filter1Value           string                     `position:"Query" name:"Filter.1.Value"`
-	Filter2Key             string                     `position:"Query" name:"Filter.2.Key"`
-	OwnerId                requests.Integer           `position:"Query" name:"OwnerId"`
 	IncludeReservationData requests.Boolean           `position:"Query" name:"IncludeReservationData"`
 	EipAddress             string                     `position:"Query" name:"EipAddress"`
 	PageNumber             requests.Integer           `position:"Query" name:"PageNumber"`
@@ -94,6 +84,13 @@ type DescribeEipAddressesRequest struct {
 	AssociatedInstanceType string                     `position:"Query" name:"AssociatedInstanceType"`
 	PageSize               requests.Integer           `position:"Query" name:"PageSize"`
 	Tag                    *[]DescribeEipAddressesTag `position:"Query" name:"Tag"  type:"Repeated"`
+	SegmentInstanceId      string                     `position:"Query" name:"SegmentInstanceId"`
+	DryRun                 requests.Boolean           `position:"Query" name:"DryRun"`
+	ResourceOwnerAccount   string                     `position:"Query" name:"ResourceOwnerAccount"`
+	OwnerAccount           string                     `position:"Query" name:"OwnerAccount"`
+	Filter1Value           string                     `position:"Query" name:"Filter.1.Value"`
+	Filter2Key             string                     `position:"Query" name:"Filter.2.Key"`
+	OwnerId                requests.Integer           `position:"Query" name:"OwnerId"`
 	ChargeType             string                     `position:"Query" name:"ChargeType"`
 	AssociatedInstanceId   string                     `position:"Query" name:"AssociatedInstanceId"`
 	Status                 string                     `position:"Query" name:"Status"`
@@ -121,6 +118,7 @@ func CreateDescribeEipAddressesRequest() (request *DescribeEipAddressesRequest) 
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "DescribeEipAddresses", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 
