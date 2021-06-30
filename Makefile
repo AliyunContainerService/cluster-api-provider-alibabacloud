@@ -43,7 +43,7 @@ GOARCH  ?= $(shell go env GOARCH)
 GOOS    ?= $(shell go env GOOS)
 
 VERSION     ?= $(shell git describe --always --abbrev=7)
-REPO_PATH   ?= sigs.k8s.io/cluster-api-provider-alibabacloud
+REPO_PATH   ?= github.com/AliyunContainerService/cluster-api-provider-alibabacloud
 LD_FLAGS    ?= -X $(REPO_PATH)/pkg/version.Raw=$(VERSION) -extldflags "-static"
 >>>>>>> e879a141 (alibabacloud machine-api provider)
 MUTABLE_TAG ?= latest
@@ -77,6 +77,7 @@ ifeq ($(NO_DOCKER), 1)
 else
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   DOCKER_CMD = $(ENGINE) run --rm -e CGO_ENABLED=$(CGO_ENABLED) -e GOARCH=$(GOARCH) -e GOOS=$(GOOS) -v "$(PWD)":/go/src/github.com/AliyunContainerService/cluster-api-provider-alibabacloud:Z -w /go/src/github.com/AliyunContainerService/cluster-api-provider-alibabacloud openshift/origin-release:golang-1.15
   IMAGE_BUILD_CMD = $(ENGINE) build
 =======
@@ -85,6 +86,9 @@ else
 >>>>>>> 8dbd34ff (update project name)
 =======
   DOCKER_CMD = $(ENGINE) run --rm -e CGO_ENABLED=$(CGO_ENABLED) -e GOARCH=$(GOARCH) -e GOOS=$(GOOS) -v "$(PWD)":/go/src/sigs.k8s.io/cluster-api-provider-alibabacloud:Z -w /go/src/sigs.k8s.io/cluster-api-provider-alibabacloud openshift/origin-release:golang-1.15
+=======
+  DOCKER_CMD = $(ENGINE) run --rm -e CGO_ENABLED=$(CGO_ENABLED) -e GOARCH=$(GOARCH) -e GOOS=$(GOOS) -v "$(PWD)":/go/src/github.com/AliyunContainerService/cluster-api-provider-alibabacloud:Z -w /go/src/github.com/AliyunContainerService/cluster-api-provider-alibabacloud openshift/origin-release:golang-1.15
+>>>>>>> 7e2c5241 (remove test case)
   IMAGE_BUILD_CMD = $(ENGINE) build
 >>>>>>> e879a141 (alibabacloud machine-api provider)
 endif
@@ -205,8 +209,12 @@ test-e2e: ## Run e2e tests
 
 .PHONY: lint
 lint: ## Go lint your code
+<<<<<<< HEAD
 	$(DOCKER_CMD) hack/go-lint.sh -min_confidence 0.3 $$(go list -f '{{ .ImportPath }}' ./... | grep -v -e 'sigs.k8s.io/cluster-api-provider-alibabacloud/test' -e 'sigs.k8s.io/cluster-api-provider-alibabacloud/pkg/cloud/alibabacloud/client/mock')
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	$(DOCKER_CMD) hack/go-lint.sh -min_confidence 0.3 $$(go list -f '{{ .ImportPath }}' ./... | grep -v -e 'github.com/AliyunContainerService/cluster-api-provider-alibabacloud/test' -e 'github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/cloud/alibabacloud/client/mock')
+>>>>>>> 7e2c5241 (remove test case)
 
 .PHONY: fmt
 fmt: ## Go fmt your code

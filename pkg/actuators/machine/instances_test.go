@@ -16,6 +16,7 @@ limitations under the License.
 
 package machine
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 import (
@@ -43,3 +44,5 @@ func Test_DescribeImages(t *testing.T) {
 	t.Logf("%v", response)
 }
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 7e2c5241 (remove test case)

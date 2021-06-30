@@ -9,8 +9,12 @@ WORKDIR /go/src/github.com/AliyunContainerService/cluster-api-provider-alicloud
 >>>>>>> 5a63acd2 (update test case)
 =======
 FROM registry.ci.openshift.org/openshift/release:golang-1.15 AS builder
+<<<<<<< HEAD
 WORKDIR /go/src/sigs.k8s.io/cluster-api-provider-alibabacloud
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+WORKDIR /go/src/github.com/AliyunContainerService/cluster-api-provider-alibabacloud
+>>>>>>> 7e2c5241 (remove test case)
 COPY . .
 # VERSION env gets set in the openshift/release image and refers to the golang version, which interfers with our own
 RUN unset VERSION \
@@ -65,6 +69,10 @@ COPY --from=builder /go/src/github.com/AliyunContainerService/cluster-api-provid
 =======
 
 FROM registry.ci.openshift.org/openshift/origin-v4.0:base
+<<<<<<< HEAD
 COPY --from=builder /go/src/sigs.k8s.io/cluster-api-provider-alibabacloud/bin/machine-controller-manager /
 #COPY --from=builder /go/src/sigs.k8s.io/cluster-api-provider-alibabacloud/bin/termination-handler /
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+COPY --from=builder /go/src/github.com/AliyunContainerService/cluster-api-provider-alibabacloud/bin/machine-controller-manager /
+>>>>>>> 7e2c5241 (remove test case)
