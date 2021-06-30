@@ -13,14 +13,14 @@ fi
 script_dir="$(cd $(dirname "${BASH_SOURCE[0]}") && pwd -P)"
 
 secrethash=$(cat $script_dir/bootstrap.sh | \
-  sed "s/  accessKeyID: FILLIN/  accessKeyID: $(echo -n $alibabacloud_ACCESS_KEY_ID | base64)/" | \
-  sed "s/  accessKeySecret: FILLIN/  accessKeySecret: $(echo -n $alibabacloud_SECRET_ACCESS_KEY | base64)/" )
+  sed "s/  accessKeyID: FILLIN/  accessKeyID: $(echo -n $ALIBABACLOUD_ACCESS_KEY_ID | base64)/" | \
+  sed "s/  accessKeySecret: FILLIN/  accessKeySecret: $(echo -n $ALIBABACLOUD_SECRET_ACCESS_KEY | base64)/" )
 
 cat <<EOF > $script_dir/bootstrap.yaml
 apiVersion: v1
 kind: Secret
 metadata:
-  name: alibabacoud-credentials-secret
+  name: master-user-data-secret
   namespace: default
 type: Opaque
 data:
