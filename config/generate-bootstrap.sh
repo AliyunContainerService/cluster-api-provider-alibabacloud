@@ -1,12 +1,12 @@
 #!/bin/sh
 
-if [ -z "$alibabacloud_ACCESS_KEY_ID" ]; then
-    echo "error: alibabacloud_ACCESS_KEY_ID is not set in the environment" 2>&1
+if [ -z "$ALIBABACLOUD_ACCESS_KEY_ID" ]; then
+    echo "error: ALIBABACLOUD_ACCESS_KEY_ID is not set in the environment" 2>&1
     exit 1
 fi
 
-if [ -z "$alibabacloud_SECRET_ACCESS_KEY" ]; then
-    echo "error: alibabacloud_SECRET_ACCESS_KEY is not set in the environment" 2>&1
+if [ -z "$ALIBABACLOUD_SECRET_ACCESS_KEY" ]; then
+    echo "error: ALIBABACLOUD_SECRET_ACCESS_KEY is not set in the environment" 2>&1
     exit 1
 fi
 
