@@ -1,19 +1,29 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 // Copyright 2018 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 package packages
 
 import (
 	"fmt"
 	"os"
 <<<<<<< HEAD
+<<<<<<< HEAD
 	"sort"
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+	"sort"
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 )
 
 // Visit visits all the packages in the import graph whose roots are
@@ -35,9 +45,13 @@ func Visit(pkgs []*Package, pre func(*Package) bool, post func(*Package)) {
 					paths = append(paths, path)
 				}
 <<<<<<< HEAD
+<<<<<<< HEAD
 				sort.Strings(paths) // Imports is a map, this makes visit stable
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+				sort.Strings(paths) // Imports is a map, this makes visit stable
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 				for _, path := range paths {
 					visit(pkg.Imports[path])
 				}

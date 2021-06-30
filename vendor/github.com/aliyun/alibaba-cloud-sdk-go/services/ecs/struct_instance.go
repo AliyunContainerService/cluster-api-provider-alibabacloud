@@ -18,6 +18,9 @@ package ecs
 // Instance is a nested struct in ecs response
 type Instance struct {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	Hostname                        string                               `json:"Hostname" xml:"Hostname"`
 	ImageId                         string                               `json:"ImageId" xml:"ImageId"`
 	InstanceType                    string                               `json:"InstanceType" xml:"InstanceType"`
@@ -97,6 +100,7 @@ type Instance struct {
 	Tags                            TagsInDescribeInstances              `json:"Tags" xml:"Tags"`
 	NetworkInterfaces               NetworkInterfacesInDescribeInstances `json:"NetworkInterfaces" xml:"NetworkInterfaces"`
 	OperationLocks                  OperationLocksInDescribeInstances    `json:"OperationLocks" xml:"OperationLocks"`
+<<<<<<< HEAD
 =======
 	Cores                      int                                  `json:"Cores" xml:"Cores"`
 	ImageId                    string                               `json:"ImageId" xml:"ImageId"`
@@ -161,4 +165,6 @@ type Instance struct {
 	OperationLocks             OperationLocksInDescribeInstances    `json:"OperationLocks" xml:"OperationLocks"`
 	Tags                       TagsInDescribeInstances              `json:"Tags" xml:"Tags"`
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }

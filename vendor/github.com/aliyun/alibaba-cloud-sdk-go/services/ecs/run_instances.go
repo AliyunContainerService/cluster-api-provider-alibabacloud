@@ -72,6 +72,9 @@ func (client *Client) RunInstancesWithCallback(request *RunInstancesRequest, cal
 type RunInstancesRequest struct {
 	*requests.RpcRequest
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	UniqueSuffix                           requests.Boolean                `position:"Query" name:"UniqueSuffix"`
 	SecurityEnhancementStrategy            string                          `position:"Query" name:"SecurityEnhancementStrategy"`
 	MinAmount                              requests.Integer                `position:"Query" name:"MinAmount"`
@@ -162,6 +165,7 @@ type RunInstancesArn struct {
 	RoleType      string `name:"RoleType"`
 	Rolearn       string `name:"Rolearn"`
 	AssumeRoleFor string `name:"AssumeRoleFor"`
+<<<<<<< HEAD
 =======
 	LaunchTemplateName            string                          `position:"Query" name:"LaunchTemplateName"`
 	ResourceOwnerId               requests.Integer                `position:"Query" name:"ResourceOwnerId"`
@@ -225,6 +229,8 @@ type RunInstancesArn struct {
 	SystemDiskSize                string                          `position:"Query" name:"SystemDisk.Size"`
 	SystemDiskDescription         string                          `position:"Query" name:"SystemDisk.Description"`
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 // RunInstancesTag is a repeated param struct in RunInstancesRequest
@@ -247,6 +253,9 @@ type RunInstancesNetworkInterface struct {
 // RunInstancesDataDisk is a repeated param struct in RunInstancesRequest
 type RunInstancesDataDisk struct {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	PerformanceLevel     string `name:"PerformanceLevel"`
 	AutoSnapshotPolicyId string `name:"AutoSnapshotPolicyId"`
 	Encrypted            string `name:"Encrypted"`
@@ -259,6 +268,7 @@ type RunInstancesDataDisk struct {
 	EncryptAlgorithm     string `name:"EncryptAlgorithm"`
 	DeleteWithInstance   string `name:"DeleteWithInstance"`
 	KMSKeyId             string `name:"KMSKeyId"`
+<<<<<<< HEAD
 =======
 	Size               string `name:"Size"`
 	SnapshotId         string `name:"SnapshotId"`
@@ -270,6 +280,8 @@ type RunInstancesDataDisk struct {
 	Device             string `name:"Device"`
 	DeleteWithInstance string `name:"DeleteWithInstance"`
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 // RunInstancesResponse is the response struct for api RunInstances

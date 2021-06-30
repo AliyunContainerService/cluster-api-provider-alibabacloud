@@ -14,6 +14,7 @@ spec:
     value:
       apiVersion: alibabacloudproviderconfig.openshift.io/v1alpha1
       kind: AlibabaCloudMachineProviderConfig
+<<<<<<< HEAD
       instanceType: FILLIN
       imageId: FILLIN
       regionId: FILLIN
@@ -25,6 +26,19 @@ spec:
       systemDiskSize: FILLIN
       internetMaxBandwidthOut: FILLIN
       password: FILLIN
+=======
+      instanceType: ecs.c6.2xlarge
+      imageId: centos_7_9_x64_20G_alibase_20210318.vhd
+      regionId: cn-beijing
+      zoneId: cn-beijing-f
+      securityGroupId: sg-2zeebk9qd965vc2xqq4x
+      vpcId: vpc-2ze4u29pd4lniym7i1xnp
+      vSwitchId: vsw-2ze567qrl5das7q8s4rei
+      systemDiskCategory: cloud_essd
+      systemDiskSize: 120
+      internetMaxBandwidthOut: 100
+      password: Hello1234
+>>>>>>> e879a141 (alibabacloud machine-api provider)
       tags:
         - key: openshift-node-group-config
           value: node-config-node

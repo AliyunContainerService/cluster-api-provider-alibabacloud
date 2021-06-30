@@ -17,6 +17,7 @@ Please see https://git.k8s.io/community/CLA.md for more info
 ## Test locally
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Run the command `make test` to test the changes locally.
 =======
 1. Setup tools
@@ -30,3 +31,6 @@ Run the command `make test` to test the changes locally.
     ```
 
 >>>>>>> 79bfea2d (update vendor)
+=======
+Run the command `make test` to test the changes locally.
+>>>>>>> e879a141 (alibabacloud machine-api provider)

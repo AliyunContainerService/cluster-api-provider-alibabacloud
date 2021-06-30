@@ -98,12 +98,17 @@ func (wh *Webhook) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	// TODO: add panic-recovery for Handle
 <<<<<<< HEAD
+<<<<<<< HEAD
 	reviewResponse = wh.Handle(ctx, req)
 	wh.writeResponseTyped(w, reviewResponse, actualAdmRevGVK)
 =======
 	reviewResponse = wh.Handle(r.Context(), req)
 	wh.writeResponse(w, reviewResponse)
 >>>>>>> 79bfea2d (update vendor)
+=======
+	reviewResponse = wh.Handle(ctx, req)
+	wh.writeResponseTyped(w, reviewResponse, actualAdmRevGVK)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 // writeResponse writes response to w generically, i.e. without encoding GVK information.

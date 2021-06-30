@@ -18,6 +18,9 @@ package ecs
 // Disk is a nested struct in ecs response
 type Disk struct {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	Category                       string                        `json:"Category" xml:"Category"`
 	BdfId                          string                        `json:"BdfId" xml:"BdfId"`
 	ImageId                        string                        `json:"ImageId" xml:"ImageId"`
@@ -61,6 +64,7 @@ type Disk struct {
 	Tags                           TagsInDescribeDisks           `json:"Tags" xml:"Tags"`
 	MountInstances                 MountInstances                `json:"MountInstances" xml:"MountInstances"`
 	OperationLocks                 OperationLocksInDescribeDisks `json:"OperationLocks" xml:"OperationLocks"`
+<<<<<<< HEAD
 =======
 	DiskId                        string                        `json:"DiskId" xml:"DiskId"`
 	RegionId                      string                        `json:"RegionId" xml:"RegionId"`
@@ -99,4 +103,6 @@ type Disk struct {
 	MountInstances                MountInstances                `json:"MountInstances" xml:"MountInstances"`
 	Tags                          TagsInDescribeDisks           `json:"Tags" xml:"Tags"`
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }

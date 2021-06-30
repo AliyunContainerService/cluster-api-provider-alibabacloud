@@ -15,3 +15,31 @@ limitations under the License.
 */
 
 package machine
+<<<<<<< HEAD
+=======
+
+import (
+	"encoding/json"
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+
+	"github.com/aliyun/alibaba-cloud-sdk-go/services/ecs"
+)
+
+func Test_DescribeImages(t *testing.T) {
+	ecsClient, err := ecs.NewClientWithAccessKey("cn-beijing", "LTAI5tQ9JSqZeJShVqVghmdE", "eitOmHrNw53JdkWkjUPhCtV8ca93Vj")
+	assert.Nil(t, err)
+	assert.NotEmpty(t, ecsClient)
+
+	request := ecs.CreateDescribeInstancesRequest()
+	request.RegionId = "cn-beijing"
+	instancesIds, _ := json.Marshal([]string{"i-2ze8nunk5kt23u21lkjt"})
+	request.InstanceIds = string(instancesIds)
+	request.Scheme = "https"
+
+	response, err := ecsClient.DescribeInstances(request)
+	assert.Nil(t, err)
+	t.Logf("%v", response)
+}
+>>>>>>> e879a141 (alibabacloud machine-api provider)

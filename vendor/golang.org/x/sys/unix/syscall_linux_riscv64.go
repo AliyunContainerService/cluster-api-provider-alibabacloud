@@ -209,6 +209,9 @@ func Poll(fds []PollFd, timeout int) (n int, err error) {
 	return ppoll(&fds[0], len(fds), ts, nil)
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 func Renameat(olddirfd int, oldpath string, newdirfd int, newpath string) (err error) {
 	return Renameat2(olddirfd, oldpath, newdirfd, newpath, 0)
@@ -230,5 +233,8 @@ func KexecFileLoad(kernelFd int, initrdFd int, cmdline string, flags int) error 
 // dup2 exists because func Dup3 in syscall_linux.go references
 // it in an unreachable path. dup2 isn't available on arm64.
 func dup2(oldfd int, newfd int) error
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)

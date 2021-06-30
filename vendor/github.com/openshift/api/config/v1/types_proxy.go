@@ -13,6 +13,7 @@ type Proxy struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	// Spec holds user-settable values for the proxy configuration
 	// +kubebuilder:validation:Required
@@ -25,12 +26,23 @@ type Proxy struct {
 
 // ProxySpec contains cluster proxy creation configuration.
 =======
+=======
+
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// Spec holds user-settable values for the proxy configuration
+	// +kubebuilder:validation:Required
 	// +required
 	Spec ProxySpec `json:"spec"`
+	// status holds observed values from the cluster. They may not be overridden.
+	// +optional
+	Status ProxyStatus `json:"status"`
 }
 
+<<<<<<< HEAD
 >>>>>>> 79bfea2d (update vendor)
+=======
+// ProxySpec contains cluster proxy creation configuration.
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 type ProxySpec struct {
 	// httpProxy is the URL of the proxy for HTTP requests.  Empty means unset and will not result in an env var.
 	// +optional
@@ -41,6 +53,9 @@ type ProxySpec struct {
 	HTTPSProxy string `json:"httpsProxy,omitempty"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// noProxy is a comma-separated list of hostnames and/or CIDRs for which the proxy should not be used.
 	// Empty means unset and will not result in an env var.
 	// +optional
@@ -89,9 +104,12 @@ type ProxyStatus struct {
 	HTTPSProxy string `json:"httpsProxy,omitempty"`
 
 	// noProxy is a comma-separated list of hostnames and/or CIDRs for which the proxy should not be used.
+<<<<<<< HEAD
 =======
 	// noProxy is the list of domains for which the proxy should not be used.  Empty means unset and will not result in an env var.
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// +optional
 	NoProxy string `json:"noProxy,omitempty"`
 }
@@ -101,6 +119,7 @@ type ProxyStatus struct {
 type ProxyList struct {
 	metav1.TypeMeta `json:",inline"`
 <<<<<<< HEAD
+<<<<<<< HEAD
 	metav1.ListMeta `json:"metadata"`
 
 	Items []Proxy `json:"items"`
@@ -109,4 +128,9 @@ type ProxyList struct {
 	metav1.ListMeta `json:"metadata"`
 	Items           []Proxy `json:"items"`
 >>>>>>> 79bfea2d (update vendor)
+=======
+	metav1.ListMeta `json:"metadata"`
+
+	Items []Proxy `json:"items"`
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }

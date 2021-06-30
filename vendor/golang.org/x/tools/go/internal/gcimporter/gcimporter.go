@@ -345,10 +345,14 @@ func (p *parser) expectKeyword(keyword string) {
 // PackageId = string_lit .
 //
 <<<<<<< HEAD
+<<<<<<< HEAD
 func (p *parser) parsePackageID() string {
 =======
 func (p *parser) parsePackageId() string {
 >>>>>>> 79bfea2d (update vendor)
+=======
+func (p *parser) parsePackageID() string {
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	id, err := strconv.Unquote(p.expect(scanner.String))
 	if err != nil {
 		p.error(err)
@@ -389,10 +393,14 @@ func (p *parser) parseDotIdent() string {
 func (p *parser) parseQualifiedName() (id, name string) {
 	p.expect('@')
 <<<<<<< HEAD
+<<<<<<< HEAD
 	id = p.parsePackageID()
 =======
 	id = p.parsePackageId()
 >>>>>>> 79bfea2d (update vendor)
+=======
+	id = p.parsePackageID()
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	p.expect('.')
 	// Per rev f280b8a485fd (10/2/2013), qualified names may be used for anonymous fields.
 	if p.tok == '?' {
@@ -500,10 +508,14 @@ func (p *parser) parseMapType(parent *types.Package) types.Type {
 // For unqualified and anonymous names, the returned package is the parent
 // package unless parent == nil, in which case the returned package is the
 <<<<<<< HEAD
+<<<<<<< HEAD
 // package being imported. (The parent package is not nil if the name
 =======
 // package being imported. (The parent package is not nil if the the name
 >>>>>>> 79bfea2d (update vendor)
+=======
+// package being imported. (The parent package is not nil if the name
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 // is an unqualified struct field or interface method name belonging to a
 // type declared in another package.)
 //
@@ -709,10 +721,14 @@ func (p *parser) parseInterfaceType(parent *types.Package) types.Type {
 	// Complete requires the type's embedded interfaces to be fully defined,
 	// but we do not define any
 <<<<<<< HEAD
+<<<<<<< HEAD
 	return newInterface(methods, nil).Complete()
 =======
 	return types.NewInterface(methods, nil).Complete()
 >>>>>>> 79bfea2d (update vendor)
+=======
+	return newInterface(methods, nil).Complete()
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 // ChanType = ( "chan" [ "<-" ] | "<-" "chan" ) Type .
@@ -802,10 +818,14 @@ func (p *parser) parseImportDecl() {
 	p.expectKeyword("import")
 	name := p.parsePackageName()
 <<<<<<< HEAD
+<<<<<<< HEAD
 	p.getPkg(p.parsePackageID(), name)
 =======
 	p.getPkg(p.parsePackageId(), name)
 >>>>>>> 79bfea2d (update vendor)
+=======
+	p.getPkg(p.parsePackageID(), name)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 // int_lit = [ "+" | "-" ] { "0" ... "9" } .

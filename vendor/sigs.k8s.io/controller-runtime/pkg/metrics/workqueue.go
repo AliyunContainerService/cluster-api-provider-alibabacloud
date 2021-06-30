@@ -20,6 +20,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"k8s.io/client-go/util/workqueue"
 <<<<<<< HEAD
+<<<<<<< HEAD
 )
 
 =======
@@ -29,11 +30,18 @@ import (
 var log = logf.RuntimeLog.WithName("metrics")
 
 >>>>>>> 79bfea2d (update vendor)
+=======
+)
+
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 // This file is copied and adapted from k8s.io/kubernetes/pkg/util/workqueue/prometheus
 // which registers metrics to the default prometheus Registry. We require very
 // similar functionality, but must register metrics to a different Registry.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 // Metrics subsystem and all keys used by the workqueue.
 const (
 	WorkQueueSubsystem         = "workqueue"
@@ -45,6 +53,7 @@ const (
 	LongestRunningProcessorKey = "longest_running_processor_seconds"
 	RetriesKey                 = "retries_total"
 )
+<<<<<<< HEAD
 
 var (
 	depth = prometheus.NewGaugeVec(prometheus.GaugeOpts{
@@ -195,86 +204,98 @@ func (workqueueMetricsProvider) NewWorkDurationMetric(queue string) workqueue.Hi
 	registerWorkqueueMetric(m, name, queue)
 	return m
 }
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
-func (workqueueMetricsProvider) NewUnfinishedWorkSecondsMetric(queue string) workqueue.SettableGaugeMetric {
-	const name = "workqueue_unfinished_work_seconds"
-	m := prometheus.NewGauge(prometheus.GaugeOpts{
-		Name: name,
-		Help: "How many seconds of work has done that " +
+var (
+	depth = prometheus.NewGaugeVec(prometheus.GaugeOpts{
+		Subsystem: WorkQueueSubsystem,
+		Name:      DepthKey,
+		Help:      "Current depth of workqueue",
+	}, []string{"name"})
+
+	adds = prometheus.NewCounterVec(prometheus.CounterOpts{
+		Subsystem: WorkQueueSubsystem,
+		Name:      AddsKey,
+		Help:      "Total number of adds handled by workqueue",
+	}, []string{"name"})
+
+	latency = prometheus.NewHistogramVec(prometheus.HistogramOpts{
+		Subsystem: WorkQueueSubsystem,
+		Name:      QueueLatencyKey,
+		Help:      "How long in seconds an item stays in workqueue before being requested",
+		Buckets:   prometheus.ExponentialBuckets(10e-9, 10, 10),
+	}, []string{"name"})
+
+	workDuration = prometheus.NewHistogramVec(prometheus.HistogramOpts{
+		Subsystem: WorkQueueSubsystem,
+		Name:      WorkDurationKey,
+		Help:      "How long in seconds processing an item from workqueue takes.",
+		Buckets:   prometheus.ExponentialBuckets(10e-9, 10, 10),
+	}, []string{"name"})
+
+	unfinished = prometheus.NewGaugeVec(prometheus.GaugeOpts{
+		Subsystem: WorkQueueSubsystem,
+		Name:      UnfinishedWorkKey,
+		Help: "How many seconds of work has been done that " +
 			"is in progress and hasn't been observed by work_duration. Large " +
 			"values indicate stuck threads. One can deduce the number of stuck " +
 			"threads by observing the rate at which this increases.",
-		ConstLabels: prometheus.Labels{"name": queue},
-	})
-	registerWorkqueueMetric(m, name, queue)
-	return m
-}
+	}, []string{"name"})
 
-func (workqueueMetricsProvider) NewLongestRunningProcessorSecondsMetric(queue string) workqueue.SettableGaugeMetric {
-	const name = "workqueue_longest_running_processor_seconds"
-	m := prometheus.NewGauge(prometheus.GaugeOpts{
-		Name: name,
+	longestRunningProcessor = prometheus.NewGaugeVec(prometheus.GaugeOpts{
+		Subsystem: WorkQueueSubsystem,
+		Name:      LongestRunningProcessorKey,
 		Help: "How many seconds has the longest running " +
 			"processor for workqueue been running.",
-		ConstLabels: prometheus.Labels{"name": queue},
-	})
-	registerWorkqueueMetric(m, name, queue)
-	return m
+	}, []string{"name"})
+
+	retries = prometheus.NewCounterVec(prometheus.CounterOpts{
+		Subsystem: WorkQueueSubsystem,
+		Name:      RetriesKey,
+		Help:      "Total number of retries handled by workqueue",
+	}, []string{"name"})
+)
+
+func init() {
+	Registry.MustRegister(depth)
+	Registry.MustRegister(adds)
+	Registry.MustRegister(latency)
+	Registry.MustRegister(workDuration)
+	Registry.MustRegister(unfinished)
+	Registry.MustRegister(longestRunningProcessor)
+	Registry.MustRegister(retries)
+
+	workqueue.SetProvider(workqueueMetricsProvider{})
 }
 
-func (workqueueMetricsProvider) NewRetriesMetric(queue string) workqueue.CounterMetric {
-	const name = "workqueue_retries_total"
-	m := prometheus.NewCounter(prometheus.CounterOpts{
-		Name:        name,
-		Help:        "Total number of retries handled by workqueue",
-		ConstLabels: prometheus.Labels{"name": queue},
-	})
-	registerWorkqueueMetric(m, name, queue)
-	return m
+type workqueueMetricsProvider struct{}
+
+func (workqueueMetricsProvider) NewDepthMetric(name string) workqueue.GaugeMetric {
+	return depth.WithLabelValues(name)
 }
 
-// TODO(abursavich): Remove the following deprecated metrics when they are
-// removed from k8s.io/client-go/util/workqueue.
-
-func (workqueueMetricsProvider) NewDeprecatedLongestRunningProcessorMicrosecondsMetric(queue string) workqueue.SettableGaugeMetric {
-	const name = "workqueue_longest_running_processor_microseconds"
-	m := prometheus.NewGauge(prometheus.GaugeOpts{
-		Name: name,
-		Help: "(Deprecated) How many microseconds has the longest running " +
-			"processor for workqueue been running.",
-		ConstLabels: prometheus.Labels{"name": queue},
-	})
-	registerWorkqueueMetric(m, name, queue)
-	return m
+func (workqueueMetricsProvider) NewAddsMetric(name string) workqueue.CounterMetric {
+	return adds.WithLabelValues(name)
 }
 
-// NOTE: The following deprecated metrics are noops because they were never
-// included in controller-runtime.
-
-func (workqueueMetricsProvider) NewDeprecatedDepthMetric(queue string) workqueue.GaugeMetric {
-	return noopMetric{}
+func (workqueueMetricsProvider) NewLatencyMetric(name string) workqueue.HistogramMetric {
+	return latency.WithLabelValues(name)
 }
 
-func (workqueueMetricsProvider) NewDeprecatedAddsMetric(queue string) workqueue.CounterMetric {
-	return noopMetric{}
+func (workqueueMetricsProvider) NewWorkDurationMetric(name string) workqueue.HistogramMetric {
+	return workDuration.WithLabelValues(name)
 }
 
-func (workqueueMetricsProvider) NewDeprecatedLatencyMetric(queue string) workqueue.SummaryMetric {
-	return noopMetric{}
+func (workqueueMetricsProvider) NewUnfinishedWorkSecondsMetric(name string) workqueue.SettableGaugeMetric {
+	return unfinished.WithLabelValues(name)
 }
 
-func (workqueueMetricsProvider) NewDeprecatedWorkDurationMetric(queue string) workqueue.SummaryMetric {
-	return noopMetric{}
+func (workqueueMetricsProvider) NewLongestRunningProcessorSecondsMetric(name string) workqueue.SettableGaugeMetric {
+	return longestRunningProcessor.WithLabelValues(name)
 }
 
-func (workqueueMetricsProvider) NewDeprecatedUnfinishedWorkSecondsMetric(queue string) workqueue.SettableGaugeMetric {
-	return noopMetric{}
-}
-
-func (workqueueMetricsProvider) NewDeprecatedRetriesMetric(queue string) workqueue.CounterMetric {
-	return noopMetric{}
-}
-
+<<<<<<< HEAD
 type noopMetric struct{}
 
 func (noopMetric) Inc()            {}
@@ -282,3 +303,8 @@ func (noopMetric) Dec()            {}
 func (noopMetric) Set(float64)     {}
 func (noopMetric) Observe(float64) {}
 >>>>>>> 79bfea2d (update vendor)
+=======
+func (workqueueMetricsProvider) NewRetriesMetric(name string) workqueue.CounterMetric {
+	return retries.WithLabelValues(name)
+}
+>>>>>>> e879a141 (alibabacloud machine-api provider)

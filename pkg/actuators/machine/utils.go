@@ -3,12 +3,20 @@ package machine
 import (
 	"fmt"
 <<<<<<< HEAD
+<<<<<<< HEAD
 	"time"
 
+=======
+	"time"
+
+	"k8s.io/klog/v2"
+
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	alibabacloudproviderv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alibabacloudprovider/v1beta1"
 	machinev1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 	machinecontroller "github.com/openshift/machine-api-operator/pkg/controller/machine"
 	corev1 "k8s.io/api/core/v1"
+<<<<<<< HEAD
 =======
 	providerconfigv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudprovider/v1alpha1"
 	aliCloudClient "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client"
@@ -17,22 +25,34 @@ import (
 	"github.com/golang/glog"
 	machinev1 "github.com/openshift/cluster-api/pkg/apis/machine/v1beta1"
 >>>>>>> 8dbd34ff (update project name)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/klog"
 )
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 // upstreamMachineClusterIDLabel is the label that a machine must have to identify the cluster to which it belongs
 const upstreamMachineClusterIDLabel = "sigs.k8s.io/cluster-api-cluster"
 
 // supportedInstanceStates returns the list of states an ECS instance
 func supportedInstanceStates() []string {
+=======
+// upstreamMachineClusterIDLabel is the label that a machine must have to identify the cluster to which it belongs
+const upstreamMachineClusterIDLabel = "sigs.k8s.io/cluster-api-cluster"
+
+// existingInstanceStates returns the list of states an ECS instance can be in
+// while being considered "existing", i.e. mostly anything but "Terminated".
+func existingInstanceStates() []string {
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	return []string{
 		ECSInstanceStatusPending,
 		ECSInstanceStatusStarting,
 		ECSInstanceStatusRunning,
 		ECSInstanceStatusStopping,
 		ECSInstanceStatusStopped,
+<<<<<<< HEAD
 =======
 // providerConfigFromMachine gets the machine provider config MachineSetSpec from the
 // specified cluster-api MachineSpec.
@@ -44,10 +64,16 @@ func providerConfigFromMachine(machine *machinev1.Machine, codec *providerconfig
 }
 
 <<<<<<< HEAD
+=======
+	}
+}
+
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 // validateMachine check the label that a machine must have to identify the cluster to which it belongs is present.
 func validateMachine(machine machinev1.Machine) error {
 	if machine.Labels[machinev1.MachineClusterIDLabel] == "" {
 		return machinecontroller.InvalidMachineConfiguration("%v: missing %q label", machine.GetName(), machinev1.MachineClusterIDLabel)
+<<<<<<< HEAD
 =======
 	var config providerconfigv1.AlibabaCloudMachineProviderConfig
 	if err := codec.DecodeProviderSpec(&machine.Spec.ProviderSpec, &config); err != nil {
@@ -60,12 +86,18 @@ func validateMachine(machine machinev1.Machine) error {
 =======
 	return &config, nil
 >>>>>>> ebdd9bd0 (update test case)
+=======
+	}
+
+	return nil
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 // getClusterID get cluster ID by machine.openshift.io/cluster-api-cluster label
 func getClusterID(machine *machinev1.Machine) (string, bool) {
 	clusterID, ok := machine.Labels[machinev1.MachineClusterIDLabel]
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	if !ok {
 		clusterID, ok = machine.Labels[upstreamMachineClusterIDLabel]
@@ -92,6 +124,23 @@ func shouldUpdateCondition(
 	}
 }
 
+=======
+	if !ok {
+		clusterID, ok = machine.Labels[upstreamMachineClusterIDLabel]
+	}
+	return clusterID, ok
+}
+
+func conditionSuccess() alibabacloudproviderv1.AlibabaCloudMachineProviderCondition {
+	return alibabacloudproviderv1.AlibabaCloudMachineProviderCondition{
+		Type:    alibabacloudproviderv1.MachineCreation,
+		Status:  corev1.ConditionTrue,
+		Reason:  alibabacloudproviderv1.MachineCreationSucceeded,
+		Message: "Machine successfully created",
+	}
+}
+
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 func conditionFailed() alibabacloudproviderv1.AlibabaCloudMachineProviderCondition {
 	return alibabacloudproviderv1.AlibabaCloudMachineProviderCondition{
 		Type:   alibabacloudproviderv1.MachineCreation,
@@ -100,12 +149,17 @@ func conditionFailed() alibabacloudproviderv1.AlibabaCloudMachineProviderConditi
 	}
 }
 
+<<<<<<< HEAD
 // setMachineProviderCondition sets the condition for the machine and
+=======
+// setAlibabaCloudMachineProviderCondition sets the condition for the machine and
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 // returns the new slice of conditions.
 // If the machine does not already have a condition with the specified type,
 // a condition will be added to the slice
 // If the machine does already have a condition with the specified type,
 // the condition will be updated if either of the following are true.
+<<<<<<< HEAD
 <<<<<<< HEAD
 func setMachineProviderCondition(condition alibabacloudproviderv1.AlibabaCloudMachineProviderCondition, conditions []alibabacloudproviderv1.AlibabaCloudMachineProviderCondition) []alibabacloudproviderv1.AlibabaCloudMachineProviderCondition {
 	now := metav1.Now()
@@ -135,6 +189,15 @@ func setAliCloudMachineProviderCondition(conditions []providerconfigv1.AlibabaCl
 			},
 		)
 >>>>>>> c7e62b88 (fix testcase)
+=======
+func setAlibabaCloudMachineProviderCondition(condition alibabacloudproviderv1.AlibabaCloudMachineProviderCondition, conditions []alibabacloudproviderv1.AlibabaCloudMachineProviderCondition) []alibabacloudproviderv1.AlibabaCloudMachineProviderCondition {
+	now := metav1.Now()
+
+	if existingCondition := findProviderCondition(conditions, condition.Type); existingCondition == nil {
+		condition.LastProbeTime = now
+		condition.LastTransitionTime = now
+		conditions = append(conditions, condition)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	} else {
 		updateExistingCondition(&condition, existingCondition)
 	}
@@ -142,6 +205,7 @@ func setAliCloudMachineProviderCondition(conditions []providerconfigv1.AlibabaCl
 	return conditions
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func findProviderCondition(conditions []alibabacloudproviderv1.AlibabaCloudMachineProviderCondition, conditionType alibabacloudproviderv1.AlibabaCloudMachineProviderConditionType) *alibabacloudproviderv1.AlibabaCloudMachineProviderCondition {
 	for i := range conditions {
@@ -153,12 +217,18 @@ func findMachineProviderCondition(conditions []providerconfigv1.AlibabaCloudMach
 	for i, condition := range conditions {
 		if condition.Type == conditionType {
 >>>>>>> c7e62b88 (fix testcase)
+=======
+func findProviderCondition(conditions []alibabacloudproviderv1.AlibabaCloudMachineProviderCondition, conditionType alibabacloudproviderv1.AlibabaCloudMachineProviderConditionType) *alibabacloudproviderv1.AlibabaCloudMachineProviderCondition {
+	for i := range conditions {
+		if conditions[i].Type == conditionType {
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 			return &conditions[i]
 		}
 	}
 	return nil
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func updateExistingCondition(newCondition, existingCondition *alibabacloudproviderv1.AlibabaCloudMachineProviderCondition) {
 	if !shouldUpdateCondition(newCondition, existingCondition) {
@@ -205,6 +275,11 @@ func getInstances(machine *machinev1.Machine, client aliCloudClient.Client, inst
 	if err != nil {
 		return []*ecs.Instance{}, err
 >>>>>>> ebdd9bd0 (update test case)
+=======
+func updateExistingCondition(newCondition, existingCondition *alibabacloudproviderv1.AlibabaCloudMachineProviderCondition) {
+	if !shouldUpdateCondition(newCondition, existingCondition) {
+		return
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	}
 
 	if existingCondition.Status != newCondition.Status {
@@ -221,6 +296,9 @@ func shouldUpdateCondition(newCondition, existingCondition *alibabacloudprovider
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 // WaitForResult wait func
 func WaitForResult(name string, predicate func() (bool, interface{}, error), returnWhenError bool, delay int, timeout int) (interface{}, error) {
 	endTime := time.Now().Add(time.Duration(timeout) * time.Second)
@@ -228,6 +306,7 @@ func WaitForResult(name string, predicate func() (bool, interface{}, error), ret
 	for {
 		// Execute the function
 		satisfied, result, err := predicate()
+<<<<<<< HEAD
 =======
 // deleteInstances terminates all provided instances with a single ECS request.
 func deleteInstances(client aliCloudClient.Client, instances []*ecs.Instance) error {
@@ -240,6 +319,8 @@ func deleteInstances(client aliCloudClient.Client, instances []*ecs.Instance) er
 		deleteInstanceRequest.Scheme = "https"
 		_, err := client.DeleteInstance(deleteInstanceRequest)
 >>>>>>> ebdd9bd0 (update test case)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 		if err != nil {
 			klog.Errorf("%s Invoke func %++s error %++v", name, "predicate func() (bool, error)", err)
 			if returnWhenError {

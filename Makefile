@@ -26,6 +26,7 @@ GOGCFLAGS ?= -gcflags=all="-N -l"
 endif
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 GOARCH  ?= $(shell go env GOARCH)
 GOOS    ?= $(shell go env GOOS)
 
@@ -37,6 +38,14 @@ VERSION     ?= $(shell git describe --always --abbrev=7)
 REPO_PATH   ?= github.com/AliyunContainerService/cluster-api-provider-alibabacloud
 LD_FLAGS    ?= -X $(REPO_PATH)/pkg/version.Version=$(VERSION) -extldflags "-static"
 >>>>>>> 8dbd34ff (update project name)
+=======
+GOARCH  ?= $(shell go env GOARCH)
+GOOS    ?= $(shell go env GOOS)
+
+VERSION     ?= $(shell git describe --always --abbrev=7)
+REPO_PATH   ?= sigs.k8s.io/cluster-api-provider-alibabacloud
+LD_FLAGS    ?= -X $(REPO_PATH)/pkg/version.Raw=$(VERSION) -extldflags "-static"
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 MUTABLE_TAG ?= latest
 IMAGE        = origin-alibabacloud-machine-controllers
 
@@ -67,12 +76,17 @@ ifeq ($(NO_DOCKER), 1)
   IMAGE_BUILD_CMD = imagebuilder
 else
 <<<<<<< HEAD
+<<<<<<< HEAD
   DOCKER_CMD = $(ENGINE) run --rm -e CGO_ENABLED=$(CGO_ENABLED) -e GOARCH=$(GOARCH) -e GOOS=$(GOOS) -v "$(PWD)":/go/src/github.com/AliyunContainerService/cluster-api-provider-alibabacloud:Z -w /go/src/github.com/AliyunContainerService/cluster-api-provider-alibabacloud openshift/origin-release:golang-1.15
   IMAGE_BUILD_CMD = $(ENGINE) build
 =======
   DOCKER_CMD := docker run --rm -e CGO_ENABLED=1 -v "$(PWD)":/go/src/github.com/AliyunContainerService/cluster-api-provider-alibabacloud:Z -w /go/src/github.com/AliyunContainerService/cluster-api-provider-alibabacloud openshift/origin-release:golang-1.12
   IMAGE_BUILD_CMD = docker build
 >>>>>>> 8dbd34ff (update project name)
+=======
+  DOCKER_CMD = $(ENGINE) run --rm -e CGO_ENABLED=$(CGO_ENABLED) -e GOARCH=$(GOARCH) -e GOOS=$(GOOS) -v "$(PWD)":/go/src/sigs.k8s.io/cluster-api-provider-alibabacloud:Z -w /go/src/sigs.k8s.io/cluster-api-provider-alibabacloud openshift/origin-release:golang-1.15
+  IMAGE_BUILD_CMD = $(ENGINE) build
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 endif
 
 .PHONY: vendor
@@ -80,15 +94,21 @@ vendor:
 	$(DOCKER_CMD) hack/go-mod.sh
 .PHONY: generate
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 generate: gogen goimports
 
 gogen:
 	$(DOCKER_CMD) go generate ./pkg/... ./cmd/...
+<<<<<<< HEAD
 =======
 generate:
 	go install $(GOGCFLAGS) -ldflags '-extldflags "-static"' github.com/AliyunContainerService/cluster-api-provider-alibabacloud/vendor/github.com/golang/mock/mockgen
 	go generate ./pkg/... ./cmd/...
 >>>>>>> 8dbd34ff (update project name)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 .PHONY: test
 test: ## Run tests
@@ -115,6 +135,7 @@ build: ## build binaries
 	$(DOCKER_CMD) CGO_ENABLED=0 go build $(GOGCFLAGS) -o "bin/machine-controller-manager" \
                -ldflags "$(LD_FLAGS)" "$(REPO_PATH)/cmd/manager"
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	$(DOCKER_CMD) go build $(GOGCFLAGS) -o bin/manager -ldflags '-extldflags "-static"' \
                "$(REPO_PATH)/vendor/github.com/openshift/cluster-api/cmd/manager"
@@ -122,6 +143,10 @@ build: ## build binaries
 alicloud-actuator:
 	$(DOCKER_CMD) go build $(GOGCFLAGS) -o bin/alicloud-actuator github.com/AliyunContainerService/cluster-api-provider-alibabacloud/cmd/alicloud-actuator
 >>>>>>> 8dbd34ff (update project name)
+=======
+	# $(DOCKER_CMD) CGO_ENABLED=0 go build  $(GOGCFLAGS) -o "bin/termination-handler" \
+	#             -ldflags "$(LD_FLAGS)" "$(REPO_PATH)/cmd/termination-handler"
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 .PHONY: images
 images: ## Create images
@@ -142,6 +167,7 @@ check: fmt vet lint test # Check your code
 unit: # Run unit test
 	$(DOCKER_CMD) go test -race -cover ./cmd/... ./pkg/...
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 .PHONY: test-e2e
 test-e2e: ## Run e2e tests
@@ -172,6 +198,15 @@ lint: ## Go lint your code
 =======
 #	hack/go-lint.sh -min_confidence 0.3 $$(go list -f '{{ .ImportPath }}' ./... | grep -v -e 'sigs.k8s.io/cluster-api-provider-alibabacloud/test' -e 'sigs.k8s.io/cluster-api-provider-alibabacloud/pkg/cloud/alicloud/client/mock')
 >>>>>>> 8dbd34ff (update project name)
+=======
+.PHONY: test-e2e
+test-e2e: ## Run e2e tests
+	 hack/e2e.sh
+
+.PHONY: lint
+lint: ## Go lint your code
+	$(DOCKER_CMD) hack/go-lint.sh -min_confidence 0.3 $$(go list -f '{{ .ImportPath }}' ./... | grep -v -e 'sigs.k8s.io/cluster-api-provider-alibabacloud/test' -e 'sigs.k8s.io/cluster-api-provider-alibabacloud/pkg/cloud/alibabacloud/client/mock')
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 .PHONY: fmt
 fmt: ## Go fmt your code
@@ -183,6 +218,7 @@ goimports:
 	hack/verify-diff.sh
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 .PHONY: vet
 vet: ## Apply go vet to all go files
 	$(DOCKER_CMD) hack/go-vet.sh ./...
@@ -191,6 +227,11 @@ vet: ## Apply go vet to all go files
 #vet: ## Apply go vet to all go files
 #	hack/go-vet.sh ./...
 >>>>>>> 5ed2bd4c (format)
+=======
+.PHONY: vet
+vet: ## Apply go vet to all go files
+	$(DOCKER_CMD) hack/go-vet.sh ./...
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 .PHONY: help
 help:

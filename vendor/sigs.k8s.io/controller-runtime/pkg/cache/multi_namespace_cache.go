@@ -155,10 +155,14 @@ func (c *multiNamespaceCache) Get(ctx context.Context, key client.ObjectKey, obj
 
 // List multi namespace cache will get all the objects in the namespaces that the cache is watching if asked for all namespaces.
 <<<<<<< HEAD
+<<<<<<< HEAD
 func (c *multiNamespaceCache) List(ctx context.Context, list client.ObjectList, opts ...client.ListOption) error {
 =======
 func (c *multiNamespaceCache) List(ctx context.Context, list runtime.Object, opts ...client.ListOption) error {
 >>>>>>> 79bfea2d (update vendor)
+=======
+func (c *multiNamespaceCache) List(ctx context.Context, list client.ObjectList, opts ...client.ListOption) error {
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	listOpts := client.ListOptions{}
 	listOpts.ApplyOptions(opts)
 

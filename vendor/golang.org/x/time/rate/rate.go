@@ -6,6 +6,7 @@
 package rate
 
 import (
+	"context"
 	"fmt"
 	"math"
 	"sync"
@@ -213,19 +214,8 @@ func (lim *Limiter) ReserveN(now time.Time, n int) *Reservation {
 	return &r
 }
 
-// contextContext is a temporary(?) copy of the context.Context type
-// to support both Go 1.6 using golang.org/x/net/context and Go 1.7+
-// with the built-in context package. If people ever stop using Go 1.6
-// we can remove this.
-type contextContext interface {
-	Deadline() (deadline time.Time, ok bool)
-	Done() <-chan struct{}
-	Err() error
-	Value(key interface{}) interface{}
-}
-
 // Wait is shorthand for WaitN(ctx, 1).
-func (lim *Limiter) wait(ctx contextContext) (err error) {
+func (lim *Limiter) Wait(ctx context.Context) (err error) {
 	return lim.WaitN(ctx, 1)
 }
 
@@ -234,6 +224,9 @@ func (lim *Limiter) wait(ctx contextContext) (err error) {
 // canceled, or the expected wait time exceeds the Context's Deadline.
 // The burst limit is ignored if the rate limit is Inf.
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 func (lim *Limiter) WaitN(ctx context.Context, n int) (err error) {
 	lim.mu.Lock()
 	burst := lim.burst
@@ -242,11 +235,14 @@ func (lim *Limiter) WaitN(ctx context.Context, n int) (err error) {
 
 	if n > burst && limit != Inf {
 		return fmt.Errorf("rate: Wait(n=%d) exceeds limiter's burst %d", n, burst)
+<<<<<<< HEAD
 =======
 func (lim *Limiter) waitN(ctx contextContext, n int) (err error) {
 	if n > lim.burst && lim.limit != Inf {
 		return fmt.Errorf("rate: Wait(n=%d) exceeds limiter's burst %d", n, lim.burst)
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	}
 	// Check if ctx is already cancelled
 	select {

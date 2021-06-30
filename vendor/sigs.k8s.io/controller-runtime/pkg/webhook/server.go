@@ -109,6 +109,7 @@ func (s *Server) setDefaults() {
 >>>>>>> 79bfea2d (update vendor)
 	}
 
+<<<<<<< HEAD
 	if len(s.KeyName) == 0 {
 		s.KeyName = "tls.key"
 	}
@@ -118,6 +119,15 @@ func (s *Server) setDefaults() {
 // the webhook server doesn't need leader election.
 func (*Server) NeedLeaderElection() bool {
 	return false
+=======
+	if len(s.CertName) == 0 {
+		s.CertName = "tls.crt"
+	}
+
+	if len(s.KeyName) == 0 {
+		s.KeyName = "tls.key"
+	}
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 // NeedLeaderElection implements the LeaderElectionRunnable interface, which indicates

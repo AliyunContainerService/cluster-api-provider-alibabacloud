@@ -450,9 +450,6 @@ func (p *parser) resetInsertionMode() {
 		case a.Select:
 			if !last {
 				for ancestor, first := n, p.oe[0]; ancestor != first; {
-					if ancestor == first {
-						break
-					}
 					ancestor = p.oe[p.oe.index(ancestor)-1]
 					switch ancestor.DataAtom {
 					case a.Template:
@@ -1784,15 +1781,21 @@ func inSelectIM(p *parser) bool {
 			p.addElement()
 		case a.Select:
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 			if !p.popUntil(selectScope, a.Select) {
 				// Ignore the token.
 				return true
 			}
 			p.resetInsertionMode()
+<<<<<<< HEAD
 =======
 			p.tok.Type = EndTagToken
 			return false
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 		case a.Input, a.Keygen, a.Textarea:
 			if p.elementInScope(selectScope, a.Select) {
 				p.parseImpliedToken(EndTagToken, a.Select, a.Select.String())
@@ -1828,6 +1831,7 @@ func inSelectIM(p *parser) bool {
 			}
 		case a.Select:
 <<<<<<< HEAD
+<<<<<<< HEAD
 			if !p.popUntil(selectScope, a.Select) {
 				// Ignore the token.
 				return true
@@ -1835,6 +1839,11 @@ func inSelectIM(p *parser) bool {
 			if p.popUntil(selectScope, a.Select) {
 				p.resetInsertionMode()
 >>>>>>> 79bfea2d (update vendor)
+=======
+			if !p.popUntil(selectScope, a.Select) {
+				// Ignore the token.
+				return true
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 			}
 			p.resetInsertionMode()
 		case a.Template:
@@ -1861,13 +1870,22 @@ func inSelectInTableIM(p *parser) bool {
 	case StartTagToken, EndTagToken:
 		switch p.tok.DataAtom {
 		case a.Caption, a.Table, a.Tbody, a.Tfoot, a.Thead, a.Tr, a.Td, a.Th:
-			if p.tok.Type == StartTagToken || p.elementInScope(tableScope, p.tok.DataAtom) {
-				p.parseImpliedToken(EndTagToken, a.Select, a.Select.String())
-				return false
-			} else {
+			if p.tok.Type == EndTagToken && !p.elementInScope(tableScope, p.tok.DataAtom) {
 				// Ignore the token.
 				return true
 			}
+			// This is like p.popUntil(selectScope, a.Select), but it also
+			// matches <math select>, not just <select>. Matching the MathML
+			// tag is arguably incorrect (conceptually), but it mimics what
+			// Chromium does.
+			for i := len(p.oe) - 1; i >= 0; i-- {
+				if n := p.oe[i]; n.DataAtom == a.Select {
+					p.oe = p.oe[:i]
+					break
+				}
+			}
+			p.resetInsertionMode()
+			return false
 		}
 	}
 	return inSelectIM(p)

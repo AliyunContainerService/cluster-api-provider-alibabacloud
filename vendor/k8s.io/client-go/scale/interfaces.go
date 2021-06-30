@@ -18,6 +18,7 @@ package scale
 
 import (
 <<<<<<< HEAD
+<<<<<<< HEAD
 	"context"
 
 	autoscalingapi "k8s.io/api/autoscaling/v1"
@@ -31,14 +32,24 @@ type ScalesGetter interface {
 	// Scales produces a ScaleInterface for a particular namespace.
 	// Set namespace to the empty string for non-namespaced resources.
 =======
+=======
+	"context"
+
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	autoscalingapi "k8s.io/api/autoscaling/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/apimachinery/pkg/types"
 )
 
 // ScalesGetter can produce a ScaleInterface
-// for a particular namespace.
 type ScalesGetter interface {
+<<<<<<< HEAD
 >>>>>>> 79bfea2d (update vendor)
+=======
+	// Scales produces a ScaleInterface for a particular namespace.
+	// Set namespace to the empty string for non-namespaced resources.
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	Scales(namespace string) ScaleInterface
 }
 
@@ -47,6 +58,7 @@ type ScalesGetter interface {
 // the scale subresource.
 type ScaleInterface interface {
 	// Get fetches the scale of the given scalable resource.
+<<<<<<< HEAD
 <<<<<<< HEAD
 	Get(ctx context.Context, resource schema.GroupResource, name string, opts metav1.GetOptions) (*autoscalingapi.Scale, error)
 
@@ -61,4 +73,13 @@ type ScaleInterface interface {
 	// Update updates the scale of the given scalable resource.
 	Update(resource schema.GroupResource, scale *autoscalingapi.Scale) (*autoscalingapi.Scale, error)
 >>>>>>> 79bfea2d (update vendor)
+=======
+	Get(ctx context.Context, resource schema.GroupResource, name string, opts metav1.GetOptions) (*autoscalingapi.Scale, error)
+
+	// Update updates the scale of the given scalable resource.
+	Update(ctx context.Context, resource schema.GroupResource, scale *autoscalingapi.Scale, opts metav1.UpdateOptions) (*autoscalingapi.Scale, error)
+
+	// Patch patches the scale of the given scalable resource.
+	Patch(ctx context.Context, gvr schema.GroupVersionResource, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions) (*autoscalingapi.Scale, error)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }

@@ -120,6 +120,7 @@ type attrList struct {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 //sysnb	pipe(p *[2]int32) (err error)
 =======
 func getAttrList(path string, attrList attrList, attrBuf []byte, options uint) (attrs [][]byte, err error) {
@@ -179,6 +180,9 @@ func getAttrList(path string, attrList attrList, attrBuf []byte, options uint) (
 
 //sysnb pipe() (r int, w int, err error)
 >>>>>>> 79bfea2d (update vendor)
+=======
+//sysnb	pipe(p *[2]int32) (err error)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 func Pipe(p []int) (err error) {
 	if len(p) != 2 {
@@ -198,12 +202,7 @@ func Getfsstat(buf []Statfs_t, flags int) (n int, err error) {
 		_p0 = unsafe.Pointer(&buf[0])
 		bufsize = unsafe.Sizeof(Statfs_t{}) * uintptr(len(buf))
 	}
-	r0, _, e1 := Syscall(SYS_GETFSSTAT64, uintptr(_p0), bufsize, uintptr(flags))
-	n = int(r0)
-	if e1 != 0 {
-		err = e1
-	}
-	return
+	return getfsstat(_p0, bufsize, flags)
 }
 
 func xattrPointer(dest []byte) *byte {
@@ -328,26 +327,24 @@ func setattrlistTimes(path string, times []Timespec, flags int) error {
 	if flags&AT_SYMLINK_NOFOLLOW != 0 {
 		options |= FSOPT_NOFOLLOW
 	}
-	_, _, e1 := Syscall6(
-		SYS_SETATTRLIST,
-		uintptr(unsafe.Pointer(_p0)),
-		uintptr(unsafe.Pointer(&attrList)),
-		uintptr(unsafe.Pointer(&attributes)),
-		uintptr(unsafe.Sizeof(attributes)),
-		uintptr(options),
-		0,
-	)
-	if e1 != 0 {
-		return e1
-	}
-	return nil
+	return setattrlist(
+		_p0,
+		unsafe.Pointer(&attrList),
+		unsafe.Pointer(&attributes),
+		unsafe.Sizeof(attributes),
+		options)
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 //sys	setattrlist(path *byte, list unsafe.Pointer, buf unsafe.Pointer, size uintptr, options int) (err error)
 
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+//sys	setattrlist(path *byte, list unsafe.Pointer, buf unsafe.Pointer, size uintptr, options int) (err error)
+
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 func utimensat(dirfd int, path string, times *[2]Timespec, flags int) error {
 	// Darwin doesn't support SYS_UTIMENSAT
 	return ENOSYS
@@ -443,6 +440,9 @@ func Uname(uname *Utsname) error {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 func Sendfile(outfd int, infd int, offset *int64, count int) (written int, err error) {
 	if raceenabled {
 		raceReleaseMerge(unsafe.Pointer(&ioSync))
@@ -475,8 +475,11 @@ func GetsockoptXucred(fd, level, opt int) (*Xucred, error) {
 
 //sys	sendfile(infd int, outfd int, offset int64, len *int64, hdtr unsafe.Pointer, flags int) (err error)
 
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 /*
  * Exposed directly
  */
@@ -487,6 +490,7 @@ func GetsockoptXucred(fd, level, opt int) (*Xucred, error) {
 //sys	Chmod(path string, mode uint32) (err error)
 //sys	Chown(path string, uid int, gid int) (err error)
 //sys	Chroot(path string) (err error)
+//sys	ClockGettime(clockid int32, time *Timespec) (err error)
 //sys	Close(fd int) (err error)
 //sys	Clonefile(src string, dst string, flags int) (err error)
 //sys	Clonefileat(srcDirfd int, src string, dstDirfd int, dst string, flags int) (err error)
@@ -504,16 +508,17 @@ func GetsockoptXucred(fd, level, opt int) (*Xucred, error) {
 //sys	Fclonefileat(srcDirfd int, dstDirfd int, dst string, flags int) (err error)
 //sys	Flock(fd int, how int) (err error)
 //sys	Fpathconf(fd int, name int) (val int, err error)
-//sys	Fstat(fd int, stat *Stat_t) (err error) = SYS_FSTAT64
-//sys	Fstatat(fd int, path string, stat *Stat_t, flags int) (err error) = SYS_FSTATAT64
-//sys	Fstatfs(fd int, stat *Statfs_t) (err error) = SYS_FSTATFS64
 //sys	Fsync(fd int) (err error)
 //sys	Ftruncate(fd int, length int64) (err error)
+<<<<<<< HEAD
 <<<<<<< HEAD
 //sys	Getcwd(buf []byte) (n int, err error)
 =======
 //sys	Getdirentries(fd int, buf []byte, basep *uintptr) (n int, err error) = SYS_GETDIRENTRIES64
 >>>>>>> 79bfea2d (update vendor)
+=======
+//sys	Getcwd(buf []byte) (n int, err error)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 //sys	Getdtablesize() (size int)
 //sysnb	Getegid() (egid int)
 //sysnb	Geteuid() (uid int)
@@ -534,7 +539,6 @@ func GetsockoptXucred(fd, level, opt int) (*Xucred, error) {
 //sys	Link(path string, link string) (err error)
 //sys	Linkat(pathfd int, path string, linkfd int, link string, flags int) (err error)
 //sys	Listen(s int, backlog int) (err error)
-//sys	Lstat(path string, stat *Stat_t) (err error) = SYS_LSTAT64
 //sys	Mkdir(path string, mode uint32) (err error)
 //sys	Mkdirat(dirfd int, path string, mode uint32) (err error)
 //sys	Mkfifo(path string, mode uint32) (err error)
@@ -566,8 +570,6 @@ func GetsockoptXucred(fd, level, opt int) (*Xucred, error) {
 //sysnb	Setsid() (pid int, err error)
 //sysnb	Settimeofday(tp *Timeval) (err error)
 //sysnb	Setuid(uid int) (err error)
-//sys	Stat(path string, stat *Stat_t) (err error) = SYS_STAT64
-//sys	Statfs(path string, stat *Statfs_t) (err error) = SYS_STATFS64
 //sys	Symlink(path string, link string) (err error)
 //sys	Symlinkat(oldpath string, newdirfd int, newpath string) (err error)
 //sys	Sync() (err error)

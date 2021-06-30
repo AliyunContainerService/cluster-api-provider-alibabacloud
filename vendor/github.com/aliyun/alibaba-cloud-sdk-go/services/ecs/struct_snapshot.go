@@ -18,6 +18,9 @@ package ecs
 // Snapshot is a nested struct in ecs response
 type Snapshot struct {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	Category                   string                  `json:"Category" xml:"Category"`
 	Usage                      string                  `json:"Usage" xml:"Usage"`
 	SourceDiskSize             string                  `json:"SourceDiskSize" xml:"SourceDiskSize"`
@@ -42,6 +45,7 @@ type Snapshot struct {
 	SourceDiskType             string                  `json:"SourceDiskType" xml:"SourceDiskType"`
 	SnapshotName               string                  `json:"SnapshotName" xml:"SnapshotName"`
 	Tags                       TagsInDescribeSnapshots `json:"Tags" xml:"Tags"`
+<<<<<<< HEAD
 =======
 	SnapshotId        string                  `json:"SnapshotId" xml:"SnapshotId"`
 	SnapshotName      string                  `json:"SnapshotName" xml:"SnapshotName"`
@@ -62,4 +66,6 @@ type Snapshot struct {
 	KMSKeyId          string                  `json:"KMSKeyId" xml:"KMSKeyId"`
 	Tags              TagsInDescribeSnapshots `json:"Tags" xml:"Tags"`
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }

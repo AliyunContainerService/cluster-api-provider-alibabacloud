@@ -9,6 +9,7 @@ import metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 // Project holds cluster-wide information about Project.  The canonical name is `cluster`
 type Project struct {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
@@ -21,6 +22,13 @@ type Project struct {
 
 	// spec holds user settable values for configuration
 >>>>>>> 79bfea2d (update vendor)
+=======
+	metav1.TypeMeta   `json:",inline"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+
+	// spec holds user settable values for configuration
+	// +kubebuilder:validation:Required
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// +required
 	Spec ProjectSpec `json:"spec"`
 	// status holds observed values from the cluster. They may not be overridden.
@@ -39,9 +47,13 @@ type TemplateReference struct {
 type ProjectSpec struct {
 	// projectRequestMessage is the string presented to a user if they are unable to request a project via the projectrequest api endpoint
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// +optional
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+	// +optional
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	ProjectRequestMessage string `json:"projectRequestMessage"`
 
 	// projectRequestTemplate is the template to use for creating projects in response to projectrequest.
@@ -60,6 +72,7 @@ type ProjectStatus struct {
 type ProjectList struct {
 	metav1.TypeMeta `json:",inline"`
 <<<<<<< HEAD
+<<<<<<< HEAD
 	metav1.ListMeta `json:"metadata"`
 
 	Items []Project `json:"items"`
@@ -68,4 +81,9 @@ type ProjectList struct {
 	metav1.ListMeta `json:"metadata"`
 	Items           []Project `json:"items"`
 >>>>>>> 79bfea2d (update vendor)
+=======
+	metav1.ListMeta `json:"metadata"`
+
+	Items []Project `json:"items"`
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }

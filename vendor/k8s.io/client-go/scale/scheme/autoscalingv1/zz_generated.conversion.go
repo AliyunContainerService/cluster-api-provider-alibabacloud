@@ -55,6 +55,7 @@ func RegisterConversions(s *runtime.Scheme) error {
 		return err
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	if err := s.AddGeneratedConversionFunc((*v1.ScaleStatus)(nil), (*scheme.ScaleStatus)(nil), func(a, b interface{}, scope conversion.Scope) error {
 		return Convert_v1_ScaleStatus_To_scheme_ScaleStatus(a.(*v1.ScaleStatus), b.(*scheme.ScaleStatus), scope)
@@ -67,6 +68,8 @@ func RegisterConversions(s *runtime.Scheme) error {
 		return err
 	}
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	if err := s.AddConversionFunc((*scheme.ScaleStatus)(nil), (*v1.ScaleStatus)(nil), func(a, b interface{}, scope conversion.Scope) error {
 		return Convert_scheme_ScaleStatus_To_v1_ScaleStatus(a.(*scheme.ScaleStatus), b.(*v1.ScaleStatus), scope)
 	}); err != nil {

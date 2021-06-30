@@ -6,6 +6,7 @@
 Package packages loads Go packages for inspection and analysis.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 Note: Though this package is ready for widespread use, we may make minor
 breaking changes if absolutely necessary. Any such change will be
@@ -13,6 +14,8 @@ announced on golang-tools@ at least one week before it is committed. No
 more breaking changes will be made after December 1, 2018.
 
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 The Load function takes as input a list of patterns and return a list of Package
 structs describing individual packages matched by those patterns.
 The LoadMode controls the amount of detail in the loaded packages.
@@ -22,6 +25,7 @@ but all patterns with the prefix "query=", where query is a
 non-empty string of letters from [a-z], are reserved and may be
 interpreted as query operators.
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 Two query operators are currently supported: "file" and "pattern".
 
@@ -35,12 +39,20 @@ The query "file=path/to/file.go" matches the package or packages enclosing
 the Go source file path/to/file.go.  For example "file=~/go/src/fmt/print.go"
 might returns the packages "fmt" and "fmt [fmt.test]".
 >>>>>>> 79bfea2d (update vendor)
+=======
+Two query operators are currently supported: "file" and "pattern".
+
+The query "file=path/to/file.go" matches the package or packages enclosing
+the Go source file path/to/file.go.  For example "file=~/go/src/fmt/print.go"
+might return the packages "fmt" and "fmt [fmt.test]".
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 The query "pattern=string" causes "string" to be passed directly to
 the underlying build tool. In most cases this is unnecessary,
 but an application can use Load("pattern=" + x) as an escaping mechanism
 to ensure that x is not interpreted as a query operator if it contains '='.
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 A third query "name=identifier" will be added soon.
@@ -49,6 +61,8 @@ For example, "name=rand" would match the packages "math/rand" and "crypto/rand",
 and "name=main" would match all executables.
 
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 All other query operators are reserved for future use and currently
 cause Load to report an error.
 
@@ -85,11 +99,15 @@ See the documentation for type Config for details.
 
 As noted earlier, the Config.Mode controls the amount of detail
 <<<<<<< HEAD
+<<<<<<< HEAD
 reported about the loaded packages. See the documentation for type LoadMode
 =======
 reported about the loaded packages, with each mode returning all the data of the
 previous mode with some extra added. See the documentation for type LoadMode
 >>>>>>> 79bfea2d (update vendor)
+=======
+reported about the loaded packages. See the documentation for type LoadMode
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 for details.
 
 Most tools should pass their command-line arguments (after any flags)
@@ -199,6 +217,9 @@ but seeks it among the dependencies of the user-specified packages,
 and emits an error if it is not found.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 Overlays: The Overlay field in the Config allows providing alternate contents
 for Go source files, by providing a mapping from file path to contents.
 go/packages will pull in new imports added in overlay files when go/packages
@@ -206,6 +227,7 @@ is run in LoadImports mode or greater.
 Overlay support for the go list driver isn't complete yet: if the file doesn't
 exist on disk, it will only be recognized in an overlay if it is a non-test file
 and the package would be reported even without the overlay.
+<<<<<<< HEAD
 =======
 Overlays: the ParseFile hook in the API permits clients to vary the way
 in which ASTs are obtained from filenames; the default implementation is
@@ -224,6 +246,8 @@ application, but not by the metadata query, so, for example:
   command, it will not reflect the fake file contents.
 - this mechanism cannot add files to a package without first saving them.
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 Questions & Tasks
 

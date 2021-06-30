@@ -3,11 +3,16 @@
 // license that can be found in the LICENSE file.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 //go:build dragonfly || freebsd || linux || netbsd || openbsd
 // +build dragonfly freebsd linux netbsd openbsd
 =======
 // +build darwin dragonfly freebsd linux netbsd openbsd
 >>>>>>> 79bfea2d (update vendor)
+=======
+//go:build dragonfly || freebsd || linux || netbsd || openbsd
+// +build dragonfly freebsd linux netbsd openbsd
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 package unix
 

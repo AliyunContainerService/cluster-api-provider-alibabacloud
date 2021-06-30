@@ -72,6 +72,9 @@ func (client *Client) CreateSnapshotWithCallback(request *CreateSnapshotRequest,
 type CreateSnapshotRequest struct {
 	*requests.RpcRequest
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	ResourceOwnerId            requests.Integer     `position:"Query" name:"ResourceOwnerId"`
 	ClientToken                string               `position:"Query" name:"ClientToken"`
 	InstantAccess              requests.Boolean     `position:"Query" name:"InstantAccess"`
@@ -86,6 +89,7 @@ type CreateSnapshotRequest struct {
 	OwnerId                    requests.Integer     `position:"Query" name:"OwnerId"`
 	RetentionDays              requests.Integer     `position:"Query" name:"RetentionDays"`
 	Category                   string               `position:"Query" name:"Category"`
+<<<<<<< HEAD
 =======
 	ResourceOwnerId      requests.Integer     `position:"Query" name:"ResourceOwnerId"`
 	ResourceOwnerAccount string               `position:"Query" name:"ResourceOwnerAccount"`
@@ -97,6 +101,8 @@ type CreateSnapshotRequest struct {
 	Tag                  *[]CreateSnapshotTag `position:"Query" name:"Tag"  type:"Repeated"`
 	OwnerId              requests.Integer     `position:"Query" name:"OwnerId"`
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 // CreateSnapshotTag is a repeated param struct in CreateSnapshotRequest

@@ -39,9 +39,13 @@ type WebhookBuilder struct {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // WebhookManagedBy allows inform its manager.Manager
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+// WebhookManagedBy allows inform its manager.Manager
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 func WebhookManagedBy(m manager.Manager) *WebhookBuilder {
 	return &WebhookBuilder{mgr: m}
 }

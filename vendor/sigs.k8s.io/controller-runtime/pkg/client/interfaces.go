@@ -56,15 +56,20 @@ type Reader interface {
 	// successful call, Items field in the list will be populated with the
 	// result returned from the server.
 <<<<<<< HEAD
+<<<<<<< HEAD
 	List(ctx context.Context, list ObjectList, opts ...ListOption) error
 =======
 	List(ctx context.Context, list runtime.Object, opts ...ListOption) error
 >>>>>>> 79bfea2d (update vendor)
+=======
+	List(ctx context.Context, list ObjectList, opts ...ListOption) error
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 // Writer knows how to create, delete, and update Kubernetes objects.
 type Writer interface {
 	// Create saves the object obj in the Kubernetes cluster.
+<<<<<<< HEAD
 <<<<<<< HEAD
 	Create(ctx context.Context, obj Object, opts ...CreateOption) error
 
@@ -83,21 +88,28 @@ type Writer interface {
 	DeleteAllOf(ctx context.Context, obj Object, opts ...DeleteAllOfOption) error
 =======
 	Create(ctx context.Context, obj runtime.Object, opts ...CreateOption) error
+=======
+	Create(ctx context.Context, obj Object, opts ...CreateOption) error
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 	// Delete deletes the given obj from Kubernetes cluster.
-	Delete(ctx context.Context, obj runtime.Object, opts ...DeleteOption) error
+	Delete(ctx context.Context, obj Object, opts ...DeleteOption) error
 
 	// Update updates the given obj in the Kubernetes cluster. obj must be a
 	// struct pointer so that obj can be updated with the content returned by the Server.
-	Update(ctx context.Context, obj runtime.Object, opts ...UpdateOption) error
+	Update(ctx context.Context, obj Object, opts ...UpdateOption) error
 
 	// Patch patches the given obj in the Kubernetes cluster. obj must be a
 	// struct pointer so that obj can be updated with the content returned by the Server.
-	Patch(ctx context.Context, obj runtime.Object, patch Patch, opts ...PatchOption) error
+	Patch(ctx context.Context, obj Object, patch Patch, opts ...PatchOption) error
 
 	// DeleteAllOf deletes all objects of the given type matching the given options.
+<<<<<<< HEAD
 	DeleteAllOf(ctx context.Context, obj runtime.Object, opts ...DeleteAllOfOption) error
 >>>>>>> 79bfea2d (update vendor)
+=======
+	DeleteAllOf(ctx context.Context, obj Object, opts ...DeleteAllOfOption) error
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 // StatusClient knows how to create a client which can update status subresource
@@ -112,19 +124,27 @@ type StatusWriter interface {
 	// given obj. obj must be a struct pointer so that obj can be updated
 	// with the content returned by the Server.
 <<<<<<< HEAD
+<<<<<<< HEAD
 	Update(ctx context.Context, obj Object, opts ...UpdateOption) error
 =======
 	Update(ctx context.Context, obj runtime.Object, opts ...UpdateOption) error
 >>>>>>> 79bfea2d (update vendor)
+=======
+	Update(ctx context.Context, obj Object, opts ...UpdateOption) error
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 	// Patch patches the given object's subresource. obj must be a struct
 	// pointer so that obj can be updated with the content returned by the
 	// Server.
 <<<<<<< HEAD
+<<<<<<< HEAD
 	Patch(ctx context.Context, obj Object, patch Patch, opts ...PatchOption) error
 =======
 	Patch(ctx context.Context, obj runtime.Object, patch Patch, opts ...PatchOption) error
 >>>>>>> 79bfea2d (update vendor)
+=======
+	Patch(ctx context.Context, obj Object, patch Patch, opts ...PatchOption) error
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 // Client knows how to perform CRUD operations on Kubernetes objects.

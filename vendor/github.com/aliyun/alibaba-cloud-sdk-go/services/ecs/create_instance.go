@@ -72,6 +72,9 @@ func (client *Client) CreateInstanceWithCallback(request *CreateInstanceRequest,
 type CreateInstanceRequest struct {
 	*requests.RpcRequest
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	ResourceOwnerId                 requests.Integer          `position:"Query" name:"ResourceOwnerId"`
 	HpcClusterId                    string                    `position:"Query" name:"HpcClusterId"`
 	HttpPutResponseHopLimit         requests.Integer          `position:"Query" name:"HttpPutResponseHopLimit"`
@@ -139,6 +142,7 @@ type CreateInstanceRequest struct {
 	ImageFamily                     string                    `position:"Query" name:"ImageFamily"`
 	HttpTokens                      string                    `position:"Query" name:"HttpTokens"`
 	SystemDiskDescription           string                    `position:"Query" name:"SystemDisk.Description"`
+<<<<<<< HEAD
 =======
 	ResourceOwnerId               requests.Integer          `position:"Query" name:"ResourceOwnerId"`
 	HpcClusterId                  string                    `position:"Query" name:"HpcClusterId"`
@@ -196,6 +200,8 @@ type CreateInstanceRequest struct {
 	SystemDiskSize                requests.Integer          `position:"Query" name:"SystemDisk.Size"`
 	SystemDiskDescription         string                    `position:"Query" name:"SystemDisk.Description"`
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 // CreateInstanceTag is a repeated param struct in CreateInstanceRequest
@@ -218,10 +224,15 @@ type CreateInstanceDataDisk struct {
 	Size               string `name:"Size"`
 	Encrypted          string `name:"Encrypted"`
 <<<<<<< HEAD
+<<<<<<< HEAD
 	PerformanceLevel   string `name:"PerformanceLevel"`
 	EncryptAlgorithm   string `name:"EncryptAlgorithm"`
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+	PerformanceLevel   string `name:"PerformanceLevel"`
+	EncryptAlgorithm   string `name:"EncryptAlgorithm"`
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	Description        string `name:"Description"`
 	Category           string `name:"Category"`
 	KMSKeyId           string `name:"KMSKeyId"`

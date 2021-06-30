@@ -52,6 +52,7 @@ func tagResourceTags(clusterID, machineName string) *[]ecs.TagResourcesTag {
 		Value: clusterFilterValue,
 	})
 	tagsList = append(tagsList, ecs.TagResourcesTag{
+<<<<<<< HEAD
 		Key:   clusterFilterName,
 		Value: machineName,
 	})
@@ -59,6 +60,11 @@ func tagResourceTags(clusterID, machineName string) *[]ecs.TagResourcesTag {
 		Key:   clusterOwnedKey,
 		Value: clusterOwnedValue,
 	})
+=======
+		Key:   "Name",
+		Value: machineName,
+	})
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 	return &tagsList
 }

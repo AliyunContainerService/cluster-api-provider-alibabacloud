@@ -19,6 +19,7 @@ package machine
 import (
 	"context"
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	"fmt"
 	"time"
@@ -39,6 +40,8 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 >>>>>>> 8dbd34ff (update project name)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 	alibabacloudClient "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client"
 
@@ -65,7 +68,11 @@ type Actuator struct {
 	client        controllerclient.Client
 	eventRecorder record.EventRecorder
 
+<<<<<<< HEAD
 	alibabacloudClientBuilder alibabacloudClient.AlibabaCloudClientBuilderFunc
+=======
+	alibabacloudClientBuilder alibabacloudClient.AlibabaCloudClientBuilderFuncType
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	configManagedClient       controllerclient.Client
 
 	reconcilerBuilder func(scope *machineScope) *Reconciler
@@ -76,13 +83,20 @@ type ActuatorParams struct {
 	Client        controllerclient.Client
 	EventRecorder record.EventRecorder
 
+<<<<<<< HEAD
 	AlibabaCloudClientBuilder alibabacloudClient.AlibabaCloudClientBuilderFunc
+=======
+	AlibabaCloudClientBuilder alibabacloudClient.AlibabaCloudClientBuilderFuncType
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	ConfigManagedClient       controllerclient.Client
 
 	ReconcilerBuilder func(scope *machineScope) *Reconciler
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 // NewActuator returns an actuator.
 func NewActuator(params ActuatorParams) *Actuator {
 	return &Actuator{
@@ -91,6 +105,7 @@ func NewActuator(params ActuatorParams) *Actuator {
 		alibabacloudClientBuilder: params.AlibabaCloudClientBuilder,
 		configManagedClient:       params.ConfigManagedClient,
 		reconcilerBuilder:         params.ReconcilerBuilder,
+<<<<<<< HEAD
 =======
 // NewActuator returns a new AliCloud Actuator
 func NewActuator(params ActuatorParams) (*Actuator, error) {
@@ -101,6 +116,8 @@ func NewActuator(params ActuatorParams) (*Actuator, error) {
 		codec:                 params.Codec,
 		eventRecorder:         params.EventRecorder,
 >>>>>>> ebdd9bd0 (update test case)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	}
 }
 
@@ -118,6 +135,7 @@ func (a *Actuator) handleMachineError(machine *machinev1.Machine, err *machineap
 // Create creates a machine and is invoked by the machine controller.
 func (a *Actuator) Create(ctx context.Context, machine *machinev1.Machine) error {
 	klog.Infof("%s actuator creating machine to namespace %s", machine.Name, machine.Namespace)
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 	scope, err := newMachineScope(machineScopeParams{
@@ -204,10 +222,22 @@ func (a *Actuator) CreateMachine(cluster *clusterv1.Cluster, machine *machinev1.
 	}
 	alicloudClient, err := a.aliCloudClientBuilder(a.client, credentialsSecretName, machine.Namespace, machineProviderConfig.RegionId)
 >>>>>>> ebdd9bd0 (update test case)
+=======
+
+	scope, err := newMachineScope(machineScopeParams{
+		Context:                   ctx,
+		client:                    a.client,
+		machine:                   machine,
+		alibabacloudClientBuilder: a.alibabacloudClientBuilder,
+		configManagedClient:       a.configManagedClient,
+	})
+
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	if err != nil {
 		return a.handleMachineError(machine, machineapierrors.InvalidMachineConfiguration("failed to create machine %q scope: %v", machine.Name, err), createEventAction)
 	}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	if err = a.reconcilerBuilder(scope).Create(context.Background()); err != nil {
 		if err := scope.patchMachine(); err != nil {
@@ -225,6 +255,11 @@ func (a *Actuator) CreateMachine(cluster *clusterv1.Cluster, machine *machinev1.
 		} else {
 			glog.Warningf("%s: Secret %v/%v does not have %q field set. Thus, no user data applied when creating an instance.", machine.Name, machine.Namespace, machineProviderConfig.UserDataSecret.Name, userDataSecretKey)
 >>>>>>> ebdd9bd0 (update test case)
+=======
+	if err = a.reconcilerBuilder(scope).Create(context.Background()); err != nil {
+		if err := scope.patchMachine(); err != nil {
+			return err
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 		}
 		return a.handleMachineError(machine, machineapierrors.InvalidMachineConfiguration("failed to reconcile machine %q: %v", machine.Name, err), createEventAction)
 	}
@@ -235,6 +270,7 @@ func (a *Actuator) CreateMachine(cluster *clusterv1.Cluster, machine *machinev1.
 // Update attempts to sync machine state with an existing instance.
 func (a *Actuator) Update(ctx context.Context, machine *machinev1.Machine) error {
 	klog.Infof("%s actuator updating machine to namespace %s", machine.Name, machine.Namespace)
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 	scope, err := newMachineScope(machineScopeParams{
@@ -247,20 +283,18 @@ func (a *Actuator) Update(ctx context.Context, machine *machinev1.Machine) error
 
 =======
 	glog.Infof("%s: updating machine conditions", machine.Name)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
-	aliCloudStatus := &providerconfigv1.AlibabaCloudMachineProviderStatus{}
-	if err := a.codec.DecodeProviderStatus(machine.Status.ProviderStatus, aliCloudStatus); err != nil {
-		glog.Errorf("%s: error decoding machine provider status: %v", machine.Name, err)
-		return err
-	}
-
-	aliCloudStatus.Conditions = setAliCloudMachineProviderCondition(aliCloudStatus.Conditions, providerconfigv1.AlibabaCloudMachineProviderCondition{
-		Type:    conditionType,
-		Status:  corev1.ConditionTrue,
-		Reason:  reason,
-		Message: msg,
+	scope, err := newMachineScope(machineScopeParams{
+		Context:                   ctx,
+		client:                    a.client,
+		machine:                   machine,
+		alibabacloudClientBuilder: a.alibabacloudClientBuilder,
+		configManagedClient:       a.configManagedClient,
 	})
 
+<<<<<<< HEAD
 	if err := a.updateMachineStatus(machine, aliCloudStatus, nil); err != nil {
 		return err
 	}
@@ -300,6 +334,14 @@ func (a *Actuator) updateMachineStatus(machine *machinev1.Machine, aliCloudStatu
 		if err := a.client.Status().Update(context.Background(), machineCopy); err != nil {
 			glog.Errorf("%s: error updating machine status: %v", machine.Name, err)
 >>>>>>> 5a63acd2 (update test case)
+=======
+	if err != nil {
+		return a.handleMachineError(machine, machineapierrors.InvalidMachineConfiguration("failed to create machine %q scope: %v", machine.Name, err), updateEventAction)
+	}
+
+	if err = a.reconcilerBuilder(scope).Update(context.Background()); err != nil {
+		if err := scope.patchMachine(); err != nil {
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 			return err
 		}
 		return a.handleMachineError(machine, machineapierrors.InvalidMachineConfiguration("failed to reconcile machine %q: %v", machine.Name, err), updateEventAction)
@@ -310,6 +352,7 @@ func (a *Actuator) updateMachineStatus(machine *machinev1.Machine, aliCloudStatu
 	if err := scope.patchMachine(); err != nil {
 		return err
 	}
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 	return nil
@@ -334,6 +377,8 @@ func (a *Actuator) DeleteMachine(cluster *clusterv1.Cluster, machine *machinev1.
 		return errMsg
 	}
 >>>>>>> ebdd9bd0 (update test case)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 	currentResourceVersion := scope.machine.ResourceVersion
 
@@ -358,6 +403,7 @@ func (a *Actuator) Delete(ctx context.Context, machine *machinev1.Machine) error
 	})
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	region := machineProviderConfig.RegionId
 	glog.Infof("%s: obtaining ECS client for region", machine.Name)
@@ -367,6 +413,8 @@ func (a *Actuator) Delete(ctx context.Context, machine *machinev1.Machine) error
 	}
 	aliCloudClient, err := a.aliCloudClientBuilder(a.client, credentialsSecretName, machine.Namespace, region)
 >>>>>>> ebdd9bd0 (update test case)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	if err != nil {
 		return a.handleMachineError(machine, machineapierrors.DeleteMachine("failed to create machine %q scope: %v", machine.Name, err), deleteEventAction)
 	}
@@ -400,6 +448,7 @@ func (a *Actuator) Exists(ctx context.Context, machine *machinev1.Machine) (bool
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	isExists, err := a.reconcilerBuilder(scope).Exists(context.Background())
 =======
 	region := machineProviderConfig.RegionId
@@ -409,6 +458,9 @@ func (a *Actuator) Exists(ctx context.Context, machine *machinev1.Machine) (bool
 	}
 	aliCloudClient, err := a.aliCloudClientBuilder(a.client, credentialsSecretName, machine.Namespace, region)
 >>>>>>> ebdd9bd0 (update test case)
+=======
+	isExists, err := a.reconcilerBuilder(scope).Exists(context.Background())
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	if err != nil {
 		klog.Errorf("failed to check machine %s exists: %v", machine.Name, err)
 	}

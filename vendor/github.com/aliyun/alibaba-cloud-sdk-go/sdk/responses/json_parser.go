@@ -7,7 +7,6 @@ import (
 	"reflect"
 	"strconv"
 	"strings"
-	"sync"
 	"unsafe"
 
 	jsoniter "github.com/json-iterator/go"
@@ -19,9 +18,11 @@ const maxInt = int(maxUint >> 1)
 const minInt = -maxInt - 1
 
 var jsonParser jsoniter.API
-var initJson = &sync.Once{}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 func init() {
 	jsonParser = jsoniter.Config{
 		EscapeHTML:             true,
@@ -31,6 +32,7 @@ func init() {
 	}.Froze()
 
 	jsonParser.RegisterExtension(newBetterFuzzyExtension())
+<<<<<<< HEAD
 =======
 func initJsonParserOnce() {
 	initJson.Do(func() {
@@ -43,6 +45,8 @@ func initJsonParserOnce() {
 		}.Froze()
 	})
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 func newBetterFuzzyExtension() jsoniter.DecoderExtension {

@@ -3,9 +3,13 @@
 // license that can be found in the LICENSE file.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 //go:build (linux || darwin) && !appengine
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+//go:build (linux || darwin) && !appengine
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 // +build linux darwin
 // +build !appengine
 

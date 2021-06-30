@@ -495,6 +495,9 @@ func convertFromDirents11(buf []byte, old []byte) int {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 func Sendfile(outfd int, infd int, offset *int64, count int) (written int, err error) {
 	if raceenabled {
 		raceReleaseMerge(unsafe.Pointer(&ioSync))
@@ -556,8 +559,11 @@ func PtraceSingleStep(pid int) (err error) {
 	return ptrace(PTRACE_SINGLESTEP, pid, 1, 0)
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 /*
  * Exposed directly
  */

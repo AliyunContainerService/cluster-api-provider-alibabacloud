@@ -21,6 +21,7 @@ package main
 import (
 	"bytes"
 <<<<<<< HEAD
+<<<<<<< HEAD
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -31,15 +32,21 @@ import (
 	"os"
 	"os/exec"
 =======
+=======
+	"encoding/json"
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	"flag"
 	"fmt"
-	"go/build"
-	"go/format"
 	"go/token"
 	"io"
+	"io/ioutil"
 	"log"
 	"os"
+<<<<<<< HEAD
 >>>>>>> 79bfea2d (update vendor)
+=======
+	"os/exec"
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	"path"
 	"path/filepath"
 	"sort"
@@ -49,11 +56,17 @@ import (
 
 	"github.com/golang/mock/mockgen/model"
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	"golang.org/x/mod/modfile"
 	toolsimports "golang.org/x/tools/imports"
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+
+	"golang.org/x/mod/modfile"
+	toolsimports "golang.org/x/tools/imports"
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 )
 
 const (
@@ -62,20 +75,27 @@ const (
 
 var (
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	version = ""
 	commit  = "none"
 	date    = "unknown"
 )
 
 var (
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	source          = flag.String("source", "", "(source mode) Input Go source file; enables source mode.")
 	destination     = flag.String("destination", "", "Output file; defaults to stdout.")
 	mockNames       = flag.String("mock_names", "", "Comma-separated interfaceName=mockName pairs of explicit mock names to use. Mock names default to 'Mock'+ interfaceName suffix.")
 	packageOut      = flag.String("package", "", "Package of the generated code; defaults to the package of the input with a 'mock_' prefix.")
 	selfPackage     = flag.String("self_package", "", "The full package import path for the generated code. The purpose of this flag is to prevent import cycles in the generated code by trying to include its own package. This can happen if the mock's package is set to one of its inputs (usually the main one) and the output is stdio so mockgen cannot detect the final output package. Setting this flag will then tell mockgen which import to exclude.")
 	writePkgComment = flag.Bool("write_package_comment", true, "Writes package documentation comment (godoc) if true.")
+<<<<<<< HEAD
 <<<<<<< HEAD
 	copyrightFile   = flag.String("copyright_file", "", "Copyright file used to add copyright header")
 
@@ -85,6 +105,12 @@ var (
 
 	debugParser = flag.Bool("debug_parser", false, "Print out parser results only.")
 >>>>>>> 79bfea2d (update vendor)
+=======
+	copyrightFile   = flag.String("copyright_file", "", "Copyright file used to add copyright header")
+
+	debugParser = flag.Bool("debug_parser", false, "Print out parser results only.")
+	showVersion = flag.Bool("version", false, "Print version.")
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 )
 
 func main() {
@@ -92,28 +118,42 @@ func main() {
 	flag.Parse()
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	if *showVersion {
 		printVersion()
 		return
 	}
 
+<<<<<<< HEAD
 	var pkg *model.Package
 	var err error
 	var packageName string
 	if *source != "" {
 		pkg, err = sourceMode(*source)
 =======
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	var pkg *model.Package
 	var err error
+	var packageName string
 	if *source != "" {
+<<<<<<< HEAD
 		pkg, err = ParseFile(*source)
 >>>>>>> 79bfea2d (update vendor)
+=======
+		pkg, err = sourceMode(*source)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	} else {
 		if flag.NArg() != 2 {
 			usage()
 			log.Fatal("Expected exactly two arguments")
 		}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 		packageName = flag.Arg(0)
 		interfaces := strings.Split(flag.Arg(1), ",")
 		if packageName == "." {
@@ -127,9 +167,12 @@ func main() {
 			}
 		}
 		pkg, err = reflectMode(packageName, interfaces)
+<<<<<<< HEAD
 =======
 		pkg, err = Reflect(flag.Arg(0), strings.Split(flag.Arg(1), ","))
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	}
 	if err != nil {
 		log.Fatalf("Loading input failed: %v", err)
@@ -143,11 +186,17 @@ func main() {
 	dst := os.Stdout
 	if len(*destination) > 0 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if err := os.MkdirAll(filepath.Dir(*destination), os.ModePerm); err != nil {
 			log.Fatalf("Unable to create directory: %v", err)
 		}
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+		if err := os.MkdirAll(filepath.Dir(*destination), os.ModePerm); err != nil {
+			log.Fatalf("Unable to create directory: %v", err)
+		}
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 		f, err := os.Create(*destination)
 		if err != nil {
 			log.Fatalf("Failed opening destination file: %v", err)
@@ -156,6 +205,7 @@ func main() {
 		dst = f
 	}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	outputPackageName := *packageOut
 	if outputPackageName == "" {
@@ -169,6 +219,13 @@ func main() {
 		// which might have characters that are illegal to have in package names.
 		packageName = "mock_" + sanitize(pkg.Name)
 >>>>>>> 79bfea2d (update vendor)
+=======
+	outputPackageName := *packageOut
+	if outputPackageName == "" {
+		// pkg.Name in reflect mode is the base name of the import path,
+		// which might have characters that are illegal to have in package names.
+		outputPackageName = "mock_" + sanitize(pkg.Name)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	}
 
 	// outputPackagePath represents the fully qualified name of the package of
@@ -179,6 +236,9 @@ func main() {
 	// is output into an already existing package.
 	outputPackagePath := *selfPackage
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	if outputPackagePath == "" && *destination != "" {
 		dstPath, err := filepath.Abs(filepath.Dir(*destination))
 		if err == nil {
@@ -187,6 +247,7 @@ func main() {
 				outputPackagePath = pkgPath
 			} else {
 				log.Println("Unable to infer -self_package from destination file path:", err)
+<<<<<<< HEAD
 			}
 		} else {
 			log.Println("Unable to determine destination file path:", err)
@@ -201,6 +262,11 @@ func main() {
 				}
 			}
 >>>>>>> 79bfea2d (update vendor)
+=======
+			}
+		} else {
+			log.Println("Unable to determine destination file path:", err)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 		}
 	}
 
@@ -208,6 +274,7 @@ func main() {
 	if *source != "" {
 		g.filename = *source
 	} else {
+<<<<<<< HEAD
 <<<<<<< HEAD
 		g.srcPackage = packageName
 		g.srcInterfaces = flag.Arg(1)
@@ -218,11 +285,20 @@ func main() {
 		g.srcInterfaces = flag.Arg(1)
 	}
 >>>>>>> 79bfea2d (update vendor)
+=======
+		g.srcPackage = packageName
+		g.srcInterfaces = flag.Arg(1)
+	}
+	g.destination = *destination
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 	if *mockNames != "" {
 		g.mockNames = parseMockNames(*mockNames)
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	if *copyrightFile != "" {
 		header, err := ioutil.ReadFile(*copyrightFile)
 		if err != nil {
@@ -232,9 +308,12 @@ func main() {
 		g.copyrightHeader = string(header)
 	}
 	if err := g.Generate(pkg, outputPackageName, outputPackagePath); err != nil {
+<<<<<<< HEAD
 =======
 	if err := g.Generate(pkg, packageName, outputPackagePath); err != nil {
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 		log.Fatalf("Failed generating mock: %v", err)
 	}
 	if _, err := dst.Write(g.Output()); err != nil {
@@ -242,9 +321,13 @@ func main() {
 	}
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 func parseMockNames(names string) map[string]string {
 	mocksMap := make(map[string]string)
 	for _, kv := range strings.Split(names, ",") {
@@ -259,10 +342,14 @@ func parseMockNames(names string) map[string]string {
 
 func usage() {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	_, _ = io.WriteString(os.Stderr, usageText)
 =======
 	io.WriteString(os.Stderr, usageText)
 >>>>>>> 79bfea2d (update vendor)
+=======
+	_, _ = io.WriteString(os.Stderr, usageText)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	flag.PrintDefaults()
 }
 
@@ -287,6 +374,7 @@ type generator struct {
 	buf                       bytes.Buffer
 	indent                    string
 <<<<<<< HEAD
+<<<<<<< HEAD
 	mockNames                 map[string]string // may be empty
 	filename                  string            // may be empty
 	destination               string            // may be empty
@@ -294,9 +382,17 @@ type generator struct {
 	copyrightHeader           string
 =======
 	mockNames                 map[string]string //may be empty
+=======
+	mockNames                 map[string]string // may be empty
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	filename                  string            // may be empty
+	destination               string            // may be empty
 	srcPackage, srcInterfaces string            // may be empty
+<<<<<<< HEAD
 >>>>>>> 79bfea2d (update vendor)
+=======
+	copyrightHeader           string
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 	packageMap map[string]string // map from import path to package name
 }
@@ -316,6 +412,7 @@ func (g *generator) out() {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 func removeDot(s string) string {
 	if len(s) > 0 && s[len(s)-1] == '.' {
@@ -325,6 +422,8 @@ func removeDot(s string) string {
 }
 
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 // sanitize cleans up a string to make a suitable package name.
 func sanitize(s string) string {
 	t := ""
@@ -349,6 +448,9 @@ func sanitize(s string) string {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 func (g *generator) Generate(pkg *model.Package, outputPkgName string, outputPackagePath string) error {
 	if outputPkgName != pkg.Name && *selfPackage == "" {
 		// reset outputPackagePath if it's not passed in through -self_package
@@ -363,9 +465,12 @@ func (g *generator) Generate(pkg *model.Package, outputPkgName string, outputPac
 		g.p("")
 	}
 
+<<<<<<< HEAD
 =======
 func (g *generator) Generate(pkg *model.Package, pkgName string, outputPackagePath string) error {
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	g.p("// Code generated by MockGen. DO NOT EDIT.")
 	if g.filename != "" {
 		g.p("// Source: %v", g.filename)
@@ -389,6 +494,7 @@ func (g *generator) Generate(pkg *model.Package, pkgName string, outputPackagePa
 
 	// Sort keys to make import alias generation predictable
 <<<<<<< HEAD
+<<<<<<< HEAD
 	sortedPaths := make([]string, len(im))
 	x := 0
 	for pth := range im {
@@ -408,18 +514,31 @@ func (g *generator) Generate(pkg *model.Package, pkgName string, outputPackagePa
 		}
 =======
 	sorted_paths := make([]string, len(im), len(im))
+=======
+	sortedPaths := make([]string, len(im))
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	x := 0
 	for pth := range im {
-		sorted_paths[x] = pth
+		sortedPaths[x] = pth
 		x++
 	}
-	sort.Strings(sorted_paths)
+	sort.Strings(sortedPaths)
+
+	packagesName := createPackageMap(sortedPaths)
 
 	g.packageMap = make(map[string]string, len(im))
 	localNames := make(map[string]bool, len(im))
+<<<<<<< HEAD
 	for _, pth := range sorted_paths {
 		base := sanitize(path.Base(pth))
 >>>>>>> 79bfea2d (update vendor)
+=======
+	for _, pth := range sortedPaths {
+		base, ok := packagesName[pth]
+		if !ok {
+			base = sanitize(path.Base(pth))
+		}
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 		// Local names for an imported package can usually be the basename of the import path.
 		// A couple of situations don't permit that, such as duplicate local names
@@ -434,18 +553,25 @@ func (g *generator) Generate(pkg *model.Package, pkgName string, outputPackagePa
 		}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 		// Avoid importing package if source pkg == output pkg
 		if pth == pkg.PkgPath && outputPackagePath == pkg.PkgPath {
 			continue
 		}
 
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 		g.packageMap[pth] = pkgName
 		localNames[pkgName] = true
 	}
 
 	if *writePkgComment {
+<<<<<<< HEAD
 <<<<<<< HEAD
 		g.p("// Package %v is a generated GoMock package.", outputPkgName)
 	}
@@ -463,20 +589,28 @@ func (g *generator) Generate(pkg *model.Package, pkgName string, outputPackagePa
 		g.p(". %q", pkgPath)
 =======
 		g.p("// Package %v is a generated GoMock package.", pkgName)
+=======
+		g.p("// Package %v is a generated GoMock package.", outputPkgName)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	}
-	g.p("package %v", pkgName)
+	g.p("package %v", outputPkgName)
 	g.p("")
 	g.p("import (")
 	g.in()
-	for path, pkg := range g.packageMap {
-		if path == outputPackagePath {
+	for pkgPath, pkgName := range g.packageMap {
+		if pkgPath == outputPackagePath {
 			continue
 		}
-		g.p("%v %q", pkg, path)
+		g.p("%v %q", pkgName, pkgPath)
 	}
+<<<<<<< HEAD
 	for _, path := range pkg.DotImports {
 		g.p(". %q", path)
 >>>>>>> 79bfea2d (update vendor)
+=======
+	for _, pkgPath := range pkg.DotImports {
+		g.p(". %q", pkgPath)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	}
 	g.out()
 	g.p(")")
@@ -504,10 +638,14 @@ func (g *generator) GenerateMockInterface(intf *model.Interface, outputPackagePa
 
 	g.p("")
 <<<<<<< HEAD
+<<<<<<< HEAD
 	g.p("// %v is a mock of %v interface.", mockType, intf.Name)
 =======
 	g.p("// %v is a mock of %v interface", mockType, intf.Name)
 >>>>>>> 79bfea2d (update vendor)
+=======
+	g.p("// %v is a mock of %v interface.", mockType, intf.Name)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	g.p("type %v struct {", mockType)
 	g.in()
 	g.p("ctrl     *gomock.Controller")
@@ -517,10 +655,14 @@ func (g *generator) GenerateMockInterface(intf *model.Interface, outputPackagePa
 	g.p("")
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	g.p("// %vMockRecorder is the mock recorder for %v.", mockType, mockType)
 =======
 	g.p("// %vMockRecorder is the mock recorder for %v", mockType, mockType)
 >>>>>>> 79bfea2d (update vendor)
+=======
+	g.p("// %vMockRecorder is the mock recorder for %v.", mockType, mockType)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	g.p("type %vMockRecorder struct {", mockType)
 	g.in()
 	g.p("mock *%v", mockType)
@@ -528,6 +670,7 @@ func (g *generator) GenerateMockInterface(intf *model.Interface, outputPackagePa
 	g.p("}")
 	g.p("")
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	g.p("// New%v creates a new mock instance.", mockType)
 =======
@@ -538,6 +681,9 @@ func (g *generator) GenerateMockInterface(intf *model.Interface, outputPackagePa
 
 	g.p("// New%v creates a new mock instance", mockType)
 >>>>>>> 79bfea2d (update vendor)
+=======
+	g.p("// New%v creates a new mock instance.", mockType)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	g.p("func New%v(ctrl *gomock.Controller) *%v {", mockType, mockType)
 	g.in()
 	g.p("mock := &%v{ctrl: ctrl}", mockType)
@@ -549,10 +695,14 @@ func (g *generator) GenerateMockInterface(intf *model.Interface, outputPackagePa
 
 	// XXX: possible name collision here if someone has EXPECT in their interface.
 <<<<<<< HEAD
+<<<<<<< HEAD
 	g.p("// EXPECT returns an object that allows the caller to indicate expected use.")
 =======
 	g.p("// EXPECT returns an object that allows the caller to indicate expected use")
 >>>>>>> 79bfea2d (update vendor)
+=======
+	g.p("// EXPECT returns an object that allows the caller to indicate expected use.")
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	g.p("func (m *%v) EXPECT() *%vMockRecorder {", mockType, mockType)
 	g.in()
 	g.p("return m.recorder")
@@ -565,12 +715,16 @@ func (g *generator) GenerateMockInterface(intf *model.Interface, outputPackagePa
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 type byMethodName []*model.Method
 
 func (b byMethodName) Len() int           { return len(b) }
 func (b byMethodName) Swap(i, j int)      { b[i], b[j] = b[j], b[i] }
 func (b byMethodName) Less(i, j int) bool { return b[i].Name < b[j].Name }
 
+<<<<<<< HEAD
 func (g *generator) GenerateMockMethods(mockType string, intf *model.Interface, pkgOverride string) {
 	sort.Sort(byMethodName(intf.Methods))
 	for _, m := range intf.Methods {
@@ -579,13 +733,20 @@ func (g *generator) GenerateMockMethods(mockType string, intf *model.Interface, 
 		g.p("")
 		_ = g.GenerateMockRecorderMethod(mockType, m)
 =======
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 func (g *generator) GenerateMockMethods(mockType string, intf *model.Interface, pkgOverride string) {
+	sort.Sort(byMethodName(intf.Methods))
 	for _, m := range intf.Methods {
 		g.p("")
-		g.GenerateMockMethod(mockType, m, pkgOverride)
+		_ = g.GenerateMockMethod(mockType, m, pkgOverride)
 		g.p("")
+<<<<<<< HEAD
 		g.GenerateMockRecorderMethod(mockType, m)
 >>>>>>> 79bfea2d (update vendor)
+=======
+		_ = g.GenerateMockRecorderMethod(mockType, m)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	}
 }
 
@@ -625,6 +786,7 @@ func (g *generator) GenerateMockMethod(mockType string, m *model.Method, pkgOver
 	idRecv := ia.allocateIdentifier("m")
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	g.p("// %v mocks base method.", m.Name)
 	g.p("func (%v *%v) %v(%v)%v {", idRecv, mockType, m.Name, argString, retString)
 	g.in()
@@ -634,6 +796,12 @@ func (g *generator) GenerateMockMethod(mockType string, m *model.Method, pkgOver
 	g.p("func (%v *%v) %v(%v)%v {", idRecv, mockType, m.Name, argString, retString)
 	g.in()
 >>>>>>> 79bfea2d (update vendor)
+=======
+	g.p("// %v mocks base method.", m.Name)
+	g.p("func (%v *%v) %v(%v)%v {", idRecv, mockType, m.Name, argString, retString)
+	g.in()
+	g.p("%s.ctrl.T.Helper()", idRecv)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 	var callArgs string
 	if m.Variadic == nil {
@@ -699,6 +867,7 @@ func (g *generator) GenerateMockRecorderMethod(mockType string, m *model.Method)
 	idRecv := ia.allocateIdentifier("mr")
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	g.p("// %v indicates an expected call of %v.", m.Name, m.Name)
 	g.p("func (%s *%vMockRecorder) %v(%v) *gomock.Call {", idRecv, mockType, m.Name, argString)
 	g.in()
@@ -708,6 +877,12 @@ func (g *generator) GenerateMockRecorderMethod(mockType string, m *model.Method)
 	g.p("func (%s *%vMockRecorder) %v(%v) *gomock.Call {", idRecv, mockType, m.Name, argString)
 	g.in()
 >>>>>>> 79bfea2d (update vendor)
+=======
+	g.p("// %v indicates an expected call of %v.", m.Name, m.Name)
+	g.p("func (%s *%vMockRecorder) %v(%v) *gomock.Call {", idRecv, mockType, m.Name, argString)
+	g.in()
+	g.p("%s.mock.ctrl.T.Helper()", idRecv)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 	var callArgs string
 	if m.Variadic == nil {
@@ -740,10 +915,14 @@ func (g *generator) getArgNames(m *model.Method) []string {
 	for i, p := range m.In {
 		name := p.Name
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if name == "" || name == "_" {
 =======
 		if name == "" {
 >>>>>>> 79bfea2d (update vendor)
+=======
+		if name == "" || name == "_" {
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 			name = fmt.Sprintf("arg%d", i)
 		}
 		argNames[i] = name
@@ -793,16 +972,23 @@ func (o identifierAllocator) allocateIdentifier(want string) string {
 // Output returns the generator's output, formatted in the standard Go style.
 func (g *generator) Output() []byte {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	src, err := toolsimports.Process(g.destination, g.buf.Bytes(), nil)
 =======
 	src, err := format.Source(g.buf.Bytes())
 >>>>>>> 79bfea2d (update vendor)
+=======
+	src, err := toolsimports.Process(g.destination, g.buf.Bytes(), nil)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	if err != nil {
 		log.Fatalf("Failed to format generated source code: %s\n%s", err, g.buf.String())
 	}
 	return src
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 // createPackageMap returns a map of import path to package name
 // for specified importPaths.
@@ -878,5 +1064,8 @@ func parsePackageImport(srcDir string) (string, error) {
 	}
 	return "", errOutsideGoPath
 }
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)

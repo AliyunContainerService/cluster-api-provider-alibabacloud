@@ -101,6 +101,7 @@ func loadConfig(context string) (*rest.Config, error) {
 	// If a flag is specified with the config location, use that
 	if len(kubeconfig) > 0 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 		return loadConfigWithContext("", &clientcmd.ClientConfigLoadingRules{ExplicitPath: kubeconfig}, context)
 	}
 
@@ -125,6 +126,16 @@ func loadConfig(context string) (*rest.Config, error) {
 		if c, err := loadConfigWithContext(apiServerURL, filepath.Join(usr.HomeDir, ".kube", "config"),
 			context); err == nil {
 >>>>>>> 79bfea2d (update vendor)
+=======
+		return loadConfigWithContext("", &clientcmd.ClientConfigLoadingRules{ExplicitPath: kubeconfig}, context)
+	}
+
+	// If the recommended kubeconfig env variable is not specified,
+	// try the in-cluster config.
+	kubeconfigPath := os.Getenv(clientcmd.RecommendedConfigPathEnvVar)
+	if len(kubeconfigPath) == 0 {
+		if c, err := loadInClusterConfig(); err == nil {
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 			return c, nil
 		}
 	}
@@ -147,6 +158,7 @@ func loadConfig(context string) (*rest.Config, error) {
 	}
 
 	return loadConfigWithContext("", loadingRules, context)
+<<<<<<< HEAD
 }
 
 func loadConfigWithContext(apiServerURL string, loader clientcmd.ClientConfigLoader, context string) (*rest.Config, error) {
@@ -158,11 +170,13 @@ func loadConfigWithContext(apiServerURL string, loader clientcmd.ClientConfigLoa
 			},
 			CurrentContext: context,
 		}).ClientConfig()
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
-func loadConfigWithContext(apiServerURL, kubeconfig, context string) (*rest.Config, error) {
+func loadConfigWithContext(apiServerURL string, loader clientcmd.ClientConfigLoader, context string) (*rest.Config, error) {
 	return clientcmd.NewNonInteractiveDeferredLoadingClientConfig(
-		&clientcmd.ClientConfigLoadingRules{ExplicitPath: kubeconfig},
+		loader,
 		&clientcmd.ConfigOverrides{
 			ClusterInfo: clientcmdapi.Cluster{
 				Server: apiServerURL,

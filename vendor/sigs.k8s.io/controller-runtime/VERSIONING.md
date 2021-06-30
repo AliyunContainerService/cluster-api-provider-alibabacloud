@@ -1,6 +1,7 @@
 # Versioning and Branching in controller-runtime
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 We follow the [common KubeBuilder versioning guidelines][guidelines], and
 use the corresponding tooling.
 
@@ -31,32 +32,36 @@ Note the [guidelines on dependency versions][dep-versions].  Particularly:
 [dep-versions]: https://sigs.k8s.io/kubebuilder-release-tools/VERSIONING.md#kubernetes-version-compatibility
 =======
 *NB*: this also applies to controller-tools.
+=======
+We follow the [common KubeBuilder versioning guidelines][guidelines], and
+use the corresponding tooling.
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
-## TL;DR:
+For the purposes of the aforementioned guidelines, controller-runtime
+counts as a "library project", but otherwise follows the guidelines
+exactly.
 
-### Users
+[guidelines]: https://sigs.k8s.io/kubebuilder-release-tools/VERSIONING.md
 
-- We follow [Semantic Versioning (semver)](https://semver.org)
-- Use releases with your dependency management to ensure that you get
-  compatible code
-- The master branch contains all the latest code, some of which may break
-  compatibility (so "normal" `go get` is not recommended)
+## Compatiblity and Release Support
 
-### Contributors
+For release branches, we generally tend to support backporting one (1)
+major release (`release-{X-1}` or `release-0.{Y-1}`), but may go back
+further if the need arises and is very pressing (e.g. security updates).
 
-- All code PR must be labeled with :bug: (patch fixes), :sparkles:
-  (backwards-compatible features), or :warning: (breaking changes)
+### Dependency Support
 
-- Breaking changes will find their way into the next major release, other
-  changes will go into an semi-immediate patch or minor release
+Note the [guidelines on dependency versions][dep-versions].  Particularly:
 
-- Please *try* to avoid breaking changes when you can.  They make users
-  face difficult decisions ("when do I go through the pain of
-  upgrading?"), and make life hard for maintainers and contributors
-  (dealing with differences on stable branches).
+- We **DO** guarantee Kubernetes REST API compability -- if a given
+  version of controller-runtime stops working with what should be
+  a supported version of Kubernetes, this is almost certainly a bug.
 
-### Mantainers
+- We **DO NOT** guarantee any particular compability matrix between
+  kubernetes library dependencies (client-go, apimachinery, etc); Such
+  compability is infeasible due to the way those libraries are versioned.
 
+<<<<<<< HEAD
 Don't be lazy, read the rest of this doc :-)
 
 ## Overview
@@ -300,3 +305,6 @@ users can make informed decisions about how to proceed with any direct
 uses of Kubernetes dependencies their controller-runtime-based application
 may have.
 >>>>>>> 79bfea2d (update vendor)
+=======
+[dep-versions]: https://sigs.k8s.io/kubebuilder-release-tools/VERSIONING.md#kubernetes-version-compatibility
+>>>>>>> e879a141 (alibabacloud machine-api provider)

@@ -7,6 +7,7 @@ import metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Scheduler holds cluster-wide config information to run the Kubernetes Scheduler
 // and influence its placement decisions. The canonical name for this config is `cluster`.
 type Scheduler struct {
@@ -17,13 +18,20 @@ type Scheduler struct {
 	// +kubebuilder:validation:Required
 =======
 // Scheduler holds cluster-wide information about Scheduler.  The canonical name is `cluster`
+=======
+// Scheduler holds cluster-wide config information to run the Kubernetes Scheduler
+// and influence its placement decisions. The canonical name for this config is `cluster`.
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 type Scheduler struct {
-	metav1.TypeMeta `json:",inline"`
-	// Standard object's metadata.
+	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
 	// spec holds user settable values for configuration
+<<<<<<< HEAD
 >>>>>>> 79bfea2d (update vendor)
+=======
+	// +kubebuilder:validation:Required
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// +required
 	Spec SchedulerSpec `json:"spec"`
 	// status holds observed values from the cluster. They may not be overridden.
@@ -33,15 +41,22 @@ type Scheduler struct {
 
 type SchedulerSpec struct {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// DEPRECATED: the scheduler Policy API has been deprecated and will be removed in a future release.
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+	// DEPRECATED: the scheduler Policy API has been deprecated and will be removed in a future release.
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// policy is a reference to a ConfigMap containing scheduler policy which has
 	// user specified predicates and priorities. If this ConfigMap is not available
 	// scheduler will default to use DefaultAlgorithmProvider.
 	// The namespace for this configmap is openshift-config.
 	// +optional
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	Policy ConfigMapNameReference `json:"policy,omitempty"`
 	// profile sets which scheduling profile should be set in order to configure scheduling
 	// decisions for new pods.
@@ -50,6 +65,7 @@ type SchedulerSpec struct {
 	// Defaults to "LowNodeUtilization"
 	// +optional
 	Profile SchedulerProfile `json:"profile,omitempty"`
+<<<<<<< HEAD
 	// defaultNodeSelector helps set the cluster-wide default node selector to
 	// restrict pod placement to specific nodes. This is applied to the pods
 	// created in all namespaces and creates an intersection with any existing
@@ -60,6 +76,12 @@ type SchedulerSpec struct {
 	// restrict pod placement to specific nodes. This is applied to the pods
 	// created in all namespaces without a specified nodeSelector value.
 >>>>>>> 79bfea2d (update vendor)
+=======
+	// defaultNodeSelector helps set the cluster-wide default node selector to
+	// restrict pod placement to specific nodes. This is applied to the pods
+	// created in all namespaces and creates an intersection with any existing
+	// nodeSelectors already set on a pod, additionally constraining that pod's selector.
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// For example,
 	// defaultNodeSelector: "type=user-node,region=east" would set nodeSelector
 	// field in pod spec to "type=user-node,region=east" to all pods created
@@ -79,6 +101,9 @@ type SchedulerSpec struct {
 	// +optional
 	DefaultNodeSelector string `json:"defaultNodeSelector,omitempty"`
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// MastersSchedulable allows masters nodes to be schedulable. When this flag is
 	// turned on, all the master nodes in the cluster will be made schedulable,
 	// so that workload pods can run on them. The default value for this field is false,
@@ -108,10 +133,13 @@ var (
 	NoScoring SchedulerProfile = "NoScoring"
 )
 
+<<<<<<< HEAD
 =======
 }
 
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 type SchedulerStatus struct {
 }
 
@@ -119,6 +147,7 @@ type SchedulerStatus struct {
 
 type SchedulerList struct {
 	metav1.TypeMeta `json:",inline"`
+<<<<<<< HEAD
 <<<<<<< HEAD
 	metav1.ListMeta `json:"metadata"`
 
@@ -128,4 +157,9 @@ type SchedulerList struct {
 	metav1.ListMeta `json:"metadata"`
 	Items           []Scheduler `json:"items"`
 >>>>>>> 79bfea2d (update vendor)
+=======
+	metav1.ListMeta `json:"metadata"`
+
+	Items []Scheduler `json:"items"`
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }

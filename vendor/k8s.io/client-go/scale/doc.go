@@ -19,7 +19,11 @@ limitations under the License.
 // as long as that subresource operates on a version of scale convertable to
 // autoscaling.Scale.
 <<<<<<< HEAD
+<<<<<<< HEAD
 package scale // import "k8s.io/client-go/scale"
 =======
 package scale
 >>>>>>> 79bfea2d (update vendor)
+=======
+package scale // import "k8s.io/client-go/scale"
+>>>>>>> e879a141 (alibabacloud machine-api provider)

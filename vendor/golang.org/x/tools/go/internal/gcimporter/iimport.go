@@ -60,6 +60,7 @@ const (
 
 // IImportData imports a package from the serialized package data
 <<<<<<< HEAD
+<<<<<<< HEAD
 // and returns 0 and a reference to the package.
 // If the export data version is not recognized or the format is otherwise
 // compromised, an error is returned.
@@ -87,6 +88,27 @@ func IImportData(fset *token.FileSet, imports map[string]*types.Package, data []
 	const currentVersion = 0
 	version := -1
 >>>>>>> 79bfea2d (update vendor)
+=======
+// and returns 0 and a reference to the package.
+// If the export data version is not recognized or the format is otherwise
+// compromised, an error is returned.
+func IImportData(fset *token.FileSet, imports map[string]*types.Package, data []byte, path string) (int, *types.Package, error) {
+	pkgs, err := iimportCommon(fset, imports, data, false, path)
+	if err != nil {
+		return 0, nil, err
+	}
+	return 0, pkgs[0], nil
+}
+
+// IImportBundle imports a set of packages from the serialized package bundle.
+func IImportBundle(fset *token.FileSet, imports map[string]*types.Package, data []byte) ([]*types.Package, error) {
+	return iimportCommon(fset, imports, data, true, "")
+}
+
+func iimportCommon(fset *token.FileSet, imports map[string]*types.Package, data []byte, bundle bool, path string) (pkgs []*types.Package, err error) {
+	const currentVersion = 1
+	version := int64(-1)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	defer func() {
 		if e := recover(); e != nil {
 			if version > currentVersion {
@@ -100,6 +122,9 @@ func IImportData(fset *token.FileSet, imports map[string]*types.Package, data []
 	r := &intReader{bytes.NewReader(data), path}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	if bundle {
 		bundleVersion := r.uint64()
 		switch bundleVersion {
@@ -110,6 +135,7 @@ func IImportData(fset *token.FileSet, imports map[string]*types.Package, data []
 	}
 
 	version = int64(r.uint64())
+<<<<<<< HEAD
 	switch version {
 	case currentVersion, 0:
 =======
@@ -117,6 +143,10 @@ func IImportData(fset *token.FileSet, imports map[string]*types.Package, data []
 	switch version {
 	case currentVersion:
 >>>>>>> 79bfea2d (update vendor)
+=======
+	switch version {
+	case currentVersion, 0:
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	default:
 		errorf("unknown iexport format version %d", version)
 	}
@@ -131,11 +161,16 @@ func IImportData(fset *token.FileSet, imports map[string]*types.Package, data []
 
 	p := iimporter{
 <<<<<<< HEAD
+<<<<<<< HEAD
 		ipath:   path,
 		version: int(version),
 =======
 		ipath: path,
 >>>>>>> 79bfea2d (update vendor)
+=======
+		ipath:   path,
+		version: int(version),
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 		stringData:  stringData,
 		stringCache: make(map[uint64]string),
@@ -152,10 +187,14 @@ func IImportData(fset *token.FileSet, imports map[string]*types.Package, data []
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	for i, pt := range predeclared() {
 =======
 	for i, pt := range predeclared {
 >>>>>>> 79bfea2d (update vendor)
+=======
+	for i, pt := range predeclared() {
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 		p.typCache[uint64(i)] = pt
 	}
 
@@ -190,6 +229,9 @@ func IImportData(fset *token.FileSet, imports map[string]*types.Package, data []
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	if bundle {
 		pkgs = make([]*types.Package, r.uint64())
 		for i := range pkgs {
@@ -207,6 +249,7 @@ func IImportData(fset *token.FileSet, imports map[string]*types.Package, data []
 			panic("unreachable")
 		}
 		pkgs = pkgList[:1]
+<<<<<<< HEAD
 
 		// record all referenced packages as imports
 		list := append(([]*types.Package)(nil), pkgList[1:]...)
@@ -232,21 +275,45 @@ func IImportData(fset *token.FileSet, imports map[string]*types.Package, data []
 		pkg.MarkComplete()
 =======
 	localpkg := pkgList[0]
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
-	names := make([]string, 0, len(p.pkgIndex[localpkg]))
-	for name := range p.pkgIndex[localpkg] {
-		names = append(names, name)
+		// record all referenced packages as imports
+		list := append(([]*types.Package)(nil), pkgList[1:]...)
+		sort.Sort(byPath(list))
+		pkgs[0].SetImports(list)
 	}
+<<<<<<< HEAD
 	sort.Strings(names)
 	for _, name := range names {
 		p.doDecl(localpkg, name)
 >>>>>>> 79bfea2d (update vendor)
+=======
+
+	for _, pkg := range pkgs {
+		if pkg.Complete() {
+			continue
+		}
+
+		names := make([]string, 0, len(p.pkgIndex[pkg]))
+		for name := range p.pkgIndex[pkg] {
+			names = append(names, name)
+		}
+		sort.Strings(names)
+		for _, name := range names {
+			p.doDecl(pkg, name)
+		}
+
+		// package was imported completely and without errors
+		pkg.MarkComplete()
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	}
 
 	for _, typ := range p.interfaceList {
 		typ.Complete()
 	}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	return pkgs, nil
 }
@@ -270,6 +337,14 @@ type iimporter struct {
 type iimporter struct {
 	ipath string
 >>>>>>> 79bfea2d (update vendor)
+=======
+	return pkgs, nil
+}
+
+type iimporter struct {
+	ipath   string
+	version int
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 	stringData  []byte
 	stringCache map[uint64]string
@@ -350,9 +425,13 @@ type importReader struct {
 	prevFile   string
 	prevLine   int64
 <<<<<<< HEAD
+<<<<<<< HEAD
 	prevColumn int64
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+	prevColumn int64
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 func (r *importReader) obj(name string) {
@@ -433,12 +512,18 @@ func (r *importReader) value() (typ types.Type, val constant.Value) {
 
 	default:
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 		if b.Kind() == types.Invalid {
 			val = constant.MakeUnknown()
 			return
 		}
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 		errorf("unexpected type %v", typ) // panics
 		panic("unreachable")
 	}
@@ -532,6 +617,9 @@ func (r *importReader) mpfloat(b *types.Basic) constant.Value {
 	case exp > 0:
 		x = constant.Shift(x, token.SHL, uint(exp))
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 		// Ensure that the imported Kind is Float, else this constant may run into
 		// bitsize limits on overlarge integers. Eventually we can instead adopt
 		// the approach of CL 288632, but that CL relies on go/constant APIs that
@@ -540,8 +628,11 @@ func (r *importReader) mpfloat(b *types.Basic) constant.Value {
 		// TODO(rFindley): sync the logic here with tip Go once we no longer
 		// support go1.12.
 		x = constant.ToFloat(x)
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	case exp < 0:
 		d := constant.Shift(constant.MakeInt64(1), token.SHL, uint(-exp))
 		x = constant.BinaryOp(x, token.QUO, d)
@@ -561,6 +652,9 @@ func (r *importReader) qualifiedIdent() (*types.Package, string) {
 
 func (r *importReader) pos() token.Pos {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	if r.p.version >= 1 {
 		r.posv1()
 	} else {
@@ -574,8 +668,11 @@ func (r *importReader) pos() token.Pos {
 }
 
 func (r *importReader) posv0() {
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	delta := r.int64()
 	if delta != deltaNewFile {
 		r.prevLine += delta
@@ -585,6 +682,7 @@ func (r *importReader) posv0() {
 		r.prevFile = r.string()
 		r.prevLine = l
 	}
+<<<<<<< HEAD
 <<<<<<< HEAD
 }
 
@@ -599,13 +697,26 @@ func (r *importReader) posv1() {
 		}
 	}
 =======
+=======
+}
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
-	if r.prevFile == "" && r.prevLine == 0 {
-		return token.NoPos
+func (r *importReader) posv1() {
+	delta := r.int64()
+	r.prevColumn += delta >> 1
+	if delta&1 != 0 {
+		delta = r.int64()
+		r.prevLine += delta >> 1
+		if delta&1 != 0 {
+			r.prevFile = r.string()
+		}
 	}
+<<<<<<< HEAD
 
 	return r.p.fake.pos(r.prevFile, int(r.prevLine))
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 func (r *importReader) typ() types.Type {

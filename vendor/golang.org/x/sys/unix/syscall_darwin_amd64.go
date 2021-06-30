@@ -8,6 +8,7 @@
 package unix
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import "syscall"
 =======
 import (
@@ -15,6 +16,9 @@ import (
 	"unsafe"
 )
 >>>>>>> 79bfea2d (update vendor)
+=======
+import "syscall"
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 func setTimespec(sec, nsec int64) Timespec {
 	return Timespec{Sec: sec, Nsec: nsec}
@@ -40,28 +44,25 @@ func (msghdr *Msghdr) SetControllen(length int) {
 
 func (msghdr *Msghdr) SetIovlen(length int) {
 	msghdr.Iovlen = int32(length)
+<<<<<<< HEAD
+}
+
+func (cmsg *Cmsghdr) SetLen(length int) {
+	cmsg.Len = uint32(length)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 func (cmsg *Cmsghdr) SetLen(length int) {
 	cmsg.Len = uint32(length)
 }
 
-func sendfile(outfd int, infd int, offset *int64, count int) (written int, err error) {
-	var length = uint64(count)
-
-	_, _, e1 := Syscall6(SYS_SENDFILE, uintptr(infd), uintptr(outfd), uintptr(*offset), uintptr(unsafe.Pointer(&length)), 0, 0)
-
-	written = int(length)
-
-	if e1 != 0 {
-		err = e1
-	}
-	return
-}
-
 func Syscall9(num, a1, a2, a3, a4, a5, a6, a7, a8, a9 uintptr) (r1, r2 uintptr, err syscall.Errno)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 //sys	Fstat(fd int, stat *Stat_t) (err error) = SYS_FSTAT64
 //sys	Fstatat(fd int, path string, stat *Stat_t, flags int) (err error) = SYS_FSTATAT64
 //sys	Fstatfs(fd int, stat *Statfs_t) (err error) = SYS_FSTATFS64
@@ -70,8 +71,11 @@ func Syscall9(num, a1, a2, a3, a4, a5, a6, a7, a8, a9 uintptr) (r1, r2 uintptr, 
 //sys	ptrace1(request int, pid int, addr uintptr, data uintptr) (err error) = SYS_ptrace
 //sys	Stat(path string, stat *Stat_t) (err error) = SYS_STAT64
 //sys	Statfs(path string, stat *Statfs_t) (err error) = SYS_STATFS64
+<<<<<<< HEAD
 =======
 // SYS___SYSCTL is used by syscall_bsd.go for all BSDs, but in modern versions
 // of darwin/amd64 the syscall is called sysctl instead of __sysctl.
 const SYS___SYSCTL = SYS_SYSCTL
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)

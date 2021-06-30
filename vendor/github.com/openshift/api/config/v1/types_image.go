@@ -7,12 +7,16 @@ import metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 // Image governs policies related to imagestream imports and runtime configuration
 // for external registries. It allows cluster admins to configure which registries
 // OpenShift is allowed to import images from, extra CA trust bundles for external
 // registries, and policies to block or allow registry hostnames.
 // When exposing OpenShift's image registry to the public, this also lets cluster
 // admins specify the external hostname.
+<<<<<<< HEAD
 type Image struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
@@ -21,13 +25,18 @@ type Image struct {
 	// +kubebuilder:validation:Required
 =======
 // Image holds cluster-wide information about how to handle images.  The canonical name is `cluster`
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 type Image struct {
-	metav1.TypeMeta `json:",inline"`
-	// Standard object's metadata.
+	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
 	// spec holds user settable values for configuration
+<<<<<<< HEAD
 >>>>>>> 79bfea2d (update vendor)
+=======
+	// +kubebuilder:validation:Required
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// +required
 	Spec ImageSpec `json:"spec"`
 	// status holds observed values from the cluster. They may not be overridden.
@@ -37,10 +46,14 @@ type Image struct {
 
 type ImageSpec struct {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// allowedRegistriesForImport limits the container image registries that normal users may import
 =======
 	// AllowedRegistriesForImport limits the container image registries that normal users may import
 >>>>>>> 79bfea2d (update vendor)
+=======
+	// allowedRegistriesForImport limits the container image registries that normal users may import
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// images from. Set this list to the registries that you trust to contain valid Docker
 	// images and that you want applications to be able to import from. Users with
 	// permission to create Images or ImageStreamMappings via the API are not affected by
@@ -57,6 +70,7 @@ type ImageSpec struct {
 	ExternalRegistryHostnames []string `json:"externalRegistryHostnames,omitempty"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// additionalTrustedCA is a reference to a ConfigMap containing additional CAs that
 	// should be trusted during imagestream import, pod image pull, build image pull, and
 	// imageregistry pullthrough.
@@ -65,15 +79,24 @@ type ImageSpec struct {
 	// should be trusted during imagestream import, pod image pull, and imageregistry
 	// pullthrough.
 >>>>>>> 79bfea2d (update vendor)
+=======
+	// additionalTrustedCA is a reference to a ConfigMap containing additional CAs that
+	// should be trusted during imagestream import, pod image pull, build image pull, and
+	// imageregistry pullthrough.
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// The namespace for this config map is openshift-config.
 	// +optional
 	AdditionalTrustedCA ConfigMapNameReference `json:"additionalTrustedCA"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// registrySources contains configuration that determines how the container runtime
 =======
 	// RegistrySources contains configuration that determines how the container runtime
 >>>>>>> 79bfea2d (update vendor)
+=======
+	// registrySources contains configuration that determines how the container runtime
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// should treat individual registries when accessing images for builds+pods. (e.g.
 	// whether or not to allow insecure access).  It does not contain configuration for the
 	// internal cluster registry.
@@ -83,6 +106,7 @@ type ImageSpec struct {
 
 type ImageStatus struct {
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	// internalRegistryHostname sets the hostname for the default internal image
 	// registry. The value must be in "hostname[:port]" format.
@@ -94,6 +118,12 @@ type ImageStatus struct {
 	// registry. The value must be in "hostname[:port]" format.
 	// For backward compatibility, users can still use OPENSHIFT_DEFAULT_REGISTRY
 >>>>>>> 79bfea2d (update vendor)
+=======
+	// internalRegistryHostname sets the hostname for the default internal image
+	// registry. The value must be in "hostname[:port]" format.
+	// This value is set by the image registry operator which controls the internal registry
+	// hostname. For backward compatibility, users can still use OPENSHIFT_DEFAULT_REGISTRY
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// environment variable but this setting overrides the environment variable.
 	// +optional
 	InternalRegistryHostname string `json:"internalRegistryHostname,omitempty"`
@@ -111,6 +141,7 @@ type ImageStatus struct {
 type ImageList struct {
 	metav1.TypeMeta `json:",inline"`
 <<<<<<< HEAD
+<<<<<<< HEAD
 	metav1.ListMeta `json:"metadata"`
 
 	Items []Image `json:"items"`
@@ -119,11 +150,17 @@ type ImageList struct {
 	metav1.ListMeta `json:"metadata"`
 	Items           []Image `json:"items"`
 >>>>>>> 79bfea2d (update vendor)
+=======
+	metav1.ListMeta `json:"metadata"`
+
+	Items []Image `json:"items"`
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 // RegistryLocation contains a location of the registry specified by the registry domain
 // name. The domain name might include wildcards, like '*' or '??'.
 type RegistryLocation struct {
+<<<<<<< HEAD
 <<<<<<< HEAD
 	// domainName specifies a domain name for the registry
 	// In case the registry use non-standard (80 or 443) port, the port should be included
@@ -137,6 +174,13 @@ type RegistryLocation struct {
 	DomainName string `json:"domainName"`
 	// Insecure indicates whether the registry is secure (https) or insecure (http)
 >>>>>>> 79bfea2d (update vendor)
+=======
+	// domainName specifies a domain name for the registry
+	// In case the registry use non-standard (80 or 443) port, the port should be included
+	// in the domain name as well.
+	DomainName string `json:"domainName"`
+	// insecure indicates whether the registry is secure (https) or insecure (http)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// By default (if not specified) the registry is assumed as secure.
 	// +optional
 	Insecure bool `json:"insecure,omitempty"`
@@ -144,6 +188,7 @@ type RegistryLocation struct {
 
 // RegistrySources holds cluster-wide information about how to handle the registries config.
 type RegistrySources struct {
+<<<<<<< HEAD
 <<<<<<< HEAD
 	// insecureRegistries are registries which do not have a valid TLS certificates or only support HTTP connections.
 	// +optional
@@ -155,20 +200,33 @@ type RegistrySources struct {
 	InsecureRegistries []string `json:"insecureRegistries,omitempty"`
 	// BlockedRegistries are blacklisted from image pull/push. All other registries are allowed.
 >>>>>>> 79bfea2d (update vendor)
+=======
+	// insecureRegistries are registries which do not have a valid TLS certificates or only support HTTP connections.
+	// +optional
+	InsecureRegistries []string `json:"insecureRegistries,omitempty"`
+	// blockedRegistries cannot be used for image pull and push actions. All other registries are permitted.
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	//
 	// Only one of BlockedRegistries or AllowedRegistries may be set.
 	// +optional
 	BlockedRegistries []string `json:"blockedRegistries,omitempty"`
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// allowedRegistries are the only registries permitted for image pull and push actions. All other registries are denied.
 =======
 	// AllowedRegistries are whitelisted for image pull/push. All other registries are blocked.
 >>>>>>> 79bfea2d (update vendor)
+=======
+	// allowedRegistries are the only registries permitted for image pull and push actions. All other registries are denied.
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	//
 	// Only one of BlockedRegistries or AllowedRegistries may be set.
 	// +optional
 	AllowedRegistries []string `json:"allowedRegistries,omitempty"`
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// containerRuntimeSearchRegistries are registries that will be searched when pulling images that do not have fully qualified
 	// domains in their pull specs. Registries will be searched in the order provided in the list.
 	// Note: this search list only works with the container runtime, i.e CRI-O. Will NOT work with builds or imagestream imports.
@@ -177,6 +235,9 @@ type RegistrySources struct {
 	// +kubebuilder:validation:Format=hostname
 	// +listType=set
 	ContainerRuntimeSearchRegistries []string `json:"containerRuntimeSearchRegistries,omitempty"`
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }

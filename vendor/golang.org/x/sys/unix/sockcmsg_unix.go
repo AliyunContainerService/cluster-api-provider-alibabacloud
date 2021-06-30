@@ -10,6 +10,7 @@
 package unix
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import (
 	"unsafe"
 )
@@ -28,6 +29,11 @@ func cmsgAlignOf(salen int) int {
 	}
 	return (salen + salign - 1) & ^(salign - 1)
 }
+=======
+import (
+	"unsafe"
+)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 >>>>>>> 79bfea2d (update vendor)
 // CmsgLen returns the value to store in the Len field of the Cmsghdr

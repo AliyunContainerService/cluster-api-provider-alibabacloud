@@ -21,10 +21,15 @@ type InvocationResult struct {
 	InvokeId           string `json:"InvokeId" xml:"InvokeId"`
 	InstanceId         string `json:"InstanceId" xml:"InstanceId"`
 <<<<<<< HEAD
+<<<<<<< HEAD
 	StartTime          string `json:"StartTime" xml:"StartTime"`
 	StopTime           string `json:"StopTime" xml:"StopTime"`
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+	StartTime          string `json:"StartTime" xml:"StartTime"`
+	StopTime           string `json:"StopTime" xml:"StopTime"`
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	FinishedTime       string `json:"FinishedTime" xml:"FinishedTime"`
 	Repeats            int    `json:"Repeats" xml:"Repeats"`
 	Output             string `json:"Output" xml:"Output"`

@@ -23,6 +23,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/conversion"
 <<<<<<< HEAD
+<<<<<<< HEAD
 	scheme "k8s.io/client-go/scale/scheme"
 )
 
@@ -45,6 +46,11 @@ func addConversionFuncs(scheme *runtime.Scheme) error {
 	return nil
 }
 >>>>>>> 79bfea2d (update vendor)
+=======
+	scheme "k8s.io/client-go/scale/scheme"
+)
+
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 func Convert_scheme_ScaleStatus_To_v1beta1_ScaleStatus(in *scheme.ScaleStatus, out *v1beta1.ScaleStatus, s conversion.Scope) error {
 	out.Replicas = in.Replicas
 	out.Selector = nil

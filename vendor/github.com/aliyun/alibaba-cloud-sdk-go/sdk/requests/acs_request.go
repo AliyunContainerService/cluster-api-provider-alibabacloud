@@ -394,6 +394,9 @@ func handleStruct(request AcsRequest, dataValue reflect.Value, prefix, name, fie
 					}
 				}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 			} else {
 				if elementValue.Type().Kind().String() == "string" {
 					value := elementValue.String()

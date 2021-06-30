@@ -1,8 +1,12 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Copyright 2017 Google LLC. All Rights Reserved.
 =======
 // Copyright 2017 Google Inc. All Rights Reserved.
 >>>>>>> 79bfea2d (update vendor)
+=======
+// Copyright 2017 Google LLC. All Rights Reserved.
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -21,15 +25,21 @@ package jsonschema
 import (
 	"fmt"
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	"gopkg.in/yaml.v3"
 =======
 	"gopkg.in/yaml.v2"
 >>>>>>> 79bfea2d (update vendor)
+=======
+
+	"gopkg.in/yaml.v3"
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 )
 
 const indentation = "  "
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func renderMappingNode(node *yaml.Node, indent string) (result string) {
 	result = "{\n"
@@ -56,50 +66,44 @@ func renderMappingNode(node *yaml.Node, indent string) (result string) {
 		result += "\n"
 =======
 func renderMap(info interface{}, indent string) (result string) {
+=======
+func renderMappingNode(node *yaml.Node, indent string) (result string) {
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	result = "{\n"
 	innerIndent := indent + indentation
-	switch pairs := info.(type) {
-	case yaml.MapSlice:
-		for i, pair := range pairs {
-			// first print the key
-			result += fmt.Sprintf("%s\"%+v\": ", innerIndent, pair.Key)
-			// then the value
-			switch value := pair.Value.(type) {
-			case string:
-				result += "\"" + value + "\""
-			case bool:
-				if value {
-					result += "true"
-				} else {
-					result += "false"
-				}
-			case []interface{}:
-				result += renderArray(value, innerIndent)
-			case yaml.MapSlice:
-				result += renderMap(value, innerIndent)
-			case int:
-				result += fmt.Sprintf("%d", value)
-			case int64:
-				result += fmt.Sprintf("%d", value)
-			case []string:
-				result += renderStringArray(value, innerIndent)
-			default:
-				result += fmt.Sprintf("???MapItem(Key:%+v, Value:%T)", value, value)
-			}
-			if i < len(pairs)-1 {
-				result += ","
-			}
-			result += "\n"
+	for i := 0; i < len(node.Content); i += 2 {
+		// first print the key
+		key := node.Content[i].Value
+		result += fmt.Sprintf("%s\"%+v\": ", innerIndent, key)
+		// then the value
+		value := node.Content[i+1]
+		switch value.Kind {
+		case yaml.ScalarNode:
+			result += "\"" + value.Value + "\""
+		case yaml.MappingNode:
+			result += renderMappingNode(value, innerIndent)
+		case yaml.SequenceNode:
+			result += renderSequenceNode(value, innerIndent)
+		default:
+			result += fmt.Sprintf("???MapItem(Key:%+v, Value:%T)", value, value)
 		}
+<<<<<<< HEAD
 	default:
 		// t is some other type that we didn't name.
 >>>>>>> 79bfea2d (update vendor)
+=======
+		if i < len(node.Content)-2 {
+			result += ","
+		}
+		result += "\n"
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	}
 
 	result += indent + "}"
 	return result
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func renderSequenceNode(node *yaml.Node, indent string) (result string) {
 	result = "[\n"
@@ -117,25 +121,27 @@ func renderSequenceNode(node *yaml.Node, indent string) (result string) {
 		if i < len(node.Content)-1 {
 =======
 func renderArray(array []interface{}, indent string) (result string) {
+=======
+func renderSequenceNode(node *yaml.Node, indent string) (result string) {
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	result = "[\n"
 	innerIndent := indent + indentation
-	for i, item := range array {
-		switch item := item.(type) {
-		case string:
-			result += innerIndent + "\"" + item + "\""
-		case bool:
-			if item {
-				result += innerIndent + "true"
-			} else {
-				result += innerIndent + "false"
-			}
-		case yaml.MapSlice:
-			result += innerIndent + renderMap(item, innerIndent) + ""
+	for i := 0; i < len(node.Content); i++ {
+		item := node.Content[i]
+		switch item.Kind {
+		case yaml.ScalarNode:
+			result += innerIndent + "\"" + item.Value + "\""
+		case yaml.MappingNode:
+			result += innerIndent + renderMappingNode(item, innerIndent) + ""
 		default:
 			result += innerIndent + fmt.Sprintf("???ArrayItem(%+v)", item)
 		}
+<<<<<<< HEAD
 		if i < len(array)-1 {
 >>>>>>> 79bfea2d (update vendor)
+=======
+		if i < len(node.Content)-1 {
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 			result += ","
 		}
 		result += "\n"
@@ -159,6 +165,9 @@ func renderStringArray(array []string, indent string) (result string) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 // Render renders a yaml.Node as JSON
 func Render(node *yaml.Node) string {
 	if node.Kind == yaml.DocumentNode {
@@ -171,6 +180,7 @@ func Render(node *yaml.Node) string {
 		return renderSequenceNode(node, "") + "\n"
 	}
 	return ""
+<<<<<<< HEAD
 }
 
 func (object *SchemaNumber) nodeValue() *yaml.Node {
@@ -181,19 +191,26 @@ func (object *SchemaNumber) nodeValue() *yaml.Node {
 =======
 func Render(info yaml.MapSlice) string {
 	return renderMap(info, "") + "\n"
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
-func (object *SchemaNumber) jsonValue() interface{} {
+func (object *SchemaNumber) nodeValue() *yaml.Node {
 	if object.Integer != nil {
-		return object.Integer
+		return nodeForInt64(*object.Integer)
 	} else if object.Float != nil {
+<<<<<<< HEAD
 		return object.Float
 >>>>>>> 79bfea2d (update vendor)
+=======
+		return nodeForFloat64(*object.Float)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	} else {
 		return nil
 	}
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func (object *SchemaOrBoolean) nodeValue() *yaml.Node {
 	if object.Schema != nil {
@@ -202,17 +219,27 @@ func (object *SchemaOrBoolean) nodeValue() *yaml.Node {
 		return nodeForBoolean(*object.Boolean)
 =======
 func (object *SchemaOrBoolean) jsonValue() interface{} {
+=======
+func (object *SchemaOrBoolean) nodeValue() *yaml.Node {
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	if object.Schema != nil {
-		return object.Schema.jsonValue()
+		return object.Schema.nodeValue()
 	} else if object.Boolean != nil {
+<<<<<<< HEAD
 		return *object.Boolean
 >>>>>>> 79bfea2d (update vendor)
+=======
+		return nodeForBoolean(*object.Boolean)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	} else {
 		return nil
 	}
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 func nodeForStringArray(array []string) *yaml.Node {
 	content := make([]*yaml.Node, 0)
 	for _, item := range array {
@@ -230,26 +257,34 @@ func nodeForSchemaArray(array []*Schema) *yaml.Node {
 }
 
 func (object *StringOrStringArray) nodeValue() *yaml.Node {
+<<<<<<< HEAD
 	if object.String != nil {
 		return nodeForString(*object.String)
 	} else if object.StringArray != nil {
 		return nodeForStringArray(*(object.StringArray))
 =======
 func (object *StringOrStringArray) jsonValue() interface{} {
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	if object.String != nil {
-		return *object.String
+		return nodeForString(*object.String)
 	} else if object.StringArray != nil {
+<<<<<<< HEAD
 		array := make([]interface{}, 0)
 		for _, item := range *(object.StringArray) {
 			array = append(array, item)
 		}
 		return array
 >>>>>>> 79bfea2d (update vendor)
+=======
+		return nodeForStringArray(*(object.StringArray))
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	} else {
 		return nil
 	}
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func (object *SchemaOrStringArray) nodeValue() *yaml.Node {
 	if object.Schema != nil {
@@ -258,20 +293,28 @@ func (object *SchemaOrStringArray) nodeValue() *yaml.Node {
 		return nodeForStringArray(*(object.StringArray))
 =======
 func (object *SchemaOrStringArray) jsonValue() interface{} {
+=======
+func (object *SchemaOrStringArray) nodeValue() *yaml.Node {
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	if object.Schema != nil {
-		return object.Schema.jsonValue()
+		return object.Schema.nodeValue()
 	} else if object.StringArray != nil {
+<<<<<<< HEAD
 		array := make([]interface{}, 0)
 		for _, item := range *(object.StringArray) {
 			array = append(array, item)
 		}
 		return array
 >>>>>>> 79bfea2d (update vendor)
+=======
+		return nodeForStringArray(*(object.StringArray))
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	} else {
 		return nil
 	}
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func (object *SchemaOrSchemaArray) nodeValue() *yaml.Node {
 	if object.Schema != nil {
@@ -280,20 +323,28 @@ func (object *SchemaOrSchemaArray) nodeValue() *yaml.Node {
 		return nodeForSchemaArray(*(object.SchemaArray))
 =======
 func (object *SchemaOrSchemaArray) jsonValue() interface{} {
+=======
+func (object *SchemaOrSchemaArray) nodeValue() *yaml.Node {
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	if object.Schema != nil {
-		return object.Schema.jsonValue()
+		return object.Schema.nodeValue()
 	} else if object.SchemaArray != nil {
+<<<<<<< HEAD
 		array := make([]interface{}, 0)
 		for _, item := range *(object.SchemaArray) {
 			array = append(array, item.jsonValue())
 		}
 		return array
 >>>>>>> 79bfea2d (update vendor)
+=======
+		return nodeForSchemaArray(*(object.SchemaArray))
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	} else {
 		return nil
 	}
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func (object *SchemaEnumValue) nodeValue() *yaml.Node {
 	if object.String != nil {
@@ -302,16 +353,24 @@ func (object *SchemaEnumValue) nodeValue() *yaml.Node {
 		return nodeForBoolean(*object.Bool)
 =======
 func (object *SchemaEnumValue) jsonValue() interface{} {
+=======
+func (object *SchemaEnumValue) nodeValue() *yaml.Node {
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	if object.String != nil {
-		return *object.String
+		return nodeForString(*object.String)
 	} else if object.Bool != nil {
+<<<<<<< HEAD
 		return *object.Bool
 >>>>>>> 79bfea2d (update vendor)
+=======
+		return nodeForBoolean(*object.Bool)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	} else {
 		return nil
 	}
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func nodeForNamedSchemaArray(array *[]*NamedSchema) *yaml.Node {
 	content := make([]*yaml.Node, 0)
@@ -499,152 +558,201 @@ func (schema *Schema) nodeValue() *yaml.Node {
 =======
 func namedSchemaArrayValue(array *[]*NamedSchema) interface{} {
 	m2 := yaml.MapSlice{}
+=======
+func nodeForNamedSchemaArray(array *[]*NamedSchema) *yaml.Node {
+	content := make([]*yaml.Node, 0)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	for _, pair := range *(array) {
-		var item2 yaml.MapItem
-		item2.Key = pair.Name
-		item2.Value = pair.Value.jsonValue()
-		m2 = append(m2, item2)
+		content = appendPair(content, pair.Name, pair.Value.nodeValue())
 	}
-	return m2
+	return nodeForMapping(content)
 }
 
-func namedSchemaOrStringArrayValue(array *[]*NamedSchemaOrStringArray) interface{} {
-	m2 := yaml.MapSlice{}
+func nodeForNamedSchemaOrStringArray(array *[]*NamedSchemaOrStringArray) *yaml.Node {
+	content := make([]*yaml.Node, 0)
 	for _, pair := range *(array) {
-		var item2 yaml.MapItem
-		item2.Key = pair.Name
-		item2.Value = pair.Value.jsonValue()
-		m2 = append(m2, item2)
+		content = appendPair(content, pair.Name, pair.Value.nodeValue())
 	}
-	return m2
+	return nodeForMapping(content)
 }
 
-func schemaEnumArrayValue(array *[]SchemaEnumValue) []interface{} {
-	a := make([]interface{}, 0)
+func nodeForSchemaEnumArray(array *[]SchemaEnumValue) *yaml.Node {
+	content := make([]*yaml.Node, 0)
 	for _, item := range *array {
-		a = append(a, item.jsonValue())
+		content = append(content, item.nodeValue())
 	}
-	return a
+	return nodeForSequence(content)
 }
 
-func schemaArrayValue(array *[]*Schema) []interface{} {
-	a := make([]interface{}, 0)
-	for _, item := range *array {
-		a = append(a, item.jsonValue())
+func nodeForMapping(content []*yaml.Node) *yaml.Node {
+	return &yaml.Node{
+		Kind:    yaml.MappingNode,
+		Content: content,
 	}
-	return a
 }
 
-func (schema *Schema) jsonValue() yaml.MapSlice {
-	m := yaml.MapSlice{}
+func nodeForSequence(content []*yaml.Node) *yaml.Node {
+	return &yaml.Node{
+		Kind:    yaml.SequenceNode,
+		Content: content,
+	}
+}
+
+func nodeForString(value string) *yaml.Node {
+	return &yaml.Node{
+		Kind:  yaml.ScalarNode,
+		Tag:   "!!str",
+		Value: value,
+	}
+}
+
+func nodeForBoolean(value bool) *yaml.Node {
+	return &yaml.Node{
+		Kind:  yaml.ScalarNode,
+		Tag:   "!!bool",
+		Value: fmt.Sprintf("%t", value),
+	}
+}
+
+func nodeForInt64(value int64) *yaml.Node {
+	return &yaml.Node{
+		Kind:  yaml.ScalarNode,
+		Tag:   "!!int",
+		Value: fmt.Sprintf("%d", value),
+	}
+}
+
+func nodeForFloat64(value float64) *yaml.Node {
+	return &yaml.Node{
+		Kind:  yaml.ScalarNode,
+		Tag:   "!!float",
+		Value: fmt.Sprintf("%f", value),
+	}
+}
+
+func appendPair(nodes []*yaml.Node, name string, value *yaml.Node) []*yaml.Node {
+	nodes = append(nodes, nodeForString(name))
+	nodes = append(nodes, value)
+	return nodes
+}
+
+func (schema *Schema) nodeValue() *yaml.Node {
+	n := &yaml.Node{Kind: yaml.MappingNode}
+	content := make([]*yaml.Node, 0)
 	if schema.Title != nil {
-		m = append(m, yaml.MapItem{Key: "title", Value: *schema.Title})
+		content = appendPair(content, "title", nodeForString(*schema.Title))
 	}
 	if schema.ID != nil {
-		m = append(m, yaml.MapItem{Key: "id", Value: *schema.ID})
+		content = appendPair(content, "id", nodeForString(*schema.ID))
 	}
 	if schema.Schema != nil {
-		m = append(m, yaml.MapItem{Key: "$schema", Value: *schema.Schema})
+		content = appendPair(content, "$schema", nodeForString(*schema.Schema))
 	}
 	if schema.Type != nil {
-		m = append(m, yaml.MapItem{Key: "type", Value: schema.Type.jsonValue()})
+		content = appendPair(content, "type", schema.Type.nodeValue())
 	}
 	if schema.Items != nil {
-		m = append(m, yaml.MapItem{Key: "items", Value: schema.Items.jsonValue()})
+		content = appendPair(content, "items", schema.Items.nodeValue())
 	}
 	if schema.Description != nil {
-		m = append(m, yaml.MapItem{Key: "description", Value: *schema.Description})
+		content = appendPair(content, "description", nodeForString(*schema.Description))
 	}
 	if schema.Required != nil {
-		m = append(m, yaml.MapItem{Key: "required", Value: *schema.Required})
+		content = appendPair(content, "required", nodeForStringArray(*schema.Required))
 	}
 	if schema.AdditionalProperties != nil {
-		m = append(m, yaml.MapItem{Key: "additionalProperties", Value: schema.AdditionalProperties.jsonValue()})
+		content = appendPair(content, "additionalProperties", schema.AdditionalProperties.nodeValue())
 	}
 	if schema.PatternProperties != nil {
-		m = append(m, yaml.MapItem{Key: "patternProperties", Value: namedSchemaArrayValue(schema.PatternProperties)})
+		content = appendPair(content, "patternProperties", nodeForNamedSchemaArray(schema.PatternProperties))
 	}
 	if schema.Properties != nil {
-		m = append(m, yaml.MapItem{Key: "properties", Value: namedSchemaArrayValue(schema.Properties)})
+		content = appendPair(content, "properties", nodeForNamedSchemaArray(schema.Properties))
 	}
 	if schema.Dependencies != nil {
-		m = append(m, yaml.MapItem{Key: "dependencies", Value: namedSchemaOrStringArrayValue(schema.Dependencies)})
+		content = appendPair(content, "dependencies", nodeForNamedSchemaOrStringArray(schema.Dependencies))
 	}
 	if schema.Ref != nil {
-		m = append(m, yaml.MapItem{Key: "$ref", Value: *schema.Ref})
+		content = appendPair(content, "$ref", nodeForString(*schema.Ref))
 	}
 	if schema.MultipleOf != nil {
-		m = append(m, yaml.MapItem{Key: "multipleOf", Value: schema.MultipleOf.jsonValue()})
+		content = appendPair(content, "multipleOf", schema.MultipleOf.nodeValue())
 	}
 	if schema.Maximum != nil {
-		m = append(m, yaml.MapItem{Key: "maximum", Value: schema.Maximum.jsonValue()})
+		content = appendPair(content, "maximum", schema.Maximum.nodeValue())
 	}
 	if schema.ExclusiveMaximum != nil {
-		m = append(m, yaml.MapItem{Key: "exclusiveMaximum", Value: schema.ExclusiveMaximum})
+		content = appendPair(content, "exclusiveMaximum", nodeForBoolean(*schema.ExclusiveMaximum))
 	}
 	if schema.Minimum != nil {
-		m = append(m, yaml.MapItem{Key: "minimum", Value: schema.Minimum.jsonValue()})
+		content = appendPair(content, "minimum", schema.Minimum.nodeValue())
 	}
 	if schema.ExclusiveMinimum != nil {
-		m = append(m, yaml.MapItem{Key: "exclusiveMinimum", Value: schema.ExclusiveMinimum})
+		content = appendPair(content, "exclusiveMinimum", nodeForBoolean(*schema.ExclusiveMinimum))
 	}
 	if schema.MaxLength != nil {
-		m = append(m, yaml.MapItem{Key: "maxLength", Value: *schema.MaxLength})
+		content = appendPair(content, "maxLength", nodeForInt64(*schema.MaxLength))
 	}
 	if schema.MinLength != nil {
-		m = append(m, yaml.MapItem{Key: "minLength", Value: *schema.MinLength})
+		content = appendPair(content, "minLength", nodeForInt64(*schema.MinLength))
 	}
 	if schema.Pattern != nil {
-		m = append(m, yaml.MapItem{Key: "pattern", Value: *schema.Pattern})
+		content = appendPair(content, "pattern", nodeForString(*schema.Pattern))
 	}
 	if schema.AdditionalItems != nil {
-		m = append(m, yaml.MapItem{Key: "additionalItems", Value: schema.AdditionalItems.jsonValue()})
+		content = appendPair(content, "additionalItems", schema.AdditionalItems.nodeValue())
 	}
 	if schema.MaxItems != nil {
-		m = append(m, yaml.MapItem{Key: "maxItems", Value: *schema.MaxItems})
+		content = appendPair(content, "maxItems", nodeForInt64(*schema.MaxItems))
 	}
 	if schema.MinItems != nil {
-		m = append(m, yaml.MapItem{Key: "minItems", Value: *schema.MinItems})
+		content = appendPair(content, "minItems", nodeForInt64(*schema.MinItems))
 	}
 	if schema.UniqueItems != nil {
-		m = append(m, yaml.MapItem{Key: "uniqueItems", Value: *schema.UniqueItems})
+		content = appendPair(content, "uniqueItems", nodeForBoolean(*schema.UniqueItems))
 	}
 	if schema.MaxProperties != nil {
-		m = append(m, yaml.MapItem{Key: "maxProperties", Value: *schema.MaxProperties})
+		content = appendPair(content, "maxProperties", nodeForInt64(*schema.MaxProperties))
 	}
 	if schema.MinProperties != nil {
-		m = append(m, yaml.MapItem{Key: "minProperties", Value: *schema.MinProperties})
+		content = appendPair(content, "minProperties", nodeForInt64(*schema.MinProperties))
 	}
 	if schema.Enumeration != nil {
-		m = append(m, yaml.MapItem{Key: "enum", Value: schemaEnumArrayValue(schema.Enumeration)})
+		content = appendPair(content, "enum", nodeForSchemaEnumArray(schema.Enumeration))
 	}
 	if schema.AllOf != nil {
-		m = append(m, yaml.MapItem{Key: "allOf", Value: schemaArrayValue(schema.AllOf)})
+		content = appendPair(content, "allOf", nodeForSchemaArray(*schema.AllOf))
 	}
 	if schema.AnyOf != nil {
-		m = append(m, yaml.MapItem{Key: "anyOf", Value: schemaArrayValue(schema.AnyOf)})
+		content = appendPair(content, "anyOf", nodeForSchemaArray(*schema.AnyOf))
 	}
 	if schema.OneOf != nil {
-		m = append(m, yaml.MapItem{Key: "oneOf", Value: schemaArrayValue(schema.OneOf)})
+		content = appendPair(content, "oneOf", nodeForSchemaArray(*schema.OneOf))
 	}
 	if schema.Not != nil {
-		m = append(m, yaml.MapItem{Key: "not", Value: schema.Not.jsonValue()})
+		content = appendPair(content, "not", schema.Not.nodeValue())
 	}
 	if schema.Definitions != nil {
-		m = append(m, yaml.MapItem{Key: "definitions", Value: namedSchemaArrayValue(schema.Definitions)})
+		content = appendPair(content, "definitions", nodeForNamedSchemaArray(schema.Definitions))
 	}
 	if schema.Default != nil {
-		m = append(m, yaml.MapItem{Key: "default", Value: *schema.Default})
+		// m = append(m, yaml.MapItem{Key: "default", Value: *schema.Default})
 	}
 	if schema.Format != nil {
-		m = append(m, yaml.MapItem{Key: "format", Value: *schema.Format})
+		content = appendPair(content, "format", nodeForString(*schema.Format))
 	}
+<<<<<<< HEAD
 	return m
 >>>>>>> 79bfea2d (update vendor)
+=======
+	n.Content = content
+	return n
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 // JSONString returns a json representation of a schema.
 func (schema *Schema) JSONString() string {
+<<<<<<< HEAD
 <<<<<<< HEAD
 	node := schema.nodeValue()
 	return Render(node)
@@ -652,4 +760,8 @@ func (schema *Schema) JSONString() string {
 	info := schema.jsonValue()
 	return Render(info)
 >>>>>>> 79bfea2d (update vendor)
+=======
+	node := schema.nodeValue()
+	return Render(node)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }

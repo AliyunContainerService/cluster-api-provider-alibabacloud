@@ -22,6 +22,9 @@ import (
 	"reflect"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	"k8s.io/apimachinery/pkg/api/equality"
 	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -29,12 +32,15 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/utils/pointer"
+<<<<<<< HEAD
 =======
 	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/client/apiutil"
 )
@@ -59,6 +65,7 @@ func newAlreadyOwnedError(Object metav1.Object, Owner metav1.OwnerReference) *Al
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // SetControllerReference sets owner as a Controller OwnerReference on controlled.
 // This is used for garbage collection of the controlled object and for
 // reconciling the owner object on changes to controlled (with a Watch + EnqueueRequestForOwner).
@@ -74,24 +81,42 @@ func SetControllerReference(owner, controlled metav1.Object, scheme *runtime.Sch
 // there is another OwnerReference with Controller flag set.
 func SetControllerReference(owner, object metav1.Object, scheme *runtime.Scheme) error {
 >>>>>>> 79bfea2d (update vendor)
+=======
+// SetControllerReference sets owner as a Controller OwnerReference on controlled.
+// This is used for garbage collection of the controlled object and for
+// reconciling the owner object on changes to controlled (with a Watch + EnqueueRequestForOwner).
+// Since only one OwnerReference can be a controller, it returns an error if
+// there is another OwnerReference with Controller flag set.
+func SetControllerReference(owner, controlled metav1.Object, scheme *runtime.Scheme) error {
+	// Validate the owner.
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	ro, ok := owner.(runtime.Object)
 	if !ok {
 		return fmt.Errorf("%T is not a runtime.Object, cannot call SetControllerReference", owner)
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	if err := validateOwner(owner, controlled); err != nil {
 		return err
 	}
 
 	// Create a new controller ref.
+<<<<<<< HEAD
 =======
 
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	gvk, err := apiutil.GVKForObject(ro, scheme)
 	if err != nil {
 		return err
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	ref := metav1.OwnerReference{
 		APIVersion:         gvk.GroupVersion().String(),
 		Kind:               gvk.Kind,
@@ -100,6 +125,7 @@ func SetControllerReference(owner, object metav1.Object, scheme *runtime.Scheme)
 		BlockOwnerDeletion: pointer.BoolPtr(true),
 		Controller:         pointer.BoolPtr(true),
 	}
+<<<<<<< HEAD
 
 	// Return early with an error if the object is already controlled.
 	if existing := metav1.GetControllerOf(controlled); existing != nil && !referSameObject(*existing, ref) {
@@ -175,28 +201,88 @@ func validateOwner(owner, object metav1.Object) error {
 		}
 	}
 =======
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
-	// Create a new ref
-	ref := *metav1.NewControllerRef(owner, schema.GroupVersionKind{Group: gvk.Group, Version: gvk.Version, Kind: gvk.Kind})
-
-	existingRefs := object.GetOwnerReferences()
-	fi := -1
-	for i, r := range existingRefs {
-		if referSameObject(ref, r) {
-			fi = i
-		} else if r.Controller != nil && *r.Controller {
-			return newAlreadyOwnedError(object, r)
-		}
+	// Return early with an error if the object is already controlled.
+	if existing := metav1.GetControllerOf(controlled); existing != nil && !referSameObject(*existing, ref) {
+		return newAlreadyOwnedError(controlled, *existing)
 	}
-	if fi == -1 {
-		existingRefs = append(existingRefs, ref)
+
+	// Update owner references and return.
+	upsertOwnerRef(ref, controlled)
+	return nil
+}
+
+// SetOwnerReference is a helper method to make sure the given object contains an object reference to the object provided.
+// This allows you to declare that owner has a dependency on the object without specifying it as a controller.
+// If a reference to the same object already exists, it'll be overwritten with the newly provided version.
+func SetOwnerReference(owner, object metav1.Object, scheme *runtime.Scheme) error {
+	// Validate the owner.
+	ro, ok := owner.(runtime.Object)
+	if !ok {
+		return fmt.Errorf("%T is not a runtime.Object, cannot call SetOwnerReference", owner)
+	}
+	if err := validateOwner(owner, object); err != nil {
+		return err
+	}
+
+	// Create a new owner ref.
+	gvk, err := apiutil.GVKForObject(ro, scheme)
+	if err != nil {
+		return err
+	}
+	ref := metav1.OwnerReference{
+		APIVersion: gvk.GroupVersion().String(),
+		Kind:       gvk.Kind,
+		UID:        owner.GetUID(),
+		Name:       owner.GetName(),
+	}
+
+	// Update owner references and return.
+	upsertOwnerRef(ref, object)
+	return nil
+
+}
+
+func upsertOwnerRef(ref metav1.OwnerReference, object metav1.Object) {
+	owners := object.GetOwnerReferences()
+	idx := indexOwnerRef(owners, ref)
+	if idx == -1 {
+		owners = append(owners, ref)
 	} else {
-		existingRefs[fi] = ref
+		owners[idx] = ref
 	}
+	object.SetOwnerReferences(owners)
+}
 
+<<<<<<< HEAD
 	// Update owner references
 	object.SetOwnerReferences(existingRefs)
 >>>>>>> 79bfea2d (update vendor)
+=======
+// indexOwnerRef returns the index of the owner reference in the slice if found, or -1.
+func indexOwnerRef(ownerReferences []metav1.OwnerReference, ref metav1.OwnerReference) int {
+	for index, r := range ownerReferences {
+		if referSameObject(r, ref) {
+			return index
+		}
+	}
+	return -1
+}
+
+func validateOwner(owner, object metav1.Object) error {
+	ownerNs := owner.GetNamespace()
+	if ownerNs != "" {
+		objNs := object.GetNamespace()
+		if objNs == "" {
+			return fmt.Errorf("cluster-scoped resource must not have a namespace-scoped owner, owner's namespace %s", ownerNs)
+		}
+		if ownerNs != objNs {
+			return fmt.Errorf("cross-namespace owner references are disallowed, owner's namespace %s, obj's namespace %s", owner.GetNamespace(), object.GetNamespace())
+		}
+	}
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	return nil
 }
 
@@ -213,10 +299,14 @@ func referSameObject(a, b metav1.OwnerReference) bool {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	return aGV.Group == bGV.Group && a.Kind == b.Kind && a.Name == b.Name
 =======
 	return aGV == bGV && a.Kind == b.Kind && a.Name == b.Name
 >>>>>>> 79bfea2d (update vendor)
+=======
+	return aGV.Group == bGV.Group && a.Kind == b.Kind && a.Name == b.Name
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 // OperationResult is the action result of a CreateOrUpdate call
@@ -230,12 +320,18 @@ const ( // They should complete the sentence "Deployment default/foo has been ..
 	// OperationResultUpdated means that an existing resource is updated
 	OperationResultUpdated OperationResult = "updated"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// OperationResultUpdatedStatus means that an existing resource and its status is updated
 	OperationResultUpdatedStatus OperationResult = "updatedStatus"
 	// OperationResultUpdatedStatusOnly means that only an existing status is updated
 	OperationResultUpdatedStatusOnly OperationResult = "updatedStatusOnly"
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 )
 
 // CreateOrUpdate creates or updates the given object in the Kubernetes
@@ -245,6 +341,7 @@ const ( // They should complete the sentence "Deployment default/foo has been ..
 // The MutateFn is called regardless of creating or updating an object.
 //
 // It returns the executed operation and an error.
+<<<<<<< HEAD
 <<<<<<< HEAD
 func CreateOrUpdate(ctx context.Context, c client.Client, obj client.Object, f MutateFn) (OperationResult, error) {
 	key := client.ObjectKeyFromObject(obj)
@@ -256,6 +353,10 @@ func CreateOrUpdate(ctx context.Context, c client.Client, obj runtime.Object, f 
 	}
 
 >>>>>>> 79bfea2d (update vendor)
+=======
+func CreateOrUpdate(ctx context.Context, c client.Client, obj client.Object, f MutateFn) (OperationResult, error) {
+	key := client.ObjectKeyFromObject(obj)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	if err := c.Get(ctx, key, obj); err != nil {
 		if !errors.IsNotFound(err) {
 			return OperationResultNone, err
@@ -275,10 +376,14 @@ func CreateOrUpdate(ctx context.Context, c client.Client, obj runtime.Object, f 
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if equality.Semantic.DeepEqual(existing, obj) {
 =======
 	if reflect.DeepEqual(existing, obj) {
 >>>>>>> 79bfea2d (update vendor)
+=======
+	if equality.Semantic.DeepEqual(existing, obj) {
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 		return OperationResultNone, nil
 	}
 
@@ -289,6 +394,9 @@ func CreateOrUpdate(ctx context.Context, c client.Client, obj runtime.Object, f 
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 // CreateOrPatch creates or patches the given object in the Kubernetes
 // cluster. The object's desired state must be reconciled with the before
 // state inside the passed in callback MutateFn.
@@ -401,6 +509,7 @@ func CreateOrPatch(ctx context.Context, c client.Client, obj client.Object, f Mu
 	return result, nil
 }
 
+<<<<<<< HEAD
 // mutate wraps a MutateFn and applies validation to its result
 func mutate(f MutateFn, key client.ObjectKey, obj client.Object) error {
 	if err := f(); err != nil {
@@ -408,13 +517,19 @@ func mutate(f MutateFn, key client.ObjectKey, obj client.Object) error {
 	}
 	if newKey := client.ObjectKeyFromObject(obj); key != newKey {
 =======
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 // mutate wraps a MutateFn and applies validation to its result
-func mutate(f MutateFn, key client.ObjectKey, obj runtime.Object) error {
+func mutate(f MutateFn, key client.ObjectKey, obj client.Object) error {
 	if err := f(); err != nil {
 		return err
 	}
+<<<<<<< HEAD
 	if newKey, err := client.ObjectKeyFromObject(obj); err != nil || key != newKey {
 >>>>>>> 79bfea2d (update vendor)
+=======
+	if newKey := client.ObjectKeyFromObject(obj); key != newKey {
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 		return fmt.Errorf("MutateFn cannot mutate object name and/or object namespace")
 	}
 	return nil
@@ -423,6 +538,9 @@ func mutate(f MutateFn, key client.ObjectKey, obj runtime.Object) error {
 // MutateFn is a function which mutates the existing object into it's desired state.
 type MutateFn func() error
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 // AddFinalizer accepts an Object and adds the provided finalizer if not present.
 func AddFinalizer(o client.Object, finalizer string) {
@@ -463,5 +581,8 @@ func ContainsFinalizer(o client.Object, finalizer string) bool {
 //
 // Deprecated: Use client.Object instead.
 type Object = client.Object
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)

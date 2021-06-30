@@ -3,9 +3,13 @@
 // license that can be found in the LICENSE file.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 //go:build (linux || darwin || freebsd || openbsd || netbsd) && !appengine
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+//go:build (linux || darwin || freebsd || openbsd || netbsd) && !appengine
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 // +build linux darwin freebsd openbsd netbsd
 // +build !appengine
 
@@ -26,10 +30,14 @@ const unknownFileMode os.FileMode = os.ModeNamedPipe | os.ModeSocket | os.ModeDe
 
 func readDir(dirName string, fn func(dirName, entName string, typ os.FileMode) error) error {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	fd, err := open(dirName, 0, 0)
 =======
 	fd, err := syscall.Open(dirName, 0, 0)
 >>>>>>> 79bfea2d (update vendor)
+=======
+	fd, err := open(dirName, 0, 0)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	if err != nil {
 		return &os.PathError{Op: "open", Path: dirName, Err: err}
 	}
@@ -44,10 +52,14 @@ func readDir(dirName string, fn func(dirName, entName string, typ os.FileMode) e
 		if bufp >= nbuf {
 			bufp = 0
 <<<<<<< HEAD
+<<<<<<< HEAD
 			nbuf, err = readDirent(fd, buf)
 =======
 			nbuf, err = syscall.ReadDirent(fd, buf)
 >>>>>>> 79bfea2d (update vendor)
+=======
+			nbuf, err = readDirent(fd, buf)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 			if err != nil {
 				return os.NewSyscallError("readdirent", err)
 			}
@@ -79,10 +91,14 @@ func readDir(dirName string, fn func(dirName, entName string, typ os.FileMode) e
 		}
 		if err := fn(dirName, name, typ); err != nil {
 <<<<<<< HEAD
+<<<<<<< HEAD
 			if err == ErrSkipFiles {
 =======
 			if err == SkipFiles {
 >>>>>>> 79bfea2d (update vendor)
+=======
+			if err == ErrSkipFiles {
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 				skipFiles = true
 				continue
 			}
@@ -93,6 +109,7 @@ func readDir(dirName string, fn func(dirName, entName string, typ os.FileMode) e
 
 func parseDirEnt(buf []byte) (consumed int, name string, typ os.FileMode) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// golang.org/issue/37269
 	dirent := &syscall.Dirent{}
 	copy((*[unsafe.Sizeof(syscall.Dirent{})]byte)(unsafe.Pointer(dirent))[:], buf)
@@ -100,6 +117,11 @@ func parseDirEnt(buf []byte) (consumed int, name string, typ os.FileMode) {
 	// golang.org/issue/15653
 	dirent := (*syscall.Dirent)(unsafe.Pointer(&buf[0]))
 >>>>>>> 79bfea2d (update vendor)
+=======
+	// golang.org/issue/37269
+	dirent := &syscall.Dirent{}
+	copy((*[unsafe.Sizeof(syscall.Dirent{})]byte)(unsafe.Pointer(dirent))[:], buf)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	if v := unsafe.Offsetof(dirent.Reclen) + unsafe.Sizeof(dirent.Reclen); uintptr(len(buf)) < v {
 		panic(fmt.Sprintf("buf size of %d smaller than dirent header size %d", len(buf), v))
 	}
@@ -148,6 +170,9 @@ func parseDirEnt(buf []byte) (consumed int, name string, typ os.FileMode) {
 	return
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 // According to https://golang.org/doc/go1.14#runtime
 // A consequence of the implementation of preemption is that on Unix systems, including Linux and macOS
@@ -172,5 +197,8 @@ func readDirent(fd int, buf []byte) (n int, err error) {
 		}
 	}
 }
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)

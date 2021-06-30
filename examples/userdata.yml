@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Secret
 metadata:
 <<<<<<< HEAD
+<<<<<<< HEAD
   name: alibabacloud-worker-user-data-secret
 =======
   name: alicloud-actuator-user-data-secret
@@ -10,3 +11,10 @@ metadata:
 type: Opaque
 data:
   userData: IyEvYmluL2Jhc2gKZWNobyAiSGVsbG8iID4gL3RtcC90ZXN0Cg==
+=======
+  name: alibabacloud-worker-user-data-secret
+  namespace: default
+type: Opaque
+data:
+  userData: IyEvYmluL2Jhc2gKCmN1cmwgaHR0cDovL2FsaWFjcy1rOHMtY24tYmVpamluZy5vc3MtY24tYmVpamluZy1pbnRlcm5hbC5hbGl5dW5jcy5jb20vcHVibGljL3BrZy9ydW4vYXR0YWNoLzEuMjAuNC1hbGl5dW4uMS9hdHRhY2hfbm9kZS5zaCB8IGJhc2ggLXMgLS0gLS1vcGVuYXBpLXRva2VuIDM4NjQ0YjQ1NjU0Yzc3Njc2ZTMwNzg3MjUwNGU3MjQ1OTE0ZTVmZTViYTQ2Njc0MDg0YWZkMDU2Yzg1ZjdhMjUgLS1hZGRvbi1uYW1lcyBmbGFubmVsLGFybXMtcHJvbWV0aGV1cyxjc2ktcGx1Z2luLGNzaS1wcm92aXNpb25lcixsb2d0YWlsLWRzLGFjay1ub2RlLXByb2JsZW0tZGV0ZWN0b3IsbmdpbngtaW5ncmVzcy1jb250cm9sbGVyLGt1YmUtZmxhbm5lbC1kcyAtLWNwdS1wb2xpY3kgbm9uZSAtLW5vZGUtY2lkci1tYXNrIDI2IC0tbm9kZS1wb3J0LXJhbmdlIDMwMDAwLTMyNzY3IC0tcnVudGltZSBjb250YWluZXJkIC0tcnVudGltZS12ZXJzaW9uIDEuNC40IC0tdGltZXpvbmUgQXNpYS9TaGFuZ2hhaSAtLW5vZGUtbmFtZS1tb2RlIG5vZGVpcAo=
+>>>>>>> e879a141 (alibabacloud machine-api provider)

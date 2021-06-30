@@ -6,6 +6,7 @@ import metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 <<<<<<< HEAD
+<<<<<<< HEAD
 // +kubebuilder:subresource:status
 
 // Infrastructure holds cluster-wide information about Infrastructure.  The canonical name is `cluster`
@@ -16,15 +17,21 @@ type Infrastructure struct {
 	// spec holds user settable values for configuration
 	// +kubebuilder:validation:Required
 =======
+=======
+// +kubebuilder:subresource:status
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 // Infrastructure holds cluster-wide information about Infrastructure.  The canonical name is `cluster`
 type Infrastructure struct {
-	metav1.TypeMeta `json:",inline"`
-	// Standard object's metadata.
+	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
 	// spec holds user settable values for configuration
+<<<<<<< HEAD
 >>>>>>> 79bfea2d (update vendor)
+=======
+	// +kubebuilder:validation:Required
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// +required
 	Spec InfrastructureSpec `json:"spec"`
 	// status holds observed values from the cluster. They may not be overridden.
@@ -39,6 +46,9 @@ type InfrastructureSpec struct {
 	// when using the built-in cloud provider integration or the external cloud controller manager.
 	// The namespace for this config map is openshift-config.
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	//
 	// cloudConfig should only be consumed by the kube_cloud_config controller.
 	// The controller is responsible for using the user configuration in the spec
@@ -54,10 +64,13 @@ type InfrastructureSpec struct {
 	// platformSpec holds desired information specific to the underlying
 	// infrastructure provider.
 	PlatformSpec PlatformSpec `json:"platformSpec,omitempty"`
+<<<<<<< HEAD
 =======
 	// +optional
 	CloudConfig ConfigMapFileReference `json:"cloudConfig"`
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 // InfrastructureStatus describes the infrastructure the cluster is leveraging.
@@ -80,6 +93,7 @@ type InfrastructureStatus struct {
 	// etcdDiscoveryDomain is the domain used to fetch the SRV records for discovering
 	// etcd servers and clients.
 	// For more info: https://github.com/etcd-io/etcd/blob/329be66e8b3f9e2e6af83c123ff89297e49ebd15/Documentation/op-guide/clustering.md#dns-discovery
+<<<<<<< HEAD
 <<<<<<< HEAD
 	// deprecated: as of 4.7, this field is no longer set or honored.  It will be removed in a future release.
 	EtcdDiscoveryDomain string `json:"etcdDiscoveryDomain"`
@@ -127,22 +141,57 @@ const (
 // PlatformType is a specific supported infrastructure provider.
 // +kubebuilder:validation:Enum="";AWS;Azure;BareMetal;GCP;Libvirt;OpenStack;None;VSphere;oVirt;IBMCloud;KubeVirt;EquinixMetal
 =======
+=======
+	// deprecated: as of 4.7, this field is no longer set or honored.  It will be removed in a future release.
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	EtcdDiscoveryDomain string `json:"etcdDiscoveryDomain"`
 
-	// apiServerURL is a valid URI with scheme(http/https), address and
-	// port.  apiServerURL can be used by components like the web console
+	// apiServerURL is a valid URI with scheme 'https', address and
+	// optionally a port (defaulting to 443).  apiServerURL can be used by components like the web console
 	// to tell users where to find the Kubernetes API.
 	APIServerURL string `json:"apiServerURL"`
 
-	// apiServerInternalURL is a valid URI with scheme(http/https),
-	// address and port.  apiServerInternalURL can be used by components
+	// apiServerInternalURL is a valid URI with scheme 'https',
+	// address and optionally a port (defaulting to 443).  apiServerInternalURL can be used by components
 	// like kubelets, to contact the Kubernetes API server using the
 	// infrastructure provider rather than Kubernetes networking.
 	APIServerInternalURL string `json:"apiServerInternalURI"`
+
+	// controlPlaneTopology expresses the expectations for operands that normally run on control nodes.
+	// The default is 'HighlyAvailable', which represents the behavior operators have in a "normal" cluster.
+	// The 'SingleReplica' mode will be used in single-node deployments
+	// and the operators should not configure the operand for highly-available operation
+	// +kubebuilder:default=HighlyAvailable
+	ControlPlaneTopology TopologyMode `json:"controlPlaneTopology"`
+
+	// infrastructureTopology expresses the expectations for infrastructure services that do not run on control
+	// plane nodes, usually indicated by a node selector for a `role` value
+	// other than `master`.
+	// The default is 'HighlyAvailable', which represents the behavior operators have in a "normal" cluster.
+	// The 'SingleReplica' mode will be used in single-node deployments
+	// and the operators should not configure the operand for highly-available operation
+	// +kubebuilder:default=HighlyAvailable
+	InfrastructureTopology TopologyMode `json:"infrastructureTopology"`
 }
 
+// TopologyMode defines the topology mode of the control/infra nodes.
+// +kubebuilder:validation:Enum=HighlyAvailable;SingleReplica
+type TopologyMode string
+
+const (
+	// "HighlyAvailable" is for operators to configure high-availability as much as possible.
+	HighlyAvailableTopologyMode TopologyMode = "HighlyAvailable"
+
+	// "SingleReplica" is for operators to avoid spending resources for high-availability purpose.
+	SingleReplicaTopologyMode TopologyMode = "SingleReplica"
+)
+
 // PlatformType is a specific supported infrastructure provider.
+<<<<<<< HEAD
 >>>>>>> 79bfea2d (update vendor)
+=======
+// +kubebuilder:validation:Enum="";AWS;Azure;BareMetal;GCP;Libvirt;OpenStack;None;VSphere;oVirt;IBMCloud;KubeVirt;EquinixMetal
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 type PlatformType string
 
 const (
@@ -170,6 +219,9 @@ const (
 	// VSpherePlatformType represents VMWare vSphere infrastructure.
 	VSpherePlatformType PlatformType = "VSphere"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 	// OvirtPlatformType represents oVirt/RHV infrastructure.
 	OvirtPlatformType PlatformType = "oVirt"
@@ -252,10 +304,13 @@ type PlatformSpec struct {
 	EquinixMetal *EquinixMetalPlatformSpec `json:"equinixMetal,omitempty"`
 }
 
+<<<<<<< HEAD
 =======
 )
 
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 // PlatformStatus holds the current status specific to the underlying infrastructure provider
 // of the current cluster. Since these are used at status-level for the underlying cluster, it
 // is supposed that only one of the status structs is set.
@@ -265,6 +320,7 @@ type PlatformStatus struct {
 	// balancers, dynamic volume provisioning, machine creation and deletion, and
 	// other integrations are enabled. If None, no infrastructure automation is
 	// enabled. Allowed values are "AWS", "Azure", "BareMetal", "GCP", "Libvirt",
+<<<<<<< HEAD
 <<<<<<< HEAD
 	// "OpenStack", "VSphere", "oVirt", "EquinixMetal", and "None". Individual components may not support
 	// all platforms, and must handle unrecognized platforms as None if they do
@@ -277,12 +333,23 @@ type PlatformStatus struct {
 	// all platforms, and must handle unrecognized platforms as None if they do
 	// not support that platform.
 >>>>>>> 79bfea2d (update vendor)
+=======
+	// "OpenStack", "VSphere", "oVirt", "EquinixMetal", and "None". Individual components may not support
+	// all platforms, and must handle unrecognized platforms as None if they do
+	// not support that platform.
+	//
+	// This value will be synced with to the `status.platform` and `status.platformStatus.type`.
+	// Currently this value cannot be changed once set.
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	Type PlatformType `json:"type"`
 
 	// AWS contains settings specific to the Amazon Web Services infrastructure provider.
 	// +optional
 	AWS *AWSPlatformStatus `json:"aws,omitempty"`
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 	// Azure contains settings specific to the Azure infrastructure provider.
 	// +optional
@@ -347,8 +414,11 @@ type AWSPlatformSpec struct {
 	// There must be only one ServiceEndpoint for a service.
 	// +optional
 	ServiceEndpoints []AWSServiceEndpoint `json:"serviceEndpoints,omitempty"`
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 // AWSPlatformStatus holds the current status of the Amazon Web Services infrastructure provider.
@@ -356,6 +426,9 @@ type AWSPlatformStatus struct {
 	// region holds the default AWS region for new AWS resources created by the cluster.
 	Region string `json:"region"`
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 	// ServiceEndpoints list contains custom endpoints which will override default
 	// service endpoint of AWS Services.
@@ -593,8 +666,11 @@ type EquinixMetalPlatformStatus struct {
 	// ingressIP is an external IP which routes to the default ingress controller.
 	// The IP is a suitable target of a wildcard DNS record used to resolve default route host names.
 	IngressIP string `json:"ingressIP,omitempty"`
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
@@ -602,6 +678,7 @@ type EquinixMetalPlatformStatus struct {
 // InfrastructureList is
 type InfrastructureList struct {
 	metav1.TypeMeta `json:",inline"`
+<<<<<<< HEAD
 <<<<<<< HEAD
 	metav1.ListMeta `json:"metadata"`
 
@@ -611,4 +688,9 @@ type InfrastructureList struct {
 	metav1.ListMeta `json:"metadata"`
 	Items           []Infrastructure `json:"items"`
 >>>>>>> 79bfea2d (update vendor)
+=======
+	metav1.ListMeta `json:"metadata"`
+
+	Items []Infrastructure `json:"items"`
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }

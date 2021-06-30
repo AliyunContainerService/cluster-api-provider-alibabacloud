@@ -157,6 +157,28 @@ type client struct {
 	metadataClient     metadataClient
 	scheme             *runtime.Scheme
 	mapper             meta.RESTMapper
+<<<<<<< HEAD
+}
+
+// resetGroupVersionKind is a helper function to restore and preserve GroupVersionKind on an object.
+func (c *client) resetGroupVersionKind(obj runtime.Object, gvk schema.GroupVersionKind) {
+	if gvk != schema.EmptyObjectKind.GroupVersionKind() {
+		if v, ok := obj.(schema.ObjectKind); ok {
+			v.SetGroupVersionKind(gvk)
+		}
+	}
+}
+
+// Scheme returns the scheme this client is using.
+func (c *client) Scheme() *runtime.Scheme {
+	return c.scheme
+}
+
+// RESTMapper returns the scheme this client is using.
+func (c *client) RESTMapper() meta.RESTMapper {
+	return c.mapper
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 // resetGroupVersionKind is a helper function to restore and preserve GroupVersionKind on an object.
@@ -178,17 +200,8 @@ func (c *client) RESTMapper() meta.RESTMapper {
 	return c.mapper
 }
 
-// resetGroupVersionKind is a helper function to restore and preserve GroupVersionKind on an object.
-// TODO(vincepri): Remove this function and its calls once    controller-runtime dependencies are upgraded to 1.15.
-func (c *client) resetGroupVersionKind(obj runtime.Object, gvk schema.GroupVersionKind) {
-	if gvk != schema.EmptyObjectKind.GroupVersionKind() {
-		if v, ok := obj.(schema.ObjectKind); ok {
-			v.SetGroupVersionKind(gvk)
-		}
-	}
-}
-
 // Create implements client.Client
+<<<<<<< HEAD
 <<<<<<< HEAD
 func (c *client) Create(ctx context.Context, obj Object, opts ...CreateOption) error {
 	switch obj.(type) {
@@ -198,6 +211,11 @@ func (c *client) Create(ctx context.Context, obj runtime.Object, opts ...CreateO
 	_, ok := obj.(*unstructured.Unstructured)
 	if ok {
 >>>>>>> 79bfea2d (update vendor)
+=======
+func (c *client) Create(ctx context.Context, obj Object, opts ...CreateOption) error {
+	switch obj.(type) {
+	case *unstructured.Unstructured:
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 		return c.unstructuredClient.Create(ctx, obj, opts...)
 	case *metav1.PartialObjectMetadata:
 		return fmt.Errorf("cannot create using only metadata")
@@ -207,6 +225,7 @@ func (c *client) Create(ctx context.Context, obj runtime.Object, opts ...CreateO
 }
 
 // Update implements client.Client
+<<<<<<< HEAD
 <<<<<<< HEAD
 func (c *client) Update(ctx context.Context, obj Object, opts ...UpdateOption) error {
 	defer c.resetGroupVersionKind(obj, obj.GetObjectKind().GroupVersionKind())
@@ -218,6 +237,12 @@ func (c *client) Update(ctx context.Context, obj runtime.Object, opts ...UpdateO
 	_, ok := obj.(*unstructured.Unstructured)
 	if ok {
 >>>>>>> 79bfea2d (update vendor)
+=======
+func (c *client) Update(ctx context.Context, obj Object, opts ...UpdateOption) error {
+	defer c.resetGroupVersionKind(obj, obj.GetObjectKind().GroupVersionKind())
+	switch obj.(type) {
+	case *unstructured.Unstructured:
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 		return c.unstructuredClient.Update(ctx, obj, opts...)
 	case *metav1.PartialObjectMetadata:
 		return fmt.Errorf("cannot update using only metadata -- did you mean to patch?")
@@ -228,6 +253,7 @@ func (c *client) Update(ctx context.Context, obj runtime.Object, opts ...UpdateO
 
 // Delete implements client.Client
 <<<<<<< HEAD
+<<<<<<< HEAD
 func (c *client) Delete(ctx context.Context, obj Object, opts ...DeleteOption) error {
 	switch obj.(type) {
 	case *unstructured.Unstructured:
@@ -236,11 +262,31 @@ func (c *client) Delete(ctx context.Context, obj runtime.Object, opts ...DeleteO
 	_, ok := obj.(*unstructured.Unstructured)
 	if ok {
 >>>>>>> 79bfea2d (update vendor)
+=======
+func (c *client) Delete(ctx context.Context, obj Object, opts ...DeleteOption) error {
+	switch obj.(type) {
+	case *unstructured.Unstructured:
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 		return c.unstructuredClient.Delete(ctx, obj, opts...)
 	case *metav1.PartialObjectMetadata:
 		return c.metadataClient.Delete(ctx, obj, opts...)
 	default:
 		return c.typedClient.Delete(ctx, obj, opts...)
+<<<<<<< HEAD
+	}
+}
+
+// DeleteAllOf implements client.Client
+func (c *client) DeleteAllOf(ctx context.Context, obj Object, opts ...DeleteAllOfOption) error {
+	switch obj.(type) {
+	case *unstructured.Unstructured:
+		return c.unstructuredClient.DeleteAllOf(ctx, obj, opts...)
+	case *metav1.PartialObjectMetadata:
+		return c.metadataClient.DeleteAllOf(ctx, obj, opts...)
+	default:
+		return c.typedClient.DeleteAllOf(ctx, obj, opts...)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	}
 }
 
@@ -256,16 +302,8 @@ func (c *client) DeleteAllOf(ctx context.Context, obj Object, opts ...DeleteAllO
 	}
 }
 
-// DeleteAllOf implements client.Client
-func (c *client) DeleteAllOf(ctx context.Context, obj runtime.Object, opts ...DeleteAllOfOption) error {
-	_, ok := obj.(*unstructured.Unstructured)
-	if ok {
-		return c.unstructuredClient.DeleteAllOf(ctx, obj, opts...)
-	}
-	return c.typedClient.DeleteAllOf(ctx, obj, opts...)
-}
-
 // Patch implements client.Client
+<<<<<<< HEAD
 <<<<<<< HEAD
 func (c *client) Patch(ctx context.Context, obj Object, patch Patch, opts ...PatchOption) error {
 	defer c.resetGroupVersionKind(obj, obj.GetObjectKind().GroupVersionKind())
@@ -277,6 +315,12 @@ func (c *client) Patch(ctx context.Context, obj runtime.Object, patch Patch, opt
 	_, ok := obj.(*unstructured.Unstructured)
 	if ok {
 >>>>>>> 79bfea2d (update vendor)
+=======
+func (c *client) Patch(ctx context.Context, obj Object, patch Patch, opts ...PatchOption) error {
+	defer c.resetGroupVersionKind(obj, obj.GetObjectKind().GroupVersionKind())
+	switch obj.(type) {
+	case *unstructured.Unstructured:
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 		return c.unstructuredClient.Patch(ctx, obj, patch, opts...)
 	case *metav1.PartialObjectMetadata:
 		return c.metadataClient.Patch(ctx, obj, patch, opts...)
@@ -301,6 +345,7 @@ func (c *client) Get(ctx context.Context, key ObjectKey, obj Object) error {
 
 // List implements client.Client
 <<<<<<< HEAD
+<<<<<<< HEAD
 func (c *client) List(ctx context.Context, obj ObjectList, opts ...ListOption) error {
 	switch x := obj.(type) {
 	case *unstructured.UnstructuredList:
@@ -309,6 +354,11 @@ func (c *client) List(ctx context.Context, obj runtime.Object, opts ...ListOptio
 	_, ok := obj.(*unstructured.UnstructuredList)
 	if ok {
 >>>>>>> 79bfea2d (update vendor)
+=======
+func (c *client) List(ctx context.Context, obj ObjectList, opts ...ListOption) error {
+	switch x := obj.(type) {
+	case *unstructured.UnstructuredList:
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 		return c.unstructuredClient.List(ctx, obj, opts...)
 	case *metav1.PartialObjectMetadataList:
 		// Metadata only object should always preserve the GVK.
@@ -354,6 +404,7 @@ var _ StatusWriter = &statusWriter{}
 
 // Update implements client.StatusWriter
 <<<<<<< HEAD
+<<<<<<< HEAD
 func (sw *statusWriter) Update(ctx context.Context, obj Object, opts ...UpdateOption) error {
 	defer sw.client.resetGroupVersionKind(obj, obj.GetObjectKind().GroupVersionKind())
 	switch obj.(type) {
@@ -364,6 +415,12 @@ func (sw *statusWriter) Update(ctx context.Context, obj runtime.Object, opts ...
 	_, ok := obj.(*unstructured.Unstructured)
 	if ok {
 >>>>>>> 79bfea2d (update vendor)
+=======
+func (sw *statusWriter) Update(ctx context.Context, obj Object, opts ...UpdateOption) error {
+	defer sw.client.resetGroupVersionKind(obj, obj.GetObjectKind().GroupVersionKind())
+	switch obj.(type) {
+	case *unstructured.Unstructured:
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 		return sw.client.unstructuredClient.UpdateStatus(ctx, obj, opts...)
 	case *metav1.PartialObjectMetadata:
 		return fmt.Errorf("cannot update status using only metadata -- did you mean to patch?")
@@ -373,6 +430,7 @@ func (sw *statusWriter) Update(ctx context.Context, obj runtime.Object, opts ...
 }
 
 // Patch implements client.Client
+<<<<<<< HEAD
 <<<<<<< HEAD
 func (sw *statusWriter) Patch(ctx context.Context, obj Object, patch Patch, opts ...PatchOption) error {
 	defer sw.client.resetGroupVersionKind(obj, obj.GetObjectKind().GroupVersionKind())
@@ -384,6 +442,12 @@ func (sw *statusWriter) Patch(ctx context.Context, obj runtime.Object, patch Pat
 	_, ok := obj.(*unstructured.Unstructured)
 	if ok {
 >>>>>>> 79bfea2d (update vendor)
+=======
+func (sw *statusWriter) Patch(ctx context.Context, obj Object, patch Patch, opts ...PatchOption) error {
+	defer sw.client.resetGroupVersionKind(obj, obj.GetObjectKind().GroupVersionKind())
+	switch obj.(type) {
+	case *unstructured.Unstructured:
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 		return sw.client.unstructuredClient.PatchStatus(ctx, obj, patch, opts...)
 	case *metav1.PartialObjectMetadata:
 		return sw.client.metadataClient.PatchStatus(ctx, obj, patch, opts...)

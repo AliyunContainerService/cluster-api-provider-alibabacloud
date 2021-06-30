@@ -211,19 +211,27 @@ func (item *primitiveItem) VisitPrimitive(schema *proto.Primitive) {
 	case proto.Number:
 		switch item.Kind {
 <<<<<<< HEAD
+<<<<<<< HEAD
 		case proto.Integer, proto.Number:
 =======
 		case proto.Number:
 >>>>>>> 79bfea2d (update vendor)
+=======
+		case proto.Integer, proto.Number:
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 			return
 		}
 	case proto.String:
 		return
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// TODO(wrong): this misses "null"
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+	// TODO(wrong): this misses "null"
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 	item.AddValidationError(InvalidTypeError{Path: schema.GetPath().String(), Expected: schema.Type, Actual: item.Kind})
 }

@@ -13,6 +13,9 @@ import "syscall"
 
 const (
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	B1000000                         = 0x1008
 	B115200                          = 0x1002
 	B1152000                         = 0x1009
@@ -493,6 +496,7 @@ const (
 	_HIDIOCGRAWNAME                  = 0x80804804
 	_HIDIOCGRAWPHYS                  = 0x80404805
 	_HIDIOCGRAWUNIQ                  = 0x80404808
+<<<<<<< HEAD
 =======
 	AAFS_MAGIC                           = 0x5a3c69f0
 	ADFS_SUPER_MAGIC                     = 0xadf5
@@ -2831,6 +2835,8 @@ const (
 	XTABS                                = 0x1800
 	ZSMALLOC_MAGIC                       = 0x58295829
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 )
 
 // Errors

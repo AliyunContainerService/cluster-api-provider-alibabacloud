@@ -72,6 +72,9 @@ func (client *Client) DescribePriceWithCallback(request *DescribePriceRequest, c
 type DescribePriceRequest struct {
 	*requests.RpcRequest
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	DataDisk3Size              requests.Integer `position:"Query" name:"DataDisk.3.Size"`
 	ResourceOwnerId            requests.Integer `position:"Query" name:"ResourceOwnerId"`
 	DataDisk3Category          string           `position:"Query" name:"DataDisk.3.Category"`
@@ -111,6 +114,7 @@ type DescribePriceRequest struct {
 	DataDisk2PerformanceLevel  string           `position:"Query" name:"DataDisk.2.PerformanceLevel"`
 	SystemDiskSize             requests.Integer `position:"Query" name:"SystemDisk.Size"`
 	OfferingType               string           `position:"Query" name:"OfferingType"`
+<<<<<<< HEAD
 =======
 	DataDisk3Size           requests.Integer `position:"Query" name:"DataDisk.3.Size"`
 	ResourceOwnerId         requests.Integer `position:"Query" name:"ResourceOwnerId"`
@@ -137,6 +141,8 @@ type DescribePriceRequest struct {
 	InternetChargeType      string           `position:"Query" name:"InternetChargeType"`
 	InstanceNetworkType     string           `position:"Query" name:"InstanceNetworkType"`
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 // DescribePriceResponse is the response struct for api DescribePrice

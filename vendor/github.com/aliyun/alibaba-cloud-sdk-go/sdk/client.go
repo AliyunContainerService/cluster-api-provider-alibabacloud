@@ -28,10 +28,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/auth/credentials/provider"
-
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/auth"
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/auth/credentials"
+	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/auth/credentials/provider"
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/endpoints"
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/errors"
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/requests"
@@ -72,11 +71,15 @@ type Client struct {
 	readTimeout    time.Duration
 	connectTimeout time.Duration
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	EndpointMap    map[string]string
 	EndpointType   string
 	Network        string
 	Domain         string
 	isOpenAsync    bool
+<<<<<<< HEAD
 =======
 
 	debug     bool
@@ -84,10 +87,18 @@ type Client struct {
 	// void "panic(write to close channel)" cause of addAsync() after Shutdown()
 	asyncChanLock *sync.RWMutex
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 func (client *Client) Init() (err error) {
 	panic("not support yet")
+}
+
+func (client *Client) SetEndpointRules(endpointMap map[string]string, endpointType string, netWork string) {
+	client.EndpointMap = endpointMap
+	client.Network = netWork
+	client.EndpointType = endpointType
 }
 
 func (client *Client) SetHTTPSInsecure(isInsecure bool) {
@@ -327,6 +338,9 @@ func (client *Client) DoAction(request requests.AcsRequest, response responses.A
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 func (client *Client) GetEndpointRules(regionId string, product string) (endpointRaw string, err error) {
 	if client.EndpointType == "regional" {
 		if regionId == "" {
@@ -346,8 +360,11 @@ func (client *Client) GetEndpointRules(regionId string, product string) (endpoin
 	return endpointRaw, nil
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 func (client *Client) buildRequestWithSigner(request requests.AcsRequest, signer auth.Signer) (httpRequest *http.Request, err error) {
 	// add clientVersion
 	request.GetHeaders()["x-sdk-core-version"] = Version
@@ -359,6 +376,9 @@ func (client *Client) buildRequestWithSigner(request requests.AcsRequest, signer
 
 	// resolve endpoint
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	endpoint := request.GetDomain()
 
 	if endpoint == "" && client.Domain != "" {
@@ -367,6 +387,7 @@ func (client *Client) buildRequestWithSigner(request requests.AcsRequest, signer
 
 	if endpoint == "" {
 		endpoint = endpoints.GetEndpointFromMap(regionId, request.GetProduct())
+<<<<<<< HEAD
 	}
 
 	if endpoint == "" && client.EndpointType != "" &&
@@ -409,7 +430,39 @@ func (client *Client) buildRequestWithSigner(request requests.AcsRequest, signer
 	if err != nil {
 		return
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	}
+
+	if endpoint == "" && client.EndpointType != "" &&
+		(request.GetProduct() != "Sts" || len(request.GetQueryParams()) == 0) {
+		if client.EndpointMap != nil && client.Network == "" || client.Network == "public" {
+			endpoint = client.EndpointMap[regionId]
+		}
+
+		if endpoint == "" {
+			endpoint, err = client.GetEndpointRules(regionId, request.GetProduct())
+			if err != nil {
+				return
+			}
+		}
+	}
+
+	if endpoint == "" {
+		resolveParam := &endpoints.ResolveParam{
+			Domain:               request.GetDomain(),
+			Product:              request.GetProduct(),
+			RegionId:             regionId,
+			LocationProduct:      request.GetLocationServiceCode(),
+			LocationEndpointType: request.GetLocationEndpointType(),
+			CommonApi:            client.ProcessCommonRequest,
+		}
+		endpoint, err = endpoints.Resolve(resolveParam)
+		if err != nil {
+			return
+		}
+	}
+
 	request.SetDomain(endpoint)
 	if request.GetScheme() == "" {
 		request.SetScheme(client.config.Scheme)
@@ -492,8 +545,10 @@ func (client *Client) getTimeout(request requests.AcsRequest) (time.Duration, ti
 		readTimeout = reqReadTimeout
 	} else if client.readTimeout != 0*time.Millisecond {
 		readTimeout = client.readTimeout
-	} else if client.httpClient.Timeout != 0 && client.httpClient.Timeout != 10000000000 {
+	} else if client.httpClient.Timeout != 0 {
 		readTimeout = client.httpClient.Timeout
+	} else if timeout, ok := getAPIMaxTimeout(request.GetProduct(), request.GetActionName()); ok {
+		readTimeout = timeout
 	}
 
 	if reqConnectTimeout != 0*time.Millisecond {
@@ -661,6 +716,8 @@ func (client *Client) DoActionWithSigner(request requests.AcsRequest, response r
 	}
 
 	err = responses.Unmarshal(response, httpResponse, request.GetAcceptFormat())
+	fieldMap["{res_body}"] = response.GetHttpContentString()
+	debug("%s", response.GetHttpContentString())
 	// wrap server errors
 	if serverErr, ok := err.(*errors.ServerError); ok {
 		var wrapInfo = map[string]string{}

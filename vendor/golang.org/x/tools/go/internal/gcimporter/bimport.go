@@ -127,10 +127,14 @@ func BImportData(fset *token.FileSet, imports map[string]*types.Package, data []
 
 	// populate typList with predeclared "known" types
 <<<<<<< HEAD
+<<<<<<< HEAD
 	p.typList = append(p.typList, predeclared()...)
 =======
 	p.typList = append(p.typList, predeclared...)
 >>>>>>> 79bfea2d (update vendor)
+=======
+	p.typList = append(p.typList, predeclared()...)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 	// read package data
 	pkg = p.pkg()
@@ -337,10 +341,14 @@ func (p *importer) pos() token.Pos {
 	p.prevLine = line
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	return p.fake.pos(file, line, 0)
 =======
 	return p.fake.pos(file, line)
 >>>>>>> 79bfea2d (update vendor)
+=======
+	return p.fake.pos(file, line, 0)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 // Synthesize a token.Pos
@@ -350,12 +358,18 @@ type fakeFileSet struct {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 func (s *fakeFileSet) pos(file string, line, column int) token.Pos {
 	// TODO(mdempsky): Make use of column.
 
 =======
 func (s *fakeFileSet) pos(file string, line int) token.Pos {
 >>>>>>> 79bfea2d (update vendor)
+=======
+func (s *fakeFileSet) pos(file string, line, column int) token.Pos {
+	// TODO(mdempsky): Make use of column.
+
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// Since we don't know the set of needed file positions, we
 	// reserve maxlines positions per file.
 	const maxlines = 64 * 1024
@@ -991,6 +1005,9 @@ const (
 )
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 var predeclOnce sync.Once
 var predecl []types.Type // initialized lazily
 
@@ -1044,6 +1061,7 @@ func predeclared() []types.Type {
 		}
 	})
 	return predecl
+<<<<<<< HEAD
 =======
 var predeclared = []types.Type{
 	// basic types
@@ -1090,6 +1108,8 @@ var predeclared = []types.Type{
 	// used internally by gc; never used by this package or in .a files
 	anyType{},
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 type anyType struct{}

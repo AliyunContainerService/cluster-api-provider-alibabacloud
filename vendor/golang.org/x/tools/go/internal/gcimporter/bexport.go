@@ -128,6 +128,7 @@ func BExportData(fset *token.FileSet, pkg *types.Package) (b []byte, err error) 
 
 	// populate type map with predeclared "known" types
 <<<<<<< HEAD
+<<<<<<< HEAD
 	for index, typ := range predeclared() {
 		p.typIndex[typ] = index
 	}
@@ -138,6 +139,12 @@ func BExportData(fset *token.FileSet, pkg *types.Package) (b []byte, err error) 
 	}
 	if len(p.typIndex) != len(predeclared) {
 >>>>>>> 79bfea2d (update vendor)
+=======
+	for index, typ := range predeclared() {
+		p.typIndex[typ] = index
+	}
+	if len(p.typIndex) != len(predeclared()) {
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 		return nil, internalError("duplicate entries in type map?")
 	}
 

@@ -3,9 +3,13 @@
 // license that can be found in the LICENSE file.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 //go:build appengine || (!linux && !darwin && !freebsd && !openbsd && !netbsd)
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+//go:build appengine || (!linux && !darwin && !freebsd && !openbsd && !netbsd)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 // +build appengine !linux,!darwin,!freebsd,!openbsd,!netbsd
 
 package fastwalk
@@ -31,10 +35,14 @@ func readDir(dirName string, fn func(dirName, entName string, typ os.FileMode) e
 		}
 		if err := fn(dirName, fi.Name(), fi.Mode()&os.ModeType); err != nil {
 <<<<<<< HEAD
+<<<<<<< HEAD
 			if err == ErrSkipFiles {
 =======
 			if err == SkipFiles {
 >>>>>>> 79bfea2d (update vendor)
+=======
+			if err == ErrSkipFiles {
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 				skipFiles = true
 				continue
 			}

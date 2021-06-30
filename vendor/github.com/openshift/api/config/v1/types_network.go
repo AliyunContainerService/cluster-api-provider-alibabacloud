@@ -7,6 +7,7 @@ import metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Network holds cluster-wide information about Network. The canonical name is `cluster`. It is used to configure the desired network configuration, such as: IP address pools for services/pod IPs, network plugin, etc.
 // Please view network.spec for an explanation on what applies when configuring this resource.
 type Network struct {
@@ -21,13 +22,23 @@ type Network struct {
 =======
 // Network holds cluster-wide information about Network.  The canonical name is `cluster`
 // TODO this object is an example of a possible grouping and is subject to change or removal
+=======
+// Network holds cluster-wide information about Network. The canonical name is `cluster`. It is used to configure the desired network configuration, such as: IP address pools for services/pod IPs, network plugin, etc.
+// Please view network.spec for an explanation on what applies when configuring this resource.
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 type Network struct {
-	metav1.TypeMeta `json:",inline"`
-	// Standard object's metadata.
+	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
 	// spec holds user settable values for configuration.
+<<<<<<< HEAD
 >>>>>>> 79bfea2d (update vendor)
+=======
+	// As a general rule, this SHOULD NOT be read directly. Instead, you should
+	// consume the NetworkStatus, as it indicates the currently deployed configuration.
+	// Currently, most spec fields are immutable after installation. Please view the individual ones for further details on each.
+	// +kubebuilder:validation:Required
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// +required
 	Spec NetworkSpec `json:"spec"`
 	// status holds observed values from the cluster. They may not be overridden.
@@ -39,6 +50,7 @@ type Network struct {
 // As a general rule, this SHOULD NOT be read directly. Instead, you should
 // consume the NetworkStatus, as it indicates the currently deployed configuration.
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Currently, most spec fields are immutable after installation. Please view the individual ones for further details on each.
 type NetworkSpec struct {
 	// IP address pool to use for pod IPs.
@@ -48,14 +60,24 @@ type NetworkSpec struct {
 type NetworkSpec struct {
 	// IP address pool to use for pod IPs.
 >>>>>>> 79bfea2d (update vendor)
+=======
+// Currently, most spec fields are immutable after installation. Please view the individual ones for further details on each.
+type NetworkSpec struct {
+	// IP address pool to use for pod IPs.
+	// This field is immutable after installation.
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	ClusterNetwork []ClusterNetworkEntry `json:"clusterNetwork"`
 
 	// IP address pool for services.
 	// Currently, we only support a single entry here.
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// This field is immutable after installation.
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+	// This field is immutable after installation.
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	ServiceNetwork []string `json:"serviceNetwork"`
 
 	// NetworkType is the plugin that is to be deployed (e.g. OpenShiftSDN).
@@ -64,6 +86,9 @@ type NetworkSpec struct {
 	// Currently supported values are:
 	// - OpenShiftSDN
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// This field is immutable after installation.
 	NetworkType string `json:"networkType"`
 
@@ -81,9 +106,12 @@ type NetworkSpec struct {
 	// installed.
 	// +kubebuilder:validation:Pattern=`^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])-([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$`
 	ServiceNodePortRange string `json:"serviceNodePortRange,omitempty"`
+<<<<<<< HEAD
 =======
 	NetworkType string `json:"networkType"`
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 // NetworkStatus is the current network configuration.
@@ -101,11 +129,17 @@ type NetworkStatus struct {
 	// ClusterNetworkMTU is the MTU for inter-pod networking.
 	ClusterNetworkMTU int `json:"clusterNetworkMTU,omitempty"`
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	// Migration contains the cluster network migration configuration.
 	Migration *NetworkMigration `json:"migration,omitempty"`
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+
+	// Migration contains the cluster network migration configuration.
+	Migration *NetworkMigration `json:"migration,omitempty"`
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 // ClusterNetworkEntry is a contiguous block of IP addresses from which pod IPs
@@ -115,6 +149,9 @@ type ClusterNetworkEntry struct {
 	CIDR string `json:"cidr"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// The size (prefix) of block to allocate to each node. If this
 	// field is not used by the plugin, it can be left unset.
 	// +kubebuilder:validation:Minimum=0
@@ -152,16 +189,20 @@ type ExternalIPPolicy struct {
 	// over allowedCIDRs.
 	// +optional
 	RejectedCIDRs []string `json:"rejectedCIDRs,omitempty"`
+<<<<<<< HEAD
 =======
 	// The size (prefix) of block to allocate to each node.
 	HostPrefix uint32 `json:"hostPrefix"`
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 type NetworkList struct {
 	metav1.TypeMeta `json:",inline"`
+<<<<<<< HEAD
 <<<<<<< HEAD
 	metav1.ListMeta `json:"metadata"`
 
@@ -179,4 +220,17 @@ type NetworkMigration struct {
 	metav1.ListMeta `json:"metadata"`
 	Items           []Network `json:"items"`
 >>>>>>> 79bfea2d (update vendor)
+=======
+	metav1.ListMeta `json:"metadata"`
+
+	Items []Network `json:"items"`
+}
+
+// NetworkMigration represents the cluster network configuration.
+type NetworkMigration struct {
+	// NetworkType is the target plugin that is to be deployed.
+	// Currently supported values are: OpenShiftSDN, OVNKubernetes
+	// +kubebuilder:validation:Enum={"OpenShiftSDN","OVNKubernetes"}
+	NetworkType string `json:"networkType"`
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }

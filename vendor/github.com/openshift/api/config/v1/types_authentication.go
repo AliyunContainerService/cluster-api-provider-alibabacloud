@@ -7,6 +7,7 @@ import metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Authentication specifies cluster-wide settings for authentication (like OAuth and
 // webhook token authenticators). The canonical name of an instance is `cluster`.
 type Authentication struct {
@@ -17,13 +18,20 @@ type Authentication struct {
 	// +kubebuilder:validation:Required
 =======
 // Authentication holds cluster-wide information about Authentication.  The canonical name is `cluster`
+=======
+// Authentication specifies cluster-wide settings for authentication (like OAuth and
+// webhook token authenticators). The canonical name of an instance is `cluster`.
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 type Authentication struct {
-	metav1.TypeMeta `json:",inline"`
-	// Standard object's metadata.
+	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
 	// spec holds user settable values for configuration
+<<<<<<< HEAD
 >>>>>>> 79bfea2d (update vendor)
+=======
+	// +kubebuilder:validation:Required
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// +required
 	Spec AuthenticationSpec `json:"spec"`
 	// status holds observed values from the cluster. They may not be overridden.
@@ -36,9 +44,13 @@ type AuthenticationSpec struct {
 	// Specifically, it manages the component that responds to login attempts.
 	// The default is IntegratedOAuth.
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// +optional
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+	// +optional
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	Type AuthenticationType `json:"type"`
 
 	// oauthMetadata contains the discovery endpoint data for OAuth 2.0
@@ -57,10 +69,14 @@ type AuthenticationSpec struct {
 	OAuthMetadata ConfigMapNameReference `json:"oauthMetadata"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// webhookTokenAuthenticators is DEPRECATED, setting it has no effect.
 	WebhookTokenAuthenticators []DeprecatedWebhookTokenAuthenticator `json:"webhookTokenAuthenticators,omitempty"`
 
 	// webhookTokenAuthenticator configures a remote token reviewer.
+<<<<<<< HEAD
 	// These remote authentication webhooks can be used to verify bearer tokens
 	// via the tokenreviews.authentication.k8s.io REST API. This is required to
 	// honor bearer tokens that are provisioned by an external authentication service.
@@ -80,13 +96,30 @@ type AuthenticationSpec struct {
 	ServiceAccountIssuer string `json:"serviceAccountIssuer"`
 =======
 	// webhookTokenAuthenticators configures remote token reviewers.
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// These remote authentication webhooks can be used to verify bearer tokens
-	// via the tokenreviews.authentication.k8s.io REST API.  This is required to
+	// via the tokenreviews.authentication.k8s.io REST API. This is required to
 	// honor bearer tokens that are provisioned by an external authentication service.
-	// The namespace for these secrets is openshift-config.
 	// +optional
+<<<<<<< HEAD
 	WebhookTokenAuthenticators []WebhookTokenAuthenticator `json:"webhookTokenAuthenticators,omitempty"`
 >>>>>>> 79bfea2d (update vendor)
+=======
+	WebhookTokenAuthenticator *WebhookTokenAuthenticator `json:"webhookTokenAuthenticator,omitempty"`
+
+	// serviceAccountIssuer is the identifier of the bound service account token
+	// issuer.
+	// The default is https://kubernetes.default.svc
+	// WARNING: Updating this field will result in the invalidation of
+	// all bound tokens with the previous issuer value. Unless the
+	// holder of a bound token has explicit support for a change in
+	// issuer, they will not request a new bound token until pod
+	// restart or until their existing token exceeds 80% of its
+	// duration.
+	// +optional
+	ServiceAccountIssuer string `json:"serviceAccountIssuer"`
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 type AuthenticationStatus struct {
@@ -114,9 +147,12 @@ type AuthenticationStatus struct {
 type AuthenticationList struct {
 	metav1.TypeMeta `json:",inline"`
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	// Standard object's metadata.
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	metav1.ListMeta `json:"metadata"`
 
 	Items []Authentication `json:"items"`
@@ -138,6 +174,7 @@ const (
 	// AuthenticationTypeKeycloak AuthenticationType = "Keycloak"
 )
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 // deprecatedWebhookTokenAuthenticator holds the necessary configuration options for a remote token authenticator.
 // It's the same as WebhookTokenAuthenticator but it's missing the 'required' validation on KubeConfig field.
@@ -170,6 +207,11 @@ type WebhookTokenAuthenticator struct {
 =======
 // webhookTokenAuthenticator holds the necessary configuration options for a remote token authenticator
 type WebhookTokenAuthenticator struct {
+=======
+// deprecatedWebhookTokenAuthenticator holds the necessary configuration options for a remote token authenticator.
+// It's the same as WebhookTokenAuthenticator but it's missing the 'required' validation on KubeConfig field.
+type DeprecatedWebhookTokenAuthenticator struct {
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// kubeConfig contains kube config file data which describes how to access the remote webhook service.
 	// For further details, see:
 	// https://kubernetes.io/docs/reference/access-authn-authz/authentication/#webhook-token-authentication
@@ -178,6 +220,24 @@ type WebhookTokenAuthenticator struct {
 	// If the specified kube config data is not valid, the webhook is not honored.
 	// The namespace for this secret is determined by the point of use.
 >>>>>>> 79bfea2d (update vendor)
+	KubeConfig SecretNameReference `json:"kubeConfig"`
+}
+
+// webhookTokenAuthenticator holds the necessary configuration options for a remote token authenticator
+type WebhookTokenAuthenticator struct {
+	// kubeConfig references a secret that contains kube config file data which
+	// describes how to access the remote webhook service.
+	// The namespace for the referenced secret is openshift-config.
+	//
+	// For further details, see:
+	//
+	// https://kubernetes.io/docs/reference/access-authn-authz/authentication/#webhook-token-authentication
+	//
+	// The key "kubeConfig" is used to locate the data.
+	// If the secret or expected key is not found, the webhook is not honored.
+	// If the specified kube config data is not valid, the webhook is not honored.
+	// +kubebuilder:validation:Required
+	// +required
 	KubeConfig SecretNameReference `json:"kubeConfig"`
 }
 

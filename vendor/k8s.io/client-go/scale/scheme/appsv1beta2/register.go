@@ -42,8 +42,12 @@ func init() {
 	// generated functions takes place in the generated files. The separation
 	// makes the code compile even when the generated files are missing.
 <<<<<<< HEAD
+<<<<<<< HEAD
 	localSchemeBuilder.Register()
 =======
 	localSchemeBuilder.Register(addConversionFuncs)
 >>>>>>> 79bfea2d (update vendor)
+=======
+	localSchemeBuilder.Register()
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }

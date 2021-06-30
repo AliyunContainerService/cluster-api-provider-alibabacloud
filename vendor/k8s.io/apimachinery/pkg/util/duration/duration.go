@@ -84,14 +84,20 @@ func HumanDuration(d time.Duration) string {
 		return fmt.Sprintf("%dd", hours/24)
 	} else if hours < 24*365*8 {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 		dy := int(hours/24) % 365
 		if dy == 0 {
 			return fmt.Sprintf("%dy", hours/24/365)
 		}
 		return fmt.Sprintf("%dy%dd", hours/24/365, dy)
+<<<<<<< HEAD
 =======
 		return fmt.Sprintf("%dy%dd", hours/24/365, (hours/24)%365)
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	}
 	return fmt.Sprintf("%dy", int(hours/24/365))
 }

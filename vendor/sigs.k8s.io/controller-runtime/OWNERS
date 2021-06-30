@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # See the OWNERS docs: https://git.k8s.io/community/contributors/guide/owners.md
 
 approvers:
@@ -15,10 +16,20 @@ owners:
   - directxman12
   - droot
   - pwittrock
+=======
+# See the OWNERS docs: https://git.k8s.io/community/contributors/guide/owners.md
+
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 approvers:
   - controller-runtime-admins
   - controller-runtime-maintainers
+  - controller-runtime-approvers
 reviewers:
   - controller-runtime-admins
+<<<<<<< HEAD
   - controller-runtime-maintainers
 >>>>>>> 79bfea2d (update vendor)
+=======
+  - controller-runtime-reviewers
+  - controller-runtime-approvers
+>>>>>>> e879a141 (alibabacloud machine-api provider)

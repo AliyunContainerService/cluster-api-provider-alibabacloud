@@ -2,12 +2,16 @@ package version
 
 import (
 	"fmt"
+<<<<<<< HEAD
 	"runtime"
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	"strings"
 
 	"github.com/blang/semver"
 )
 
+<<<<<<< HEAD
 var (
 	// Raw is the string representation of the version. This will be replaced with the calculated version at build time.
 	Raw = "v0.1.0-alpha.1"
@@ -26,6 +30,18 @@ var (
 	gitReleaseTag    string // gitReleaseTag is the git tag from which this binary is released
 	gitReleaseCommit string // gitReleaseCommit is the commit corresponding to the GitReleaseTag
 	gitBranch        string // gitBranch is the branch from which this binary was built
+=======
+var (
+	// Raw is the string representation of the version. This will be replaced
+	// with the calculated version at build time.
+	Raw = "v0.0.0-was-not-built-properly"
+
+	// Version is semver representation of the version.
+	Version = semver.MustParse(strings.TrimLeft(Raw, "v"))
+
+	// String is the human-friendly representation of the version.
+	String = fmt.Sprintf("ClusterAPIProvideralibabacloud %s", Raw)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 )
 
 type Info struct {

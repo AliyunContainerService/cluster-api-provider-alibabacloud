@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # OpenShift cluster-api-provider-alibabacloud
 
 <<<<<<< HEAD
@@ -406,3 +407,5 @@ Kubernetes [Cluster-API AlibabaCloud provider](https://github.com/AliyunContaine
 
 
 >>>>>>> 8dbd34ff (update project name)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)

@@ -31,9 +31,13 @@ import (
 	"net/url"
 	"strings"
 <<<<<<< HEAD
+<<<<<<< HEAD
 	"time"
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+	"time"
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -75,11 +79,17 @@ type SpdyRoundTripper struct {
 	// as the original request.
 	requireSameHostRedirects bool
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// pingPeriod is a period for sending Ping frames over established
 	// connections.
 	pingPeriod time.Duration
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+	// pingPeriod is a period for sending Ping frames over established
+	// connections.
+	pingPeriod time.Duration
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 var _ utilnet.TLSClientConfigHolder = &SpdyRoundTripper{}
@@ -87,6 +97,9 @@ var _ httpstream.UpgradeRoundTripper = &SpdyRoundTripper{}
 var _ utilnet.Dialer = &SpdyRoundTripper{}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 // NewRoundTripper creates a new SpdyRoundTripper that will use the specified
 // tlsConfig.
 func NewRoundTripper(tlsConfig *tls.Config, followRedirects, requireSameHostRedirects bool) *SpdyRoundTripper {
@@ -95,6 +108,7 @@ func NewRoundTripper(tlsConfig *tls.Config, followRedirects, requireSameHostRedi
 		FollowRedirects:          followRedirects,
 		RequireSameHostRedirects: requireSameHostRedirects,
 	})
+<<<<<<< HEAD
 }
 
 // NewRoundTripperWithProxy creates a new SpdyRoundTripper that will use the
@@ -142,19 +156,54 @@ type RoundTripperConfig struct {
 // the specified tlsConfig.
 func NewRoundTripper(tlsConfig *tls.Config, followRedirects, requireSameHostRedirects bool) httpstream.UpgradeRoundTripper {
 	return NewSpdyRoundTripper(tlsConfig, followRedirects, requireSameHostRedirects)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
-// NewSpdyRoundTripper creates a new SpdyRoundTripper that will use
-// the specified tlsConfig. This function is mostly meant for unit tests.
-func NewSpdyRoundTripper(tlsConfig *tls.Config, followRedirects, requireSameHostRedirects bool) *SpdyRoundTripper {
+// NewRoundTripperWithProxy creates a new SpdyRoundTripper that will use the
+// specified tlsConfig and proxy func.
+func NewRoundTripperWithProxy(tlsConfig *tls.Config, followRedirects, requireSameHostRedirects bool, proxier func(*http.Request) (*url.URL, error)) *SpdyRoundTripper {
+	return NewRoundTripperWithConfig(RoundTripperConfig{
+		TLS:                      tlsConfig,
+		FollowRedirects:          followRedirects,
+		RequireSameHostRedirects: requireSameHostRedirects,
+		Proxier:                  proxier,
+	})
+}
+
+// NewRoundTripperWithProxy creates a new SpdyRoundTripper with the specified
+// configuration.
+func NewRoundTripperWithConfig(cfg RoundTripperConfig) *SpdyRoundTripper {
+	if cfg.Proxier == nil {
+		cfg.Proxier = utilnet.NewProxierWithNoProxyCIDR(http.ProxyFromEnvironment)
+	}
 	return &SpdyRoundTripper{
-		tlsConfig:                tlsConfig,
-		followRedirects:          followRedirects,
-		requireSameHostRedirects: requireSameHostRedirects,
+		tlsConfig:                cfg.TLS,
+		followRedirects:          cfg.FollowRedirects,
+		requireSameHostRedirects: cfg.RequireSameHostRedirects,
+		proxier:                  cfg.Proxier,
+		pingPeriod:               cfg.PingPeriod,
 	}
 }
 
+<<<<<<< HEAD
 >>>>>>> 79bfea2d (update vendor)
+=======
+// RoundTripperConfig is a set of options for an SpdyRoundTripper.
+type RoundTripperConfig struct {
+	// TLS configuration used by the round tripper.
+	TLS *tls.Config
+	// Proxier is a proxy function invoked on each request. Optional.
+	Proxier func(*http.Request) (*url.URL, error)
+	// PingPeriod is a period for sending SPDY Pings on the connection.
+	// Optional.
+	PingPeriod time.Duration
+
+	FollowRedirects          bool
+	RequireSameHostRedirects bool
+}
+
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 // TLSClientConfig implements pkg/util/net.TLSClientConfigHolder for proper TLS checking during
 // proxying with a spdy roundtripper.
 func (s *SpdyRoundTripper) TLSClientConfig() *tls.Config {
@@ -180,6 +229,7 @@ func (s *SpdyRoundTripper) Dial(req *http.Request) (net.Conn, error) {
 // using a proxy server if one is configured via environment variables.
 func (s *SpdyRoundTripper) dial(req *http.Request) (net.Conn, error) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	proxyURL, err := s.proxier(req)
 =======
 	proxier := s.proxier
@@ -188,6 +238,9 @@ func (s *SpdyRoundTripper) dial(req *http.Request) (net.Conn, error) {
 	}
 	proxyURL, err := proxier(req)
 >>>>>>> 79bfea2d (update vendor)
+=======
+	proxyURL, err := s.proxier(req)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	if err != nil {
 		return nil, err
 	}
@@ -387,10 +440,14 @@ func (s *SpdyRoundTripper) NewConnection(resp *http.Response) (httpstream.Connec
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	return NewClientConnectionWithPings(s.conn, s.pingPeriod)
 =======
 	return NewClientConnection(s.conn)
 >>>>>>> 79bfea2d (update vendor)
+=======
+	return NewClientConnectionWithPings(s.conn, s.pingPeriod)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 // statusScheme is private scheme for the decoding here until someone fixes the TODO in NewConnection

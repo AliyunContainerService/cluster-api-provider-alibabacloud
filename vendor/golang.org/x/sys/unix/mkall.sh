@@ -10,13 +10,14 @@
 GOOSARCH="${GOOS}_${GOARCH}"
 
 # defaults
-mksyscall="./mksyscall.pl"
+mksyscall="go run mksyscall.go"
 mkerrors="./mkerrors.sh"
 zerrors="zerrors_$GOOSARCH.go"
 mksysctl=""
 zsysctl="zsysctl_$GOOSARCH.go"
 mksysnum=
 mktypes=
+mkasm=
 run="sh"
 cmd=""
 
@@ -45,8 +46,8 @@ case "$#" in
 	exit 2
 esac
 
-if [[ "$GOOS" = "linux" ]] && [[ "$GOARCH" != "sparc64" ]]; then
-	# Use then new build system
+if [[ "$GOOS" = "linux" ]]; then
+	# Use the Docker-based build system
 	# Files generated through docker (use $cmd so you can Ctl-C the build or run)
 	$cmd docker build --tag generate:$GOOS $GOOS
 	$cmd docker run --interactive --tty --volume $(cd -- "$(dirname -- "$0")" && /bin/pwd):/build generate:$GOOS
@@ -61,11 +62,12 @@ _* | *_ | _)
 	;;
 aix_ppc)
 	mkerrors="$mkerrors -maix32"
-	mksyscall="./mksyscall_aix_ppc.pl -aix"
+	mksyscall="go run mksyscall_aix_ppc.go -aix"
 	mktypes="GOARCH=$GOARCH go tool cgo -godefs"
 	;;
 aix_ppc64)
 	mkerrors="$mkerrors -maix64"
+<<<<<<< HEAD
 	mksyscall="./mksyscall_aix_ppc64.pl -aix"
 	mktypes="GOARCH=$GOARCH go tool cgo -godefs"
 	;;
@@ -77,10 +79,14 @@ darwin_386)
 	mkerrors="$mkerrors -m32"
 	mksyscall="./mksyscall.pl -l32"
 	mksysnum="./mksysnum_darwin.pl $(xcrun --show-sdk-path --sdk macosx)/usr/include/sys/syscall.h"
+=======
+	mksyscall="go run mksyscall_aix_ppc64.go -aix"
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	mktypes="GOARCH=$GOARCH go tool cgo -godefs"
 	;;
 darwin_amd64)
 	mkerrors="$mkerrors -m64"
+<<<<<<< HEAD
 	mksysnum="./mksysnum_darwin.pl $(xcrun --show-sdk-path --sdk macosx)/usr/include/sys/syscall.h"
 	mktypes="GOARCH=$GOARCH go tool cgo -godefs"
 	;;
@@ -88,24 +94,32 @@ darwin_arm)
 	mkerrors="$mkerrors"
 	mksysnum="./mksysnum_darwin.pl $(xcrun --show-sdk-path --sdk iphoneos)/usr/include/sys/syscall.h"
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	mktypes="GOARCH=$GOARCH go tool cgo -godefs"
+	mkasm="go run mkasm_darwin.go"
 	;;
 darwin_arm64)
 	mkerrors="$mkerrors -m64"
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	mksysnum="./mksysnum_darwin.pl $(xcrun --show-sdk-path --sdk iphoneos)/usr/include/sys/syscall.h"
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	mktypes="GOARCH=$GOARCH go tool cgo -godefs"
+	mkasm="go run mkasm_darwin.go"
 	;;
 dragonfly_amd64)
 	mkerrors="$mkerrors -m64"
-	mksyscall="./mksyscall.pl -dragonfly"
-	mksysnum="curl -s 'http://gitweb.dragonflybsd.org/dragonfly.git/blob_plain/HEAD:/sys/kern/syscalls.master' | ./mksysnum_dragonfly.pl"
+	mksyscall="go run mksyscall.go -dragonfly"
+	mksysnum="go run mksysnum.go 'https://gitweb.dragonflybsd.org/dragonfly.git/blob_plain/HEAD:/sys/kern/syscalls.master'"
 	mktypes="GOARCH=$GOARCH go tool cgo -godefs"
 	;;
 freebsd_386)
 	mkerrors="$mkerrors -m32"
+<<<<<<< HEAD
 <<<<<<< HEAD
 	mksyscall="go run mksyscall.go -l32"
 	mksysnum="go run mksysnum.go 'https://svn.freebsd.org/base/stable/11/sys/kern/syscalls.master'"
@@ -113,19 +127,28 @@ freebsd_386)
 	mksyscall="./mksyscall.pl -l32"
 	mksysnum="curl -s 'http://svn.freebsd.org/base/stable/10/sys/kern/syscalls.master' | ./mksysnum_freebsd.pl"
 >>>>>>> 79bfea2d (update vendor)
+=======
+	mksyscall="go run mksyscall.go -l32"
+	mksysnum="go run mksysnum.go 'https://svn.freebsd.org/base/stable/11/sys/kern/syscalls.master'"
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	mktypes="GOARCH=$GOARCH go tool cgo -godefs"
 	;;
 freebsd_amd64)
 	mkerrors="$mkerrors -m64"
 <<<<<<< HEAD
+<<<<<<< HEAD
 	mksysnum="go run mksysnum.go 'https://svn.freebsd.org/base/stable/11/sys/kern/syscalls.master'"
 =======
 	mksysnum="curl -s 'http://svn.freebsd.org/base/stable/10/sys/kern/syscalls.master' | ./mksysnum_freebsd.pl"
 >>>>>>> 79bfea2d (update vendor)
+=======
+	mksysnum="go run mksysnum.go 'https://svn.freebsd.org/base/stable/11/sys/kern/syscalls.master'"
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	mktypes="GOARCH=$GOARCH go tool cgo -godefs"
 	;;
 freebsd_arm)
 	mkerrors="$mkerrors"
+<<<<<<< HEAD
 <<<<<<< HEAD
 	mksyscall="go run mksyscall.go -l32 -arm"
 	mksysnum="go run mksysnum.go 'https://svn.freebsd.org/base/stable/11/sys/kern/syscalls.master'"
@@ -133,14 +156,17 @@ freebsd_arm)
 	mksyscall="./mksyscall.pl -l32 -arm"
 	mksysnum="curl -s 'http://svn.freebsd.org/base/stable/10/sys/kern/syscalls.master' | ./mksysnum_freebsd.pl"
 >>>>>>> 79bfea2d (update vendor)
+=======
+	mksyscall="go run mksyscall.go -l32 -arm"
+	mksysnum="go run mksysnum.go 'https://svn.freebsd.org/base/stable/11/sys/kern/syscalls.master'"
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	# Let the type of C char be signed for making the bare syscall
 	# API consistent across platforms.
 	mktypes="GOARCH=$GOARCH go tool cgo -godefs -- -fsigned-char"
 	;;
-linux_sparc64)
-	GOOSARCH_in=syscall_linux_sparc64.go
-	unistd_h=/usr/include/sparc64-linux-gnu/asm/unistd.h
+freebsd_arm64)
 	mkerrors="$mkerrors -m64"
+<<<<<<< HEAD
 <<<<<<< HEAD
 	mksysnum="go run mksysnum.go 'https://svn.freebsd.org/base/stable/11/sys/kern/syscalls.master'"
 	mktypes="GOARCH=$GOARCH go tool cgo -godefs -- -fsigned-char"
@@ -148,23 +174,27 @@ linux_sparc64)
 	mksysnum="./mksysnum_linux.pl $unistd_h"
 	mktypes="GOARCH=$GOARCH go tool cgo -godefs"
 >>>>>>> 79bfea2d (update vendor)
+=======
+	mksysnum="go run mksysnum.go 'https://svn.freebsd.org/base/stable/11/sys/kern/syscalls.master'"
+	mktypes="GOARCH=$GOARCH go tool cgo -godefs -- -fsigned-char"
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	;;
 netbsd_386)
 	mkerrors="$mkerrors -m32"
-	mksyscall="./mksyscall.pl -l32 -netbsd"
-	mksysnum="curl -s 'http://cvsweb.netbsd.org/bsdweb.cgi/~checkout~/src/sys/kern/syscalls.master' | ./mksysnum_netbsd.pl"
+	mksyscall="go run mksyscall.go -l32 -netbsd"
+	mksysnum="go run mksysnum.go 'http://cvsweb.netbsd.org/bsdweb.cgi/~checkout~/src/sys/kern/syscalls.master'"
 	mktypes="GOARCH=$GOARCH go tool cgo -godefs"
 	;;
 netbsd_amd64)
 	mkerrors="$mkerrors -m64"
-	mksyscall="./mksyscall.pl -netbsd"
-	mksysnum="curl -s 'http://cvsweb.netbsd.org/bsdweb.cgi/~checkout~/src/sys/kern/syscalls.master' | ./mksysnum_netbsd.pl"
+	mksyscall="go run mksyscall.go -netbsd"
+	mksysnum="go run mksysnum.go 'http://cvsweb.netbsd.org/bsdweb.cgi/~checkout~/src/sys/kern/syscalls.master'"
 	mktypes="GOARCH=$GOARCH go tool cgo -godefs"
 	;;
 netbsd_arm)
 	mkerrors="$mkerrors"
-	mksyscall="./mksyscall.pl -l32 -netbsd -arm"
-	mksysnum="curl -s 'http://cvsweb.netbsd.org/bsdweb.cgi/~checkout~/src/sys/kern/syscalls.master' | ./mksysnum_netbsd.pl"
+	mksyscall="go run mksyscall.go -l32 -netbsd -arm"
+	mksysnum="go run mksysnum.go 'http://cvsweb.netbsd.org/bsdweb.cgi/~checkout~/src/sys/kern/syscalls.master'"
 	# Let the type of C char be signed for making the bare syscall
 	# API consistent across platforms.
 	mktypes="GOARCH=$GOARCH go tool cgo -godefs -- -fsigned-char"
@@ -178,6 +208,7 @@ netbsd_arm64)
 openbsd_386)
 	mkerrors="$mkerrors -m32"
 <<<<<<< HEAD
+<<<<<<< HEAD
 	mksyscall="go run mksyscall.go -l32 -openbsd"
 	mksysctl="go run mksysctl_openbsd.go"
 	mksysnum="go run mksysnum.go 'https://cvsweb.openbsd.org/cgi-bin/cvsweb/~checkout~/src/sys/kern/syscalls.master'"
@@ -186,10 +217,16 @@ openbsd_386)
 	mksysctl="./mksysctl_openbsd.pl"
 	mksysnum="curl -s 'http://cvsweb.openbsd.org/cgi-bin/cvsweb/~checkout~/src/sys/kern/syscalls.master' | ./mksysnum_openbsd.pl"
 >>>>>>> 79bfea2d (update vendor)
+=======
+	mksyscall="go run mksyscall.go -l32 -openbsd"
+	mksysctl="go run mksysctl_openbsd.go"
+	mksysnum="go run mksysnum.go 'https://cvsweb.openbsd.org/cgi-bin/cvsweb/~checkout~/src/sys/kern/syscalls.master'"
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	mktypes="GOARCH=$GOARCH go tool cgo -godefs"
 	;;
 openbsd_amd64)
 	mkerrors="$mkerrors -m64"
+<<<<<<< HEAD
 <<<<<<< HEAD
 	mksyscall="go run mksyscall.go -openbsd"
 	mksysctl="go run mksysctl_openbsd.go"
@@ -199,11 +236,19 @@ openbsd_amd64)
 	mksysctl="./mksysctl_openbsd.pl"
 	mksysnum="curl -s 'http://cvsweb.openbsd.org/cgi-bin/cvsweb/~checkout~/src/sys/kern/syscalls.master' | ./mksysnum_openbsd.pl"
 >>>>>>> 79bfea2d (update vendor)
+=======
+	mksyscall="go run mksyscall.go -openbsd"
+	mksysctl="go run mksysctl_openbsd.go"
+	mksysnum="go run mksysnum.go 'https://cvsweb.openbsd.org/cgi-bin/cvsweb/~checkout~/src/sys/kern/syscalls.master'"
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	mktypes="GOARCH=$GOARCH go tool cgo -godefs"
 	;;
 openbsd_arm)
 	mkerrors="$mkerrors"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	mksyscall="go run mksyscall.go -l32 -openbsd -arm"
 	mksysctl="go run mksysctl_openbsd.go"
 	mksysnum="go run mksysnum.go 'https://cvsweb.openbsd.org/cgi-bin/cvsweb/~checkout~/src/sys/kern/syscalls.master'"
@@ -225,17 +270,20 @@ openbsd_mips64)
 	mksyscall="go run mksyscall.go -openbsd"
 	mksysctl="go run mksysctl_openbsd.go"
 	mksysnum="go run mksysnum.go 'https://cvsweb.openbsd.org/cgi-bin/cvsweb/~checkout~/src/sys/kern/syscalls.master'"
+<<<<<<< HEAD
 =======
 	mksyscall="./mksyscall.pl -l32 -openbsd -arm"
 	mksysctl="./mksysctl_openbsd.pl"
 	mksysnum="curl -s 'http://cvsweb.openbsd.org/cgi-bin/cvsweb/~checkout~/src/sys/kern/syscalls.master' | ./mksysnum_openbsd.pl"
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	# Let the type of C char be signed for making the bare syscall
 	# API consistent across platforms.
 	mktypes="GOARCH=$GOARCH go tool cgo -godefs -- -fsigned-char"
 	;;
 solaris_amd64)
-	mksyscall="./mksyscall_solaris.pl"
+	mksyscall="go run mksyscall_solaris.go"
 	mkerrors="$mkerrors -m64"
 	mksysnum=
 	mktypes="GOARCH=$GOARCH go tool cgo -godefs"
@@ -267,6 +315,9 @@ esac
 				# aix/ppc64 script generates files instead of writing to stdin.
 				echo "$mksyscall -tags $GOOS,$GOARCH $syscall_goos $GOOSARCH_in && gofmt -w zsyscall_$GOOSARCH.go && gofmt -w zsyscall_"$GOOSARCH"_gccgo.go && gofmt -w zsyscall_"$GOOSARCH"_gc.go " ;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 			elif [ "$GOOS" == "darwin" ]; then
 			        # 1.12 and later, syscalls via libSystem
 				echo "$mksyscall -tags $GOOS,$GOARCH,go1.12 $syscall_goos $GOOSARCH_in |gofmt >zsyscall_$GOOSARCH.go";
@@ -277,8 +328,11 @@ esac
 			        echo "$mksyscall -illumos -tags illumos,$GOARCH syscall_illumos.go |gofmt > zsyscall_illumos_$GOARCH.go";
 			        # illumos implies solaris, so solaris code generation is also required
 				echo "$mksyscall -tags solaris,$GOARCH syscall_solaris.go syscall_solaris_$GOARCH.go |gofmt >zsyscall_solaris_$GOARCH.go";
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 			else
 				echo "$mksyscall -tags $GOOS,$GOARCH $syscall_goos $GOOSARCH_in |gofmt >zsyscall_$GOOSARCH.go";
 			fi
@@ -287,6 +341,7 @@ esac
 	if [ -n "$mksysctl" ]; then echo "$mksysctl |gofmt >$zsysctl"; fi
 	if [ -n "$mksysnum" ]; then echo "$mksysnum |gofmt >zsysnum_$GOOSARCH.go"; fi
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if [ -n "$mktypes" ]; then echo "$mktypes types_$GOOS.go | go run mkpost.go > ztypes_$GOOSARCH.go"; fi
 	if [ -n "$mkasm" ]; then echo "$mkasm $GOARCH"; fi
 =======
@@ -294,4 +349,8 @@ esac
 		echo "$mktypes types_$GOOS.go | go run mkpost.go > ztypes_$GOOSARCH.go";
 	fi
 >>>>>>> 79bfea2d (update vendor)
+=======
+	if [ -n "$mktypes" ]; then echo "$mktypes types_$GOOS.go | go run mkpost.go > ztypes_$GOOSARCH.go"; fi
+	if [ -n "$mkasm" ]; then echo "$mkasm $GOARCH"; fi
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 ) | $run

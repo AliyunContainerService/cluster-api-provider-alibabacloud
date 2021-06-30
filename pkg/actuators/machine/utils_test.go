@@ -1,5 +1,6 @@
 package machine
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 import (
@@ -93,3 +94,5 @@ func TestProviderConfigFromMachine(t *testing.T) {
 	}
 }
 >>>>>>> ebdd9bd0 (update test case)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)

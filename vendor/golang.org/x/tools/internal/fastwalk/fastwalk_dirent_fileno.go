@@ -3,9 +3,13 @@
 // license that can be found in the LICENSE file.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 //go:build freebsd || openbsd || netbsd
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+//go:build freebsd || openbsd || netbsd
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 // +build freebsd openbsd netbsd
 
 package fastwalk

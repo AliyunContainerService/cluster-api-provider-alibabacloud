@@ -23,10 +23,14 @@ import (
 	"net/url"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	"k8s.io/klog/v2"
 =======
 	"k8s.io/klog"
 >>>>>>> 79bfea2d (update vendor)
+=======
+	"k8s.io/klog/v2"
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 	"k8s.io/apimachinery/pkg/util/httpstream"
 	"k8s.io/apimachinery/pkg/util/remotecommand"

@@ -3,9 +3,13 @@
 // license that can be found in the LICENSE file.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 //go:build go1.11
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+//go:build go1.11
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 // +build go1.11
 
 package gcimporter

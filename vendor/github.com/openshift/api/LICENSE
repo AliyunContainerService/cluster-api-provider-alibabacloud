@@ -1,7 +1,11 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+
+>>>>>>> e879a141 (alibabacloud machine-api provider)
                                  Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
@@ -180,6 +184,7 @@
    END OF TERMS AND CONDITIONS
 
 <<<<<<< HEAD
+<<<<<<< HEAD
    Copyright 2020 Red Hat, Inc.
 =======
    APPENDIX: How to apply the Apache License to your work.
@@ -195,6 +200,9 @@
 
    Copyright {yyyy} {name of copyright owner}
 >>>>>>> 79bfea2d (update vendor)
+=======
+   Copyright 2020 Red Hat, Inc.
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.

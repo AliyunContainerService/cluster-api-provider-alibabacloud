@@ -13,10 +13,15 @@ package unix
 
 import (
 <<<<<<< HEAD
+<<<<<<< HEAD
 	"encoding/binary"
 	"runtime"
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+	"encoding/binary"
+	"runtime"
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	"syscall"
 	"unsafe"
 )
@@ -74,6 +79,7 @@ func Fchmodat(dirfd int, path string, mode uint32, flags int) (err error) {
 // ioctl itself should not be exposed directly, but additional get/set
 // functions for specific types are permissible.
 <<<<<<< HEAD
+<<<<<<< HEAD
 // These are defined in ioctl.go and ioctl_linux.go.
 =======
 
@@ -111,6 +117,9 @@ func IoctlGetTermios(fd int, req uint) (*Termios, error) {
 	return &value, err
 }
 >>>>>>> 79bfea2d (update vendor)
+=======
+// These are defined in ioctl.go and ioctl_linux.go.
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 //sys	Linkat(olddirfd int, oldpath string, newdirfd int, newpath string, flags int) (err error)
 
@@ -773,6 +782,9 @@ func (sa *SockaddrXDP) sockaddr() (unsafe.Pointer, _Socklen, error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 // This constant mirrors the #define of PX_PROTO_OE in
 // linux/if_pppox.h. We're defining this by hand here instead of
 // autogenerating through mkerrors.sh because including
@@ -949,8 +961,11 @@ var socketProtocol = func(fd int) (int, error) {
 	return GetsockoptInt(fd, SOL_SOCKET, SO_PROTOCOL)
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 func anyToSockaddr(fd int, rsa *RawSockaddrAny) (Sockaddr, error) {
 	switch rsa.Addr.Family {
 	case AF_NETLINK:
@@ -1096,6 +1111,9 @@ func anyToSockaddr(fd int, rsa *RawSockaddrAny) (Sockaddr, error) {
 		}
 		return sa, nil
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	case AF_PPPOX:
 		pp := (*RawSockaddrPPPoX)(unsafe.Pointer(rsa))
 		if binary.BigEndian.Uint32(pp[2:6]) != px_proto_oe {
@@ -1188,8 +1206,11 @@ func anyToSockaddr(fd int, rsa *RawSockaddrAny) (Sockaddr, error) {
 			}
 			return sa, nil
 		}
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	}
 	return nil, EAFNOSUPPORT
 }
@@ -1746,6 +1767,13 @@ func Mount(source string, target string, fstype string, flags uintptr, data stri
 	return mount(source, target, fstype, flags, datap)
 }
 
+func Sendfile(outfd int, infd int, offset *int64, count int) (written int, err error) {
+	if raceenabled {
+		raceReleaseMerge(unsafe.Pointer(&ioSync))
+	}
+	return sendfile(outfd, infd, offset, count)
+}
+
 // Sendto
 // Recvfrom
 // Socketpair
@@ -1762,6 +1790,7 @@ func Mount(source string, target string, fstype string, flags uintptr, data stri
 //sys	Chroot(path string) (err error)
 //sys	ClockGetres(clockid int32, res *Timespec) (err error)
 //sys	ClockGettime(clockid int32, time *Timespec) (err error)
+//sys	ClockNanosleep(clockid int32, flags int, request *Timespec, remain *Timespec) (err error)
 //sys	Close(fd int) (err error)
 //sys	CloseRange(first uint, last uint, flags uint) (err error)
 //sys	CopyFileRange(rfd int, roff *int64, wfd int, woff *int64, len int, flags int) (n int, err error)
@@ -1831,7 +1860,6 @@ func Getpgrp() (pid int) {
 //sys	Pselect(nfd int, r *FdSet, w *FdSet, e *FdSet, timeout *Timespec, sigmask *Sigset_t) (n int, err error) = SYS_PSELECT6
 //sys	read(fd int, p []byte) (n int, err error)
 //sys	Removexattr(path string, attr string) (err error)
-//sys	Renameat(olddirfd int, oldpath string, newdirfd int, newpath string) (err error)
 //sys	Renameat2(olddirfd int, oldpath string, newdirfd int, newpath string, flags uint) (err error)
 //sys	RequestKey(keyType string, description string, callback string, destRingid int) (id int, err error)
 //sys	Setdomainname(p []byte) (err error)
@@ -1896,9 +1924,13 @@ func Signalfd(fd int, sigmask *Sigset_t, flags int) (newfd int, err error) {
 //sys	Setpriority(which int, who int, prio int) (err error)
 //sys	Setxattr(path string, attr string, data []byte, flags int) (err error)
 <<<<<<< HEAD
+<<<<<<< HEAD
 //sys	signalfd(fd int, sigmask *Sigset_t, maskSize uintptr, flags int) (newfd int, err error) = SYS_SIGNALFD4
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+//sys	signalfd(fd int, sigmask *Sigset_t, maskSize uintptr, flags int) (newfd int, err error) = SYS_SIGNALFD4
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 //sys	Statx(dirfd int, path string, flags int, mask int, stat *Statx_t) (err error)
 //sys	Sync()
 //sys	Syncfs(fd int) (err error)
@@ -2063,15 +2095,12 @@ func Munmap(b []byte) (err error) {
 // Vmsplice splices user pages from a slice of Iovecs into a pipe specified by fd,
 // using the specified flags.
 func Vmsplice(fd int, iovs []Iovec, flags int) (int, error) {
-	n, _, errno := Syscall6(
-		SYS_VMSPLICE,
-		uintptr(fd),
-		uintptr(unsafe.Pointer(&iovs[0])),
-		uintptr(len(iovs)),
-		uintptr(flags),
-		0,
-		0,
-	)
+	var p unsafe.Pointer
+	if len(iovs) > 0 {
+		p = unsafe.Pointer(&iovs[0])
+	}
+
+	n, _, errno := Syscall6(SYS_VMSPLICE, uintptr(fd), uintptr(p), uintptr(len(iovs)), uintptr(flags), 0, 0)
 	if errno != 0 {
 		return 0, syscall.Errno(errno)
 	}
@@ -2354,7 +2383,6 @@ type RemoteIovec struct {
 // Shmdt
 // Shmget
 // Sigaltstack
-// Signalfd
 // Swapoff
 // Swapon
 // Sysfs

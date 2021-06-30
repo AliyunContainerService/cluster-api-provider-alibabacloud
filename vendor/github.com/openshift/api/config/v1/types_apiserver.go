@@ -9,6 +9,7 @@ import (
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // APIServer holds configuration (like serving certificates, client CA and CORS domains)
 // shared by all API servers in the system, among them especially kube-apiserver
 // and openshift-apiserver. The canonical name of an instance is 'cluster'.
@@ -22,12 +23,23 @@ type APIServer struct {
 	// status holds observed values from the cluster. They may not be overridden.
 =======
 // APIServer holds cluster-wide information about api-servers.  The canonical name is `cluster`
+=======
+// APIServer holds configuration (like serving certificates, client CA and CORS domains)
+// shared by all API servers in the system, among them especially kube-apiserver
+// and openshift-apiserver. The canonical name of an instance is 'cluster'.
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 type APIServer struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
+	// spec holds user settable values for configuration
+	// +kubebuilder:validation:Required
 	// +required
 	Spec APIServerSpec `json:"spec"`
+<<<<<<< HEAD
 >>>>>>> 79bfea2d (update vendor)
+=======
+	// status holds observed values from the cluster. They may not be overridden.
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// +optional
 	Status APIServerStatus `json:"status"`
 }
@@ -45,6 +57,9 @@ type APIServerSpec struct {
 	// +optional
 	ClientCA ConfigMapNameReference `json:"clientCA"`
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// additionalCORSAllowedOrigins lists additional, user-defined regular expressions describing hosts for which the
 	// API server allows access using the CORS headers. This may be needed to access the API and the integrated OAuth
 	// server from JavaScript applications.
@@ -99,6 +114,7 @@ type Audit struct {
 	// If unset, the 'Default' profile is used as the default.
 	// +kubebuilder:default=Default
 	Profile AuditProfileType `json:"profile,omitempty"`
+<<<<<<< HEAD
 }
 
 type APIServerServingCerts struct {
@@ -116,6 +132,11 @@ type APIServerServingCerts struct {
 	// +optional
 	DefaultServingCertificate SecretNameReference `json:"defaultServingCertificate"`
 >>>>>>> 79bfea2d (update vendor)
+=======
+}
+
+type APIServerServingCerts struct {
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// namedCertificates references secrets containing the TLS cert info for serving secure traffic to specific hostnames.
 	// If no named certificates are provided, or no named certificates match the server name as understood by a client,
 	// the defaultServingCertificate will be used.
@@ -138,6 +159,9 @@ type APIServerNamedServingCert struct {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 type APIServerEncryption struct {
 	// type defines what encryption type should be used to encrypt resources at the datastore layer.
 	// When this field is unset (i.e. when it is set to the empty string), identity is implied.
@@ -171,8 +195,11 @@ const (
 	EncryptionTypeAESCBC EncryptionType = "aescbc"
 )
 
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 type APIServerStatus struct {
 }
 

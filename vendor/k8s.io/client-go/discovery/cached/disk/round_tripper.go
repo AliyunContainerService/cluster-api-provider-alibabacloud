@@ -19,19 +19,27 @@ package disk
 import (
 	"net/http"
 <<<<<<< HEAD
+<<<<<<< HEAD
 	"os"
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+	"os"
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	"path/filepath"
 
 	"github.com/gregjones/httpcache"
 	"github.com/gregjones/httpcache/diskcache"
 	"github.com/peterbourgon/diskv"
 <<<<<<< HEAD
+<<<<<<< HEAD
 	"k8s.io/klog/v2"
 =======
 	"k8s.io/klog"
 >>>>>>> 79bfea2d (update vendor)
+=======
+	"k8s.io/klog/v2"
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 )
 
 type cacheRoundTripper struct {
@@ -44,10 +52,15 @@ type cacheRoundTripper struct {
 func newCacheRoundTripper(cacheDir string, rt http.RoundTripper) http.RoundTripper {
 	d := diskv.New(diskv.Options{
 <<<<<<< HEAD
+<<<<<<< HEAD
 		PathPerm: os.FileMode(0750),
 		FilePerm: os.FileMode(0660),
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+		PathPerm: os.FileMode(0750),
+		FilePerm: os.FileMode(0660),
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 		BasePath: cacheDir,
 		TempDir:  filepath.Join(cacheDir, ".diskv-temp"),
 	})

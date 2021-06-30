@@ -19,11 +19,14 @@ package ecs
 type TargetCapacitySpecification struct {
 	TotalTargetCapacity       float64 `json:"TotalTargetCapacity" xml:"TotalTargetCapacity"`
 <<<<<<< HEAD
+<<<<<<< HEAD
 	PayAsYouGoTargetCapacity  float64 `json:"PayAsYouGoTargetCapacity" xml:"PayAsYouGoTargetCapacity"`
 =======
 	OnDemandTargetCapacity    float64 `json:"OnDemandTargetCapacity" xml:"OnDemandTargetCapacity"`
 >>>>>>> 79bfea2d (update vendor)
+=======
+	PayAsYouGoTargetCapacity  float64 `json:"PayAsYouGoTargetCapacity" xml:"PayAsYouGoTargetCapacity"`
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	SpotTargetCapacity        float64 `json:"SpotTargetCapacity" xml:"SpotTargetCapacity"`
 	DefaultTargetCapacityType string  `json:"DefaultTargetCapacityType" xml:"DefaultTargetCapacityType"`
-	FillGapWithOnDemand       bool    `json:"FillGapWithOnDemand" xml:"FillGapWithOnDemand"`
 }

@@ -7,3 +7,7 @@ RUN unset VERSION \
 
 FROM registry.ci.openshift.org/ocp/4.8:base
 COPY --from=builder /go/src/sigs.k8s.io/cluster-api-provider-alibabacloud/bin/machine-controller-manager /
+<<<<<<< HEAD
+=======
+# COPY --from=builder /go/src/sigs.k8s.io/cluster-api-provider-alibabacloud/bin/termination-handler /
+>>>>>>> e879a141 (alibabacloud machine-api provider)

@@ -238,10 +238,14 @@ func IsConvertible(scheme *runtime.Scheme, obj runtime.Object) (bool, error) {
 		instance, err := scheme.New(gvk)
 		if err != nil {
 <<<<<<< HEAD
+<<<<<<< HEAD
 			return false, fmt.Errorf("failed to allocate an instance for gvk %v: %w", gvk, err)
 =======
 			return false, fmt.Errorf("failed to allocate an instance for gvk %v %v", gvk, err)
 >>>>>>> 79bfea2d (update vendor)
+=======
+			return false, fmt.Errorf("failed to allocate an instance for gvk %v: %w", gvk, err)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 		}
 
 		if isHub(instance) {
@@ -269,12 +273,15 @@ func IsConvertible(scheme *runtime.Scheme, obj runtime.Object) (bool, error) {
 
 	if len(hubs) == 1 && len(nonSpokes) == 0 { // convertible
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 		spokeVersions := []string{}
 		for _, sp := range spokes {
 			spokeVersions = append(spokeVersions, sp.GetObjectKind().GroupVersionKind().String())
 		}
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 		return true, nil
 	}
 

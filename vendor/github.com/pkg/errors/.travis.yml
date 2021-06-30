@@ -2,6 +2,7 @@ language: go
 go_import_path: github.com/pkg/errors
 go:
 <<<<<<< HEAD
+<<<<<<< HEAD
   - 1.11.x
   - 1.12.x
   - 1.13.x
@@ -11,6 +12,11 @@ go:
   - 1.6.2
   - 1.7.1
 >>>>>>> 79bfea2d (update vendor)
+=======
+  - 1.11.x
+  - 1.12.x
+  - 1.13.x
+>>>>>>> e879a141 (alibabacloud machine-api provider)
   - tip
 
 script:

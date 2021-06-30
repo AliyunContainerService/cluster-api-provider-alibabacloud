@@ -18,6 +18,9 @@ package scale
 
 import (
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	"context"
 	"fmt"
 
@@ -27,6 +30,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	serializer "k8s.io/apimachinery/pkg/runtime/serializer"
 	"k8s.io/apimachinery/pkg/types"
+<<<<<<< HEAD
 =======
 	"fmt"
 
@@ -35,12 +39,15 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	serializer "k8s.io/apimachinery/pkg/runtime/serializer"
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	"k8s.io/client-go/dynamic"
 	restclient "k8s.io/client-go/rest"
 )
 
 var scaleConverter = NewScaleConverter()
 var codecs = serializer.NewCodecFactory(scaleConverter.Scheme())
+<<<<<<< HEAD
 <<<<<<< HEAD
 var parameterScheme = runtime.NewScheme()
 var dynamicParameterCodec = runtime.NewParameterCodec(parameterScheme)
@@ -56,6 +63,16 @@ func init() {
 // It's overridable for the purposes of testing.
 type restInterfaceProvider func(*restclient.Config) (restclient.Interface, error)
 >>>>>>> 79bfea2d (update vendor)
+=======
+var parameterScheme = runtime.NewScheme()
+var dynamicParameterCodec = runtime.NewParameterCodec(parameterScheme)
+
+var versionV1 = schema.GroupVersion{Version: "v1"}
+
+func init() {
+	metav1.AddToGroupVersion(parameterScheme, versionV1)
+}
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
 // scaleClient is an implementation of ScalesGetter
 // which makes use of a RESTMapper and a generic REST
@@ -78,12 +95,16 @@ func NewForConfig(cfg *restclient.Config, mapper PreferredResourceMapper, resolv
 	cfg.GroupVersion = &schema.GroupVersion{}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	cfg.NegotiatedSerializer = codecs.WithoutConversion()
 =======
 	cfg.NegotiatedSerializer = serializer.DirectCodecFactory{
 		CodecFactory: codecs,
 	}
 >>>>>>> 79bfea2d (update vendor)
+=======
+	cfg.NegotiatedSerializer = codecs.WithoutConversion()
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	if len(cfg.UserAgent) == 0 {
 		cfg.UserAgent = restclient.DefaultKubernetesUserAgent()
 	}
@@ -109,6 +130,9 @@ func New(baseClient restclient.Interface, mapper PreferredResourceMapper, resolv
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 // apiPathFor returns the absolute api path for the given GroupVersion
 func (c *scaleClient) apiPathFor(groupVer schema.GroupVersion) string {
 	// we need to set the API path based on GroupVersion (defaulting to the legacy path if none is set)
@@ -122,8 +146,11 @@ func (c *scaleClient) apiPathFor(groupVer schema.GroupVersion) string {
 	return restclient.DefaultVersionedAPIPath(apiPath, groupVer)
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 // pathAndVersionFor returns the appropriate base path and the associated full GroupVersionResource
 // for the given GroupResource
 func (c *scaleClient) pathAndVersionFor(resource schema.GroupResource) (string, schema.GroupVersionResource, error) {
@@ -134,6 +161,7 @@ func (c *scaleClient) pathAndVersionFor(resource schema.GroupResource) (string, 
 
 	groupVer := gvr.GroupVersion()
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	return c.apiPathFor(groupVer), gvr, nil
 =======
@@ -149,6 +177,9 @@ func (c *scaleClient) pathAndVersionFor(resource schema.GroupResource) (string, 
 
 	return path, gvr, nil
 >>>>>>> 79bfea2d (update vendor)
+=======
+	return c.apiPathFor(groupVer), gvr, nil
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 // namespacedScaleClient is an ScaleInterface for fetching
@@ -159,6 +190,9 @@ type namespacedScaleClient struct {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 // convertToScale converts the response body to autoscaling/v1.Scale
 func convertToScale(result *restclient.Result) (*autoscaling.Scale, error) {
 	scaleBytes, err := result.Raw()
@@ -180,8 +214,11 @@ func convertToScale(result *restclient.Result) (*autoscaling.Scale, error) {
 	return scaleObj.(*autoscaling.Scale), nil
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 func (c *scaleClient) Scales(namespace string) ScaleInterface {
 	return &namespacedScaleClient{
 		client:    c,
@@ -190,10 +227,14 @@ func (c *scaleClient) Scales(namespace string) ScaleInterface {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 func (c *namespacedScaleClient) Get(ctx context.Context, resource schema.GroupResource, name string, opts metav1.GetOptions) (*autoscaling.Scale, error) {
 =======
 func (c *namespacedScaleClient) Get(resource schema.GroupResource, name string) (*autoscaling.Scale, error) {
 >>>>>>> 79bfea2d (update vendor)
+=======
+func (c *namespacedScaleClient) Get(ctx context.Context, resource schema.GroupResource, name string, opts metav1.GetOptions) (*autoscaling.Scale, error) {
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// Currently, a /scale endpoint can return different scale types.
 	// Until we have support for the alternative API representations proposal,
 	// we need to deal with accepting different API versions.
@@ -206,6 +247,7 @@ func (c *namespacedScaleClient) Get(resource schema.GroupResource, name string) 
 
 	result := c.client.clientBase.Get().
 		AbsPath(path).
+<<<<<<< HEAD
 <<<<<<< HEAD
 		NamespaceIfScoped(c.namespace, c.namespace != "").
 		Resource(gvr.Resource).
@@ -220,10 +262,19 @@ func (c *namespacedScaleClient) Get(resource schema.GroupResource, name string) 
 		SubResource("scale").
 		Do()
 >>>>>>> 79bfea2d (update vendor)
+=======
+		NamespaceIfScoped(c.namespace, c.namespace != "").
+		Resource(gvr.Resource).
+		Name(name).
+		SubResource("scale").
+		SpecificallyVersionedParams(&opts, dynamicParameterCodec, versionV1).
+		Do(ctx)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	if err := result.Error(); err != nil {
 		return nil, err
 	}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	return convertToScale(&result)
 }
@@ -251,6 +302,12 @@ func (c *namespacedScaleClient) Update(ctx context.Context, resource schema.Grou
 
 func (c *namespacedScaleClient) Update(resource schema.GroupResource, scale *autoscaling.Scale) (*autoscaling.Scale, error) {
 >>>>>>> 79bfea2d (update vendor)
+=======
+	return convertToScale(&result)
+}
+
+func (c *namespacedScaleClient) Update(ctx context.Context, resource schema.GroupResource, scale *autoscaling.Scale, opts metav1.UpdateOptions) (*autoscaling.Scale, error) {
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	path, gvr, err := c.client.pathAndVersionFor(resource)
 	if err != nil {
 		return nil, fmt.Errorf("unable to get client for %s: %v", resource.String(), err)
@@ -280,6 +337,7 @@ func (c *namespacedScaleClient) Update(resource schema.GroupResource, scale *aut
 	result := c.client.clientBase.Put().
 		AbsPath(path).
 <<<<<<< HEAD
+<<<<<<< HEAD
 		NamespaceIfScoped(c.namespace, c.namespace != "").
 		Resource(gvr.Resource).
 		Name(scale.Name).
@@ -289,12 +347,20 @@ func (c *namespacedScaleClient) Update(resource schema.GroupResource, scale *aut
 		Do(ctx)
 =======
 		Namespace(c.namespace).
+=======
+		NamespaceIfScoped(c.namespace, c.namespace != "").
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 		Resource(gvr.Resource).
 		Name(scale.Name).
 		SubResource("scale").
+		SpecificallyVersionedParams(&opts, dynamicParameterCodec, versionV1).
 		Body(scaleUpdateBytes).
+<<<<<<< HEAD
 		Do()
 >>>>>>> 79bfea2d (update vendor)
+=======
+		Do(ctx)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	if err := result.Error(); err != nil {
 		// propagate "raw" error from the API
 		// this allows callers to interpret underlying Reason field
@@ -302,6 +368,7 @@ func (c *namespacedScaleClient) Update(resource schema.GroupResource, scale *aut
 		return nil, err
 	}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	return convertToScale(&result)
 }
@@ -332,13 +399,30 @@ func (c *namespacedScaleClient) Patch(ctx context.Context, gvr schema.GroupVersi
 	if err != nil {
 		return nil, err
 	}
+=======
+	return convertToScale(&result)
+}
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 
-	// convert whatever this is back to autoscaling/v1.Scale
-	scaleObj, err := scaleConverter.ConvertToVersion(rawScaleObj, autoscaling.SchemeGroupVersion)
-	if err != nil {
-		return nil, fmt.Errorf("received an object from a /scale endpoint which was not convertible to autoscaling Scale: %v", err)
+func (c *namespacedScaleClient) Patch(ctx context.Context, gvr schema.GroupVersionResource, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions) (*autoscaling.Scale, error) {
+	groupVersion := gvr.GroupVersion()
+	result := c.client.clientBase.Patch(pt).
+		AbsPath(c.client.apiPathFor(groupVersion)).
+		NamespaceIfScoped(c.namespace, c.namespace != "").
+		Resource(gvr.Resource).
+		Name(name).
+		SubResource("scale").
+		SpecificallyVersionedParams(&opts, dynamicParameterCodec, versionV1).
+		Body(data).
+		Do(ctx)
+	if err := result.Error(); err != nil {
+		return nil, err
 	}
 
+<<<<<<< HEAD
 	return scaleObj.(*autoscaling.Scale), err
 >>>>>>> 79bfea2d (update vendor)
+=======
+	return convertToScale(&result)
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 }

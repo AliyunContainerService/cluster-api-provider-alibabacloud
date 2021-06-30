@@ -29,6 +29,7 @@ import (
 type Scale struct {
 	metav1.TypeMeta
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	// +optional
 	metav1.ObjectMeta
@@ -40,15 +41,22 @@ type Scale struct {
 	// current status of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status. Read-only.
 =======
 	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+=======
+	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// +optional
 	metav1.ObjectMeta
 
-	// defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+	// defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 	// +optional
 	Spec ScaleSpec
 
+<<<<<<< HEAD
 	// current status of the scale. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status. Read-only.
 >>>>>>> 79bfea2d (update vendor)
+=======
+	// current status of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status. Read-only.
+>>>>>>> e879a141 (alibabacloud machine-api provider)
 	// +optional
 	Status ScaleStatus
 }
