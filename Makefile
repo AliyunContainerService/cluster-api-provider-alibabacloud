@@ -97,8 +97,6 @@ deepcopy: controller-gen ## Generate code containing DeepCopy, DeepCopyInto, and
 build: ## build binaries
 	$(DOCKER_CMD) CGO_ENABLED=0 go build $(GOGCFLAGS) -o "bin/machine-controller-manager" \
                -ldflags "$(LD_FLAGS)" "$(REPO_PATH)/cmd/manager"
-	# $(DOCKER_CMD) CGO_ENABLED=0 go build  $(GOGCFLAGS) -o "bin/termination-handler" \
-	#             -ldflags "$(LD_FLAGS)" "$(REPO_PATH)/cmd/termination-handler"
 
 .PHONY: images
 images: ## Create images
