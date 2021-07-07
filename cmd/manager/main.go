@@ -21,6 +21,8 @@ import (
 	"os"
 	"time"
 
+	"github.com/openshift/machine-api-operator/pkg/metrics"
+
 	"sigs.k8s.io/controller-runtime/pkg/cache"
 	runtimeclient "sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/cluster"
@@ -59,11 +61,11 @@ func main() {
 		"The address for health checking.",
 	)
 
-	//metricsAddress := flag.String(
-	//	"metrics-bind-address",
-	//	metrics.DefaultMachineMetricsAddress,
-	//	"Address for hosting metrics",
-	//)
+	metricsAddress := flag.String(
+		"metrics-bind-address",
+		metrics.DefaultMachineMetricsAddress,
+		"Address for hosting metrics",
+	)
 
 	leaderElectResourceNamespace := flag.String(
 		"leader-elect-resource-namespace",
@@ -103,7 +105,7 @@ func main() {
 		LeaseDuration:           leaderElectLeaseDuration,
 		HealthProbeBindAddress:  *healthAddr,
 		SyncPeriod:              &syncPeriod,
-		//MetricsBindAddress:      *metricsAddress,
+		MetricsBindAddress:      *metricsAddress,
 		// Slow the default retry and renew election rate to reduce etcd writes at idle: BZ 1858400
 		RetryPeriod:   &retryPeriod,
 		RenewDeadline: &renewDealine,
@@ -183,7 +185,7 @@ func newConfigManagedClient(mgr manager.Manager) (runtimeclient.Client, manager.
 		Namespace: alibabacloudClient.KubeCloudConfigNamespace,
 	}
 
-	cache, err := cache.New(mgr.GetConfig(), cacheOpts)
+	c, err := cache.New(mgr.GetConfig(), cacheOpts)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -193,10 +195,10 @@ func newConfigManagedClient(mgr manager.Manager) (runtimeclient.Client, manager.
 		Mapper: mgr.GetRESTMapper(),
 	}
 
-	cachedClient, err := cluster.DefaultNewClient(cache, config.GetConfigOrDie(), clientOpts)
+	cachedClient, err := cluster.DefaultNewClient(c, config.GetConfigOrDie(), clientOpts)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	return cachedClient, cache, nil
+	return cachedClient, c, nil
 }
