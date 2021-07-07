@@ -21,6 +21,8 @@ import (
 	"fmt"
 	"time"
 
+	"k8s.io/klog"
+
 	"github.com/openshift/machine-api-operator/pkg/metrics"
 
 	alibabacloudproviderv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alibabacloudprovider/v1beta1"
@@ -30,7 +32,6 @@ import (
 	machinecontroller "github.com/openshift/machine-api-operator/pkg/controller/machine"
 
 	configv1 "github.com/openshift/api/config/v1"
-	"k8s.io/klog/v2"
 )
 
 const (
@@ -92,11 +93,6 @@ func (r *Reconciler) Create(ctx context.Context) error {
 
 	_ = r.machineScope.setProviderStatus(instance, conditionSuccess())
 
-	return nil
-}
-
-// CreateMachine creates machine if and only if machine exists, handled by cluster-api
-func (r *Reconciler) CreateMachine(ctx context.Context) error {
 	return nil
 }
 
