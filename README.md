@@ -61,48 +61,26 @@ Note: this info is RH only, it needs to be backported every time the `README.md`
     kustomize build config | kubectl apply -f -
     ```
 
-4. **Deploy secret with AWS credentials**
+4. **Deploy secret with AlibabaCloud credentials**
 
-   AWS actuator assumes existence of a secret file (references in machine object) with base64 encoded credentials:
+   AlibabaCloud actuator assumes existence of a secret file (references in machine object) with base64 encoded credentials:
 
    ```yaml
    apiVersion: v1
    kind: Secret
    metadata:
-     name: aws-credentials-secret
+     name: alibabacloud-credentials-secret
      namespace: default
    type: Opaque
    data:
-     aws_access_key_id: FILLIN
-     aws_secret_access_key: FILLIN
+     accessKeyID: FILLIN
+     accessKeySecret: FILLIN
    ```
 
-   You can use `examples/render-aws-secrets.sh` script to generate the secret:
+   Save the above resource as **_secret.yaml_** and then apply it:
    ```sh
-   ./examples/render-aws-secrets.sh examples/addons.yaml | kubectl apply -f -
+   kubectl apply -f secret.yaml
    ```
-
-5. **Provision AWS resource**
-
-   The actuator expects existence of certain resource in AWS such as:
-    - vpc
-    - subnets
-    - security groups
-    - etc.
-
-   To create them, you can run:
-
-   ```sh
-   $ ENVIRONMENT_ID=aws-actuator-k8s ./hack/aws-provision.sh install
-   ```
-
-   To delete the resources, you can run:
-
-   ```sh
-   $ ENVIRONMENT_ID=aws-actuator-k8s ./hack/aws-provision.sh destroy
-   ```
-
-   All machine manifests expect `ENVIRONMENT_ID` to be set to `aws-actuator-k8s`.
 
 ## Test locally built alibabacloud actuator
 
@@ -144,8 +122,8 @@ Note: this info is RH only, it needs to be backported every time the `README.md`
    can collect the kube config by running:
 
    ```
-   $ ssh -i SSHPMKEY ec2-user@PUBLICIP 'sudo cat /root/.kube/config' > kubeconfig
-   $ kubectl --kubeconfig=kubeconfig config set-cluster kubernetes --server=https://PUBLICIP:8443
+   $ ssh -i SSHPMKEY root@PUBLICIP 'sudo cat /root/.kube/config' > kubeconfig
+   $ kubectl --kubeconfig=kubeconfig config set-cluster kubernetes --server=https://PUBLICIP:6443
    ```
 
    Once done, you can access the cluster via `kubectl`. E.g.
@@ -170,7 +148,7 @@ Note: this info is RH only, it needs to be backported every time the `README.md`
 
    The generated bootstrap secret contains user data responsible for:
     - deployment of kube-apiserver
-    - deployment of machine API plane with alibabacloud machine controllers
+    - deployment of machine API plane with AlibabaCloud machine controllers
     - generating worker machine user data script secret deploying a node
     - deployment of worker machineset
 
@@ -194,7 +172,7 @@ Note: this info is RH only, it needs to be backported every time the `README.md`
    can collect the kube config by running:
 
    ```
-   $ ssh -i SSHPMKEY ecs-user@PUBLICIP 'sudo cat /root/.kube/config' > kubeconfig
+   $ ssh -i SSHPMKEY root@PUBLICIP 'sudo cat /root/.kube/config' > kubeconfig
    $ kubectl --kubeconfig=kubeconfig config set-cluster kubernetes --server=https://PUBLICIP:6443
    ```
 
