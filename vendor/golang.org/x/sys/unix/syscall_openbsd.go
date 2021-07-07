@@ -119,6 +119,9 @@ func Getdirentries(fd int, buf []byte, basep *uintptr) (n int, err error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 //sys	Getcwd(buf []byte) (n int, err error) = SYS___GETCWD
 
 func Sendfile(outfd int, infd int, offset *int64, count int) (written int, err error) {
@@ -128,8 +131,11 @@ func Sendfile(outfd int, infd int, offset *int64, count int) (written int, err e
 	return sendfile(outfd, infd, offset, count)
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> 03397665 (update api)
 // TODO
 func sendfile(outfd int, infd int, offset *int64, count int) (written int, err error) {
 	return -1, ENOSYS

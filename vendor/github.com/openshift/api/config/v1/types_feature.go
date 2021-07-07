@@ -10,11 +10,15 @@ import metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 type FeatureGate struct {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
 	// spec holds user settable values for configuration
 	// +kubebuilder:validation:Required
+<<<<<<< HEAD
 =======
 	metav1.TypeMeta `json:",inline"`
 	// Standard object's metadata.
@@ -29,6 +33,8 @@ type FeatureGate struct {
 	// spec holds user settable values for configuration
 	// +kubebuilder:validation:Required
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	// +required
 	Spec FeatureGateSpec `json:"spec"`
 	// status holds observed values from the cluster. They may not be overridden.
@@ -47,8 +53,11 @@ var (
 	TechPreviewNoUpgrade FeatureSet = "TechPreviewNoUpgrade"
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 
 	// CustomNoUpgrade allows the enabling or disabling of any feature. Turning this feature set on IS NOT SUPPORTED, CANNOT BE UNDONE, and PREVENTS UPGRADES.
 	// Because of its nature, this setting cannot be validated.  If you have any typos or accidentally apply invalid combinations
@@ -90,6 +99,7 @@ type CustomFeatureGates struct {
 	// +optional
 	Disabled []string `json:"disabled,omitempty"`
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 )
 
@@ -100,6 +110,8 @@ type FeatureGateSpec struct {
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }
 
 type FeatureGateStatus struct {
@@ -109,6 +121,7 @@ type FeatureGateStatus struct {
 
 type FeatureGateList struct {
 	metav1.TypeMeta `json:",inline"`
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	metav1.ListMeta `json:"metadata"`
@@ -124,6 +137,11 @@ type FeatureGateList struct {
 
 	Items []FeatureGate `json:"items"`
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	metav1.ListMeta `json:"metadata"`
+
+	Items []FeatureGate `json:"items"`
+>>>>>>> 03397665 (update api)
 }
 
 type FeatureGateEnabledDisabled struct {
@@ -145,8 +163,11 @@ type FeatureGateEnabledDisabled struct {
 var FeatureSets = map[FeatureSet]*FeatureGateEnabledDisabled{
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	Default: defaultFeatures,
 	CustomNoUpgrade: {
 		Enabled:  []string{},
@@ -178,6 +199,7 @@ var defaultFeatures = &FeatureGateEnabledDisabled{
 		"NodeDisruptionExclusion",        // sig-scheduling, ccoleman
 		"ServiceNodeExclusion",           // sig-scheduling, ccoleman
 		"DownwardAPIHugePages",           // sig-node, rphillips
+<<<<<<< HEAD
 <<<<<<< HEAD
 	},
 	Disabled: []string{
@@ -266,14 +288,19 @@ func (f *featureSetBuilder) toFeatures() *FeatureGateEnabledDisabled {
 		},
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	},
 	Disabled: []string{
 		"LegacyNodeRoleBehavior", // sig-scheduling, ccoleman
 	},
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 79bfea2d (update vendor)
 =======
+=======
+>>>>>>> 03397665 (update api)
 
 type featureSetBuilder struct {
 	forceOn  []string
@@ -344,4 +371,7 @@ func (f *featureSetBuilder) toFeatures() *FeatureGateEnabledDisabled {
 		Disabled: finalOff,
 	}
 }
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)

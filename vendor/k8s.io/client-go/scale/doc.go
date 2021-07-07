@@ -20,6 +20,7 @@ limitations under the License.
 // autoscaling.Scale.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 package scale // import "k8s.io/client-go/scale"
 =======
 package scale
@@ -27,3 +28,6 @@ package scale
 =======
 package scale // import "k8s.io/client-go/scale"
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+package scale // import "k8s.io/client-go/scale"
+>>>>>>> 03397665 (update api)

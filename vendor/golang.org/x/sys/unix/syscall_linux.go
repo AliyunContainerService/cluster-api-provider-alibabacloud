@@ -14,6 +14,7 @@ package unix
 import (
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	"encoding/binary"
 	"runtime"
 =======
@@ -22,6 +23,10 @@ import (
 	"encoding/binary"
 	"runtime"
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	"encoding/binary"
+	"runtime"
+>>>>>>> 03397665 (update api)
 	"syscall"
 	"unsafe"
 )
@@ -80,6 +85,7 @@ func Fchmodat(dirfd int, path string, mode uint32, flags int) (err error) {
 // functions for specific types are permissible.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 // These are defined in ioctl.go and ioctl_linux.go.
 =======
 
@@ -120,6 +126,9 @@ func IoctlGetTermios(fd int, req uint) (*Termios, error) {
 =======
 // These are defined in ioctl.go and ioctl_linux.go.
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+// These are defined in ioctl.go and ioctl_linux.go.
+>>>>>>> 03397665 (update api)
 
 //sys	Linkat(olddirfd int, oldpath string, newdirfd int, newpath string, flags int) (err error)
 
@@ -783,8 +792,11 @@ func (sa *SockaddrXDP) sockaddr() (unsafe.Pointer, _Socklen, error) {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // This constant mirrors the #define of PX_PROTO_OE in
 // linux/if_pppox.h. We're defining this by hand here instead of
 // autogenerating through mkerrors.sh because including
@@ -962,10 +974,13 @@ var socketProtocol = func(fd int) (int, error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func anyToSockaddr(fd int, rsa *RawSockaddrAny) (Sockaddr, error) {
 	switch rsa.Addr.Family {
 	case AF_NETLINK:
@@ -1112,8 +1127,11 @@ func anyToSockaddr(fd int, rsa *RawSockaddrAny) (Sockaddr, error) {
 		return sa, nil
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	case AF_PPPOX:
 		pp := (*RawSockaddrPPPoX)(unsafe.Pointer(rsa))
 		if binary.BigEndian.Uint32(pp[2:6]) != px_proto_oe {
@@ -1207,10 +1225,13 @@ func anyToSockaddr(fd int, rsa *RawSockaddrAny) (Sockaddr, error) {
 			return sa, nil
 		}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	}
 	return nil, EAFNOSUPPORT
 }
@@ -1925,12 +1946,16 @@ func Signalfd(fd int, sigmask *Sigset_t, flags int) (newfd int, err error) {
 //sys	Setxattr(path string, attr string, data []byte, flags int) (err error)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 //sys	signalfd(fd int, sigmask *Sigset_t, maskSize uintptr, flags int) (newfd int, err error) = SYS_SIGNALFD4
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 //sys	signalfd(fd int, sigmask *Sigset_t, maskSize uintptr, flags int) (newfd int, err error) = SYS_SIGNALFD4
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+//sys	signalfd(fd int, sigmask *Sigset_t, maskSize uintptr, flags int) (newfd int, err error) = SYS_SIGNALFD4
+>>>>>>> 03397665 (update api)
 //sys	Statx(dirfd int, path string, flags int, mask int, stat *Statx_t) (err error)
 //sys	Sync()
 //sys	Syncfs(fd int) (err error)

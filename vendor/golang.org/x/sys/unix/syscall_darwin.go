@@ -121,6 +121,7 @@ type attrList struct {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 //sysnb	pipe(p *[2]int32) (err error)
 =======
 func getAttrList(path string, attrList attrList, attrBuf []byte, options uint) (attrs [][]byte, err error) {
@@ -183,6 +184,9 @@ func getAttrList(path string, attrList attrList, attrBuf []byte, options uint) (
 =======
 //sysnb	pipe(p *[2]int32) (err error)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+//sysnb	pipe(p *[2]int32) (err error)
+>>>>>>> 03397665 (update api)
 
 func Pipe(p []int) (err error) {
 	if len(p) != 2 {
@@ -337,6 +341,7 @@ func setattrlistTimes(path string, times []Timespec, flags int) error {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 //sys	setattrlist(path *byte, list unsafe.Pointer, buf unsafe.Pointer, size uintptr, options int) (err error)
 
 =======
@@ -345,6 +350,10 @@ func setattrlistTimes(path string, times []Timespec, flags int) error {
 //sys	setattrlist(path *byte, list unsafe.Pointer, buf unsafe.Pointer, size uintptr, options int) (err error)
 
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+//sys	setattrlist(path *byte, list unsafe.Pointer, buf unsafe.Pointer, size uintptr, options int) (err error)
+
+>>>>>>> 03397665 (update api)
 func utimensat(dirfd int, path string, times *[2]Timespec, flags int) error {
 	// Darwin doesn't support SYS_UTIMENSAT
 	return ENOSYS
@@ -441,8 +450,11 @@ func Uname(uname *Utsname) error {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func Sendfile(outfd int, infd int, offset *int64, count int) (written int, err error) {
 	if raceenabled {
 		raceReleaseMerge(unsafe.Pointer(&ioSync))
@@ -476,10 +488,13 @@ func GetsockoptXucred(fd, level, opt int) (*Xucred, error) {
 //sys	sendfile(infd int, outfd int, offset int64, len *int64, hdtr unsafe.Pointer, flags int) (err error)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 /*
  * Exposed directly
  */
@@ -512,6 +527,7 @@ func GetsockoptXucred(fd, level, opt int) (*Xucred, error) {
 //sys	Ftruncate(fd int, length int64) (err error)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 //sys	Getcwd(buf []byte) (n int, err error)
 =======
 //sys	Getdirentries(fd int, buf []byte, basep *uintptr) (n int, err error) = SYS_GETDIRENTRIES64
@@ -519,6 +535,9 @@ func GetsockoptXucred(fd, level, opt int) (*Xucred, error) {
 =======
 //sys	Getcwd(buf []byte) (n int, err error)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+//sys	Getcwd(buf []byte) (n int, err error)
+>>>>>>> 03397665 (update api)
 //sys	Getdtablesize() (size int)
 //sysnb	Getegid() (egid int)
 //sysnb	Geteuid() (uid int)

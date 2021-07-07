@@ -21,6 +21,7 @@ import (
 	"k8s.io/client-go/util/workqueue"
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 )
 
 =======
@@ -34,14 +35,21 @@ var log = logf.RuntimeLog.WithName("metrics")
 )
 
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+)
+
+>>>>>>> 03397665 (update api)
 // This file is copied and adapted from k8s.io/kubernetes/pkg/util/workqueue/prometheus
 // which registers metrics to the default prometheus Registry. We require very
 // similar functionality, but must register metrics to a different Registry.
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // Metrics subsystem and all keys used by the workqueue.
 const (
 	WorkQueueSubsystem         = "workqueue"
@@ -54,6 +62,9 @@ const (
 	RetriesKey                 = "retries_total"
 )
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 
 var (
 	depth = prometheus.NewGaugeVec(prometheus.GaugeOpts{
@@ -146,6 +157,7 @@ func (workqueueMetricsProvider) NewLongestRunningProcessorSecondsMetric(name str
 func (workqueueMetricsProvider) NewRetriesMetric(name string) workqueue.CounterMetric {
 	return retries.WithLabelValues(name)
 }
+<<<<<<< HEAD
 =======
 func init() {
 	workqueue.SetProvider(workqueueMetricsProvider{})
@@ -308,3 +320,5 @@ func (workqueueMetricsProvider) NewRetriesMetric(name string) workqueue.CounterM
 	return retries.WithLabelValues(name)
 }
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)

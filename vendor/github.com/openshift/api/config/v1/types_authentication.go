@@ -8,6 +8,9 @@ import metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 // Authentication specifies cluster-wide settings for authentication (like OAuth and
 // webhook token authenticators). The canonical name of an instance is `cluster`.
 type Authentication struct {
@@ -16,6 +19,7 @@ type Authentication struct {
 
 	// spec holds user settable values for configuration
 	// +kubebuilder:validation:Required
+<<<<<<< HEAD
 =======
 // Authentication holds cluster-wide information about Authentication.  The canonical name is `cluster`
 =======
@@ -32,6 +36,8 @@ type Authentication struct {
 =======
 	// +kubebuilder:validation:Required
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	// +required
 	Spec AuthenticationSpec `json:"spec"`
 	// status holds observed values from the cluster. They may not be overridden.
@@ -45,12 +51,16 @@ type AuthenticationSpec struct {
 	// The default is IntegratedOAuth.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// +optional
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 	// +optional
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	// +optional
+>>>>>>> 03397665 (update api)
 	Type AuthenticationType `json:"type"`
 
 	// oauthMetadata contains the discovery endpoint data for OAuth 2.0
@@ -70,12 +80,16 @@ type AuthenticationSpec struct {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	// webhookTokenAuthenticators is DEPRECATED, setting it has no effect.
 	WebhookTokenAuthenticators []DeprecatedWebhookTokenAuthenticator `json:"webhookTokenAuthenticators,omitempty"`
 
 	// webhookTokenAuthenticator configures a remote token reviewer.
+<<<<<<< HEAD
 <<<<<<< HEAD
 	// These remote authentication webhooks can be used to verify bearer tokens
 	// via the tokenreviews.authentication.k8s.io REST API. This is required to
@@ -98,14 +112,19 @@ type AuthenticationSpec struct {
 	// webhookTokenAuthenticators configures remote token reviewers.
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	// These remote authentication webhooks can be used to verify bearer tokens
 	// via the tokenreviews.authentication.k8s.io REST API. This is required to
 	// honor bearer tokens that are provisioned by an external authentication service.
 	// +optional
 <<<<<<< HEAD
+<<<<<<< HEAD
 	WebhookTokenAuthenticators []WebhookTokenAuthenticator `json:"webhookTokenAuthenticators,omitempty"`
 >>>>>>> 79bfea2d (update vendor)
 =======
+=======
+>>>>>>> 03397665 (update api)
 	WebhookTokenAuthenticator *WebhookTokenAuthenticator `json:"webhookTokenAuthenticator,omitempty"`
 
 	// serviceAccountIssuer is the identifier of the bound service account token
@@ -119,7 +138,10 @@ type AuthenticationSpec struct {
 	// duration.
 	// +optional
 	ServiceAccountIssuer string `json:"serviceAccountIssuer"`
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }
 
 type AuthenticationStatus struct {
@@ -148,11 +170,14 @@ type AuthenticationList struct {
 	metav1.TypeMeta `json:",inline"`
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	// Standard object's metadata.
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	metav1.ListMeta `json:"metadata"`
 
 	Items []Authentication `json:"items"`
@@ -174,6 +199,7 @@ const (
 	// AuthenticationTypeKeycloak AuthenticationType = "Keycloak"
 )
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 // deprecatedWebhookTokenAuthenticator holds the necessary configuration options for a remote token authenticator.
@@ -212,6 +238,11 @@ type WebhookTokenAuthenticator struct {
 // It's the same as WebhookTokenAuthenticator but it's missing the 'required' validation on KubeConfig field.
 type DeprecatedWebhookTokenAuthenticator struct {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+// deprecatedWebhookTokenAuthenticator holds the necessary configuration options for a remote token authenticator.
+// It's the same as WebhookTokenAuthenticator but it's missing the 'required' validation on KubeConfig field.
+type DeprecatedWebhookTokenAuthenticator struct {
+>>>>>>> 03397665 (update api)
 	// kubeConfig contains kube config file data which describes how to access the remote webhook service.
 	// For further details, see:
 	// https://kubernetes.io/docs/reference/access-authn-authz/authentication/#webhook-token-authentication
@@ -219,7 +250,10 @@ type DeprecatedWebhookTokenAuthenticator struct {
 	// If the secret or expected key is not found, the webhook is not honored.
 	// If the specified kube config data is not valid, the webhook is not honored.
 	// The namespace for this secret is determined by the point of use.
+<<<<<<< HEAD
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> 03397665 (update api)
 	KubeConfig SecretNameReference `json:"kubeConfig"`
 }
 

@@ -19,8 +19,11 @@ package ecs
 type Invocation struct {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	Name              string                                   `json:"Name" xml:"Name"`
 	PageSize          int64                                    `json:"PageSize" xml:"PageSize"`
 	Timed             bool                                     `json:"Timed" xml:"Timed"`
@@ -50,6 +53,7 @@ type Invocation struct {
 	InvocationResults InvocationResults                        `json:"InvocationResults" xml:"InvocationResults"`
 	InvokeInstances   InvokeInstancesInDescribeSendFileResults `json:"InvokeInstances" xml:"InvokeInstances"`
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	CommandId         string            `json:"CommandId" xml:"CommandId"`
 	PageNumber        int64             `json:"PageNumber" xml:"PageNumber"`
@@ -68,4 +72,6 @@ type Invocation struct {
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }

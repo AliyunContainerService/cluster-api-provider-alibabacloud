@@ -158,8 +158,11 @@ func (n notMatcher) String() string {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 type assignableToTypeOfMatcher struct {
 	targetType reflect.Type
 }
@@ -276,6 +279,9 @@ func (m inAnyOrderMatcher) String() string {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 // Constructors
 
 // All returns a composite Matcher that returns true if and only all of the
@@ -312,6 +318,7 @@ func Nil() Matcher { return nilMatcher{} }
 // Example usage:
 //   Not(Eq(5)).Matches(4) // returns true
 //   Not(Eq(5)).Matches(5) // returns false
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
@@ -356,6 +363,8 @@ func Nil() Matcher { return nilMatcher{} }
 //   Not(Eq(5)).Matches(4) // returns true
 //   Not(Eq(5)).Matches(5) // returns false
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func Not(x interface{}) Matcher {
 	if m, ok := x.(Matcher); ok {
 		return notMatcher{m}
@@ -364,8 +373,11 @@ func Not(x interface{}) Matcher {
 }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 
 // AssignableToTypeOf is a Matcher that matches if the parameter to the mock
 // function is assignable to the type of the parameter to this function.
@@ -393,7 +405,10 @@ func InAnyOrder(x interface{}) Matcher {
 	return inAnyOrderMatcher{x}
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)

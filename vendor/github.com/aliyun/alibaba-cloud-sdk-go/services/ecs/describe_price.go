@@ -73,8 +73,11 @@ type DescribePriceRequest struct {
 	*requests.RpcRequest
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	DataDisk3Size              requests.Integer `position:"Query" name:"DataDisk.3.Size"`
 	ResourceOwnerId            requests.Integer `position:"Query" name:"ResourceOwnerId"`
 	DataDisk3Category          string           `position:"Query" name:"DataDisk.3.Category"`
@@ -115,6 +118,7 @@ type DescribePriceRequest struct {
 	SystemDiskSize             requests.Integer `position:"Query" name:"SystemDisk.Size"`
 	OfferingType               string           `position:"Query" name:"OfferingType"`
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	DataDisk3Size           requests.Integer `position:"Query" name:"DataDisk.3.Size"`
 	ResourceOwnerId         requests.Integer `position:"Query" name:"ResourceOwnerId"`
@@ -143,6 +147,8 @@ type DescribePriceRequest struct {
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }
 
 // DescribePriceResponse is the response struct for api DescribePrice

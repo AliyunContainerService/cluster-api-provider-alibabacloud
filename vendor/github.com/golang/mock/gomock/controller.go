@@ -69,8 +69,11 @@ type TestReporter interface {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // TestHelper is a TestReporter that has the Helper method.  It is satisfied
 // by the standard library's *testing.T.
 type TestHelper interface {
@@ -112,6 +115,7 @@ type cleanuper interface {
 //     })
 //   })
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 // A Controller represents the top-level control of a mock ecosystem.
 // It defines the scope and lifetime of mock objects, as well as their expectations.
@@ -119,6 +123,8 @@ type cleanuper interface {
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 type Controller struct {
 	// T should only be called within a generated mock. It is not intended to
 	// be used in user code and may be changed in future versions. T is the
@@ -133,14 +139,20 @@ type Controller struct {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // NewController returns a new Controller. It is the preferred way to create a
 // Controller.
 //
 // New in go1.14+, if you are passing a *testing.T into this function you no
 // longer need to call ctrl.Finish() in your test methods.
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 func NewController(t TestReporter) *Controller {
 	h, ok := t.(TestHelper)
 	if !ok {
@@ -148,6 +160,7 @@ func NewController(t TestReporter) *Controller {
 	}
 	ctrl := &Controller{
 		T:             h,
+<<<<<<< HEAD
 =======
 func NewController(t TestReporter) *Controller {
 	return &Controller{
@@ -162,6 +175,8 @@ func NewController(t TestReporter) *Controller {
 	ctrl := &Controller{
 		T:             h,
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		expectedCalls: newCallSet(),
 	}
 	if c, ok := isCleanuper(ctrl.T); ok {
@@ -177,6 +192,9 @@ func NewController(t TestReporter) *Controller {
 type cancelReporter struct {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 	t      TestHelper
 	cancel func()
 }
@@ -191,6 +209,7 @@ func (r *cancelReporter) Fatalf(format string, args ...interface{}) {
 
 func (r *cancelReporter) Helper() {
 	r.t.Helper()
+<<<<<<< HEAD
 =======
 	t      TestReporter
 =======
@@ -210,6 +229,8 @@ func (r *cancelReporter) Fatalf(format string, args ...interface{}) {
 
 func (r *cancelReporter) Helper() {
 	r.t.Helper()
+=======
+>>>>>>> 03397665 (update api)
 }
 
 // WithContext returns a new Controller and a Context, which is cancelled on any
@@ -217,14 +238,20 @@ func (r *cancelReporter) Helper() {
 func WithContext(ctx context.Context, t TestReporter) (*Controller, context.Context) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	h, ok := t.(TestHelper)
 	if !ok {
 		h = &nopTestHelper{t: t}
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 	ctx, cancel := context.WithCancel(ctx)
 	return NewController(&cancelReporter{t: h, cancel: cancel}), ctx
 }
@@ -243,6 +270,7 @@ func (h *nopTestHelper) Fatalf(format string, args ...interface{}) {
 func (h nopTestHelper) Helper() {}
 
 // RecordCall is called by a mock. It should not be called by user code.
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
@@ -268,6 +296,8 @@ func (h nopTestHelper) Helper() {}
 
 // RecordCall is called by a mock. It should not be called by user code.
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func (ctrl *Controller) RecordCall(receiver interface{}, method string, args ...interface{}) *Call {
 	ctrl.T.Helper()
 
@@ -308,13 +338,17 @@ func (ctrl *Controller) Call(receiver interface{}, method string, args ...interf
 		if err != nil {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 			// callerInfo's skip should be updated if the number of calls between the user's test
 			// and this line changes, i.e. this code is wrapped in another anonymous function.
 			// 0 is us, 1 is controller.Call(), 2 is the generated mock, and 3 is the user's test.
 			origin := callerInfo(3)
 			ctrl.T.Fatalf("Unexpected call to %T.%v(%v) at %s because: %s", receiver, method, args, origin, err)
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 			origin := callerInfo(2)
@@ -322,6 +356,8 @@ func (ctrl *Controller) Call(receiver interface{}, method string, args ...interf
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		}
 
 		// Two things happen here:
@@ -351,8 +387,11 @@ func (ctrl *Controller) Call(receiver interface{}, method string, args ...interf
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // Finish checks to see if all the methods that were expected to be called
 // were called. It should be invoked for each Controller. It is not idempotent
 // and therefore can only be invoked once.
@@ -360,6 +399,9 @@ func (ctrl *Controller) Call(receiver interface{}, method string, args ...interf
 // New in go1.14+, if you are passing a *testing.T into NewController function you no
 // longer need to call ctrl.Finish() in your test methods.
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 func (ctrl *Controller) Finish() {
 	// If we're currently panicking, probably because this is a deferred call.
 	// This must be recovered in the deferred function.
@@ -369,6 +411,7 @@ func (ctrl *Controller) Finish() {
 
 func (ctrl *Controller) finish(cleanup bool, panicErr interface{}) {
 	ctrl.T.Helper()
+<<<<<<< HEAD
 =======
 func (ctrl *Controller) Finish() {
 	if h, ok := ctrl.t.(testHelper); ok {
@@ -386,6 +429,8 @@ func (ctrl *Controller) Finish() {
 func (ctrl *Controller) finish(cleanup bool, panicErr interface{}) {
 	ctrl.T.Helper()
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 
 	ctrl.mu.Lock()
 	defer ctrl.mu.Unlock()
@@ -393,18 +438,24 @@ func (ctrl *Controller) finish(cleanup bool, panicErr interface{}) {
 	if ctrl.finished {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		if _, ok := isCleanuper(ctrl.T); !ok {
 			ctrl.T.Fatalf("Controller.Finish was called more than once. It has to be called exactly once.")
 		}
 		return
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 		ctrl.t.Fatalf("Controller.Finish was called more than once. It has to be called exactly once.")
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	}
 	ctrl.finished = true
 
@@ -421,19 +472,25 @@ func (ctrl *Controller) finish(cleanup bool, panicErr interface{}) {
 	if len(failures) != 0 {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		if !cleanup {
 			ctrl.T.Fatalf("aborting test due to missing call(s)")
 			return
 		}
 		ctrl.T.Errorf("aborting test due to missing call(s)")
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 		ctrl.t.Fatalf("aborting test due to missing call(s)")
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	}
 }
 
@@ -448,8 +505,11 @@ func callerInfo(skip int) string {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // isCleanuper checks it if t's base TestReporter has a Cleanup method.
 func isCleanuper(t TestReporter) (cleanuper, bool) {
 	tr := unwrapTestReporter(t)
@@ -473,6 +533,7 @@ func unwrapTestReporter(t TestReporter) TestReporter {
 	}
 	return tr
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 type testHelper interface {
 	TestReporter
@@ -480,4 +541,6 @@ type testHelper interface {
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }

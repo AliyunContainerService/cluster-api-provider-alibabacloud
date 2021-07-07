@@ -19,6 +19,9 @@ package scale
 import (
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 	"context"
 
 	autoscalingapi "k8s.io/api/autoscaling/v1"
@@ -31,6 +34,7 @@ import (
 type ScalesGetter interface {
 	// Scales produces a ScaleInterface for a particular namespace.
 	// Set namespace to the empty string for non-namespaced resources.
+<<<<<<< HEAD
 =======
 =======
 	"context"
@@ -50,6 +54,8 @@ type ScalesGetter interface {
 	// Scales produces a ScaleInterface for a particular namespace.
 	// Set namespace to the empty string for non-namespaced resources.
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	Scales(namespace string) ScaleInterface
 }
 
@@ -58,6 +64,7 @@ type ScalesGetter interface {
 // the scale subresource.
 type ScaleInterface interface {
 	// Get fetches the scale of the given scalable resource.
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	Get(ctx context.Context, resource schema.GroupResource, name string, opts metav1.GetOptions) (*autoscalingapi.Scale, error)
@@ -74,6 +81,8 @@ type ScaleInterface interface {
 	Update(resource schema.GroupResource, scale *autoscalingapi.Scale) (*autoscalingapi.Scale, error)
 >>>>>>> 79bfea2d (update vendor)
 =======
+=======
+>>>>>>> 03397665 (update api)
 	Get(ctx context.Context, resource schema.GroupResource, name string, opts metav1.GetOptions) (*autoscalingapi.Scale, error)
 
 	// Update updates the scale of the given scalable resource.
@@ -81,5 +90,8 @@ type ScaleInterface interface {
 
 	// Patch patches the scale of the given scalable resource.
 	Patch(ctx context.Context, gvr schema.GroupVersionResource, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions) (*autoscalingapi.Scale, error)
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }

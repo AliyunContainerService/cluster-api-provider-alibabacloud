@@ -102,6 +102,9 @@ func loadConfig(context string) (*rest.Config, error) {
 	if len(kubeconfig) > 0 {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 		return loadConfigWithContext("", &clientcmd.ClientConfigLoadingRules{ExplicitPath: kubeconfig}, context)
 	}
 
@@ -110,6 +113,7 @@ func loadConfig(context string) (*rest.Config, error) {
 	kubeconfigPath := os.Getenv(clientcmd.RecommendedConfigPathEnvVar)
 	if len(kubeconfigPath) == 0 {
 		if c, err := loadInClusterConfig(); err == nil {
+<<<<<<< HEAD
 =======
 		return loadConfigWithContext(apiServerURL, kubeconfig, context)
 	}
@@ -136,6 +140,8 @@ func loadConfig(context string) (*rest.Config, error) {
 	if len(kubeconfigPath) == 0 {
 		if c, err := loadInClusterConfig(); err == nil {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 			return c, nil
 		}
 	}
@@ -159,6 +165,7 @@ func loadConfig(context string) (*rest.Config, error) {
 
 	return loadConfigWithContext("", loadingRules, context)
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 
 func loadConfigWithContext(apiServerURL string, loader clientcmd.ClientConfigLoader, context string) (*rest.Config, error) {
@@ -172,6 +179,8 @@ func loadConfigWithContext(apiServerURL string, loader clientcmd.ClientConfigLoa
 		}).ClientConfig()
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }
 
 func loadConfigWithContext(apiServerURL string, loader clientcmd.ClientConfigLoader, context string) (*rest.Config, error) {

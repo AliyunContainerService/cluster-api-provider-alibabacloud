@@ -73,8 +73,11 @@ type RunInstancesRequest struct {
 	*requests.RpcRequest
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	UniqueSuffix                           requests.Boolean                `position:"Query" name:"UniqueSuffix"`
 	SecurityEnhancementStrategy            string                          `position:"Query" name:"SecurityEnhancementStrategy"`
 	MinAmount                              requests.Integer                `position:"Query" name:"MinAmount"`
@@ -166,6 +169,7 @@ type RunInstancesArn struct {
 	Rolearn       string `name:"Rolearn"`
 	AssumeRoleFor string `name:"AssumeRoleFor"`
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	LaunchTemplateName            string                          `position:"Query" name:"LaunchTemplateName"`
 	ResourceOwnerId               requests.Integer                `position:"Query" name:"ResourceOwnerId"`
@@ -231,6 +235,8 @@ type RunInstancesArn struct {
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }
 
 // RunInstancesTag is a repeated param struct in RunInstancesRequest
@@ -254,8 +260,11 @@ type RunInstancesNetworkInterface struct {
 type RunInstancesDataDisk struct {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	PerformanceLevel     string `name:"PerformanceLevel"`
 	AutoSnapshotPolicyId string `name:"AutoSnapshotPolicyId"`
 	Encrypted            string `name:"Encrypted"`
@@ -268,6 +277,7 @@ type RunInstancesDataDisk struct {
 	EncryptAlgorithm     string `name:"EncryptAlgorithm"`
 	DeleteWithInstance   string `name:"DeleteWithInstance"`
 	KMSKeyId             string `name:"KMSKeyId"`
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 	Size               string `name:"Size"`
@@ -282,6 +292,8 @@ type RunInstancesDataDisk struct {
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }
 
 // RunInstancesResponse is the response struct for api RunInstances

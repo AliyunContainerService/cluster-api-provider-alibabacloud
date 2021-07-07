@@ -24,6 +24,7 @@ import (
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	"github.com/moby/spdystream"
 	"k8s.io/apimachinery/pkg/util/httpstream"
 	"k8s.io/klog/v2"
@@ -37,6 +38,11 @@ import (
 	"k8s.io/apimachinery/pkg/util/httpstream"
 	"k8s.io/klog/v2"
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	"github.com/moby/spdystream"
+	"k8s.io/apimachinery/pkg/util/httpstream"
+	"k8s.io/klog/v2"
+>>>>>>> 03397665 (update api)
 )
 
 // connection maintains state about a spdystream.Connection and its associated
@@ -48,20 +54,27 @@ type connection struct {
 	newStreamHandler httpstream.NewStreamHandler
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	ping             func() (time.Duration, error)
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 	ping             func() (time.Duration, error)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	ping             func() (time.Duration, error)
+>>>>>>> 03397665 (update api)
 }
 
 // NewClientConnection creates a new SPDY client connection.
 func NewClientConnection(conn net.Conn) (httpstream.Connection, error) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	return NewClientConnectionWithPings(conn, 0)
 }
 
@@ -72,16 +85,20 @@ func NewClientConnection(conn net.Conn) (httpstream.Connection, error) {
 // balancers alive longer.
 func NewClientConnectionWithPings(conn net.Conn, pingPeriod time.Duration) (httpstream.Connection, error) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	spdyConn, err := spdystream.NewConnection(conn, false)
 	if err != nil {
 		defer conn.Close()
 		return nil, err
 	}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	return newConnection(spdyConn, httpstream.NoOpNewStreamHandler, pingPeriod, spdyConn.Ping), nil
@@ -91,6 +108,9 @@ func NewClientConnectionWithPings(conn net.Conn, pingPeriod time.Duration) (http
 =======
 	return newConnection(spdyConn, httpstream.NoOpNewStreamHandler, pingPeriod, spdyConn.Ping), nil
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	return newConnection(spdyConn, httpstream.NoOpNewStreamHandler, pingPeriod, spdyConn.Ping), nil
+>>>>>>> 03397665 (update api)
 }
 
 // NewServerConnection creates a new SPDY server connection. newStreamHandler
@@ -99,8 +119,11 @@ func NewClientConnectionWithPings(conn net.Conn, pingPeriod time.Duration) (http
 func NewServerConnection(conn net.Conn, newStreamHandler httpstream.NewStreamHandler) (httpstream.Connection, error) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	return NewServerConnectionWithPings(conn, newStreamHandler, 0)
 }
 
@@ -113,16 +136,20 @@ func NewServerConnection(conn net.Conn, newStreamHandler httpstream.NewStreamHan
 // balancers alive longer.
 func NewServerConnectionWithPings(conn net.Conn, newStreamHandler httpstream.NewStreamHandler, pingPeriod time.Duration) (httpstream.Connection, error) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	spdyConn, err := spdystream.NewConnection(conn, true)
 	if err != nil {
 		defer conn.Close()
 		return nil, err
 	}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	return newConnection(spdyConn, newStreamHandler, pingPeriod, spdyConn.Ping), nil
@@ -132,11 +159,15 @@ func NewServerConnectionWithPings(conn net.Conn, newStreamHandler httpstream.New
 =======
 	return newConnection(spdyConn, newStreamHandler, pingPeriod, spdyConn.Ping), nil
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	return newConnection(spdyConn, newStreamHandler, pingPeriod, spdyConn.Ping), nil
+>>>>>>> 03397665 (update api)
 }
 
 // newConnection returns a new connection wrapping conn. newStreamHandler
 // will be invoked when the server receives a newly created stream from the
 // client.
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 func newConnection(conn *spdystream.Connection, newStreamHandler httpstream.NewStreamHandler, pingPeriod time.Duration, pingFn func() (time.Duration, error)) httpstream.Connection {
@@ -151,13 +182,18 @@ func newConnection(conn *spdystream.Connection, newStreamHandler httpstream.NewS
 	go conn.Serve(c.newSpdyStream)
 >>>>>>> 79bfea2d (update vendor)
 =======
+=======
+>>>>>>> 03397665 (update api)
 func newConnection(conn *spdystream.Connection, newStreamHandler httpstream.NewStreamHandler, pingPeriod time.Duration, pingFn func() (time.Duration, error)) httpstream.Connection {
 	c := &connection{conn: conn, newStreamHandler: newStreamHandler, ping: pingFn}
 	go conn.Serve(c.newSpdyStream)
 	if pingPeriod > 0 && pingFn != nil {
 		go c.sendPings(pingPeriod)
 	}
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	return c
 }
 
@@ -237,8 +273,11 @@ func (c *connection) SetIdleTimeout(timeout time.Duration) {
 }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 
 func (c *connection) sendPings(period time.Duration) {
 	t := time.NewTicker(period)
@@ -258,7 +297,10 @@ func (c *connection) sendPings(period time.Duration) {
 	}
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)

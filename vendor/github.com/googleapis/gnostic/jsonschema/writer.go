@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Copyright 2017 Google LLC. All Rights Reserved.
 =======
 // Copyright 2017 Google Inc. All Rights Reserved.
@@ -7,6 +8,9 @@
 =======
 // Copyright 2017 Google LLC. All Rights Reserved.
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+// Copyright 2017 Google LLC. All Rights Reserved.
+>>>>>>> 03397665 (update api)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -26,6 +30,7 @@ import (
 	"fmt"
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	"gopkg.in/yaml.v3"
 =======
@@ -35,12 +40,19 @@ import (
 
 	"gopkg.in/yaml.v3"
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+
+	"gopkg.in/yaml.v3"
+>>>>>>> 03397665 (update api)
 )
 
 const indentation = "  "
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 func renderMappingNode(node *yaml.Node, indent string) (result string) {
 	result = "{\n"
 	innerIndent := indent + indentation
@@ -64,6 +76,7 @@ func renderMappingNode(node *yaml.Node, indent string) (result string) {
 			result += ","
 		}
 		result += "\n"
+<<<<<<< HEAD
 =======
 func renderMap(info interface{}, indent string) (result string) {
 =======
@@ -97,6 +110,8 @@ func renderMappingNode(node *yaml.Node, indent string) (result string) {
 		}
 		result += "\n"
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	}
 
 	result += indent + "}"
@@ -105,6 +120,9 @@ func renderMappingNode(node *yaml.Node, indent string) (result string) {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 func renderSequenceNode(node *yaml.Node, indent string) (result string) {
 	result = "[\n"
 	innerIndent := indent + indentation
@@ -119,6 +137,7 @@ func renderSequenceNode(node *yaml.Node, indent string) (result string) {
 			result += innerIndent + fmt.Sprintf("???ArrayItem(%+v)", item)
 		}
 		if i < len(node.Content)-1 {
+<<<<<<< HEAD
 =======
 func renderArray(array []interface{}, indent string) (result string) {
 =======
@@ -142,6 +161,8 @@ func renderSequenceNode(node *yaml.Node, indent string) (result string) {
 =======
 		if i < len(node.Content)-1 {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 			result += ","
 		}
 		result += "\n"
@@ -166,8 +187,11 @@ func renderStringArray(array []string, indent string) (result string) {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // Render renders a yaml.Node as JSON
 func Render(node *yaml.Node) string {
 	if node.Kind == yaml.DocumentNode {
@@ -181,6 +205,9 @@ func Render(node *yaml.Node) string {
 	}
 	return ""
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 }
 
 func (object *SchemaNumber) nodeValue() *yaml.Node {
@@ -188,6 +215,7 @@ func (object *SchemaNumber) nodeValue() *yaml.Node {
 		return nodeForInt64(*object.Integer)
 	} else if object.Float != nil {
 		return nodeForFloat64(*object.Float)
+<<<<<<< HEAD
 =======
 func Render(info yaml.MapSlice) string {
 	return renderMap(info, "") + "\n"
@@ -205,11 +233,14 @@ func (object *SchemaNumber) nodeValue() *yaml.Node {
 =======
 		return nodeForFloat64(*object.Float)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	} else {
 		return nil
 	}
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 func (object *SchemaOrBoolean) nodeValue() *yaml.Node {
@@ -231,6 +262,13 @@ func (object *SchemaOrBoolean) nodeValue() *yaml.Node {
 =======
 		return nodeForBoolean(*object.Boolean)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func (object *SchemaOrBoolean) nodeValue() *yaml.Node {
+	if object.Schema != nil {
+		return object.Schema.nodeValue()
+	} else if object.Boolean != nil {
+		return nodeForBoolean(*object.Boolean)
+>>>>>>> 03397665 (update api)
 	} else {
 		return nil
 	}
@@ -238,8 +276,11 @@ func (object *SchemaOrBoolean) nodeValue() *yaml.Node {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func nodeForStringArray(array []string) *yaml.Node {
 	content := make([]*yaml.Node, 0)
 	for _, item := range array {
@@ -257,6 +298,7 @@ func nodeForSchemaArray(array []*Schema) *yaml.Node {
 }
 
 func (object *StringOrStringArray) nodeValue() *yaml.Node {
+<<<<<<< HEAD
 <<<<<<< HEAD
 	if object.String != nil {
 		return nodeForString(*object.String)
@@ -279,11 +321,18 @@ func (object *StringOrStringArray) jsonValue() interface{} {
 =======
 		return nodeForStringArray(*(object.StringArray))
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	if object.String != nil {
+		return nodeForString(*object.String)
+	} else if object.StringArray != nil {
+		return nodeForStringArray(*(object.StringArray))
+>>>>>>> 03397665 (update api)
 	} else {
 		return nil
 	}
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 func (object *SchemaOrStringArray) nodeValue() *yaml.Node {
@@ -309,11 +358,19 @@ func (object *SchemaOrStringArray) nodeValue() *yaml.Node {
 =======
 		return nodeForStringArray(*(object.StringArray))
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func (object *SchemaOrStringArray) nodeValue() *yaml.Node {
+	if object.Schema != nil {
+		return object.Schema.nodeValue()
+	} else if object.StringArray != nil {
+		return nodeForStringArray(*(object.StringArray))
+>>>>>>> 03397665 (update api)
 	} else {
 		return nil
 	}
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 func (object *SchemaOrSchemaArray) nodeValue() *yaml.Node {
@@ -339,6 +396,13 @@ func (object *SchemaOrSchemaArray) nodeValue() *yaml.Node {
 =======
 		return nodeForSchemaArray(*(object.SchemaArray))
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func (object *SchemaOrSchemaArray) nodeValue() *yaml.Node {
+	if object.Schema != nil {
+		return object.Schema.nodeValue()
+	} else if object.SchemaArray != nil {
+		return nodeForSchemaArray(*(object.SchemaArray))
+>>>>>>> 03397665 (update api)
 	} else {
 		return nil
 	}
@@ -346,11 +410,15 @@ func (object *SchemaOrSchemaArray) nodeValue() *yaml.Node {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 func (object *SchemaEnumValue) nodeValue() *yaml.Node {
 	if object.String != nil {
 		return nodeForString(*object.String)
 	} else if object.Bool != nil {
 		return nodeForBoolean(*object.Bool)
+<<<<<<< HEAD
 =======
 func (object *SchemaEnumValue) jsonValue() interface{} {
 =======
@@ -365,11 +433,14 @@ func (object *SchemaEnumValue) nodeValue() *yaml.Node {
 =======
 		return nodeForBoolean(*object.Bool)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	} else {
 		return nil
 	}
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 func nodeForNamedSchemaArray(array *[]*NamedSchema) *yaml.Node {
@@ -562,6 +633,10 @@ func namedSchemaArrayValue(array *[]*NamedSchema) interface{} {
 func nodeForNamedSchemaArray(array *[]*NamedSchema) *yaml.Node {
 	content := make([]*yaml.Node, 0)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func nodeForNamedSchemaArray(array *[]*NamedSchema) *yaml.Node {
+	content := make([]*yaml.Node, 0)
+>>>>>>> 03397665 (update api)
 	for _, pair := range *(array) {
 		content = appendPair(content, pair.Name, pair.Value.nodeValue())
 	}
@@ -742,16 +817,22 @@ func (schema *Schema) nodeValue() *yaml.Node {
 		content = appendPair(content, "format", nodeForString(*schema.Format))
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 	return m
 >>>>>>> 79bfea2d (update vendor)
 =======
 	n.Content = content
 	return n
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	n.Content = content
+	return n
+>>>>>>> 03397665 (update api)
 }
 
 // JSONString returns a json representation of a schema.
 func (schema *Schema) JSONString() string {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	node := schema.nodeValue()
@@ -764,4 +845,8 @@ func (schema *Schema) JSONString() string {
 	node := schema.nodeValue()
 	return Render(node)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	node := schema.nodeValue()
+	return Render(node)
+>>>>>>> 03397665 (update api)
 }

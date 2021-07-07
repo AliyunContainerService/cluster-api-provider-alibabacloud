@@ -53,8 +53,11 @@ func Int32Ptr(i int32) *int32 {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // Int32PtrDerefOr dereference the int32 ptr and returns it if not nil,
 // else returns def.
 func Int32PtrDerefOr(ptr *int32, def int32) int32 {
@@ -65,15 +68,19 @@ func Int32PtrDerefOr(ptr *int32, def int32) int32 {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // Int64Ptr returns a pointer to an int64
 func Int64Ptr(i int64) *int64 {
 	return &i
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 // Int64PtrDerefOr dereference the int64 ptr and returns it if not nil,
@@ -89,6 +96,11 @@ func Int32PtrDerefOr(ptr *int32, def int32) int32 {
 // else returns def.
 func Int64PtrDerefOr(ptr *int64, def int64) int64 {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+// Int64PtrDerefOr dereference the int64 ptr and returns it if not nil,
+// else returns def.
+func Int64PtrDerefOr(ptr *int64, def int64) int64 {
+>>>>>>> 03397665 (update api)
 	if ptr != nil {
 		return *ptr
 	}
@@ -102,8 +114,11 @@ func BoolPtr(b bool) *bool {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // BoolPtrDerefOr dereference the bool ptr and returns it if not nil,
 // else returns def.
 func BoolPtrDerefOr(ptr *bool, def bool) bool {
@@ -114,10 +129,13 @@ func BoolPtrDerefOr(ptr *bool, def bool) bool {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // StringPtr returns a pointer to the passed string.
 func StringPtr(s string) *string {
 	return &s
@@ -125,8 +143,11 @@ func StringPtr(s string) *string {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // StringPtrDerefOr dereference the string ptr and returns it if not nil,
 // else returns def.
 func StringPtrDerefOr(ptr *string, def string) string {
@@ -137,10 +158,13 @@ func StringPtrDerefOr(ptr *string, def string) string {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // Float32Ptr returns a pointer to the passed float32.
 func Float32Ptr(i float32) *float32 {
 	return &i
@@ -148,8 +172,11 @@ func Float32Ptr(i float32) *float32 {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // Float32PtrDerefOr dereference the float32 ptr and returns it if not nil,
 // else returns def.
 func Float32PtrDerefOr(ptr *float32, def float32) float32 {
@@ -160,18 +187,24 @@ func Float32PtrDerefOr(ptr *float32, def float32) float32 {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // Float64Ptr returns a pointer to the passed float64.
 func Float64Ptr(i float64) *float64 {
 	return &i
 }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 
 // Float64PtrDerefOr dereference the float64 ptr and returns it if not nil,
 // else returns def.
@@ -182,7 +215,10 @@ func Float64PtrDerefOr(ptr *float64, def float64) float64 {
 	return def
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)

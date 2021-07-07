@@ -132,6 +132,7 @@ github.com/modern-go/reflect2
 github.com/monochromegane/go-gitignore
 # github.com/onsi/gomega v1.10.5
 <<<<<<< HEAD
+<<<<<<< HEAD
 ## explicit
 github.com/onsi/gomega
 github.com/onsi/gomega/format
@@ -141,6 +142,10 @@ github.com/onsi/gomega/gexec
 github.com/onsi/gomega
 github.com/onsi/gomega/format
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+github.com/onsi/gomega
+github.com/onsi/gomega/format
+>>>>>>> 03397665 (update api)
 github.com/onsi/gomega/internal/assertion
 github.com/onsi/gomega/internal/asyncassertion
 github.com/onsi/gomega/internal/oraclematcher
@@ -384,12 +389,15 @@ k8s.io/apiextensions-apiserver/pkg/apis/apiextensions
 k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1
 k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1
 <<<<<<< HEAD
+<<<<<<< HEAD
 k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset
 k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset/scheme
 k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset/typed/apiextensions/v1
 k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset/typed/apiextensions/v1beta1
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 # k8s.io/apimachinery v0.21.0
 ## explicit
 k8s.io/apimachinery/pkg/api/equality
@@ -582,20 +590,29 @@ k8s.io/client-go/util/homedir
 k8s.io/client-go/util/jsonpath
 k8s.io/client-go/util/keyutil
 <<<<<<< HEAD
+<<<<<<< HEAD
 k8s.io/client-go/util/retry
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 k8s.io/client-go/util/workqueue
 # k8s.io/component-base v0.21.0
 k8s.io/component-base/config
 k8s.io/component-base/config/v1alpha1
 k8s.io/component-base/version
 <<<<<<< HEAD
+<<<<<<< HEAD
 # k8s.io/klog v1.0.0
 ## explicit
 k8s.io/klog
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+# k8s.io/klog v1.0.0
+## explicit
+k8s.io/klog
+>>>>>>> 03397665 (update api)
 # k8s.io/klog/v2 v2.8.0
 ## explicit
 k8s.io/klog/v2
@@ -640,9 +657,12 @@ sigs.k8s.io/controller-runtime/pkg/controller
 sigs.k8s.io/controller-runtime/pkg/controller/controllerutil
 sigs.k8s.io/controller-runtime/pkg/conversion
 <<<<<<< HEAD
+<<<<<<< HEAD
 sigs.k8s.io/controller-runtime/pkg/envtest
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 sigs.k8s.io/controller-runtime/pkg/event
 sigs.k8s.io/controller-runtime/pkg/handler
 sigs.k8s.io/controller-runtime/pkg/healthz
@@ -652,11 +672,14 @@ sigs.k8s.io/controller-runtime/pkg/internal/log
 sigs.k8s.io/controller-runtime/pkg/internal/objectutil
 sigs.k8s.io/controller-runtime/pkg/internal/recorder
 <<<<<<< HEAD
+<<<<<<< HEAD
 sigs.k8s.io/controller-runtime/pkg/internal/testing/integration
 sigs.k8s.io/controller-runtime/pkg/internal/testing/integration/addr
 sigs.k8s.io/controller-runtime/pkg/internal/testing/integration/internal
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 sigs.k8s.io/controller-runtime/pkg/leaderelection
 sigs.k8s.io/controller-runtime/pkg/log
 sigs.k8s.io/controller-runtime/pkg/manager

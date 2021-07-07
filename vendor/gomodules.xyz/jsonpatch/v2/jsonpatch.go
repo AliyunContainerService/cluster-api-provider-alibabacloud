@@ -49,6 +49,7 @@ func (a ByPath) Less(i, j int) bool { return a[i].Path < a[j].Path }
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 func NewOperation(op, path string, value interface{}) Operation {
 	return Operation{Operation: op, Path: path, Value: value}
 =======
@@ -59,6 +60,10 @@ func NewPatch(operation, path string, value interface{}) Operation {
 func NewOperation(op, path string, value interface{}) Operation {
 	return Operation{Operation: op, Path: path, Value: value}
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func NewOperation(op, path string, value interface{}) Operation {
+	return Operation{Operation: op, Path: path, Value: value}
+>>>>>>> 03397665 (update api)
 }
 
 // CreatePatch creates a patch as specified in http://jsonpatch.com/
@@ -174,6 +179,7 @@ func diff(a, b map[string]interface{}, path string, patch []Operation) ([]Operat
 		if !ok {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			patch = append(patch, NewOperation("add", p, bv))
 =======
 			patch = append(patch, NewPatch("add", p, bv))
@@ -181,6 +187,9 @@ func diff(a, b map[string]interface{}, path string, patch []Operation) ([]Operat
 =======
 			patch = append(patch, NewOperation("add", p, bv))
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+			patch = append(patch, NewOperation("add", p, bv))
+>>>>>>> 03397665 (update api)
 			continue
 		}
 		// Types are the same, compare values
@@ -198,6 +207,7 @@ func diff(a, b map[string]interface{}, path string, patch []Operation) ([]Operat
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			patch = append(patch, NewOperation("remove", p, nil))
 =======
 			patch = append(patch, NewPatch("remove", p, nil))
@@ -205,6 +215,9 @@ func diff(a, b map[string]interface{}, path string, patch []Operation) ([]Operat
 =======
 			patch = append(patch, NewOperation("remove", p, nil))
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+			patch = append(patch, NewOperation("remove", p, nil))
+>>>>>>> 03397665 (update api)
 		}
 	}
 	return patch, nil
@@ -220,10 +233,14 @@ func handleValues(av, bv interface{}, p string, patch []Operation) ([]Operation,
 		} else if at == nil && bt != nil {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 			return append(patch, NewOperation("add", p, bv)), nil
 		} else if at != bt {
 			// If types have changed, replace completely (preserves null in destination)
 			return append(patch, NewOperation("replace", p, bv)), nil
+<<<<<<< HEAD
 =======
 			return append(patch, NewPatch("add", p, bv)), nil
 		} else if at != bt {
@@ -236,6 +253,8 @@ func handleValues(av, bv interface{}, p string, patch []Operation) ([]Operation,
 			// If types have changed, replace completely (preserves null in destination)
 			return append(patch, NewOperation("replace", p, bv)), nil
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		}
 	}
 
@@ -251,6 +270,7 @@ func handleValues(av, bv interface{}, p string, patch []Operation) ([]Operation,
 		if !matchesValue(av, bv) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			patch = append(patch, NewOperation("replace", p, bv))
 =======
 			patch = append(patch, NewPatch("replace", p, bv))
@@ -258,6 +278,9 @@ func handleValues(av, bv interface{}, p string, patch []Operation) ([]Operation,
 =======
 			patch = append(patch, NewOperation("replace", p, bv))
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+			patch = append(patch, NewOperation("replace", p, bv))
+>>>>>>> 03397665 (update api)
 		}
 	case []interface{}:
 		bt := bv.([]interface{})
@@ -266,6 +289,7 @@ func handleValues(av, bv interface{}, p string, patch []Operation) ([]Operation,
 		} else {
 			n := min(len(at), len(bt))
 			for i := len(at) - 1; i >= n; i-- {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 				patch = append(patch, NewOperation("remove", makePath(p, i), nil))
@@ -279,11 +303,16 @@ func handleValues(av, bv interface{}, p string, patch []Operation) ([]Operation,
 				patch = append(patch, NewPatch("add", makePath(p, i), bt[i]))
 >>>>>>> 79bfea2d (update vendor)
 =======
+=======
+>>>>>>> 03397665 (update api)
 				patch = append(patch, NewOperation("remove", makePath(p, i), nil))
 			}
 			for i := n; i < len(bt); i++ {
 				patch = append(patch, NewOperation("add", makePath(p, i), bt[i]))
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 			}
 			for i := 0; i < n; i++ {
 				var err error
@@ -377,11 +406,15 @@ func backtrace(s, t []interface{}, p string, i int, j int, matrix [][]int) []Ope
 	if i > 0 && matrix[i-1][j]+1 == matrix[i][j] {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 		op := NewOperation("remove", makePath(p, i-1), nil)
 		return append([]Operation{op}, backtrace(s, t, p, i-1, j, matrix)...)
 	}
 	if j > 0 && matrix[i][j-1]+1 == matrix[i][j] {
 		op := NewOperation("add", makePath(p, i), t[j-1])
+<<<<<<< HEAD
 =======
 		op := NewPatch("remove", makePath(p, i-1), nil)
 		return append([]Operation{op}, backtrace(s, t, p, i-1, j, matrix)...)
@@ -396,10 +429,13 @@ func backtrace(s, t []interface{}, p string, i int, j int, matrix [][]int) []Ope
 	if j > 0 && matrix[i][j-1]+1 == matrix[i][j] {
 		op := NewOperation("add", makePath(p, i), t[j-1])
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		return append([]Operation{op}, backtrace(s, t, p, i, j-1, matrix)...)
 	}
 	if i > 0 && j > 0 && matrix[i-1][j-1]+1 == matrix[i][j] {
 		if isBasicType(s[0]) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 			op := NewOperation("replace", makePath(p, i-1), t[j-1])
@@ -409,6 +445,9 @@ func backtrace(s, t []interface{}, p string, i int, j int, matrix [][]int) []Ope
 =======
 			op := NewOperation("replace", makePath(p, i-1), t[j-1])
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+			op := NewOperation("replace", makePath(p, i-1), t[j-1])
+>>>>>>> 03397665 (update api)
 			return append([]Operation{op}, backtrace(s, t, p, i-1, j-1, matrix)...)
 		}
 

@@ -21,8 +21,11 @@ type InvokeInstance struct {
 	InstanceInvokeStatus string `json:"InstanceInvokeStatus" xml:"InstanceInvokeStatus"`
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	Timed                bool   `json:"Timed" xml:"Timed"`
 	CreationTime         string `json:"CreationTime" xml:"CreationTime"`
 	ErrorInfo            string `json:"ErrorInfo" xml:"ErrorInfo"`
@@ -37,8 +40,11 @@ type InvokeInstance struct {
 	StopTime             string `json:"StopTime" xml:"StopTime"`
 	ErrorCode            string `json:"ErrorCode" xml:"ErrorCode"`
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }

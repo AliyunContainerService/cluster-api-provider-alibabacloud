@@ -73,8 +73,11 @@ type CreateSnapshotRequest struct {
 	*requests.RpcRequest
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	ResourceOwnerId            requests.Integer     `position:"Query" name:"ResourceOwnerId"`
 	ClientToken                string               `position:"Query" name:"ClientToken"`
 	InstantAccess              requests.Boolean     `position:"Query" name:"InstantAccess"`
@@ -90,6 +93,7 @@ type CreateSnapshotRequest struct {
 	RetentionDays              requests.Integer     `position:"Query" name:"RetentionDays"`
 	Category                   string               `position:"Query" name:"Category"`
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	ResourceOwnerId      requests.Integer     `position:"Query" name:"ResourceOwnerId"`
 	ResourceOwnerAccount string               `position:"Query" name:"ResourceOwnerAccount"`
@@ -103,6 +107,8 @@ type CreateSnapshotRequest struct {
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }
 
 // CreateSnapshotTag is a repeated param struct in CreateSnapshotRequest

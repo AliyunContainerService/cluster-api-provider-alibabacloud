@@ -24,15 +24,19 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	"k8s.io/apimachinery/pkg/runtime/serializer"
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	"k8s.io/apimachinery/pkg/runtime/serializer/json"
 	"k8s.io/apimachinery/pkg/runtime/serializer/versioning"
 )
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 var scheme = runtime.NewScheme()
@@ -45,6 +49,9 @@ var (
 =======
 var scheme = runtime.NewScheme()
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+var scheme = runtime.NewScheme()
+>>>>>>> 03397665 (update api)
 
 // NewUnstructuredNegotiatedSerializer returns a simple, negotiated serializer
 func NewUnstructuredNegotiatedSerializer() runtime.NegotiatedSerializer {
@@ -67,6 +74,7 @@ func (s unstructuredNegotiatedSerializer) SupportedMediaTypes() []runtime.Serial
 			MediaType:        "application/json",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			MediaTypeType:    "application",
 			MediaTypeSubType: "json",
 =======
@@ -75,6 +83,10 @@ func (s unstructuredNegotiatedSerializer) SupportedMediaTypes() []runtime.Serial
 			MediaTypeType:    "application",
 			MediaTypeSubType: "json",
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+			MediaTypeType:    "application",
+			MediaTypeSubType: "json",
+>>>>>>> 03397665 (update api)
 			EncodesAsText:    true,
 			Serializer:       json.NewSerializer(json.DefaultMetaFactory, s.creator, s.typer, false),
 			PrettySerializer: json.NewSerializer(json.DefaultMetaFactory, s.creator, s.typer, true),
@@ -87,13 +99,17 @@ func (s unstructuredNegotiatedSerializer) SupportedMediaTypes() []runtime.Serial
 		{
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 			MediaType:        "application/yaml",
 			MediaTypeType:    "application",
 			MediaTypeSubType: "yaml",
 			EncodesAsText:    true,
 			Serializer:       json.NewYAMLSerializer(json.DefaultMetaFactory, s.creator, s.typer),
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 			MediaType:     "application/yaml",
@@ -102,6 +118,8 @@ func (s unstructuredNegotiatedSerializer) SupportedMediaTypes() []runtime.Serial
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		},
 	}
 }

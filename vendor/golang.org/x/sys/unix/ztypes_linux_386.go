@@ -130,6 +130,7 @@ const (
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 type RawSockaddrInet4 struct {
 	Family uint16
@@ -224,6 +225,8 @@ type RawSockaddrXDP struct {
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 type RawSockaddr struct {
 	Family uint16
 	Data   [14]int8
@@ -255,6 +258,7 @@ type Cmsghdr struct {
 	Type  int32
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -329,6 +333,9 @@ const (
 >>>>>>> 79bfea2d (update vendor)
 const (
 <<<<<<< HEAD
+=======
+const (
+>>>>>>> 03397665 (update api)
 	SizeofIovec   = 0x8
 	SizeofMsghdr  = 0x1c
 	SizeofCmsghdr = 0xc
@@ -338,6 +345,7 @@ const (
 	SizeofSockFprog = 0x8
 )
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 type SockFilter struct {
@@ -368,6 +376,8 @@ const SizeofInotifyEvent = 0x10
 )
 
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 type PtraceRegs struct {
 	Ebx      int32
 	Ecx      int32
@@ -432,6 +442,7 @@ type Sigset_t struct {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const _C__NSIG = 0x41
 =======
 const RNDGETENTCNT = 0x80045200
@@ -441,6 +452,9 @@ const PERF_IOC_FLAG_GROUP = 0x1
 =======
 const _C__NSIG = 0x41
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+const _C__NSIG = 0x41
+>>>>>>> 03397665 (update api)
 
 type Termios struct {
 	Iflag  uint32
@@ -502,6 +516,7 @@ type Taskstats struct {
 	Freepages_delay_total     uint64
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	Thrashing_count           uint64
 	Thrashing_delay_total     uint64
 	Ac_btime64                uint64
@@ -512,6 +527,11 @@ type Taskstats struct {
 	Thrashing_delay_total     uint64
 	Ac_btime64                uint64
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	Thrashing_count           uint64
+	Thrashing_delay_total     uint64
+	Ac_btime64                uint64
+>>>>>>> 03397665 (update api)
 }
 
 type cpuMask uint32
@@ -707,6 +727,7 @@ type CryptoStatCompress struct {
 	Err_cnt         uint64
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 type CryptoStatHash struct {
 	Type      [64]int8
@@ -830,6 +851,8 @@ type TIPCSIOCNodeIDReq struct {
 	Peer uint32
 	Id   [16]int8
 =======
+=======
+>>>>>>> 03397665 (update api)
 
 type CryptoStatHash struct {
 	Type      [64]int8
@@ -952,6 +975,7 @@ type PPSKInfo struct {
 	Assert_tu       PPSKTime
 	Clear_tu        PPSKTime
 	Current_mode    int32
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
@@ -962,6 +986,8 @@ type PPSKInfo struct {
 	Assert_tu       PPSKTime
 	Clear_tu        PPSKTime
 	Current_mode    int32
+=======
+>>>>>>> 03397665 (update api)
 }
 
 const (
@@ -969,6 +995,7 @@ const (
 	PPS_SETPARAMS = 0x400470a2
 	PPS_GETCAP    = 0x800470a3
 	PPS_FETCH     = 0xc00470a4
+<<<<<<< HEAD
 =======
 const (
 <<<<<<< HEAD
@@ -997,4 +1024,6 @@ const (
 	PPS_GETCAP    = 0x800470a3
 	PPS_FETCH     = 0xc00470a4
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 )

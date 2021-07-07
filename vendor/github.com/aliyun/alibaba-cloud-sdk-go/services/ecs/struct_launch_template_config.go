@@ -21,6 +21,7 @@ type LaunchTemplateConfig struct {
 	MaxPrice         float64 `json:"MaxPrice" xml:"MaxPrice"`
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	VSwitchId        string  `json:"VSwitchId" xml:"VSwitchId"`
 =======
 	VSWitchId        string  `json:"VSWitchId" xml:"VSWitchId"`
@@ -28,6 +29,9 @@ type LaunchTemplateConfig struct {
 =======
 	VSwitchId        string  `json:"VSwitchId" xml:"VSwitchId"`
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	VSwitchId        string  `json:"VSwitchId" xml:"VSwitchId"`
+>>>>>>> 03397665 (update api)
 	WeightedCapacity float64 `json:"WeightedCapacity" xml:"WeightedCapacity"`
 	Priority         float64 `json:"Priority" xml:"Priority"`
 }

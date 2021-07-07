@@ -116,8 +116,11 @@ func negotiateProtocol(clientProtocols, serverProtocols []string) string {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func commaSeparatedHeaderValues(header []string) []string {
 	var parsedClientProtocols []string
 	for i := range header {
@@ -131,10 +134,13 @@ func commaSeparatedHeaderValues(header []string) []string {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // Handshake performs a subprotocol negotiation. If the client did request a
 // subprotocol, Handshake will select the first common value found in
 // serverProtocols. If a match is found, Handshake adds a response header
@@ -144,6 +150,9 @@ func commaSeparatedHeaderValues(header []string) []string {
 func Handshake(req *http.Request, w http.ResponseWriter, serverProtocols []string) (string, error) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 	clientProtocols := commaSeparatedHeaderValues(req.Header[http.CanonicalHeaderKey(HeaderProtocolVersion)])
 	if len(clientProtocols) == 0 {
 		return "", fmt.Errorf("unable to upgrade: %s is required", HeaderProtocolVersion)
@@ -151,6 +160,7 @@ func Handshake(req *http.Request, w http.ResponseWriter, serverProtocols []strin
 
 	if len(serverProtocols) == 0 {
 		panic(fmt.Errorf("unable to upgrade: serverProtocols is required"))
+<<<<<<< HEAD
 =======
 	clientProtocols := req.Header[http.CanonicalHeaderKey(HeaderProtocolVersion)]
 =======
@@ -169,6 +179,8 @@ func Handshake(req *http.Request, w http.ResponseWriter, serverProtocols []strin
 =======
 		panic(fmt.Errorf("unable to upgrade: serverProtocols is required"))
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	}
 
 	negotiatedProtocol := negotiateProtocol(clientProtocols, serverProtocols)

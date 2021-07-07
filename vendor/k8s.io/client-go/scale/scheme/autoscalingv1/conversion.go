@@ -24,6 +24,7 @@ import (
 	"k8s.io/apimachinery/pkg/conversion"
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	scheme "k8s.io/client-go/scale/scheme"
 )
 
@@ -52,6 +53,11 @@ func addConversionFuncs(scheme *runtime.Scheme) error {
 )
 
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	scheme "k8s.io/client-go/scale/scheme"
+)
+
+>>>>>>> 03397665 (update api)
 func Convert_scheme_ScaleStatus_To_v1_ScaleStatus(in *scheme.ScaleStatus, out *v1.ScaleStatus, s conversion.Scope) error {
 	out.Replicas = in.Replicas
 	out.Selector = ""

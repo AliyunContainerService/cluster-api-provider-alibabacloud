@@ -16,6 +16,9 @@ import (
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 // ErrTraverseLink is used as a return value from WalkFuncs to indicate that the
 // symlink named in the call may be traversed.
 var ErrTraverseLink = errors.New("fastwalk: traverse symlink, assuming target is a directory")
@@ -24,6 +27,7 @@ var ErrTraverseLink = errors.New("fastwalk: traverse symlink, assuming target is
 // callback should not be called for any other files in the current directory.
 // Child directories will still be traversed.
 var ErrSkipFiles = errors.New("fastwalk: skip remaining files in directory")
+<<<<<<< HEAD
 =======
 // TraverseLink is used as a return value from WalkFuncs to indicate that the
 =======
@@ -41,6 +45,8 @@ var SkipFiles = errors.New("fastwalk: skip remaining files in directory")
 =======
 var ErrSkipFiles = errors.New("fastwalk: skip remaining files in directory")
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 
 // Walk is a faster implementation of filepath.Walk.
 //
@@ -188,6 +194,7 @@ func (w *walker) onDirEnt(dirName, baseName string, typ os.FileMode) error {
 	if typ == os.ModeSymlink {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if err == ErrTraverseLink {
 =======
 		if err == TraverseLink {
@@ -195,6 +202,9 @@ func (w *walker) onDirEnt(dirName, baseName string, typ os.FileMode) error {
 =======
 		if err == ErrTraverseLink {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+		if err == ErrTraverseLink {
+>>>>>>> 03397665 (update api)
 			// Set callbackDone so we don't call it twice for both the
 			// symlink-as-symlink and the symlink-as-directory later:
 			w.enqueue(walkItem{dir: joined, callbackDone: true})

@@ -8,6 +8,9 @@ import metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 // DNS holds cluster-wide information about DNS. The canonical name is `cluster`
 type DNS struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -15,6 +18,7 @@ type DNS struct {
 
 	// spec holds user settable values for configuration
 	// +kubebuilder:validation:Required
+<<<<<<< HEAD
 =======
 // DNS holds cluster-wide information about DNS.  The canonical name is `cluster`
 // TODO this object is an example of a possible grouping and is subject to change or removal
@@ -31,6 +35,8 @@ type DNS struct {
 =======
 	// +kubebuilder:validation:Required
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	// +required
 	Spec DNSSpec `json:"spec"`
 	// status holds observed values from the cluster. They may not be overridden.
@@ -46,6 +52,7 @@ type DNSSpec struct {
 	// DNS record may be created for `cluster-api.openshift.example.com`.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//
 	// Once set, this field cannot be changed.
 	BaseDomain string `json:"baseDomain"`
@@ -61,11 +68,16 @@ type DNSSpec struct {
 	//
 	// Once set, this field cannot be changed.
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	//
+	// Once set, this field cannot be changed.
+>>>>>>> 03397665 (update api)
 	BaseDomain string `json:"baseDomain"`
 	// publicZone is the location where all the DNS records that are publicly accessible to
 	// the internet exist.
 	//
 	// If this field is nil, no public records should be created.
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 79bfea2d (update vendor)
 =======
@@ -73,25 +85,36 @@ type DNSSpec struct {
 	// Once set, this field cannot be changed.
 	//
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	//
+	// Once set, this field cannot be changed.
+	//
+>>>>>>> 03397665 (update api)
 	// +optional
 	PublicZone *DNSZone `json:"publicZone,omitempty"`
 	// privateZone is the location where all the DNS records that are only available internally
 	// to the cluster exist.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	//
 	// If this field is nil, no private records should be created.
 	//
 	// Once set, this field cannot be changed.
 	//
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	// If this field is nil, no private records should be created.
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	// +optional
 	PrivateZone *DNSZone `json:"privateZone,omitempty"`
 }
@@ -130,6 +153,7 @@ type DNSList struct {
 	metav1.TypeMeta `json:",inline"`
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	metav1.ListMeta `json:"metadata"`
 
 	Items []DNS `json:"items"`
@@ -143,4 +167,9 @@ type DNSList struct {
 
 	Items []DNS `json:"items"`
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	metav1.ListMeta `json:"metadata"`
+
+	Items []DNS `json:"items"`
+>>>>>>> 03397665 (update api)
 }

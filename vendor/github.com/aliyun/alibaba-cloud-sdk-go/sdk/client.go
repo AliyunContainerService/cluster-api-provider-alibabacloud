@@ -72,13 +72,17 @@ type Client struct {
 	connectTimeout time.Duration
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	EndpointMap    map[string]string
 	EndpointType   string
 	Network        string
 	Domain         string
 	isOpenAsync    bool
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 
@@ -89,6 +93,8 @@ type Client struct {
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }
 
 func (client *Client) Init() (err error) {
@@ -339,8 +345,11 @@ func (client *Client) DoAction(request requests.AcsRequest, response responses.A
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func (client *Client) GetEndpointRules(regionId string, product string) (endpointRaw string, err error) {
 	if client.EndpointType == "regional" {
 		if regionId == "" {
@@ -361,10 +370,13 @@ func (client *Client) GetEndpointRules(regionId string, product string) (endpoin
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func (client *Client) buildRequestWithSigner(request requests.AcsRequest, signer auth.Signer) (httpRequest *http.Request, err error) {
 	// add clientVersion
 	request.GetHeaders()["x-sdk-core-version"] = Version
@@ -377,8 +389,11 @@ func (client *Client) buildRequestWithSigner(request requests.AcsRequest, signer
 	// resolve endpoint
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	endpoint := request.GetDomain()
 
 	if endpoint == "" && client.Domain != "" {
@@ -387,6 +402,7 @@ func (client *Client) buildRequestWithSigner(request requests.AcsRequest, signer
 
 	if endpoint == "" {
 		endpoint = endpoints.GetEndpointFromMap(regionId, request.GetProduct())
+<<<<<<< HEAD
 <<<<<<< HEAD
 	}
 
@@ -432,6 +448,8 @@ func (client *Client) buildRequestWithSigner(request requests.AcsRequest, signer
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	}
 
 	if endpoint == "" && client.EndpointType != "" &&

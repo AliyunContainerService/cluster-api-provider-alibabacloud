@@ -2,6 +2,9 @@
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 We follow the [common KubeBuilder versioning guidelines][guidelines], and
 use the corresponding tooling.
 
@@ -30,6 +33,7 @@ Note the [guidelines on dependency versions][dep-versions].  Particularly:
   compability is infeasible due to the way those libraries are versioned.
 
 [dep-versions]: https://sigs.k8s.io/kubebuilder-release-tools/VERSIONING.md#kubernetes-version-compatibility
+<<<<<<< HEAD
 =======
 *NB*: this also applies to controller-tools.
 =======
@@ -308,3 +312,5 @@ may have.
 =======
 [dep-versions]: https://sigs.k8s.io/kubebuilder-release-tools/VERSIONING.md#kubernetes-version-compatibility
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)

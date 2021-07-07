@@ -73,8 +73,11 @@ type dryRunAll struct{}
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // ApplyToCreate applies this configuration to the given create options.
 func (dryRunAll) ApplyToCreate(opts *CreateOptions) {
 	opts.DryRun = []string{metav1.DryRunAll}
@@ -98,6 +101,7 @@ func (dryRunAll) ApplyToDeleteAllOf(opts *DeleteAllOfOptions) {
 	opts.DryRun = []string{metav1.DryRunAll}
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 func (dryRunAll) ApplyToCreate(opts *CreateOptions) {
 	opts.DryRun = []string{metav1.DryRunAll}
@@ -114,14 +118,19 @@ func (dryRunAll) ApplyToDelete(opts *DeleteOptions) {
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 
 // FieldOwner set the field manager name for the given server-side apply patch.
 type FieldOwner string
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // ApplyToPatch applies this configuration to the given patch options.
 func (f FieldOwner) ApplyToPatch(opts *PatchOptions) {
 	opts.FieldManager = string(f)
@@ -134,6 +143,7 @@ func (f FieldOwner) ApplyToCreate(opts *CreateOptions) {
 
 // ApplyToUpdate applies this configuration to the given update options.
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 func (f FieldOwner) ApplyToPatch(opts *PatchOptions) {
 	opts.FieldManager = string(f)
@@ -144,6 +154,8 @@ func (f FieldOwner) ApplyToCreate(opts *CreateOptions) {
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func (f FieldOwner) ApplyToUpdate(opts *UpdateOptions) {
 	opts.FieldManager = string(f)
 }
@@ -196,8 +208,11 @@ func (o *CreateOptions) ApplyOptions(opts []CreateOption) *CreateOptions {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // ApplyToCreate implements CreateOption
 func (o *CreateOptions) ApplyToCreate(co *CreateOptions) {
 	if o.DryRun != nil {
@@ -210,6 +225,7 @@ func (o *CreateOptions) ApplyToCreate(co *CreateOptions) {
 		co.Raw = o.Raw
 	}
 }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 // CreateDryRunAll sets the "dry run" option to "all".
@@ -225,6 +241,8 @@ var _ CreateOption = &CreateOptions{}
 
 // {{{ Delete Options
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> 03397665 (update api)
 
 var _ CreateOption = &CreateOptions{}
 
@@ -294,8 +312,11 @@ func (o *DeleteOptions) ApplyOptions(opts []DeleteOption) *DeleteOptions {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 var _ DeleteOption = &DeleteOptions{}
 
 // ApplyToDelete implements DeleteOption
@@ -318,6 +339,7 @@ func (o *DeleteOptions) ApplyToDelete(do *DeleteOptions) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // GracePeriodSeconds sets the grace period for the deletion
 // to the given number of seconds.
 type GracePeriodSeconds int64
@@ -368,6 +390,8 @@ func (p PropagationPolicy) ApplyToDelete(opts *DeleteOptions) {
 =======
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // GracePeriodSeconds sets the grace period for the deletion
 // to the given number of seconds.
 type GracePeriodSeconds int64
@@ -415,10 +439,14 @@ func (p PropagationPolicy) ApplyToDelete(opts *DeleteOptions) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 79bfea2d (update vendor)
 =======
 // ApplyToDeleteAllOf applies this configuration to the given an List options.
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+// ApplyToDeleteAllOf applies this configuration to the given an List options.
+>>>>>>> 03397665 (update api)
 func (p PropagationPolicy) ApplyToDeleteAllOf(opts *DeleteAllOfOptions) {
 	p.ApplyToDelete(&opts.DeleteOptions)
 }
@@ -463,8 +491,11 @@ type ListOptions struct {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 var _ ListOption = &ListOptions{}
 
 // ApplyToList implements ListOption for ListOptions
@@ -490,10 +521,13 @@ func (o *ListOptions) ApplyToList(lo *ListOptions) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // AsListOptions returns these options as a flattened metav1.ListOptions.
 // This may mutate the Raw field.
 func (o *ListOptions) AsListOptions() *metav1.ListOptions {
@@ -530,6 +564,7 @@ type MatchingLabels map[string]string
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 // ApplyToList applies this configuration to the given list options.
 func (m MatchingLabels) ApplyToList(opts *ListOptions) {
 	// TODO(directxman12): can we avoid reserializing this over and over?
@@ -542,6 +577,9 @@ func (m MatchingLabels) ApplyToList(opts *ListOptions) {
 =======
 // ApplyToList applies this configuration to the given list options.
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+// ApplyToList applies this configuration to the given list options.
+>>>>>>> 03397665 (update api)
 func (m MatchingLabels) ApplyToList(opts *ListOptions) {
 	// TODO(directxman12): can we avoid reserializing this over and over?
 	sel := labels.SelectorFromValidatedSet(map[string]string(m))
@@ -549,18 +587,25 @@ func (m MatchingLabels) ApplyToList(opts *ListOptions) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 79bfea2d (update vendor)
 =======
 // ApplyToDeleteAllOf applies this configuration to the given an List options.
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+// ApplyToDeleteAllOf applies this configuration to the given an List options.
+>>>>>>> 03397665 (update api)
 func (m MatchingLabels) ApplyToDeleteAllOf(opts *DeleteAllOfOptions) {
 	m.ApplyToList(&opts.ListOptions)
 }
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // HasLabels filters the list/delete operation checking if the set of labels exists
 // without checking their values.
 type HasLabels []string
@@ -593,6 +638,9 @@ type MatchingLabelsSelector struct {
 func (m MatchingLabelsSelector) ApplyToList(opts *ListOptions) {
 	opts.LabelSelector = m
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 }
 
 // ApplyToDeleteAllOf applies this configuration to the given an List options.
@@ -664,6 +712,7 @@ type Continue string
 // ApplyToList applies this configuration to the given an List options.
 func (c Continue) ApplyToList(opts *ListOptions) {
 	opts.Continue = string(c)
+<<<<<<< HEAD
 =======
 // MatchingField filters the list operation on the given field selector
 // (or index in the case of cached lists).
@@ -745,6 +794,8 @@ type Continue string
 // ApplyToList applies this configuration to the given an List options.
 func (c Continue) ApplyToList(opts *ListOptions) {
 	opts.Continue = string(c)
+=======
+>>>>>>> 03397665 (update api)
 }
 
 // }}}
@@ -795,8 +846,11 @@ func (o *UpdateOptions) ApplyOptions(opts []UpdateOption) *UpdateOptions {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 var _ UpdateOption = &UpdateOptions{}
 
 // ApplyToUpdate implements UpdateOption
@@ -812,6 +866,7 @@ func (o *UpdateOptions) ApplyToUpdate(uo *UpdateOptions) {
 	}
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 // UpdateDryRunAll sets the "dry run" option to "all".
 //
@@ -824,6 +879,8 @@ var UpdateDryRunAll = DryRunAll
 
 // {{{ Patch Options
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> 03397665 (update api)
 
 // }}}
 
@@ -879,8 +936,11 @@ func (o *PatchOptions) AsPatchOptions() *metav1.PatchOptions {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 var _ PatchOption = &PatchOptions{}
 
 // ApplyToPatch implements PatchOptions
@@ -900,14 +960,18 @@ func (o *PatchOptions) ApplyToPatch(po *PatchOptions) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // ForceOwnership indicates that in case of conflicts with server-side apply,
 // the client should acquire ownership of the conflicting field.  Most
 // controllers should use this.
 var ForceOwnership = forceOwnership{}
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 type forceOwnership struct{}
@@ -917,11 +981,17 @@ type forceOwnership struct{}
 type forceOwnership struct{}
 
 >>>>>>> 79bfea2d (update vendor)
+=======
+
+type forceOwnership struct{}
+
+>>>>>>> 03397665 (update api)
 func (forceOwnership) ApplyToPatch(opts *PatchOptions) {
 	definitelyTrue := true
 	opts.Force = &definitelyTrue
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -933,6 +1003,8 @@ var PatchDryRunAll = DryRunAll
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // }}}
 
 // {{{ DeleteAllOf Options
@@ -957,8 +1029,11 @@ func (o *DeleteAllOfOptions) ApplyOptions(opts []DeleteAllOfOption) *DeleteAllOf
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 var _ DeleteAllOfOption = &DeleteAllOfOptions{}
 
 // ApplyToDeleteAllOf implements DeleteAllOfOption
@@ -968,8 +1043,11 @@ func (o *DeleteAllOfOptions) ApplyToDeleteAllOf(do *DeleteAllOfOptions) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // }}}

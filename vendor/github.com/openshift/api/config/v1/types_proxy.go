@@ -14,6 +14,9 @@ type Proxy struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 
 	// Spec holds user-settable values for the proxy configuration
 	// +kubebuilder:validation:Required
@@ -25,6 +28,7 @@ type Proxy struct {
 }
 
 // ProxySpec contains cluster proxy creation configuration.
+<<<<<<< HEAD
 =======
 =======
 
@@ -43,6 +47,8 @@ type Proxy struct {
 =======
 // ProxySpec contains cluster proxy creation configuration.
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 type ProxySpec struct {
 	// httpProxy is the URL of the proxy for HTTP requests.  Empty means unset and will not result in an env var.
 	// +optional
@@ -54,8 +60,11 @@ type ProxySpec struct {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	// noProxy is a comma-separated list of hostnames and/or CIDRs for which the proxy should not be used.
 	// Empty means unset and will not result in an env var.
 	// +optional
@@ -105,11 +114,14 @@ type ProxyStatus struct {
 
 	// noProxy is a comma-separated list of hostnames and/or CIDRs for which the proxy should not be used.
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	// noProxy is the list of domains for which the proxy should not be used.  Empty means unset and will not result in an env var.
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	// +optional
 	NoProxy string `json:"noProxy,omitempty"`
 }
@@ -118,6 +130,7 @@ type ProxyStatus struct {
 
 type ProxyList struct {
 	metav1.TypeMeta `json:",inline"`
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	metav1.ListMeta `json:"metadata"`
@@ -133,4 +146,9 @@ type ProxyList struct {
 
 	Items []Proxy `json:"items"`
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	metav1.ListMeta `json:"metadata"`
+
+	Items []Proxy `json:"items"`
+>>>>>>> 03397665 (update api)
 }

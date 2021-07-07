@@ -194,6 +194,7 @@ struct ltchars {
 #include <sys/time.h>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 #include <sys/select.h>
 #include <sys/signalfd.h>
 =======
@@ -202,14 +203,21 @@ struct ltchars {
 #include <sys/select.h>
 #include <sys/signalfd.h>
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+#include <sys/select.h>
+#include <sys/signalfd.h>
+>>>>>>> 03397665 (update api)
 #include <sys/socket.h>
 #include <sys/timerfd.h>
 #include <sys/uio.h>
 #include <sys/xattr.h>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 #include <linux/bpf.h>
 #include <linux/can.h>
 #include <linux/can/error.h>
@@ -232,10 +240,13 @@ struct ltchars {
 #include <linux/icmp.h>
 #include <linux/icmpv6.h>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 #include <linux/if.h>
 #include <linux/if_addr.h>
 #include <linux/if_alg.h>
@@ -315,8 +326,11 @@ struct ltchars {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // The code generator produces -0x1 for (~0), but an unsigned value is necessary
 // for the tipc_subscr timeout __u32 field.
 #undef TIPC_WAIT_FOREVER
@@ -337,6 +351,7 @@ struct ltchars {
 #define _HIDIOCGRAWPHYS		HIDIOCGRAWPHYS(_HIDIOCGRAWPHYS_LEN)
 #define _HIDIOCGRAWUNIQ		HIDIOCGRAWUNIQ(_HIDIOCGRAWUNIQ_LEN)
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 // XDP socket constants do not appear to be picked up otherwise.
@@ -352,6 +367,9 @@ struct ltchars {
 =======
 
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+
+>>>>>>> 03397665 (update api)
 '
 
 includes_NetBSD='
@@ -553,6 +571,7 @@ ccflags="$@"
 		$2 ~ /^TUN(SET|GET|ATTACH|DETACH)/ ||
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		$2 ~ /^(O|F|[ES]?FD|NAME|S|PTRACE|PT|TFD)_/ ||
 =======
 		$2 ~ /^(O|F|E?FD|NAME|S|PTRACE|PT)_/ ||
@@ -560,6 +579,9 @@ ccflags="$@"
 =======
 		$2 ~ /^(O|F|[ES]?FD|NAME|S|PTRACE|PT|TFD)_/ ||
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+		$2 ~ /^(O|F|[ES]?FD|NAME|S|PTRACE|PT|TFD)_/ ||
+>>>>>>> 03397665 (update api)
 		$2 ~ /^KEXEC_/ ||
 		$2 ~ /^LINUX_REBOOT_CMD_/ ||
 		$2 ~ /^LINUX_REBOOT_MAGIC[12]$/ ||
@@ -634,18 +656,24 @@ ccflags="$@"
 		$2 ~ /^W[A-Z0-9]+$/ ||
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		$2 ~/^PPPIOC/ ||
 		$2 ~ /^FAN_|FANOTIFY_/ ||
 		$2 == "HID_MAX_DESCRIPTOR_SIZE" ||
 		$2 ~ /^_?HIDIOC/ ||
 		$2 ~ /^BUS_(USB|HIL|BLUETOOTH|VIRTUAL)$/ ||
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		$2 ~ /^BLK[A-Z]*(GET$|SET$|BUF$|PART$|SIZE)/ {printf("\t%s = C.%s\n", $2, $2)}
 		$2 ~ /^__WCOREFLAG$/ {next}
 		$2 ~ /^__W[A-Z0-9]+$/ {printf("\t%s = C.%s\n", substr($2,3), $2)}

@@ -88,8 +88,11 @@ type controllerManager struct {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	// metricsExtraHandlers contains extra handlers to register on http server that serves metrics.
 	metricsExtraHandlers map[string]http.Handler
 
@@ -102,6 +105,7 @@ type controllerManager struct {
 	// Liveness probe endpoint name
 	livenessEndpointName string
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	// Readyz probe handler
 	readyzHandler *healthz.Handler
@@ -111,6 +115,11 @@ type controllerManager struct {
 	startedLeader bool
 	errChan       chan error
 >>>>>>> 79bfea2d (update vendor)
+=======
+
+	// Readyz probe handler
+	readyzHandler *healthz.Handler
+>>>>>>> 03397665 (update api)
 
 	// Healthz probe handler
 	healthzHandler *healthz.Handler
@@ -137,6 +146,7 @@ type controllerManager struct {
 	// LeaderElection.Run(...) function has returned and the shutdown can proceed.
 	leaderElectionStopped chan struct{}
 
+<<<<<<< HEAD
 =======
 
 	// Readyz probe handler
@@ -168,6 +178,8 @@ type controllerManager struct {
 	leaderElectionStopped chan struct{}
 
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	// stop procedure engaged. In other words, we should not add anything else to the manager
 	stopProcedureEngaged bool
 
@@ -332,6 +344,7 @@ func (cm *controllerManager) AddReadyzCheck(name string, check healthz.Checker) 
 	if cm.stopProcedureEngaged {
 		return errors.New("can't accept new ready check as stop procedure is already engaged")
 <<<<<<< HEAD
+<<<<<<< HEAD
 	}
 
 	if cm.healthzStarted {
@@ -339,13 +352,18 @@ func (cm *controllerManager) AddReadyzCheck(name string, check healthz.Checker) 
 	}
 
 =======
+=======
+>>>>>>> 03397665 (update api)
 	}
 
 	if cm.healthzStarted {
 		return fmt.Errorf("unable to add new checker because readyz endpoint has already been created")
 	}
 
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	if cm.readyzHandler == nil {
 		cm.readyzHandler = &healthz.Handler{Checks: map[string]healthz.Checker{}}
 	}
@@ -404,8 +422,11 @@ func (cm *controllerManager) GetWebhookServer() *webhook.Server {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func (cm *controllerManager) GetLogger() logr.Logger {
 	return cm.logger
 }
@@ -416,12 +437,15 @@ func (cm *controllerManager) GetControllerOptions() v1alpha1.ControllerConfigura
 
 func (cm *controllerManager) serveMetrics() {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 func (cm *controllerManager) serveMetrics(stop <-chan struct{}) {
 	var metricsPath = "/metrics"
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	handler := promhttp.HandlerFor(metrics.Registry, promhttp.HandlerOpts{
 		ErrorHandling: promhttp.HTTPErrorOnError,
 	})
@@ -429,8 +453,11 @@ func (cm *controllerManager) serveMetrics(stop <-chan struct{}) {
 	mux := http.NewServeMux()
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	mux.Handle(defaultMetricsEndpoint, handler)
 
 	func() {
@@ -443,15 +470,19 @@ func (cm *controllerManager) serveMetrics(stop <-chan struct{}) {
 	}()
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	mux.Handle(metricsPath, handler)
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	server := http.Server{
 		Handler: mux,
 	}
 	// Run the server
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	cm.startRunnable(RunnableFunc(func(_ context.Context) error {
@@ -464,6 +495,10 @@ func (cm *controllerManager) serveMetrics(stop <-chan struct{}) {
 	cm.startRunnable(RunnableFunc(func(_ context.Context) error {
 		cm.logger.Info("starting metrics server", "path", defaultMetricsEndpoint)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	cm.startRunnable(RunnableFunc(func(_ context.Context) error {
+		cm.logger.Info("starting metrics server", "path", defaultMetricsEndpoint)
+>>>>>>> 03397665 (update api)
 		if err := server.Serve(cm.metricsListener); err != nil && err != http.ErrServerClosed {
 			return err
 		}
@@ -492,12 +527,16 @@ func (cm *controllerManager) serveHealthProbes() {
 			// Append '/' suffix to handle subpaths
 			mux.Handle(cm.readinessEndpointName+"/", http.StripPrefix(cm.readinessEndpointName, cm.readyzHandler))
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 		}
 		if cm.healthzHandler != nil {
 			mux.Handle(cm.livenessEndpointName, http.StripPrefix(cm.livenessEndpointName, cm.healthzHandler))
 			// Append '/' suffix to handle subpaths
 			mux.Handle(cm.livenessEndpointName+"/", http.StripPrefix(cm.livenessEndpointName, cm.healthzHandler))
 		}
+<<<<<<< HEAD
 =======
 		}
 		if cm.healthzHandler != nil {
@@ -506,6 +545,8 @@ func (cm *controllerManager) serveHealthProbes() {
 			mux.Handle(cm.livenessEndpointName+"/", http.StripPrefix(cm.livenessEndpointName, cm.healthzHandler))
 		}
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 
 		// Run server
 		cm.startRunnable(RunnableFunc(func(_ context.Context) error {
@@ -633,8 +674,11 @@ func (cm *controllerManager) engageStopProcedure(stopComplete <-chan struct{}) e
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	// we want to close this after the other runnables stop, because we don't
 	// want things like leader election to try and emit events on a closed
 	// channel
@@ -688,11 +732,14 @@ func (cm *controllerManager) startNonLeaderElectionRunnables() {
 	// Start and wait for caches.
 	cm.waitForCache(cm.internalCtx)
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	cm.waitForCache()
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 
 	// Start the non-leaderelection Runnables after the cache has synced
 	for _, c := range cm.nonLeaderElectionRunnables {
@@ -712,6 +759,7 @@ func (cm *controllerManager) startLeaderElectionRunnables() {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	cm.waitForCache(cm.internalCtx)
 =======
 	cm.waitForCache()
@@ -719,6 +767,9 @@ func (cm *controllerManager) startLeaderElectionRunnables() {
 =======
 	cm.waitForCache(cm.internalCtx)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	cm.waitForCache(cm.internalCtx)
+>>>>>>> 03397665 (update api)
 
 	// Start the leader election Runnables after the cache has synced
 	for _, c := range cm.leaderElectionRunnables {
@@ -732,6 +783,7 @@ func (cm *controllerManager) startLeaderElectionRunnables() {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 func (cm *controllerManager) waitForCache(ctx context.Context) {
 =======
 func (cm *controllerManager) waitForCache() {
@@ -739,12 +791,18 @@ func (cm *controllerManager) waitForCache() {
 =======
 func (cm *controllerManager) waitForCache(ctx context.Context) {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func (cm *controllerManager) waitForCache(ctx context.Context) {
+>>>>>>> 03397665 (update api)
 	if cm.started {
 		return
 	}
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 	for _, cache := range cm.caches {
 		cm.startRunnable(cache)
 	}
@@ -758,6 +816,7 @@ func (cm *controllerManager) waitForCache(ctx context.Context) {
 	// cm.started as check if we already started the cache so it must always become true.
 	// Making sure that the cache doesn't get started twice is needed to not get a "close
 	// of closed channel" panic
+<<<<<<< HEAD
 =======
 	// Start the Cache. Allow the function to start the cache to be mocked out for testing
 	if cm.startCache == nil {
@@ -782,6 +841,8 @@ func (cm *controllerManager) waitForCache(ctx context.Context) {
 	// Making sure that the cache doesn't get started twice is needed to not get a "close
 	// of closed channel" panic
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	cm.started = true
 }
 
@@ -827,6 +888,7 @@ func (cm *controllerManager) startLeaderElection() (err error) {
 		close(cm.leaderElectionStopped)
 	}()
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	// Start the leader elector process
 <<<<<<< HEAD
@@ -840,6 +902,8 @@ func (cm *controllerManager) startLeaderElection() (err error) {
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	return nil
 }
 

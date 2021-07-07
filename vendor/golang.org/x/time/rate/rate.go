@@ -225,8 +225,11 @@ func (lim *Limiter) Wait(ctx context.Context) (err error) {
 // The burst limit is ignored if the rate limit is Inf.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func (lim *Limiter) WaitN(ctx context.Context, n int) (err error) {
 	lim.mu.Lock()
 	burst := lim.burst
@@ -236,6 +239,7 @@ func (lim *Limiter) WaitN(ctx context.Context, n int) (err error) {
 	if n > burst && limit != Inf {
 		return fmt.Errorf("rate: Wait(n=%d) exceeds limiter's burst %d", n, burst)
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 func (lim *Limiter) waitN(ctx contextContext, n int) (err error) {
 	if n > lim.burst && lim.limit != Inf {
@@ -243,6 +247,8 @@ func (lim *Limiter) waitN(ctx contextContext, n int) (err error) {
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	}
 	// Check if ctx is already cancelled
 	select {

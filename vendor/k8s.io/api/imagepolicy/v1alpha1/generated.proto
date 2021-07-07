@@ -19,6 +19,7 @@ limitations under the License.
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 syntax = "proto2";
 =======
 syntax = 'proto2';
@@ -26,6 +27,9 @@ syntax = 'proto2';
 =======
 syntax = "proto2";
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+syntax = "proto2";
+>>>>>>> 03397665 (update api)
 
 package k8s.io.api.imagepolicy.v1alpha1;
 

@@ -158,6 +158,7 @@ func (c *Controller) Start(ctx context.Context) error {
 		// TODO(pwittrock): Reconsider HandleCrash
 		defer utilruntime.HandleCrash()
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 		// NB(directxman12): launch the sources *before* trying to wait for the
@@ -247,6 +248,8 @@ func (c *Controller) worker() {
 	}
 >>>>>>> 79bfea2d (update vendor)
 =======
+=======
+>>>>>>> 03397665 (update api)
 
 		// NB(directxman12): launch the sources *before* trying to wait for the
 		// caches to sync so that they have a chance to register their intendeded
@@ -318,11 +321,15 @@ func (c *Controller) worker() {
 	wg.Wait()
 	c.Log.Info("All workers finished")
 	return nil
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }
 
 // processNextWorkItem will read a single work item off the workqueue and
 // attempt to process it, by calling the reconcileHandler.
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 func (c *Controller) processNextWorkItem(ctx context.Context) bool {
@@ -332,6 +339,9 @@ func (c *Controller) processNextWorkItem() bool {
 =======
 func (c *Controller) processNextWorkItem(ctx context.Context) bool {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func (c *Controller) processNextWorkItem(ctx context.Context) bool {
+>>>>>>> 03397665 (update api)
 	obj, shutdown := c.Queue.Get()
 	if shutdown {
 		// Stop working
@@ -348,8 +358,11 @@ func (c *Controller) processNextWorkItem(ctx context.Context) bool {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	ctrlmetrics.ActiveWorkers.WithLabelValues(c.Name).Add(1)
 	defer ctrlmetrics.ActiveWorkers.WithLabelValues(c.Name).Add(-1)
 
@@ -373,6 +386,7 @@ func (c *Controller) initMetrics() {
 	ctrlmetrics.ReconcileTotal.WithLabelValues(c.Name, labelSuccess).Add(0)
 	ctrlmetrics.WorkerCount.WithLabelValues(c.Name).Set(float64(c.MaxConcurrentReconciles))
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 
 func (c *Controller) reconcileHandler(ctx context.Context, obj interface{}) {
@@ -389,6 +403,8 @@ func (c *Controller) reconcileHandler(ctx context.Context, obj interface{}) {
 	return c.reconcileHandler(obj)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }
 
 func (c *Controller) reconcileHandler(ctx context.Context, obj interface{}) {
@@ -399,6 +415,7 @@ func (c *Controller) reconcileHandler(ctx context.Context, obj interface{}) {
 	}()
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	var req reconcile.Request
 	var ok bool
 	if req, ok = obj.(reconcile.Request); !ok {
@@ -408,6 +425,11 @@ func (c *Controller) reconcileHandler(ctx context.Context, obj interface{}) {
 	req, ok := obj.(reconcile.Request)
 	if !ok {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	// Make sure that the the object is a valid request.
+	req, ok := obj.(reconcile.Request)
+	if !ok {
+>>>>>>> 03397665 (update api)
 		// As the item in the workqueue is actually invalid, we call
 		// Forget here else we'd go into a loop of attempting to
 		// process a work item that is invalid.
@@ -418,19 +440,25 @@ func (c *Controller) reconcileHandler(ctx context.Context, obj interface{}) {
 	}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 
 	log := c.Log.WithValues("name", req.Name, "namespace", req.Namespace)
 	ctx = logf.IntoContext(ctx, log)
 
 	// RunInformersAndControllers the syncHandler, passing it the Namespace/Name string of the
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	// RunInformersAndControllers the syncHandler, passing it the namespace/Name string of the
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	// resource to be synced.
 	if result, err := c.Do.Reconcile(ctx, req); err != nil {
 		c.Queue.AddRateLimited(req)

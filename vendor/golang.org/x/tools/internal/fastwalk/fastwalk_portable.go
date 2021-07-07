@@ -4,12 +4,16 @@
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 //go:build appengine || (!linux && !darwin && !freebsd && !openbsd && !netbsd)
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 //go:build appengine || (!linux && !darwin && !freebsd && !openbsd && !netbsd)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+//go:build appengine || (!linux && !darwin && !freebsd && !openbsd && !netbsd)
+>>>>>>> 03397665 (update api)
 // +build appengine !linux,!darwin,!freebsd,!openbsd,!netbsd
 
 package fastwalk
@@ -36,6 +40,7 @@ func readDir(dirName string, fn func(dirName, entName string, typ os.FileMode) e
 		if err := fn(dirName, fi.Name(), fi.Mode()&os.ModeType); err != nil {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			if err == ErrSkipFiles {
 =======
 			if err == SkipFiles {
@@ -43,6 +48,9 @@ func readDir(dirName string, fn func(dirName, entName string, typ os.FileMode) e
 =======
 			if err == ErrSkipFiles {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+			if err == ErrSkipFiles {
+>>>>>>> 03397665 (update api)
 				skipFiles = true
 				continue
 			}

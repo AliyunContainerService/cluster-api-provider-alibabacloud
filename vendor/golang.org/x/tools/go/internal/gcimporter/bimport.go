@@ -128,6 +128,7 @@ func BImportData(fset *token.FileSet, imports map[string]*types.Package, data []
 	// populate typList with predeclared "known" types
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	p.typList = append(p.typList, predeclared()...)
 =======
 	p.typList = append(p.typList, predeclared...)
@@ -135,6 +136,9 @@ func BImportData(fset *token.FileSet, imports map[string]*types.Package, data []
 =======
 	p.typList = append(p.typList, predeclared()...)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	p.typList = append(p.typList, predeclared()...)
+>>>>>>> 03397665 (update api)
 
 	// read package data
 	pkg = p.pkg()
@@ -342,6 +346,7 @@ func (p *importer) pos() token.Pos {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	return p.fake.pos(file, line, 0)
 =======
 	return p.fake.pos(file, line)
@@ -349,6 +354,9 @@ func (p *importer) pos() token.Pos {
 =======
 	return p.fake.pos(file, line, 0)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	return p.fake.pos(file, line, 0)
+>>>>>>> 03397665 (update api)
 }
 
 // Synthesize a token.Pos
@@ -357,6 +365,7 @@ type fakeFileSet struct {
 	files map[string]*token.File
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 func (s *fakeFileSet) pos(file string, line, column int) token.Pos {
@@ -370,6 +379,11 @@ func (s *fakeFileSet) pos(file string, line, column int) token.Pos {
 	// TODO(mdempsky): Make use of column.
 
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func (s *fakeFileSet) pos(file string, line, column int) token.Pos {
+	// TODO(mdempsky): Make use of column.
+
+>>>>>>> 03397665 (update api)
 	// Since we don't know the set of needed file positions, we
 	// reserve maxlines positions per file.
 	const maxlines = 64 * 1024
@@ -1006,8 +1020,11 @@ const (
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 var predeclOnce sync.Once
 var predecl []types.Type // initialized lazily
 
@@ -1062,6 +1079,7 @@ func predeclared() []types.Type {
 	})
 	return predecl
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 var predeclared = []types.Type{
 	// basic types
@@ -1110,6 +1128,8 @@ var predeclared = []types.Type{
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }
 
 type anyType struct{}

@@ -1,5 +1,8 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 # See the OWNERS docs: https://git.k8s.io/community/contributors/guide/owners.md
 
 aliases:
@@ -39,6 +42,7 @@ aliases:
   # folks who may have context on ancient history,
   # but are no longer directly involved
   # controller-runtime-emeritus-maintainers:
+<<<<<<< HEAD
 =======
 # See the OWNERS docs: https://git.k8s.io/community/contributors/devel/owners.md
 =======
@@ -87,3 +91,5 @@ aliases:
   # but are no longer directly involved
   # controller-runtime-emeritus-maintainers:
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)

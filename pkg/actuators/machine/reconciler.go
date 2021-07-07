@@ -22,6 +22,7 @@ import (
 	"time"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	"k8s.io/klog"
 
 	"github.com/openshift/machine-api-operator/pkg/metrics"
@@ -30,6 +31,10 @@ import (
 
 	machinecontroller "github.com/openshift/machine-api-operator/pkg/controller/machine"
 =======
+=======
+	"k8s.io/klog"
+
+>>>>>>> 03397665 (update api)
 	"github.com/openshift/machine-api-operator/pkg/metrics"
 
 	alibabacloudproviderv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alibabacloudprovider/v1beta1"
@@ -39,8 +44,11 @@ import (
 	machinecontroller "github.com/openshift/machine-api-operator/pkg/controller/machine"
 
 	configv1 "github.com/openshift/api/config/v1"
+<<<<<<< HEAD
 	"k8s.io/klog/v2"
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 )
 
 const (
@@ -168,11 +176,6 @@ func (r *Reconciler) UpdateMachine(ctx context.Context) (*ecs.Instance, error) {
 =======
 	_ = r.machineScope.setProviderStatus(instance, conditionSuccess())
 
-	return nil
-}
-
-// CreateMachine creates machine if and only if machine exists, handled by cluster-api
-func (r *Reconciler) CreateMachine(ctx context.Context) error {
 	return nil
 }
 

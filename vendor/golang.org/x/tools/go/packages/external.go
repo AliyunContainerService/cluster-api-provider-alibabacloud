@@ -14,6 +14,9 @@ import (
 	"fmt"
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 	exec "golang.org/x/sys/execabs"
 	"os"
 	"strings"
@@ -45,6 +48,7 @@ type driverRequest struct {
 }
 
 // findExternalDriver returns the file path of a tool that supplies
+<<<<<<< HEAD
 =======
 	"os/exec"
 	"strings"
@@ -85,6 +89,8 @@ type driverRequest struct {
 
 // findExternalDriver returns the file path of a tool that supplies
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // the build system package structure, or "" if not found."
 // If GOPACKAGESDRIVER is set in the environment findExternalTool returns its
 // value, otherwise it searches for a binary named gopackagesdriver on the PATH.
@@ -109,8 +115,11 @@ func findExternalDriver(cfg *Config) driver {
 	return func(cfg *Config, words ...string) (*driverResponse, error) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		req, err := json.Marshal(driverRequest{
 			Mode:       cfg.Mode,
 			Env:        cfg.Env,
@@ -120,6 +129,7 @@ func findExternalDriver(cfg *Config) driver {
 		})
 		if err != nil {
 			return nil, fmt.Errorf("failed to encode message to driver tool: %v", err)
+<<<<<<< HEAD
 <<<<<<< HEAD
 		}
 
@@ -151,6 +161,8 @@ func findExternalDriver(cfg *Config) driver {
 			fullargs = append(fullargs, fmt.Sprintf("-buildflag=%v", f))
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		}
 
 		buf := new(bytes.Buffer)
@@ -166,13 +178,19 @@ func findExternalDriver(cfg *Config) driver {
 			return nil, fmt.Errorf("%v: %v: %s", tool, err, cmd.Stderr)
 		}
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 79bfea2d (update vendor)
 =======
+=======
+>>>>>>> 03397665 (update api)
 		if len(stderr.Bytes()) != 0 && os.Getenv("GOPACKAGESPRINTDRIVERERRORS") != "" {
 			fmt.Fprintf(os.Stderr, "%s stderr: <<%s>>\n", cmdDebugStr(cmd), stderr)
 		}
 
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		var response driverResponse
 		if err := json.Unmarshal(buf.Bytes(), &response); err != nil {
 			return nil, err

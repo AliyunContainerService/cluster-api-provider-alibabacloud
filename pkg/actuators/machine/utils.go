@@ -9,9 +9,12 @@ import (
 =======
 	"time"
 
+<<<<<<< HEAD
 	"k8s.io/klog/v2"
 
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	alibabacloudproviderv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alibabacloudprovider/v1beta1"
 	machinev1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 	machinecontroller "github.com/openshift/machine-api-operator/pkg/controller/machine"
@@ -42,10 +45,15 @@ func supportedInstanceStates() []string {
 // upstreamMachineClusterIDLabel is the label that a machine must have to identify the cluster to which it belongs
 const upstreamMachineClusterIDLabel = "sigs.k8s.io/cluster-api-cluster"
 
+<<<<<<< HEAD
 // existingInstanceStates returns the list of states an ECS instance can be in
 // while being considered "existing", i.e. mostly anything but "Terminated".
 func existingInstanceStates() []string {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+// supportedInstanceStates returns the list of states an ECS instance
+func supportedInstanceStates() []string {
+>>>>>>> 03397665 (update api)
 	return []string{
 		ECSInstanceStatusPending,
 		ECSInstanceStatusStarting,

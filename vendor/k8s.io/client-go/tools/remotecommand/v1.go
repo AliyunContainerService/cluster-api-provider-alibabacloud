@@ -26,6 +26,7 @@ import (
 	"k8s.io/apimachinery/pkg/util/httpstream"
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	"k8s.io/klog/v2"
 =======
 	"k8s.io/klog"
@@ -33,6 +34,9 @@ import (
 =======
 	"k8s.io/klog/v2"
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	"k8s.io/klog/v2"
+>>>>>>> 03397665 (update api)
 )
 
 // streamProtocolV1 implements the first version of the streaming exec & attach

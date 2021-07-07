@@ -26,8 +26,11 @@ package plan9 // import "golang.org/x/sys/plan9"
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 import (
 	"bytes"
 	"strings"
@@ -36,16 +39,20 @@ import (
 	"golang.org/x/sys/internal/unsafeheader"
 )
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import "unsafe"
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 
 // ByteSliceFromString returns a NUL-terminated slice of bytes
 // containing the text of s. If s contains a NUL byte at any
 // location, it returns (nil, EINVAL).
 func ByteSliceFromString(s string) ([]byte, error) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	if strings.IndexByte(s, 0) != -1 {
@@ -60,6 +67,10 @@ func ByteSliceFromString(s string) ([]byte, error) {
 	if strings.IndexByte(s, 0) != -1 {
 		return nil, EINVAL
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	if strings.IndexByte(s, 0) != -1 {
+		return nil, EINVAL
+>>>>>>> 03397665 (update api)
 	}
 	a := make([]byte, len(s)+1)
 	copy(a, s)
@@ -79,8 +90,11 @@ func BytePtrFromString(s string) (*byte, error) {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // ByteSliceToString returns a string form of the text represented by the slice s, with a terminating NUL and any
 // bytes after the NUL removed.
 func ByteSliceToString(s []byte) string {
@@ -117,10 +131,13 @@ func BytePtrToString(p *byte) string {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // Single-word zero for use when we need a valid pointer to 0 bytes.
 // See mksyscall.pl.
 var _zero uintptr

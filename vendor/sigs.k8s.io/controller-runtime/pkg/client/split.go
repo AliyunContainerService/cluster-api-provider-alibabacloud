@@ -133,12 +133,16 @@ func (d *delegatingReader) Get(ctx context.Context, key ObjectKey, obj Object) e
 // List retrieves list of objects for a given namespace and list options.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func (d *delegatingReader) List(ctx context.Context, list ObjectList, opts ...ListOption) error {
 	if isUncached, err := d.shouldBypassCache(list); err != nil {
 		return err
 	} else if isUncached {
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 func (d *DelegatingReader) List(ctx context.Context, list runtime.Object, opts ...ListOption) error {
@@ -147,6 +151,8 @@ func (d *DelegatingReader) List(ctx context.Context, list runtime.Object, opts .
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		return d.ClientReader.List(ctx, list, opts...)
 	}
 	return d.CacheReader.List(ctx, list, opts...)

@@ -24,6 +24,7 @@ import (
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	"k8s.io/klog/v2"
 =======
 	"k8s.io/klog"
@@ -31,6 +32,9 @@ import (
 =======
 	"k8s.io/klog/v2"
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	"k8s.io/klog/v2"
+>>>>>>> 03397665 (update api)
 
 	"k8s.io/apimachinery/pkg/util/httpstream"
 	"k8s.io/apimachinery/pkg/util/remotecommand"

@@ -27,6 +27,7 @@ import (
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	openapi_v2 "github.com/googleapis/gnostic/openapiv2"
 	"k8s.io/klog/v2"
 =======
@@ -37,6 +38,10 @@ import (
 	openapi_v2 "github.com/googleapis/gnostic/openapiv2"
 	"k8s.io/klog/v2"
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	openapi_v2 "github.com/googleapis/gnostic/openapiv2"
+	"k8s.io/klog/v2"
+>>>>>>> 03397665 (update api)
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -184,6 +189,7 @@ func (d *CachedDiscoveryClient) getCachedFile(filename string) ([]byte, error) {
 func (d *CachedDiscoveryClient) writeCachedFile(filename string, obj runtime.Object) error {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if err := os.MkdirAll(filepath.Dir(filename), 0750); err != nil {
 =======
 	if err := os.MkdirAll(filepath.Dir(filename), 0755); err != nil {
@@ -191,6 +197,9 @@ func (d *CachedDiscoveryClient) writeCachedFile(filename string, obj runtime.Obj
 =======
 	if err := os.MkdirAll(filepath.Dir(filename), 0750); err != nil {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	if err := os.MkdirAll(filepath.Dir(filename), 0750); err != nil {
+>>>>>>> 03397665 (update api)
 		return err
 	}
 
@@ -211,6 +220,7 @@ func (d *CachedDiscoveryClient) writeCachedFile(filename string, obj runtime.Obj
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	err = os.Chmod(f.Name(), 0660)
 =======
 	err = os.Chmod(f.Name(), 0755)
@@ -218,6 +228,9 @@ func (d *CachedDiscoveryClient) writeCachedFile(filename string, obj runtime.Obj
 =======
 	err = os.Chmod(f.Name(), 0660)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	err = os.Chmod(f.Name(), 0660)
+>>>>>>> 03397665 (update api)
 	if err != nil {
 		return err
 	}
@@ -296,12 +309,15 @@ func (d *CachedDiscoveryClient) Invalidate() {
 // If discoveryCacheDir is empty, cached server resource data will be looked up in the current directory.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 // TODO(juanvallejo): the value of "--cache-dir" should be honored. Consolidate discoveryCacheDir with httpCacheDir
 // so that server resources and http-cache data are stored in the same location, provided via config flags.
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func NewCachedDiscoveryClientForConfig(config *restclient.Config, discoveryCacheDir, httpCacheDir string, ttl time.Duration) (*CachedDiscoveryClient, error) {
 	if len(httpCacheDir) > 0 {
 		// update the given restconfig with a custom roundtripper that

@@ -11,10 +11,14 @@ package unix
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 import (
 	"unsafe"
 )
 
+<<<<<<< HEAD
 =======
 import "unsafe"
 
@@ -36,6 +40,8 @@ import (
 >>>>>>> e879a141 (alibabacloud machine-api provider)
 
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> 03397665 (update api)
 // CmsgLen returns the value to store in the Len field of the Cmsghdr
 // structure, taking into account any necessary alignment.
 func CmsgLen(datalen int) int {

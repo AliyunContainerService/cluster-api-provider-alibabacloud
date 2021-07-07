@@ -4,12 +4,16 @@
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 //go:build !go1.11
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 //go:build !go1.11
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+//go:build !go1.11
+>>>>>>> 03397665 (update api)
 // +build !go1.11
 
 package gcimporter

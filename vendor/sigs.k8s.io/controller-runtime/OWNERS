@@ -1,5 +1,8 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 # See the OWNERS docs: https://git.k8s.io/community/contributors/guide/owners.md
 
 approvers:
@@ -10,6 +13,7 @@ reviewers:
   - controller-runtime-admins
   - controller-runtime-reviewers
   - controller-runtime-approvers
+<<<<<<< HEAD
 =======
 # See the OWNERS docs: https://git.k8s.io/community/contributors/devel/owners.md
 owners:
@@ -33,3 +37,5 @@ reviewers:
   - controller-runtime-reviewers
   - controller-runtime-approvers
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)

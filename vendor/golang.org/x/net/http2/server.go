@@ -474,8 +474,11 @@ func (s *Server) ServeConn(c net.Conn, opts *ServeConnOpts) {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func serverConnBaseContext(c net.Conn, opts *ServeConnOpts) (ctx context.Context, cancel func()) {
 	ctx, cancel = context.WithCancel(opts.context())
 	ctx = context.WithValue(ctx, http.LocalAddrContextKey, c.LocalAddr())
@@ -486,10 +489,13 @@ func serverConnBaseContext(c net.Conn, opts *ServeConnOpts) (ctx context.Context
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func (sc *serverConn) rejectConn(err ErrCode, debug string) {
 	sc.vlogf("http2: server rejecting conn: %v, %s", err, debug)
 	// ignoring errors. hanging up anyway.
@@ -1669,12 +1675,16 @@ func (sc *serverConn) processData(f *DataFrame) error {
 	}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 
 	// "If a DATA frame is received whose stream is not in "open"
 	// or "half closed (local)" state, the recipient MUST respond
 	// with a stream error (Section 5.4.2) of type STREAM_CLOSED."
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 	// RFC 7540, sec 6.1: If a DATA frame is received whose stream is not in
@@ -1686,6 +1696,8 @@ func (sc *serverConn) processData(f *DataFrame) error {
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	if st == nil || state != stateOpen || st.gotTrailerHeader || st.resetQueued {
 		// This includes sending a RST_STREAM if the stream is
 		// in stateHalfClosedLocal (which currently means that

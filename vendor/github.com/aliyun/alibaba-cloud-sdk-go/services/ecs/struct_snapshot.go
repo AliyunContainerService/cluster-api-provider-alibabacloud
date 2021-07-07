@@ -19,8 +19,11 @@ package ecs
 type Snapshot struct {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	Category                   string                  `json:"Category" xml:"Category"`
 	Usage                      string                  `json:"Usage" xml:"Usage"`
 	SourceDiskSize             string                  `json:"SourceDiskSize" xml:"SourceDiskSize"`
@@ -46,6 +49,7 @@ type Snapshot struct {
 	SnapshotName               string                  `json:"SnapshotName" xml:"SnapshotName"`
 	Tags                       TagsInDescribeSnapshots `json:"Tags" xml:"Tags"`
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	SnapshotId        string                  `json:"SnapshotId" xml:"SnapshotId"`
 	SnapshotName      string                  `json:"SnapshotName" xml:"SnapshotName"`
@@ -68,4 +72,6 @@ type Snapshot struct {
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }

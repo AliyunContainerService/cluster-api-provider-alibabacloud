@@ -17,6 +17,7 @@ var _ syscall.Errno
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 func fanotifyMark(fd int, flags uint, mask uint64, dirFd int, pathname *byte) (err error) {
 	_, _, e1 := Syscall6(SYS_FANOTIFY_MARK, uintptr(fd), uintptr(flags), uintptr(mask), uintptr(dirFd), uintptr(unsafe.Pointer(pathname)), 0)
 =======
@@ -1405,6 +1406,10 @@ func Syncfs(fd int) (err error) {
 func fanotifyMark(fd int, flags uint, mask uint64, dirFd int, pathname *byte) (err error) {
 	_, _, e1 := Syscall6(SYS_FANOTIFY_MARK, uintptr(fd), uintptr(flags), uintptr(mask), uintptr(dirFd), uintptr(unsafe.Pointer(pathname)), 0)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func fanotifyMark(fd int, flags uint, mask uint64, dirFd int, pathname *byte) (err error) {
+	_, _, e1 := Syscall6(SYS_FANOTIFY_MARK, uintptr(fd), uintptr(flags), uintptr(mask), uintptr(dirFd), uintptr(unsafe.Pointer(pathname)), 0)
+>>>>>>> 03397665 (update api)
 	if e1 != 0 {
 		err = errnoErr(e1)
 	}
@@ -2056,7 +2061,10 @@ func utimes(path string, times *[2]Timeval) (err error) {
 func fstat(fd int, st *stat_t) (err error) {
 	_, _, e1 := Syscall(SYS_FSTAT, uintptr(fd), uintptr(unsafe.Pointer(st)), 0)
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 03397665 (update api)
 	if e1 != 0 {
 		err = errnoErr(e1)
 	}
@@ -2072,7 +2080,10 @@ func fstatat(dirfd int, path string, st *stat_t, flags int) (err error) {
 		return
 	}
 	_, _, e1 := Syscall6(SYS_NEWFSTATAT, uintptr(dirfd), uintptr(unsafe.Pointer(_p0)), uintptr(unsafe.Pointer(st)), uintptr(flags), 0, 0)
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	if e1 != 0 {
 		err = errnoErr(e1)
 	}

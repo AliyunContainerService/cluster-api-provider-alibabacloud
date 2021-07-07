@@ -9,6 +9,7 @@ package unix
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import "syscall"
 =======
 import (
@@ -19,6 +20,9 @@ import (
 =======
 import "syscall"
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+import "syscall"
+>>>>>>> 03397665 (update api)
 
 func setTimespec(sec, nsec int64) Timespec {
 	return Timespec{Sec: sec, Nsec: nsec}
@@ -45,12 +49,15 @@ func (msghdr *Msghdr) SetControllen(length int) {
 func (msghdr *Msghdr) SetIovlen(length int) {
 	msghdr.Iovlen = int32(length)
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 
 func (cmsg *Cmsghdr) SetLen(length int) {
 	cmsg.Len = uint32(length)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }
 
 func (cmsg *Cmsghdr) SetLen(length int) {
@@ -61,8 +68,11 @@ func Syscall9(num, a1, a2, a3, a4, a5, a6, a7, a8, a9 uintptr) (r1, r2 uintptr, 
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 //sys	Fstat(fd int, stat *Stat_t) (err error)
 //sys	Fstatat(fd int, path string, stat *Stat_t, flags int) (err error)
 //sys	Fstatfs(fd int, stat *Statfs_t) (err error)
@@ -72,6 +82,7 @@ func Syscall9(num, a1, a2, a3, a4, a5, a6, a7, a8, a9 uintptr) (r1, r2 uintptr, 
 //sys	Stat(path string, stat *Stat_t) (err error)
 //sys	Statfs(path string, stat *Statfs_t) (err error)
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 // SYS___SYSCTL is used by syscall_bsd.go for all BSDs, but in modern versions
 // of darwin/arm64 the syscall is called sysctl instead of __sysctl.
@@ -79,3 +90,5 @@ const SYS___SYSCTL = SYS_SYSCTL
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)

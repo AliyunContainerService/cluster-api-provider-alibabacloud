@@ -43,6 +43,7 @@ func init() {
 	// makes the code compile even when the generated files are missing.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	localSchemeBuilder.Register()
 =======
 	localSchemeBuilder.Register(addConversionFuncs)
@@ -50,4 +51,7 @@ func init() {
 =======
 	localSchemeBuilder.Register()
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	localSchemeBuilder.Register()
+>>>>>>> 03397665 (update api)
 }

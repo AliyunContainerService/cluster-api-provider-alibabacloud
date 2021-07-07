@@ -19,6 +19,9 @@ limitations under the License.
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 package v1alpha1
 
 import (
@@ -34,6 +37,7 @@ import (
 	reflect "reflect"
 	strings "strings"
 )
+<<<<<<< HEAD
 =======
 /*
 	Package v1alpha1 is a generated protocol buffer package.
@@ -69,6 +73,8 @@ import io "io"
 	strings "strings"
 )
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
@@ -79,6 +85,7 @@ var _ = math.Inf
 // is compatible with the proto package it is being compiled against.
 // A compilation error at this line likely means your copy of the
 // proto package needs to be updated.
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
@@ -118,6 +125,8 @@ func (*ImageReview) ProtoMessage()               {}
 func (*ImageReview) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{0} }
 >>>>>>> 79bfea2d (update vendor)
 =======
+=======
+>>>>>>> 03397665 (update api)
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 func (m *ImageReview) Reset()      { *m = ImageReview{} }
@@ -147,15 +156,21 @@ func (m *ImageReview) XXX_DiscardUnknown() {
 }
 
 var xxx_messageInfo_ImageReview proto.InternalMessageInfo
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 
 func (m *ImageReviewContainerSpec) Reset()      { *m = ImageReviewContainerSpec{} }
 func (*ImageReviewContainerSpec) ProtoMessage() {}
 func (*ImageReviewContainerSpec) Descriptor() ([]byte, []int) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	return fileDescriptor_834793af728657a5, []int{1}
 }
 func (m *ImageReviewContainerSpec) XXX_Unmarshal(b []byte) error {
@@ -177,6 +192,7 @@ func (m *ImageReviewContainerSpec) XXX_Size() int {
 }
 func (m *ImageReviewContainerSpec) XXX_DiscardUnknown() {
 	xxx_messageInfo_ImageReviewContainerSpec.DiscardUnknown(m)
+<<<<<<< HEAD
 <<<<<<< HEAD
 }
 
@@ -241,16 +257,21 @@ var xxx_messageInfo_ImageReviewStatus proto.InternalMessageInfo
 	return fileDescriptorGenerated, []int{1}
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }
 
 var xxx_messageInfo_ImageReviewContainerSpec proto.InternalMessageInfo
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func (m *ImageReviewStatus) Reset()                    { *m = ImageReviewStatus{} }
 func (*ImageReviewStatus) ProtoMessage()               {}
 func (*ImageReviewStatus) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{3} }
 >>>>>>> 79bfea2d (update vendor)
 =======
+=======
+>>>>>>> 03397665 (update api)
 func (m *ImageReviewSpec) Reset()      { *m = ImageReviewSpec{} }
 func (*ImageReviewSpec) ProtoMessage() {}
 func (*ImageReviewSpec) Descriptor() ([]byte, []int) {
@@ -306,7 +327,10 @@ func (m *ImageReviewStatus) XXX_DiscardUnknown() {
 }
 
 var xxx_messageInfo_ImageReviewStatus proto.InternalMessageInfo
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 
 func init() {
 	proto.RegisterType((*ImageReview)(nil), "k8s.io.api.imagepolicy.v1alpha1.ImageReview")
@@ -314,6 +338,9 @@ func init() {
 	proto.RegisterType((*ImageReviewSpec)(nil), "k8s.io.api.imagepolicy.v1alpha1.ImageReviewSpec")
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 	proto.RegisterMapType((map[string]string)(nil), "k8s.io.api.imagepolicy.v1alpha1.ImageReviewSpec.AnnotationsEntry")
 	proto.RegisterType((*ImageReviewStatus)(nil), "k8s.io.api.imagepolicy.v1alpha1.ImageReviewStatus")
 	proto.RegisterMapType((map[string]string)(nil), "k8s.io.api.imagepolicy.v1alpha1.ImageReviewStatus.AuditAnnotationsEntry")
@@ -369,6 +396,7 @@ func (m *ImageReview) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+<<<<<<< HEAD
 =======
 =======
 	proto.RegisterMapType((map[string]string)(nil), "k8s.io.api.imagepolicy.v1alpha1.ImageReviewSpec.AnnotationsEntry")
@@ -432,6 +460,8 @@ func (m *ImageReview) Marshal() (dAtA []byte, err error) {
 =======
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	if err != nil {
 		return nil, err
 	}
@@ -441,8 +471,11 @@ func (m *ImageReview) Marshal() (dAtA []byte, err error) {
 func (m *ImageReview) MarshalTo(dAtA []byte) (int, error) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
@@ -450,6 +483,9 @@ func (m *ImageReview) MarshalTo(dAtA []byte) (int, error) {
 func (m *ImageReview) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 	_ = i
 	var l int
 	_ = l
@@ -484,6 +520,7 @@ func (m *ImageReview) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i--
 	dAtA[i] = 0xa
 	return len(dAtA) - i, nil
+<<<<<<< HEAD
 =======
 	var i int
 =======
@@ -528,11 +565,14 @@ func (m *ImageReview) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	dAtA[i] = 0xa
 	return len(dAtA) - i, nil
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }
 
 func (m *ImageReviewContainerSpec) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -542,6 +582,9 @@ func (m *ImageReviewContainerSpec) Marshal() (dAtA []byte, err error) {
 =======
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+>>>>>>> 03397665 (update api)
 	if err != nil {
 		return nil, err
 	}
@@ -551,8 +594,11 @@ func (m *ImageReviewContainerSpec) Marshal() (dAtA []byte, err error) {
 func (m *ImageReviewContainerSpec) MarshalTo(dAtA []byte) (int, error) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
@@ -560,6 +606,9 @@ func (m *ImageReviewContainerSpec) MarshalTo(dAtA []byte) (int, error) {
 func (m *ImageReviewContainerSpec) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 	_ = i
 	var l int
 	_ = l
@@ -569,6 +618,7 @@ func (m *ImageReviewContainerSpec) MarshalToSizedBuffer(dAtA []byte) (int, error
 	i--
 	dAtA[i] = 0xa
 	return len(dAtA) - i, nil
+<<<<<<< HEAD
 =======
 	var i int
 =======
@@ -588,11 +638,14 @@ func (m *ImageReviewContainerSpec) MarshalToSizedBuffer(dAtA []byte) (int, error
 	dAtA[i] = 0xa
 	return len(dAtA) - i, nil
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }
 
 func (m *ImageReviewSpec) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -602,6 +655,9 @@ func (m *ImageReviewSpec) Marshal() (dAtA []byte, err error) {
 =======
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+>>>>>>> 03397665 (update api)
 	if err != nil {
 		return nil, err
 	}
@@ -611,8 +667,11 @@ func (m *ImageReviewSpec) Marshal() (dAtA []byte, err error) {
 func (m *ImageReviewSpec) MarshalTo(dAtA []byte) (int, error) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
@@ -620,6 +679,9 @@ func (m *ImageReviewSpec) MarshalTo(dAtA []byte) (int, error) {
 func (m *ImageReviewSpec) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 	_ = i
 	var l int
 	_ = l
@@ -628,6 +690,7 @@ func (m *ImageReviewSpec) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i = encodeVarintGenerated(dAtA, i, uint64(len(m.Namespace)))
 	i--
 	dAtA[i] = 0x1a
+<<<<<<< HEAD
 =======
 	var i int
 	_ = i
@@ -656,6 +719,8 @@ func (m *ImageReviewSpec) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i--
 	dAtA[i] = 0x1a
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	if len(m.Annotations) > 0 {
 		keysForAnnotations := make([]string, 0, len(m.Annotations))
 		for k := range m.Annotations {
@@ -664,8 +729,11 @@ func (m *ImageReviewSpec) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		github_com_gogo_protobuf_sortkeys.Strings(keysForAnnotations)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		for iNdEx := len(keysForAnnotations) - 1; iNdEx >= 0; iNdEx-- {
 			v := m.Annotations[string(keysForAnnotations[iNdEx])]
 			baseI := i
@@ -673,6 +741,7 @@ func (m *ImageReviewSpec) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 			copy(dAtA[i:], v)
 			i = encodeVarintGenerated(dAtA, i, uint64(len(v)))
 			i--
+<<<<<<< HEAD
 <<<<<<< HEAD
 			dAtA[i] = 0x12
 			i -= len(keysForAnnotations[iNdEx])
@@ -704,6 +773,8 @@ func (m *ImageReviewSpec) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		for _, k := range keysForAnnotations {
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 			dAtA[i] = 0x12
 			i -= len(keysForAnnotations[iNdEx])
 			copy(dAtA[i:], keysForAnnotations[iNdEx])
@@ -716,6 +787,7 @@ func (m *ImageReviewSpec) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		}
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 	dAtA[i] = 0x1a
 	i++
 	i = encodeVarintGenerated(dAtA, i, uint64(len(m.Namespace)))
@@ -723,6 +795,8 @@ func (m *ImageReviewSpec) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return i, nil
 >>>>>>> 79bfea2d (update vendor)
 =======
+=======
+>>>>>>> 03397665 (update api)
 	if len(m.Containers) > 0 {
 		for iNdEx := len(m.Containers) - 1; iNdEx >= 0; iNdEx-- {
 			{
@@ -738,12 +812,16 @@ func (m *ImageReviewSpec) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		}
 	}
 	return len(dAtA) - i, nil
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }
 
 func (m *ImageReviewStatus) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -753,6 +831,9 @@ func (m *ImageReviewStatus) Marshal() (dAtA []byte, err error) {
 =======
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+>>>>>>> 03397665 (update api)
 	if err != nil {
 		return nil, err
 	}
@@ -762,14 +843,18 @@ func (m *ImageReviewStatus) Marshal() (dAtA []byte, err error) {
 func (m *ImageReviewStatus) MarshalTo(dAtA []byte) (int, error) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
 func (m *ImageReviewStatus) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
+<<<<<<< HEAD
 <<<<<<< HEAD
 	_ = i
 	var l int
@@ -797,6 +882,11 @@ func (m *ImageReviewStatus) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	var l int
 	_ = l
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	_ = i
+	var l int
+	_ = l
+>>>>>>> 03397665 (update api)
 	if len(m.AuditAnnotations) > 0 {
 		keysForAuditAnnotations := make([]string, 0, len(m.AuditAnnotations))
 		for k := range m.AuditAnnotations {
@@ -805,13 +895,17 @@ func (m *ImageReviewStatus) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		github_com_gogo_protobuf_sortkeys.Strings(keysForAuditAnnotations)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		for iNdEx := len(keysForAuditAnnotations) - 1; iNdEx >= 0; iNdEx-- {
 			v := m.AuditAnnotations[string(keysForAuditAnnotations[iNdEx])]
 			baseI := i
 			i -= len(v)
 			copy(dAtA[i:], v)
+<<<<<<< HEAD
 <<<<<<< HEAD
 			i = encodeVarintGenerated(dAtA, i, uint64(len(v)))
 			i--
@@ -860,6 +954,8 @@ func encodeVarintGenerated(dAtA []byte, offset int, v uint64) int {
 			i++
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 			i = encodeVarintGenerated(dAtA, i, uint64(len(v)))
 			i--
 			dAtA[i] = 0x12
@@ -891,11 +987,16 @@ func encodeVarintGenerated(dAtA []byte, offset int, v uint64) int {
 
 func encodeVarintGenerated(dAtA []byte, offset int, v uint64) int {
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 79bfea2d (update vendor)
 =======
 	offset -= sovGenerated(v)
 	base := offset
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	offset -= sovGenerated(v)
+	base := offset
+>>>>>>> 03397665 (update api)
 	for v >= 1<<7 {
 		dAtA[offset] = uint8(v&0x7f | 0x80)
 		v >>= 7
@@ -904,12 +1005,16 @@ func encodeVarintGenerated(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 	return base
 }
 func (m *ImageReview) Size() (n int) {
 	if m == nil {
 		return 0
 	}
+<<<<<<< HEAD
 =======
 	return offset + 1
 }
@@ -923,6 +1028,8 @@ func (m *ImageReview) Size() (n int) {
 		return 0
 	}
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	var l int
 	_ = l
 	l = m.ObjectMeta.Size()
@@ -937,6 +1044,7 @@ func (m *ImageReview) Size() (n int) {
 func (m *ImageReviewContainerSpec) Size() (n int) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if m == nil {
 		return 0
 	}
@@ -947,6 +1055,11 @@ func (m *ImageReviewContainerSpec) Size() (n int) {
 		return 0
 	}
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	if m == nil {
+		return 0
+	}
+>>>>>>> 03397665 (update api)
 	var l int
 	_ = l
 	l = len(m.Image)
@@ -957,6 +1070,7 @@ func (m *ImageReviewContainerSpec) Size() (n int) {
 func (m *ImageReviewSpec) Size() (n int) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if m == nil {
 		return 0
 	}
@@ -967,6 +1081,11 @@ func (m *ImageReviewSpec) Size() (n int) {
 		return 0
 	}
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	if m == nil {
+		return 0
+	}
+>>>>>>> 03397665 (update api)
 	var l int
 	_ = l
 	if len(m.Containers) > 0 {
@@ -991,6 +1110,7 @@ func (m *ImageReviewSpec) Size() (n int) {
 func (m *ImageReviewStatus) Size() (n int) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if m == nil {
 		return 0
 	}
@@ -1001,6 +1121,11 @@ func (m *ImageReviewStatus) Size() (n int) {
 		return 0
 	}
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	if m == nil {
+		return 0
+	}
+>>>>>>> 03397665 (update api)
 	var l int
 	_ = l
 	n += 2
@@ -1020,6 +1145,7 @@ func (m *ImageReviewStatus) Size() (n int) {
 func sovGenerated(x uint64) (n int) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	return (math_bits.Len64(x|1) + 6) / 7
 =======
 	for {
@@ -1034,6 +1160,9 @@ func sovGenerated(x uint64) (n int) {
 =======
 	return (math_bits.Len64(x|1) + 6) / 7
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	return (math_bits.Len64(x|1) + 6) / 7
+>>>>>>> 03397665 (update api)
 }
 func sozGenerated(x uint64) (n int) {
 	return sovGenerated(uint64((x << 1) ^ uint64((int64(x) >> 63))))
@@ -1045,6 +1174,7 @@ func (this *ImageReview) String() string {
 	s := strings.Join([]string{`&ImageReview{`,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		`ObjectMeta:` + strings.Replace(strings.Replace(fmt.Sprintf("%v", this.ObjectMeta), "ObjectMeta", "v1.ObjectMeta", 1), `&`, ``, 1) + `,`,
 =======
 		`ObjectMeta:` + strings.Replace(strings.Replace(this.ObjectMeta.String(), "ObjectMeta", "k8s_io_apimachinery_pkg_apis_meta_v1.ObjectMeta", 1), `&`, ``, 1) + `,`,
@@ -1052,6 +1182,9 @@ func (this *ImageReview) String() string {
 =======
 		`ObjectMeta:` + strings.Replace(strings.Replace(fmt.Sprintf("%v", this.ObjectMeta), "ObjectMeta", "v1.ObjectMeta", 1), `&`, ``, 1) + `,`,
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+		`ObjectMeta:` + strings.Replace(strings.Replace(fmt.Sprintf("%v", this.ObjectMeta), "ObjectMeta", "v1.ObjectMeta", 1), `&`, ``, 1) + `,`,
+>>>>>>> 03397665 (update api)
 		`Spec:` + strings.Replace(strings.Replace(this.Spec.String(), "ImageReviewSpec", "ImageReviewSpec", 1), `&`, ``, 1) + `,`,
 		`Status:` + strings.Replace(strings.Replace(this.Status.String(), "ImageReviewStatus", "ImageReviewStatus", 1), `&`, ``, 1) + `,`,
 		`}`,
@@ -1074,18 +1207,24 @@ func (this *ImageReviewSpec) String() string {
 	}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	repeatedStringForContainers := "[]ImageReviewContainerSpec{"
 	for _, f := range this.Containers {
 		repeatedStringForContainers += strings.Replace(strings.Replace(f.String(), "ImageReviewContainerSpec", "ImageReviewContainerSpec", 1), `&`, ``, 1) + ","
 	}
 	repeatedStringForContainers += "}"
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	keysForAnnotations := make([]string, 0, len(this.Annotations))
 	for k := range this.Annotations {
 		keysForAnnotations = append(keysForAnnotations, k)
@@ -1099,6 +1238,7 @@ func (this *ImageReviewSpec) String() string {
 	s := strings.Join([]string{`&ImageReviewSpec{`,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		`Containers:` + repeatedStringForContainers + `,`,
 =======
 		`Containers:` + strings.Replace(strings.Replace(fmt.Sprintf("%v", this.Containers), "ImageReviewContainerSpec", "ImageReviewContainerSpec", 1), `&`, ``, 1) + `,`,
@@ -1106,6 +1246,9 @@ func (this *ImageReviewSpec) String() string {
 =======
 		`Containers:` + repeatedStringForContainers + `,`,
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+		`Containers:` + repeatedStringForContainers + `,`,
+>>>>>>> 03397665 (update api)
 		`Annotations:` + mapStringForAnnotations + `,`,
 		`Namespace:` + fmt.Sprintf("%v", this.Namespace) + `,`,
 		`}`,
@@ -1159,6 +1302,7 @@ func (m *ImageReview) Unmarshal(dAtA []byte) error {
 			iNdEx++
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			wire |= uint64(b&0x7F) << shift
 =======
 			wire |= (uint64(b) & 0x7F) << shift
@@ -1166,6 +1310,9 @@ func (m *ImageReview) Unmarshal(dAtA []byte) error {
 =======
 			wire |= uint64(b&0x7F) << shift
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+			wire |= uint64(b&0x7F) << shift
+>>>>>>> 03397665 (update api)
 			if b < 0x80 {
 				break
 			}
@@ -1195,6 +1342,7 @@ func (m *ImageReview) Unmarshal(dAtA []byte) error {
 				iNdEx++
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 				msglen |= int(b&0x7F) << shift
 =======
 				msglen |= (int(b) & 0x7F) << shift
@@ -1202,6 +1350,9 @@ func (m *ImageReview) Unmarshal(dAtA []byte) error {
 =======
 				msglen |= int(b&0x7F) << shift
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+				msglen |= int(b&0x7F) << shift
+>>>>>>> 03397665 (update api)
 				if b < 0x80 {
 					break
 				}
@@ -1212,6 +1363,7 @@ func (m *ImageReview) Unmarshal(dAtA []byte) error {
 			postIndex := iNdEx + msglen
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			if postIndex < 0 {
 				return ErrInvalidLengthGenerated
 			}
@@ -1222,6 +1374,11 @@ func (m *ImageReview) Unmarshal(dAtA []byte) error {
 				return ErrInvalidLengthGenerated
 			}
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+			if postIndex < 0 {
+				return ErrInvalidLengthGenerated
+			}
+>>>>>>> 03397665 (update api)
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
@@ -1245,6 +1402,7 @@ func (m *ImageReview) Unmarshal(dAtA []byte) error {
 				iNdEx++
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 				msglen |= int(b&0x7F) << shift
 =======
 				msglen |= (int(b) & 0x7F) << shift
@@ -1252,6 +1410,9 @@ func (m *ImageReview) Unmarshal(dAtA []byte) error {
 =======
 				msglen |= int(b&0x7F) << shift
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+				msglen |= int(b&0x7F) << shift
+>>>>>>> 03397665 (update api)
 				if b < 0x80 {
 					break
 				}
@@ -1262,6 +1423,7 @@ func (m *ImageReview) Unmarshal(dAtA []byte) error {
 			postIndex := iNdEx + msglen
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			if postIndex < 0 {
 				return ErrInvalidLengthGenerated
 			}
@@ -1272,6 +1434,11 @@ func (m *ImageReview) Unmarshal(dAtA []byte) error {
 				return ErrInvalidLengthGenerated
 			}
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+			if postIndex < 0 {
+				return ErrInvalidLengthGenerated
+			}
+>>>>>>> 03397665 (update api)
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
@@ -1295,6 +1462,7 @@ func (m *ImageReview) Unmarshal(dAtA []byte) error {
 				iNdEx++
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 				msglen |= int(b&0x7F) << shift
 =======
 				msglen |= (int(b) & 0x7F) << shift
@@ -1302,6 +1470,9 @@ func (m *ImageReview) Unmarshal(dAtA []byte) error {
 =======
 				msglen |= int(b&0x7F) << shift
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+				msglen |= int(b&0x7F) << shift
+>>>>>>> 03397665 (update api)
 				if b < 0x80 {
 					break
 				}
@@ -1312,6 +1483,7 @@ func (m *ImageReview) Unmarshal(dAtA []byte) error {
 			postIndex := iNdEx + msglen
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			if postIndex < 0 {
 				return ErrInvalidLengthGenerated
 			}
@@ -1322,6 +1494,11 @@ func (m *ImageReview) Unmarshal(dAtA []byte) error {
 				return ErrInvalidLengthGenerated
 			}
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+			if postIndex < 0 {
+				return ErrInvalidLengthGenerated
+			}
+>>>>>>> 03397665 (update api)
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
@@ -1337,6 +1514,7 @@ func (m *ImageReview) Unmarshal(dAtA []byte) error {
 			}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			if (skippy < 0) || (iNdEx+skippy) < 0 {
 =======
 			if skippy < 0 {
@@ -1344,6 +1522,9 @@ func (m *ImageReview) Unmarshal(dAtA []byte) error {
 =======
 			if (skippy < 0) || (iNdEx+skippy) < 0 {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+>>>>>>> 03397665 (update api)
 				return ErrInvalidLengthGenerated
 			}
 			if (iNdEx + skippy) > l {
@@ -1375,6 +1556,7 @@ func (m *ImageReviewContainerSpec) Unmarshal(dAtA []byte) error {
 			iNdEx++
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			wire |= uint64(b&0x7F) << shift
 =======
 			wire |= (uint64(b) & 0x7F) << shift
@@ -1382,6 +1564,9 @@ func (m *ImageReviewContainerSpec) Unmarshal(dAtA []byte) error {
 =======
 			wire |= uint64(b&0x7F) << shift
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+			wire |= uint64(b&0x7F) << shift
+>>>>>>> 03397665 (update api)
 			if b < 0x80 {
 				break
 			}
@@ -1411,6 +1596,7 @@ func (m *ImageReviewContainerSpec) Unmarshal(dAtA []byte) error {
 				iNdEx++
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 				stringLen |= uint64(b&0x7F) << shift
 =======
 				stringLen |= (uint64(b) & 0x7F) << shift
@@ -1418,6 +1604,9 @@ func (m *ImageReviewContainerSpec) Unmarshal(dAtA []byte) error {
 =======
 				stringLen |= uint64(b&0x7F) << shift
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+				stringLen |= uint64(b&0x7F) << shift
+>>>>>>> 03397665 (update api)
 				if b < 0x80 {
 					break
 				}
@@ -1429,6 +1618,7 @@ func (m *ImageReviewContainerSpec) Unmarshal(dAtA []byte) error {
 			postIndex := iNdEx + intStringLen
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			if postIndex < 0 {
 				return ErrInvalidLengthGenerated
 			}
@@ -1439,6 +1629,11 @@ func (m *ImageReviewContainerSpec) Unmarshal(dAtA []byte) error {
 				return ErrInvalidLengthGenerated
 			}
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+			if postIndex < 0 {
+				return ErrInvalidLengthGenerated
+			}
+>>>>>>> 03397665 (update api)
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
@@ -1452,6 +1647,7 @@ func (m *ImageReviewContainerSpec) Unmarshal(dAtA []byte) error {
 			}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			if (skippy < 0) || (iNdEx+skippy) < 0 {
 =======
 			if skippy < 0 {
@@ -1459,6 +1655,9 @@ func (m *ImageReviewContainerSpec) Unmarshal(dAtA []byte) error {
 =======
 			if (skippy < 0) || (iNdEx+skippy) < 0 {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+>>>>>>> 03397665 (update api)
 				return ErrInvalidLengthGenerated
 			}
 			if (iNdEx + skippy) > l {
@@ -1490,6 +1689,7 @@ func (m *ImageReviewSpec) Unmarshal(dAtA []byte) error {
 			iNdEx++
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			wire |= uint64(b&0x7F) << shift
 =======
 			wire |= (uint64(b) & 0x7F) << shift
@@ -1497,6 +1697,9 @@ func (m *ImageReviewSpec) Unmarshal(dAtA []byte) error {
 =======
 			wire |= uint64(b&0x7F) << shift
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+			wire |= uint64(b&0x7F) << shift
+>>>>>>> 03397665 (update api)
 			if b < 0x80 {
 				break
 			}
@@ -1526,6 +1729,7 @@ func (m *ImageReviewSpec) Unmarshal(dAtA []byte) error {
 				iNdEx++
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 				msglen |= int(b&0x7F) << shift
 =======
 				msglen |= (int(b) & 0x7F) << shift
@@ -1533,6 +1737,9 @@ func (m *ImageReviewSpec) Unmarshal(dAtA []byte) error {
 =======
 				msglen |= int(b&0x7F) << shift
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+				msglen |= int(b&0x7F) << shift
+>>>>>>> 03397665 (update api)
 				if b < 0x80 {
 					break
 				}
@@ -1543,6 +1750,7 @@ func (m *ImageReviewSpec) Unmarshal(dAtA []byte) error {
 			postIndex := iNdEx + msglen
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			if postIndex < 0 {
 				return ErrInvalidLengthGenerated
 			}
@@ -1553,6 +1761,11 @@ func (m *ImageReviewSpec) Unmarshal(dAtA []byte) error {
 				return ErrInvalidLengthGenerated
 			}
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+			if postIndex < 0 {
+				return ErrInvalidLengthGenerated
+			}
+>>>>>>> 03397665 (update api)
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
@@ -1577,6 +1790,7 @@ func (m *ImageReviewSpec) Unmarshal(dAtA []byte) error {
 				iNdEx++
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 				msglen |= int(b&0x7F) << shift
 =======
 				msglen |= (int(b) & 0x7F) << shift
@@ -1584,6 +1798,9 @@ func (m *ImageReviewSpec) Unmarshal(dAtA []byte) error {
 =======
 				msglen |= int(b&0x7F) << shift
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+				msglen |= int(b&0x7F) << shift
+>>>>>>> 03397665 (update api)
 				if b < 0x80 {
 					break
 				}
@@ -1594,6 +1811,7 @@ func (m *ImageReviewSpec) Unmarshal(dAtA []byte) error {
 			postIndex := iNdEx + msglen
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			if postIndex < 0 {
 				return ErrInvalidLengthGenerated
 			}
@@ -1604,6 +1822,11 @@ func (m *ImageReviewSpec) Unmarshal(dAtA []byte) error {
 				return ErrInvalidLengthGenerated
 			}
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+			if postIndex < 0 {
+				return ErrInvalidLengthGenerated
+			}
+>>>>>>> 03397665 (update api)
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
@@ -1626,6 +1849,7 @@ func (m *ImageReviewSpec) Unmarshal(dAtA []byte) error {
 					iNdEx++
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 					wire |= uint64(b&0x7F) << shift
 =======
 					wire |= (uint64(b) & 0x7F) << shift
@@ -1633,6 +1857,9 @@ func (m *ImageReviewSpec) Unmarshal(dAtA []byte) error {
 =======
 					wire |= uint64(b&0x7F) << shift
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+					wire |= uint64(b&0x7F) << shift
+>>>>>>> 03397665 (update api)
 					if b < 0x80 {
 						break
 					}
@@ -1651,6 +1878,7 @@ func (m *ImageReviewSpec) Unmarshal(dAtA []byte) error {
 						iNdEx++
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 						stringLenmapkey |= uint64(b&0x7F) << shift
 =======
 						stringLenmapkey |= (uint64(b) & 0x7F) << shift
@@ -1658,6 +1886,9 @@ func (m *ImageReviewSpec) Unmarshal(dAtA []byte) error {
 =======
 						stringLenmapkey |= uint64(b&0x7F) << shift
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+						stringLenmapkey |= uint64(b&0x7F) << shift
+>>>>>>> 03397665 (update api)
 						if b < 0x80 {
 							break
 						}
@@ -1669,6 +1900,7 @@ func (m *ImageReviewSpec) Unmarshal(dAtA []byte) error {
 					postStringIndexmapkey := iNdEx + intStringLenmapkey
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 					if postStringIndexmapkey < 0 {
 						return ErrInvalidLengthGenerated
 					}
@@ -1679,6 +1911,11 @@ func (m *ImageReviewSpec) Unmarshal(dAtA []byte) error {
 						return ErrInvalidLengthGenerated
 					}
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+					if postStringIndexmapkey < 0 {
+						return ErrInvalidLengthGenerated
+					}
+>>>>>>> 03397665 (update api)
 					if postStringIndexmapkey > l {
 						return io.ErrUnexpectedEOF
 					}
@@ -1697,6 +1934,7 @@ func (m *ImageReviewSpec) Unmarshal(dAtA []byte) error {
 						iNdEx++
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 						stringLenmapvalue |= uint64(b&0x7F) << shift
 =======
 						stringLenmapvalue |= (uint64(b) & 0x7F) << shift
@@ -1704,6 +1942,9 @@ func (m *ImageReviewSpec) Unmarshal(dAtA []byte) error {
 =======
 						stringLenmapvalue |= uint64(b&0x7F) << shift
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+						stringLenmapvalue |= uint64(b&0x7F) << shift
+>>>>>>> 03397665 (update api)
 						if b < 0x80 {
 							break
 						}
@@ -1715,6 +1956,7 @@ func (m *ImageReviewSpec) Unmarshal(dAtA []byte) error {
 					postStringIndexmapvalue := iNdEx + intStringLenmapvalue
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 					if postStringIndexmapvalue < 0 {
 						return ErrInvalidLengthGenerated
 					}
@@ -1725,6 +1967,11 @@ func (m *ImageReviewSpec) Unmarshal(dAtA []byte) error {
 						return ErrInvalidLengthGenerated
 					}
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+					if postStringIndexmapvalue < 0 {
+						return ErrInvalidLengthGenerated
+					}
+>>>>>>> 03397665 (update api)
 					if postStringIndexmapvalue > l {
 						return io.ErrUnexpectedEOF
 					}
@@ -1738,6 +1985,7 @@ func (m *ImageReviewSpec) Unmarshal(dAtA []byte) error {
 					}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 					if (skippy < 0) || (iNdEx+skippy) < 0 {
 =======
 					if skippy < 0 {
@@ -1745,6 +1993,9 @@ func (m *ImageReviewSpec) Unmarshal(dAtA []byte) error {
 =======
 					if (skippy < 0) || (iNdEx+skippy) < 0 {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+					if (skippy < 0) || (iNdEx+skippy) < 0 {
+>>>>>>> 03397665 (update api)
 						return ErrInvalidLengthGenerated
 					}
 					if (iNdEx + skippy) > postIndex {
@@ -1771,6 +2022,7 @@ func (m *ImageReviewSpec) Unmarshal(dAtA []byte) error {
 				iNdEx++
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 				stringLen |= uint64(b&0x7F) << shift
 =======
 				stringLen |= (uint64(b) & 0x7F) << shift
@@ -1778,6 +2030,9 @@ func (m *ImageReviewSpec) Unmarshal(dAtA []byte) error {
 =======
 				stringLen |= uint64(b&0x7F) << shift
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+				stringLen |= uint64(b&0x7F) << shift
+>>>>>>> 03397665 (update api)
 				if b < 0x80 {
 					break
 				}
@@ -1789,6 +2044,7 @@ func (m *ImageReviewSpec) Unmarshal(dAtA []byte) error {
 			postIndex := iNdEx + intStringLen
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			if postIndex < 0 {
 				return ErrInvalidLengthGenerated
 			}
@@ -1799,6 +2055,11 @@ func (m *ImageReviewSpec) Unmarshal(dAtA []byte) error {
 				return ErrInvalidLengthGenerated
 			}
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+			if postIndex < 0 {
+				return ErrInvalidLengthGenerated
+			}
+>>>>>>> 03397665 (update api)
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
@@ -1812,6 +2073,7 @@ func (m *ImageReviewSpec) Unmarshal(dAtA []byte) error {
 			}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			if (skippy < 0) || (iNdEx+skippy) < 0 {
 =======
 			if skippy < 0 {
@@ -1819,6 +2081,9 @@ func (m *ImageReviewSpec) Unmarshal(dAtA []byte) error {
 =======
 			if (skippy < 0) || (iNdEx+skippy) < 0 {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+>>>>>>> 03397665 (update api)
 				return ErrInvalidLengthGenerated
 			}
 			if (iNdEx + skippy) > l {
@@ -1850,6 +2115,7 @@ func (m *ImageReviewStatus) Unmarshal(dAtA []byte) error {
 			iNdEx++
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			wire |= uint64(b&0x7F) << shift
 =======
 			wire |= (uint64(b) & 0x7F) << shift
@@ -1857,6 +2123,9 @@ func (m *ImageReviewStatus) Unmarshal(dAtA []byte) error {
 =======
 			wire |= uint64(b&0x7F) << shift
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+			wire |= uint64(b&0x7F) << shift
+>>>>>>> 03397665 (update api)
 			if b < 0x80 {
 				break
 			}
@@ -1886,6 +2155,7 @@ func (m *ImageReviewStatus) Unmarshal(dAtA []byte) error {
 				iNdEx++
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 				v |= int(b&0x7F) << shift
 =======
 				v |= (int(b) & 0x7F) << shift
@@ -1893,6 +2163,9 @@ func (m *ImageReviewStatus) Unmarshal(dAtA []byte) error {
 =======
 				v |= int(b&0x7F) << shift
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+				v |= int(b&0x7F) << shift
+>>>>>>> 03397665 (update api)
 				if b < 0x80 {
 					break
 				}
@@ -1914,6 +2187,7 @@ func (m *ImageReviewStatus) Unmarshal(dAtA []byte) error {
 				iNdEx++
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 				stringLen |= uint64(b&0x7F) << shift
 =======
 				stringLen |= (uint64(b) & 0x7F) << shift
@@ -1921,6 +2195,9 @@ func (m *ImageReviewStatus) Unmarshal(dAtA []byte) error {
 =======
 				stringLen |= uint64(b&0x7F) << shift
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+				stringLen |= uint64(b&0x7F) << shift
+>>>>>>> 03397665 (update api)
 				if b < 0x80 {
 					break
 				}
@@ -1932,6 +2209,7 @@ func (m *ImageReviewStatus) Unmarshal(dAtA []byte) error {
 			postIndex := iNdEx + intStringLen
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			if postIndex < 0 {
 				return ErrInvalidLengthGenerated
 			}
@@ -1942,6 +2220,11 @@ func (m *ImageReviewStatus) Unmarshal(dAtA []byte) error {
 				return ErrInvalidLengthGenerated
 			}
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+			if postIndex < 0 {
+				return ErrInvalidLengthGenerated
+			}
+>>>>>>> 03397665 (update api)
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
@@ -1963,6 +2246,7 @@ func (m *ImageReviewStatus) Unmarshal(dAtA []byte) error {
 				iNdEx++
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 				msglen |= int(b&0x7F) << shift
 =======
 				msglen |= (int(b) & 0x7F) << shift
@@ -1970,6 +2254,9 @@ func (m *ImageReviewStatus) Unmarshal(dAtA []byte) error {
 =======
 				msglen |= int(b&0x7F) << shift
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+				msglen |= int(b&0x7F) << shift
+>>>>>>> 03397665 (update api)
 				if b < 0x80 {
 					break
 				}
@@ -1980,6 +2267,7 @@ func (m *ImageReviewStatus) Unmarshal(dAtA []byte) error {
 			postIndex := iNdEx + msglen
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			if postIndex < 0 {
 				return ErrInvalidLengthGenerated
 			}
@@ -1990,6 +2278,11 @@ func (m *ImageReviewStatus) Unmarshal(dAtA []byte) error {
 				return ErrInvalidLengthGenerated
 			}
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+			if postIndex < 0 {
+				return ErrInvalidLengthGenerated
+			}
+>>>>>>> 03397665 (update api)
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
@@ -2012,6 +2305,7 @@ func (m *ImageReviewStatus) Unmarshal(dAtA []byte) error {
 					iNdEx++
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 					wire |= uint64(b&0x7F) << shift
 =======
 					wire |= (uint64(b) & 0x7F) << shift
@@ -2019,6 +2313,9 @@ func (m *ImageReviewStatus) Unmarshal(dAtA []byte) error {
 =======
 					wire |= uint64(b&0x7F) << shift
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+					wire |= uint64(b&0x7F) << shift
+>>>>>>> 03397665 (update api)
 					if b < 0x80 {
 						break
 					}
@@ -2037,6 +2334,7 @@ func (m *ImageReviewStatus) Unmarshal(dAtA []byte) error {
 						iNdEx++
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 						stringLenmapkey |= uint64(b&0x7F) << shift
 =======
 						stringLenmapkey |= (uint64(b) & 0x7F) << shift
@@ -2044,6 +2342,9 @@ func (m *ImageReviewStatus) Unmarshal(dAtA []byte) error {
 =======
 						stringLenmapkey |= uint64(b&0x7F) << shift
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+						stringLenmapkey |= uint64(b&0x7F) << shift
+>>>>>>> 03397665 (update api)
 						if b < 0x80 {
 							break
 						}
@@ -2055,6 +2356,7 @@ func (m *ImageReviewStatus) Unmarshal(dAtA []byte) error {
 					postStringIndexmapkey := iNdEx + intStringLenmapkey
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 					if postStringIndexmapkey < 0 {
 						return ErrInvalidLengthGenerated
 					}
@@ -2065,6 +2367,11 @@ func (m *ImageReviewStatus) Unmarshal(dAtA []byte) error {
 						return ErrInvalidLengthGenerated
 					}
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+					if postStringIndexmapkey < 0 {
+						return ErrInvalidLengthGenerated
+					}
+>>>>>>> 03397665 (update api)
 					if postStringIndexmapkey > l {
 						return io.ErrUnexpectedEOF
 					}
@@ -2083,6 +2390,7 @@ func (m *ImageReviewStatus) Unmarshal(dAtA []byte) error {
 						iNdEx++
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 						stringLenmapvalue |= uint64(b&0x7F) << shift
 =======
 						stringLenmapvalue |= (uint64(b) & 0x7F) << shift
@@ -2090,6 +2398,9 @@ func (m *ImageReviewStatus) Unmarshal(dAtA []byte) error {
 =======
 						stringLenmapvalue |= uint64(b&0x7F) << shift
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+						stringLenmapvalue |= uint64(b&0x7F) << shift
+>>>>>>> 03397665 (update api)
 						if b < 0x80 {
 							break
 						}
@@ -2101,6 +2412,7 @@ func (m *ImageReviewStatus) Unmarshal(dAtA []byte) error {
 					postStringIndexmapvalue := iNdEx + intStringLenmapvalue
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 					if postStringIndexmapvalue < 0 {
 						return ErrInvalidLengthGenerated
 					}
@@ -2111,6 +2423,11 @@ func (m *ImageReviewStatus) Unmarshal(dAtA []byte) error {
 						return ErrInvalidLengthGenerated
 					}
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+					if postStringIndexmapvalue < 0 {
+						return ErrInvalidLengthGenerated
+					}
+>>>>>>> 03397665 (update api)
 					if postStringIndexmapvalue > l {
 						return io.ErrUnexpectedEOF
 					}
@@ -2124,6 +2441,7 @@ func (m *ImageReviewStatus) Unmarshal(dAtA []byte) error {
 					}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 					if (skippy < 0) || (iNdEx+skippy) < 0 {
 =======
 					if skippy < 0 {
@@ -2131,6 +2449,9 @@ func (m *ImageReviewStatus) Unmarshal(dAtA []byte) error {
 =======
 					if (skippy < 0) || (iNdEx+skippy) < 0 {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+					if (skippy < 0) || (iNdEx+skippy) < 0 {
+>>>>>>> 03397665 (update api)
 						return ErrInvalidLengthGenerated
 					}
 					if (iNdEx + skippy) > postIndex {
@@ -2149,6 +2470,7 @@ func (m *ImageReviewStatus) Unmarshal(dAtA []byte) error {
 			}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			if (skippy < 0) || (iNdEx+skippy) < 0 {
 =======
 			if skippy < 0 {
@@ -2156,6 +2478,9 @@ func (m *ImageReviewStatus) Unmarshal(dAtA []byte) error {
 =======
 			if (skippy < 0) || (iNdEx+skippy) < 0 {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+>>>>>>> 03397665 (update api)
 				return ErrInvalidLengthGenerated
 			}
 			if (iNdEx + skippy) > l {
@@ -2175,12 +2500,16 @@ func skipGenerated(dAtA []byte) (n int, err error) {
 	iNdEx := 0
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	depth := 0
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 	depth := 0
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	depth := 0
+>>>>>>> 03397665 (update api)
 	for iNdEx < l {
 		var wire uint64
 		for shift := uint(0); ; shift += 7 {
@@ -2214,6 +2543,7 @@ func skipGenerated(dAtA []byte) (n int, err error) {
 			}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		case 1:
 			iNdEx += 8
 =======
@@ -2226,6 +2556,10 @@ func skipGenerated(dAtA []byte) (n int, err error) {
 		case 1:
 			iNdEx += 8
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+		case 1:
+			iNdEx += 8
+>>>>>>> 03397665 (update api)
 		case 2:
 			var length int
 			for shift := uint(0); ; shift += 7 {
@@ -2244,6 +2578,9 @@ func skipGenerated(dAtA []byte) (n int, err error) {
 			}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 			if length < 0 {
 				return 0, ErrInvalidLengthGenerated
 			}
@@ -2275,6 +2612,7 @@ var (
 	ErrIntOverflowGenerated          = fmt.Errorf("proto: integer overflow")
 	ErrUnexpectedEndOfGroupGenerated = fmt.Errorf("proto: unexpected end of group")
 )
+<<<<<<< HEAD
 =======
 			iNdEx += length
 =======
@@ -2360,3 +2698,5 @@ var fileDescriptorGenerated = []byte{
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 sudo: false
 language: go
 go:
@@ -23,3 +24,6 @@ env:
   matrix:
     # The GCLOUD_TESTS_API_KEY environment variable.
     secure: VdldogUOoubQ60LhuHJ+g/aJoBiujkSkWEWl79Zb8cvQorcQbxISS+JsOOp4QkUOU4WwaHAm8/3pIH1QMWOR6O78DaLmDKi5Q4RpkVdCpUXy+OAfQaZIcBsispMrjxLXnqFjo9ELnrArfjoeCTzaX0QTCfwQwVmigC8rR30JBKI=
+=======
+language: go
+>>>>>>> 03397665 (update api)

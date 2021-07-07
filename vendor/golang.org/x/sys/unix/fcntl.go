@@ -4,6 +4,7 @@
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 //go:build dragonfly || freebsd || linux || netbsd || openbsd
 // +build dragonfly freebsd linux netbsd openbsd
 =======
@@ -13,6 +14,10 @@
 //go:build dragonfly || freebsd || linux || netbsd || openbsd
 // +build dragonfly freebsd linux netbsd openbsd
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+//go:build dragonfly || freebsd || linux || netbsd || openbsd
+// +build dragonfly freebsd linux netbsd openbsd
+>>>>>>> 03397665 (update api)
 
 package unix
 

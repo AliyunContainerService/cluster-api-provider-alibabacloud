@@ -2,6 +2,7 @@ package v1
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -13,11 +14,17 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+import (
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+)
+>>>>>>> 03397665 (update api)
 
 // +genclient
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 // Ingress holds cluster-wide information about ingress, including the default ingress domain
@@ -35,16 +42,24 @@ type Ingress struct {
 // Ingress holds cluster-wide information about ingress, including the default ingress domain
 // used for routes. The canonical name is `cluster`.
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+// Ingress holds cluster-wide information about ingress, including the default ingress domain
+// used for routes. The canonical name is `cluster`.
+>>>>>>> 03397665 (update api)
 type Ingress struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
 	// spec holds user settable values for configuration
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 79bfea2d (update vendor)
 =======
 	// +kubebuilder:validation:Required
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	// +kubebuilder:validation:Required
+>>>>>>> 03397665 (update api)
 	// +required
 	Spec IngressSpec `json:"spec"`
 	// status holds observed values from the cluster. They may not be overridden.
@@ -54,6 +69,7 @@ type Ingress struct {
 
 type IngressSpec struct {
 	// domain is used to generate a default host name for a route when the
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	// route's host name is empty. The generated host name will follow this
@@ -214,6 +230,9 @@ type IngressList struct {
 =======
 	// route's host name is empty. The generated host name will follow this
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	// route's host name is empty. The generated host name will follow this
+>>>>>>> 03397665 (update api)
 	// pattern: "<route-name>.<route-namespace>.<domain>".
 	//
 	// It is also used as the default wildcard domain suffix for ingress. The
@@ -365,10 +384,15 @@ type IngressList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata"`
 <<<<<<< HEAD
+<<<<<<< HEAD
 	Items           []Ingress `json:"items"`
 >>>>>>> 79bfea2d (update vendor)
 =======
 
 	Items []Ingress `json:"items"`
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+
+	Items []Ingress `json:"items"`
+>>>>>>> 03397665 (update api)
 }

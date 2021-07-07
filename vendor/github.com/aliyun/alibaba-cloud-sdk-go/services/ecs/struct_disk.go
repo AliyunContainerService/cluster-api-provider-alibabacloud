@@ -19,8 +19,11 @@ package ecs
 type Disk struct {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	Category                       string                        `json:"Category" xml:"Category"`
 	BdfId                          string                        `json:"BdfId" xml:"BdfId"`
 	ImageId                        string                        `json:"ImageId" xml:"ImageId"`
@@ -65,6 +68,7 @@ type Disk struct {
 	MountInstances                 MountInstances                `json:"MountInstances" xml:"MountInstances"`
 	OperationLocks                 OperationLocksInDescribeDisks `json:"OperationLocks" xml:"OperationLocks"`
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	DiskId                        string                        `json:"DiskId" xml:"DiskId"`
 	RegionId                      string                        `json:"RegionId" xml:"RegionId"`
@@ -105,4 +109,6 @@ type Disk struct {
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }

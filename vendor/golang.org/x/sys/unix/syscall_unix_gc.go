@@ -6,6 +6,7 @@
 // +build darwin dragonfly freebsd linux netbsd openbsd solaris
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 // +build gc
 // +build !ppc64le
 // +build !ppc64
@@ -17,6 +18,11 @@
 // +build !ppc64le
 // +build !ppc64
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+// +build gc
+// +build !ppc64le
+// +build !ppc64
+>>>>>>> 03397665 (update api)
 
 package unix
 

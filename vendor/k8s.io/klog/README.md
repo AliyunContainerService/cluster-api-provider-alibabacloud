@@ -2,6 +2,9 @@ klog
 ====
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 klog is a permanent fork of https://github.com/golang/glog.
 
 ## Why was klog created?
@@ -49,9 +52,12 @@ You can reach the maintainers of this project at:
 ### Code of conduct
 
 Participation in the Kubernetes community is governed by the [Kubernetes Code of Conduct](code-of-conduct.md).
+<<<<<<< HEAD
 =======
 klog is a permanant fork of https://github.com/golang/glog. original README from glog is below
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> 03397665 (update api)
 
 ----
 
@@ -76,6 +82,7 @@ The comment from glog.go introduces the ideas:
 	Error, Fatal, plus formatting variants such as Infof. It
 	also provides V-style logging controlled by the -v and
 	-vmodule=file=2 flags.
+<<<<<<< HEAD
 	
 	Basic examples:
 	
@@ -90,6 +97,22 @@ The comment from glog.go introduces the ideas:
 			glog.Info("Starting transaction...")
 		}
 	
+=======
+
+	Basic examples:
+
+		glog.Info("Prepare to repel boarders")
+
+		glog.Fatalf("Initialization failed: %s", err)
+
+	See the documentation for the V function for an explanation
+	of these examples:
+
+		if glog.V(2) {
+			glog.Info("Starting transaction...")
+		}
+
+>>>>>>> 03397665 (update api)
 		glog.V(2).Infoln("Processed", nItems, "elements")
 
 

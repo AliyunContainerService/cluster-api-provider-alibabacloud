@@ -73,8 +73,11 @@ type CreateInstanceRequest struct {
 	*requests.RpcRequest
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	ResourceOwnerId                 requests.Integer          `position:"Query" name:"ResourceOwnerId"`
 	HpcClusterId                    string                    `position:"Query" name:"HpcClusterId"`
 	HttpPutResponseHopLimit         requests.Integer          `position:"Query" name:"HttpPutResponseHopLimit"`
@@ -143,6 +146,7 @@ type CreateInstanceRequest struct {
 	HttpTokens                      string                    `position:"Query" name:"HttpTokens"`
 	SystemDiskDescription           string                    `position:"Query" name:"SystemDisk.Description"`
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	ResourceOwnerId               requests.Integer          `position:"Query" name:"ResourceOwnerId"`
 	HpcClusterId                  string                    `position:"Query" name:"HpcClusterId"`
@@ -202,6 +206,8 @@ type CreateInstanceRequest struct {
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }
 
 // CreateInstanceTag is a repeated param struct in CreateInstanceRequest
@@ -225,6 +231,7 @@ type CreateInstanceDataDisk struct {
 	Encrypted          string `name:"Encrypted"`
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	PerformanceLevel   string `name:"PerformanceLevel"`
 	EncryptAlgorithm   string `name:"EncryptAlgorithm"`
 =======
@@ -233,6 +240,10 @@ type CreateInstanceDataDisk struct {
 	PerformanceLevel   string `name:"PerformanceLevel"`
 	EncryptAlgorithm   string `name:"EncryptAlgorithm"`
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	PerformanceLevel   string `name:"PerformanceLevel"`
+	EncryptAlgorithm   string `name:"EncryptAlgorithm"`
+>>>>>>> 03397665 (update api)
 	Description        string `name:"Description"`
 	Category           string `name:"Category"`
 	KMSKeyId           string `name:"KMSKeyId"`

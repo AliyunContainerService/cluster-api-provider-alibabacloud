@@ -18,6 +18,7 @@ Please see https://git.k8s.io/community/CLA.md for more info
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 Run the command `make test` to test the changes locally.
 =======
 1. Setup tools
@@ -34,3 +35,6 @@ Run the command `make test` to test the changes locally.
 =======
 Run the command `make test` to test the changes locally.
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+Run the command `make test` to test the changes locally.
+>>>>>>> 03397665 (update api)

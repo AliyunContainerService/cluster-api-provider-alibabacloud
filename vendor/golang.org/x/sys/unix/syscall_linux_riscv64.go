@@ -210,8 +210,11 @@ func Poll(fds []PollFd, timeout int) (n int, err error) {
 }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 
 func Renameat(olddirfd int, oldpath string, newdirfd int, newpath string) (err error) {
 	return Renameat2(olddirfd, oldpath, newdirfd, newpath, 0)
@@ -234,7 +237,10 @@ func KexecFileLoad(kernelFd int, initrdFd int, cmdline string, flags int) error 
 // it in an unreachable path. dup2 isn't available on arm64.
 func dup2(oldfd int, newfd int) error
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)

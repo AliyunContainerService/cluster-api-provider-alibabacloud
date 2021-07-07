@@ -9,8 +9,11 @@ package unix
 const (
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	SYS_EXIT  = 1 // { void exit(int rval); }
 	SYS_FORK  = 2 // { int fork(void); }
 	SYS_READ  = 3 // { ssize_t read(int fd, void *buf, size_t nbyte); }
@@ -131,6 +134,7 @@ const (
 	SYS_SETRLIMIT              = 195 // { int setrlimit(u_int which, struct rlimit *rlp); } setrlimit __setrlimit_args int
 	SYS_MMAP                   = 197 // { caddr_t mmap(caddr_t addr, size_t len, int prot, int flags, int fd, int pad, off_t pos); }
 	SYS_LSEEK                  = 199 // { off_t lseek(int fd, int pad, off_t offset, int whence); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 	// SYS_NOSYS = 0;  // { int nosys(void); } syscall nosys_args int
@@ -260,6 +264,8 @@ const (
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	SYS_TRUNCATE               = 200 // { int truncate(char *path, int pad, off_t length); }
 	SYS_FTRUNCATE              = 201 // { int ftruncate(int fd, int pad, off_t length); }
 	SYS___SYSCTL               = 202 // { int __sysctl(int *name, u_int namelen, void *old, size_t *oldlenp, void *new, size_t newlen); } __sysctl sysctl_args int
@@ -293,6 +299,7 @@ const (
 	SYS_LUTIMES                = 276 // { int lutimes(char *path, struct timeval *tptr); }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	SYS_EXTPREADV              = 289 // { ssize_t extpreadv(int fd, const struct iovec *iovp, int iovcnt, int flags, off_t offset); }
 	SYS_EXTPWRITEV             = 290 // { ssize_t extpwritev(int fd, const struct iovec *iovp, int iovcnt, int flags, off_t offset); }
 =======
@@ -303,6 +310,10 @@ const (
 	SYS_EXTPREADV              = 289 // { ssize_t extpreadv(int fd, const struct iovec *iovp, int iovcnt, int flags, off_t offset); }
 	SYS_EXTPWRITEV             = 290 // { ssize_t extpwritev(int fd, const struct iovec *iovp, int iovcnt, int flags, off_t offset); }
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	SYS_EXTPREADV              = 289 // { ssize_t extpreadv(int fd, const struct iovec *iovp, int iovcnt, int flags, off_t offset); }
+	SYS_EXTPWRITEV             = 290 // { ssize_t extpwritev(int fd, const struct iovec *iovp, int iovcnt, int flags, off_t offset); }
+>>>>>>> 03397665 (update api)
 	SYS_FHSTATFS               = 297 // { int fhstatfs(const struct fhandle *u_fhp, struct statfs *buf); }
 	SYS_FHOPEN                 = 298 // { int fhopen(const struct fhandle *u_fhp, int flags); }
 	SYS_MODNEXT                = 300 // { int modnext(int modid); }

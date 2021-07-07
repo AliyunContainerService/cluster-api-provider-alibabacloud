@@ -26,8 +26,11 @@ const (
 	clusterFilterKeyPrefix = "kubernetes.io/cluster/"
 	clusterFilterValue     = "owned"
 	clusterFilterName      = "Name"
+<<<<<<< HEAD
 	clusterOwnedKey        = "kubernetes-sigs/cluster-api"
 	clusterOwnedValue      = "cluster-api-provider-alibabacloud"
+=======
+>>>>>>> 03397665 (update api)
 )
 
 func clusterTagFilter(clusterID, machineName string) []ecs.DescribeInstancesTag {
@@ -53,6 +56,7 @@ func tagResourceTags(clusterID, machineName string) *[]ecs.TagResourcesTag {
 	})
 	tagsList = append(tagsList, ecs.TagResourcesTag{
 <<<<<<< HEAD
+<<<<<<< HEAD
 		Key:   clusterFilterName,
 		Value: machineName,
 	})
@@ -62,6 +66,9 @@ func tagResourceTags(clusterID, machineName string) *[]ecs.TagResourcesTag {
 	})
 =======
 		Key:   "Name",
+=======
+		Key:   clusterFilterName,
+>>>>>>> 03397665 (update api)
 		Value: machineName,
 	})
 >>>>>>> e879a141 (alibabacloud machine-api provider)

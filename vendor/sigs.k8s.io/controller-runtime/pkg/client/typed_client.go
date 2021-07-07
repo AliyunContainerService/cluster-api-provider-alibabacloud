@@ -36,6 +36,7 @@ type typedClient struct {
 // Create implements client.Client
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 func (c *typedClient) Create(ctx context.Context, obj Object, opts ...CreateOption) error {
 =======
 func (c *typedClient) Create(ctx context.Context, obj runtime.Object, opts ...CreateOption) error {
@@ -43,6 +44,9 @@ func (c *typedClient) Create(ctx context.Context, obj runtime.Object, opts ...Cr
 =======
 func (c *typedClient) Create(ctx context.Context, obj Object, opts ...CreateOption) error {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func (c *typedClient) Create(ctx context.Context, obj Object, opts ...CreateOption) error {
+>>>>>>> 03397665 (update api)
 	o, err := c.cache.getObjMeta(obj)
 	if err != nil {
 		return err
@@ -62,6 +66,7 @@ func (c *typedClient) Create(ctx context.Context, obj Object, opts ...CreateOpti
 // Update implements client.Client
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 func (c *typedClient) Update(ctx context.Context, obj Object, opts ...UpdateOption) error {
 =======
 func (c *typedClient) Update(ctx context.Context, obj runtime.Object, opts ...UpdateOption) error {
@@ -69,6 +74,9 @@ func (c *typedClient) Update(ctx context.Context, obj runtime.Object, opts ...Up
 =======
 func (c *typedClient) Update(ctx context.Context, obj Object, opts ...UpdateOption) error {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func (c *typedClient) Update(ctx context.Context, obj Object, opts ...UpdateOption) error {
+>>>>>>> 03397665 (update api)
 	o, err := c.cache.getObjMeta(obj)
 	if err != nil {
 		return err
@@ -89,6 +97,7 @@ func (c *typedClient) Update(ctx context.Context, obj Object, opts ...UpdateOpti
 // Delete implements client.Client
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 func (c *typedClient) Delete(ctx context.Context, obj Object, opts ...DeleteOption) error {
 =======
 func (c *typedClient) Delete(ctx context.Context, obj runtime.Object, opts ...DeleteOption) error {
@@ -96,6 +105,9 @@ func (c *typedClient) Delete(ctx context.Context, obj runtime.Object, opts ...De
 =======
 func (c *typedClient) Delete(ctx context.Context, obj Object, opts ...DeleteOption) error {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func (c *typedClient) Delete(ctx context.Context, obj Object, opts ...DeleteOption) error {
+>>>>>>> 03397665 (update api)
 	o, err := c.cache.getObjMeta(obj)
 	if err != nil {
 		return err
@@ -111,6 +123,7 @@ func (c *typedClient) Delete(ctx context.Context, obj Object, opts ...DeleteOpti
 		Body(deleteOpts.AsDeleteOptions()).
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		Do(ctx).
 =======
 		Context(ctx).
@@ -119,10 +132,14 @@ func (c *typedClient) Delete(ctx context.Context, obj Object, opts ...DeleteOpti
 =======
 		Do(ctx).
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+		Do(ctx).
+>>>>>>> 03397665 (update api)
 		Error()
 }
 
 // DeleteAllOf implements client.Client
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 func (c *typedClient) DeleteAllOf(ctx context.Context, obj Object, opts ...DeleteAllOfOption) error {
@@ -132,6 +149,9 @@ func (c *typedClient) DeleteAllOf(ctx context.Context, obj runtime.Object, opts 
 =======
 func (c *typedClient) DeleteAllOf(ctx context.Context, obj Object, opts ...DeleteAllOfOption) error {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func (c *typedClient) DeleteAllOf(ctx context.Context, obj Object, opts ...DeleteAllOfOption) error {
+>>>>>>> 03397665 (update api)
 	o, err := c.cache.getObjMeta(obj)
 	if err != nil {
 		return err
@@ -147,6 +167,7 @@ func (c *typedClient) DeleteAllOf(ctx context.Context, obj Object, opts ...Delet
 		Body(deleteAllOfOpts.AsDeleteOptions()).
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		Do(ctx).
 =======
 		Context(ctx).
@@ -155,10 +176,14 @@ func (c *typedClient) DeleteAllOf(ctx context.Context, obj Object, opts ...Delet
 =======
 		Do(ctx).
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+		Do(ctx).
+>>>>>>> 03397665 (update api)
 		Error()
 }
 
 // Patch implements client.Client
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 func (c *typedClient) Patch(ctx context.Context, obj Object, patch Patch, opts ...PatchOption) error {
@@ -168,6 +193,9 @@ func (c *typedClient) Patch(ctx context.Context, obj runtime.Object, patch Patch
 =======
 func (c *typedClient) Patch(ctx context.Context, obj Object, patch Patch, opts ...PatchOption) error {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func (c *typedClient) Patch(ctx context.Context, obj Object, patch Patch, opts ...PatchOption) error {
+>>>>>>> 03397665 (update api)
 	o, err := c.cache.getObjMeta(obj)
 	if err != nil {
 		return err
@@ -204,6 +232,7 @@ func (c *typedClient) Get(ctx context.Context, key ObjectKey, obj Object) error 
 // List implements client.Client
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 func (c *typedClient) List(ctx context.Context, obj ObjectList, opts ...ListOption) error {
 =======
 func (c *typedClient) List(ctx context.Context, obj runtime.Object, opts ...ListOption) error {
@@ -211,6 +240,9 @@ func (c *typedClient) List(ctx context.Context, obj runtime.Object, opts ...List
 =======
 func (c *typedClient) List(ctx context.Context, obj ObjectList, opts ...ListOption) error {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func (c *typedClient) List(ctx context.Context, obj ObjectList, opts ...ListOption) error {
+>>>>>>> 03397665 (update api)
 	r, err := c.cache.getResource(obj)
 	if err != nil {
 		return err
@@ -228,6 +260,7 @@ func (c *typedClient) List(ctx context.Context, obj ObjectList, opts ...ListOpti
 // UpdateStatus used by StatusWriter to write status.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 func (c *typedClient) UpdateStatus(ctx context.Context, obj Object, opts ...UpdateOption) error {
 =======
 func (c *typedClient) UpdateStatus(ctx context.Context, obj runtime.Object, opts ...UpdateOption) error {
@@ -235,6 +268,9 @@ func (c *typedClient) UpdateStatus(ctx context.Context, obj runtime.Object, opts
 =======
 func (c *typedClient) UpdateStatus(ctx context.Context, obj Object, opts ...UpdateOption) error {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func (c *typedClient) UpdateStatus(ctx context.Context, obj Object, opts ...UpdateOption) error {
+>>>>>>> 03397665 (update api)
 	o, err := c.cache.getObjMeta(obj)
 	if err != nil {
 		return err
@@ -257,6 +293,7 @@ func (c *typedClient) UpdateStatus(ctx context.Context, obj Object, opts ...Upda
 // PatchStatus used by StatusWriter to write status.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 func (c *typedClient) PatchStatus(ctx context.Context, obj Object, patch Patch, opts ...PatchOption) error {
 =======
 func (c *typedClient) PatchStatus(ctx context.Context, obj runtime.Object, patch Patch, opts ...PatchOption) error {
@@ -264,6 +301,9 @@ func (c *typedClient) PatchStatus(ctx context.Context, obj runtime.Object, patch
 =======
 func (c *typedClient) PatchStatus(ctx context.Context, obj Object, patch Patch, opts ...PatchOption) error {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func (c *typedClient) PatchStatus(ctx context.Context, obj Object, patch Patch, opts ...PatchOption) error {
+>>>>>>> 03397665 (update api)
 	o, err := c.cache.getObjMeta(obj)
 	if err != nil {
 		return err

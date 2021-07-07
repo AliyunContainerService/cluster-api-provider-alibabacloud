@@ -53,8 +53,11 @@ var (
 	moduserenv  = NewLazySystemDLL("userenv.dll")
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	modwintrust = NewLazySystemDLL("wintrust.dll")
 	modws2_32   = NewLazySystemDLL("ws2_32.dll")
 	modwtsapi32 = NewLazySystemDLL("wtsapi32.dll")
@@ -427,6 +430,7 @@ var (
 	procWTSFreeMemory                                        = modwtsapi32.NewProc("WTSFreeMemory")
 	procWTSQueryUserToken                                    = modwtsapi32.NewProc("WTSQueryUserToken")
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 	procRegisterEventSourceW               = modadvapi32.NewProc("RegisterEventSourceW")
@@ -636,6 +640,8 @@ var (
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 )
 
 func AdjustTokenGroups(token Token, resetToDefault bool, newstate *Tokengroups, buflen uint32, prevstate *Tokengroups, returnlen *uint32) (err error) {
@@ -643,6 +649,9 @@ func AdjustTokenGroups(token Token, resetToDefault bool, newstate *Tokengroups, 
 	if resetToDefault {
 		_p0 = 1
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 	}
 	r1, _, e1 := syscall.Syscall6(procAdjustTokenGroups.Addr(), 6, uintptr(token), uintptr(_p0), uintptr(unsafe.Pointer(newstate)), uintptr(buflen), uintptr(unsafe.Pointer(prevstate)), uintptr(unsafe.Pointer(returnlen)))
 	if r1 == 0 {
@@ -657,10 +666,13 @@ func AdjustTokenPrivileges(token Token, disableAllPrivileges bool, newstate *Tok
 		_p0 = 1
 	}
 	r1, _, e1 := syscall.Syscall6(procAdjustTokenPrivileges.Addr(), 6, uintptr(token), uintptr(_p0), uintptr(unsafe.Pointer(newstate)), uintptr(buflen), uintptr(unsafe.Pointer(prevstate)), uintptr(unsafe.Pointer(returnlen)))
+<<<<<<< HEAD
 =======
 	}
 	r1, _, e1 := syscall.Syscall6(procAdjustTokenGroups.Addr(), 6, uintptr(token), uintptr(_p0), uintptr(unsafe.Pointer(newstate)), uintptr(buflen), uintptr(unsafe.Pointer(prevstate)), uintptr(unsafe.Pointer(returnlen)))
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
@@ -668,6 +680,9 @@ func AdjustTokenPrivileges(token Token, disableAllPrivileges bool, newstate *Tok
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 func AllocateAndInitializeSid(identAuth *SidIdentifierAuthority, subAuth byte, subAuth0 uint32, subAuth1 uint32, subAuth2 uint32, subAuth3 uint32, subAuth4 uint32, subAuth5 uint32, subAuth6 uint32, subAuth7 uint32, sid **SID) (err error) {
 	r1, _, e1 := syscall.Syscall12(procAllocateAndInitializeSid.Addr(), 11, uintptr(unsafe.Pointer(identAuth)), uintptr(subAuth), uintptr(subAuth0), uintptr(subAuth1), uintptr(subAuth2), uintptr(subAuth3), uintptr(subAuth4), uintptr(subAuth5), uintptr(subAuth6), uintptr(subAuth7), uintptr(unsafe.Pointer(sid)), 0)
 	if r1 == 0 {
@@ -680,6 +695,7 @@ func buildSecurityDescriptor(owner *TRUSTEE, group *TRUSTEE, countAccessEntries 
 	r0, _, _ := syscall.Syscall9(procBuildSecurityDescriptorW.Addr(), 9, uintptr(unsafe.Pointer(owner)), uintptr(unsafe.Pointer(group)), uintptr(countAccessEntries), uintptr(unsafe.Pointer(accessEntries)), uintptr(countAuditEntries), uintptr(unsafe.Pointer(auditEntries)), uintptr(unsafe.Pointer(oldSecurityDescriptor)), uintptr(unsafe.Pointer(sizeNewSecurityDescriptor)), uintptr(unsafe.Pointer(newSecurityDescriptor)))
 	if r0 != 0 {
 		ret = syscall.Errno(r0)
+<<<<<<< HEAD
 =======
 func AdjustTokenPrivileges(token Token, disableAllPrivileges bool, newstate *Tokenprivileges, buflen uint32, prevstate *Tokenprivileges, returnlen *uint32) (err error) {
 	var _p0 uint32
@@ -690,10 +706,13 @@ func AdjustTokenPrivileges(token Token, disableAllPrivileges bool, newstate *Tok
 	if r1 == 0 {
 		err = errnoErr(e1)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func ChangeServiceConfig2(service Handle, infoLevel uint32, info *byte) (err error) {
 	r1, _, e1 := syscall.Syscall(procChangeServiceConfig2W.Addr(), 3, uintptr(service), uintptr(infoLevel), uintptr(unsafe.Pointer(info)))
@@ -701,6 +720,10 @@ func ChangeServiceConfig2(service Handle, infoLevel uint32, info *byte) (err err
 func AllocateAndInitializeSid(identAuth *SidIdentifierAuthority, subAuth byte, subAuth0 uint32, subAuth1 uint32, subAuth2 uint32, subAuth3 uint32, subAuth4 uint32, subAuth5 uint32, subAuth6 uint32, subAuth7 uint32, sid **SID) (err error) {
 	r1, _, e1 := syscall.Syscall12(procAllocateAndInitializeSid.Addr(), 11, uintptr(unsafe.Pointer(identAuth)), uintptr(subAuth), uintptr(subAuth0), uintptr(subAuth1), uintptr(subAuth2), uintptr(subAuth3), uintptr(subAuth4), uintptr(subAuth5), uintptr(subAuth6), uintptr(subAuth7), uintptr(unsafe.Pointer(sid)), 0)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func ChangeServiceConfig2(service Handle, infoLevel uint32, info *byte) (err error) {
+	r1, _, e1 := syscall.Syscall(procChangeServiceConfig2W.Addr(), 3, uintptr(service), uintptr(infoLevel), uintptr(unsafe.Pointer(info)))
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
@@ -708,20 +731,27 @@ func AllocateAndInitializeSid(identAuth *SidIdentifierAuthority, subAuth byte, s
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 func ChangeServiceConfig(service Handle, serviceType uint32, startType uint32, errorControl uint32, binaryPathName *uint16, loadOrderGroup *uint16, tagId *uint32, dependencies *uint16, serviceStartName *uint16, password *uint16, displayName *uint16) (err error) {
 	r1, _, e1 := syscall.Syscall12(procChangeServiceConfigW.Addr(), 11, uintptr(service), uintptr(serviceType), uintptr(startType), uintptr(errorControl), uintptr(unsafe.Pointer(binaryPathName)), uintptr(unsafe.Pointer(loadOrderGroup)), uintptr(unsafe.Pointer(tagId)), uintptr(unsafe.Pointer(dependencies)), uintptr(unsafe.Pointer(serviceStartName)), uintptr(unsafe.Pointer(password)), uintptr(unsafe.Pointer(displayName)), 0)
 	if r1 == 0 {
 		err = errnoErr(e1)
+<<<<<<< HEAD
 =======
 func buildSecurityDescriptor(owner *TRUSTEE, group *TRUSTEE, countAccessEntries uint32, accessEntries *EXPLICIT_ACCESS, countAuditEntries uint32, auditEntries *EXPLICIT_ACCESS, oldSecurityDescriptor *SECURITY_DESCRIPTOR, sizeNewSecurityDescriptor *uint32, newSecurityDescriptor **SECURITY_DESCRIPTOR) (ret error) {
 	r0, _, _ := syscall.Syscall9(procBuildSecurityDescriptorW.Addr(), 9, uintptr(unsafe.Pointer(owner)), uintptr(unsafe.Pointer(group)), uintptr(countAccessEntries), uintptr(unsafe.Pointer(accessEntries)), uintptr(countAuditEntries), uintptr(unsafe.Pointer(auditEntries)), uintptr(unsafe.Pointer(oldSecurityDescriptor)), uintptr(unsafe.Pointer(sizeNewSecurityDescriptor)), uintptr(unsafe.Pointer(newSecurityDescriptor)))
 	if r0 != 0 {
 		ret = syscall.Errno(r0)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func checkTokenMembership(tokenHandle Token, sidToCheck *SID, isMember *int32) (err error) {
 	r1, _, e1 := syscall.Syscall(procCheckTokenMembership.Addr(), 3, uintptr(tokenHandle), uintptr(unsafe.Pointer(sidToCheck)), uintptr(unsafe.Pointer(isMember)))
@@ -729,6 +759,10 @@ func checkTokenMembership(tokenHandle Token, sidToCheck *SID, isMember *int32) (
 func ChangeServiceConfig2(service Handle, infoLevel uint32, info *byte) (err error) {
 	r1, _, e1 := syscall.Syscall(procChangeServiceConfig2W.Addr(), 3, uintptr(service), uintptr(infoLevel), uintptr(unsafe.Pointer(info)))
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func checkTokenMembership(tokenHandle Token, sidToCheck *SID, isMember *int32) (err error) {
+	r1, _, e1 := syscall.Syscall(procCheckTokenMembership.Addr(), 3, uintptr(tokenHandle), uintptr(unsafe.Pointer(sidToCheck)), uintptr(unsafe.Pointer(isMember)))
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
@@ -736,18 +770,24 @@ func ChangeServiceConfig2(service Handle, infoLevel uint32, info *byte) (err err
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 func CloseServiceHandle(handle Handle) (err error) {
 	r1, _, e1 := syscall.Syscall(procCloseServiceHandle.Addr(), 1, uintptr(handle), 0, 0)
 =======
 func ChangeServiceConfig(service Handle, serviceType uint32, startType uint32, errorControl uint32, binaryPathName *uint16, loadOrderGroup *uint16, tagId *uint32, dependencies *uint16, serviceStartName *uint16, password *uint16, displayName *uint16) (err error) {
 	r1, _, e1 := syscall.Syscall12(procChangeServiceConfigW.Addr(), 11, uintptr(service), uintptr(serviceType), uintptr(startType), uintptr(errorControl), uintptr(unsafe.Pointer(binaryPathName)), uintptr(unsafe.Pointer(loadOrderGroup)), uintptr(unsafe.Pointer(tagId)), uintptr(unsafe.Pointer(dependencies)), uintptr(unsafe.Pointer(serviceStartName)), uintptr(unsafe.Pointer(password)), uintptr(unsafe.Pointer(displayName)), 0)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func CloseServiceHandle(handle Handle) (err error) {
+	r1, _, e1 := syscall.Syscall(procCloseServiceHandle.Addr(), 1, uintptr(handle), 0, 0)
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func ControlService(service Handle, control uint32, status *SERVICE_STATUS) (err error) {
 	r1, _, e1 := syscall.Syscall(procControlService.Addr(), 3, uintptr(service), uintptr(control), uintptr(unsafe.Pointer(status)))
@@ -755,12 +795,17 @@ func ControlService(service Handle, control uint32, status *SERVICE_STATUS) (err
 func checkTokenMembership(tokenHandle Token, sidToCheck *SID, isMember *int32) (err error) {
 	r1, _, e1 := syscall.Syscall(procCheckTokenMembership.Addr(), 3, uintptr(tokenHandle), uintptr(unsafe.Pointer(sidToCheck)), uintptr(unsafe.Pointer(isMember)))
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func ControlService(service Handle, control uint32, status *SERVICE_STATUS) (err error) {
+	r1, _, e1 := syscall.Syscall(procControlService.Addr(), 3, uintptr(service), uintptr(control), uintptr(unsafe.Pointer(status)))
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func convertSecurityDescriptorToStringSecurityDescriptor(sd *SECURITY_DESCRIPTOR, revision uint32, securityInformation SECURITY_INFORMATION, str **uint16, strLen *uint32) (err error) {
 	r1, _, e1 := syscall.Syscall6(procConvertSecurityDescriptorToStringSecurityDescriptorW.Addr(), 5, uintptr(unsafe.Pointer(sd)), uintptr(revision), uintptr(securityInformation), uintptr(unsafe.Pointer(str)), uintptr(unsafe.Pointer(strLen)), 0)
@@ -776,12 +821,17 @@ func CloseServiceHandle(handle Handle) (err error) {
 
 func ConvertSidToStringSid(sid *SID, stringSid **uint16) (err error) {
 	r1, _, e1 := syscall.Syscall(procConvertSidToStringSidW.Addr(), 2, uintptr(unsafe.Pointer(sid)), uintptr(unsafe.Pointer(stringSid)), 0)
+=======
+func convertSecurityDescriptorToStringSecurityDescriptor(sd *SECURITY_DESCRIPTOR, revision uint32, securityInformation SECURITY_INFORMATION, str **uint16, strLen *uint32) (err error) {
+	r1, _, e1 := syscall.Syscall6(procConvertSecurityDescriptorToStringSecurityDescriptorW.Addr(), 5, uintptr(unsafe.Pointer(sd)), uintptr(revision), uintptr(securityInformation), uintptr(unsafe.Pointer(str)), uintptr(unsafe.Pointer(strLen)), 0)
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func convertStringSecurityDescriptorToSecurityDescriptor(str string, revision uint32, sd **SECURITY_DESCRIPTOR, size *uint32) (err error) {
 	var _p0 *uint16
@@ -805,6 +855,10 @@ func _convertStringSecurityDescriptorToSecurityDescriptor(str *uint16, revision 
 func ConvertSidToStringSid(sid *SID, stringSid **uint16) (err error) {
 	r1, _, e1 := syscall.Syscall(procConvertSidToStringSidW.Addr(), 2, uintptr(unsafe.Pointer(sid)), uintptr(unsafe.Pointer(stringSid)), 0)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func ConvertSidToStringSid(sid *SID, stringSid **uint16) (err error) {
+	r1, _, e1 := syscall.Syscall(procConvertSidToStringSidW.Addr(), 2, uintptr(unsafe.Pointer(sid)), uintptr(unsafe.Pointer(stringSid)), 0)
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
@@ -812,9 +866,12 @@ func ConvertSidToStringSid(sid *SID, stringSid **uint16) (err error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 func ConvertStringSidToSid(stringSid *uint16, sid **SID) (err error) {
 	r1, _, e1 := syscall.Syscall(procConvertStringSidToSidW.Addr(), 2, uintptr(unsafe.Pointer(stringSid)), uintptr(unsafe.Pointer(sid)), 0)
 =======
+=======
+>>>>>>> 03397665 (update api)
 func convertStringSecurityDescriptorToSecurityDescriptor(str string, revision uint32, sd **SECURITY_DESCRIPTOR, size *uint32) (err error) {
 	var _p0 *uint16
 	_p0, err = syscall.UTF16PtrFromString(str)
@@ -826,13 +883,17 @@ func convertStringSecurityDescriptorToSecurityDescriptor(str string, revision ui
 
 func _convertStringSecurityDescriptorToSecurityDescriptor(str *uint16, revision uint32, sd **SECURITY_DESCRIPTOR, size *uint32) (err error) {
 	r1, _, e1 := syscall.Syscall6(procConvertStringSecurityDescriptorToSecurityDescriptorW.Addr(), 4, uintptr(unsafe.Pointer(str)), uintptr(revision), uintptr(unsafe.Pointer(sd)), uintptr(unsafe.Pointer(size)), 0, 0)
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func CopySid(destSidLen uint32, destSid *SID, srcSid *SID) (err error) {
 	r1, _, e1 := syscall.Syscall(procCopySid.Addr(), 3, uintptr(destSidLen), uintptr(unsafe.Pointer(destSid)), uintptr(unsafe.Pointer(srcSid)))
@@ -840,12 +901,17 @@ func CopySid(destSidLen uint32, destSid *SID, srcSid *SID) (err error) {
 func ConvertStringSidToSid(stringSid *uint16, sid **SID) (err error) {
 	r1, _, e1 := syscall.Syscall(procConvertStringSidToSidW.Addr(), 2, uintptr(unsafe.Pointer(stringSid)), uintptr(unsafe.Pointer(sid)), 0)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func ConvertStringSidToSid(stringSid *uint16, sid **SID) (err error) {
+	r1, _, e1 := syscall.Syscall(procConvertStringSidToSidW.Addr(), 2, uintptr(unsafe.Pointer(stringSid)), uintptr(unsafe.Pointer(sid)), 0)
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func CreateService(mgr Handle, serviceName *uint16, displayName *uint16, access uint32, srvType uint32, startType uint32, errCtl uint32, pathName *uint16, loadOrderGroup *uint16, tagId *uint32, dependencies *uint16, serviceStartName *uint16, password *uint16) (handle Handle, err error) {
 	r0, _, e1 := syscall.Syscall15(procCreateServiceW.Addr(), 13, uintptr(mgr), uintptr(unsafe.Pointer(serviceName)), uintptr(unsafe.Pointer(displayName)), uintptr(access), uintptr(srvType), uintptr(startType), uintptr(errCtl), uintptr(unsafe.Pointer(pathName)), uintptr(unsafe.Pointer(loadOrderGroup)), uintptr(unsafe.Pointer(tagId)), uintptr(unsafe.Pointer(dependencies)), uintptr(unsafe.Pointer(serviceStartName)), uintptr(unsafe.Pointer(password)), 0, 0)
@@ -856,26 +922,38 @@ func CopySid(destSidLen uint32, destSid *SID, srcSid *SID) (err error) {
 	r1, _, e1 := syscall.Syscall(procCopySid.Addr(), 3, uintptr(destSidLen), uintptr(unsafe.Pointer(destSid)), uintptr(unsafe.Pointer(srcSid)))
 	if r1 == 0 {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func CopySid(destSidLen uint32, destSid *SID, srcSid *SID) (err error) {
+	r1, _, e1 := syscall.Syscall(procCopySid.Addr(), 3, uintptr(destSidLen), uintptr(unsafe.Pointer(destSid)), uintptr(unsafe.Pointer(srcSid)))
+	if r1 == 0 {
+>>>>>>> 03397665 (update api)
 		err = errnoErr(e1)
 	}
 	return
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 func createWellKnownSid(sidType WELL_KNOWN_SID_TYPE, domainSid *SID, sid *SID, sizeSid *uint32) (err error) {
 	r1, _, e1 := syscall.Syscall6(procCreateWellKnownSid.Addr(), 4, uintptr(sidType), uintptr(unsafe.Pointer(domainSid)), uintptr(unsafe.Pointer(sid)), uintptr(unsafe.Pointer(sizeSid)), 0, 0)
 	if r1 == 0 {
 =======
+=======
+>>>>>>> 03397665 (update api)
 func CreateService(mgr Handle, serviceName *uint16, displayName *uint16, access uint32, srvType uint32, startType uint32, errCtl uint32, pathName *uint16, loadOrderGroup *uint16, tagId *uint32, dependencies *uint16, serviceStartName *uint16, password *uint16) (handle Handle, err error) {
 	r0, _, e1 := syscall.Syscall15(procCreateServiceW.Addr(), 13, uintptr(mgr), uintptr(unsafe.Pointer(serviceName)), uintptr(unsafe.Pointer(displayName)), uintptr(access), uintptr(srvType), uintptr(startType), uintptr(errCtl), uintptr(unsafe.Pointer(pathName)), uintptr(unsafe.Pointer(loadOrderGroup)), uintptr(unsafe.Pointer(tagId)), uintptr(unsafe.Pointer(dependencies)), uintptr(unsafe.Pointer(serviceStartName)), uintptr(unsafe.Pointer(password)), 0, 0)
 	handle = Handle(r0)
 	if handle == 0 {
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func CryptAcquireContext(provhandle *Handle, container *uint16, provider *uint16, provtype uint32, flags uint32) (err error) {
 	r1, _, e1 := syscall.Syscall6(procCryptAcquireContextW.Addr(), 5, uintptr(unsafe.Pointer(provhandle)), uintptr(unsafe.Pointer(container)), uintptr(unsafe.Pointer(provider)), uintptr(provtype), uintptr(flags), 0)
@@ -883,12 +961,17 @@ func CryptAcquireContext(provhandle *Handle, container *uint16, provider *uint16
 func createWellKnownSid(sidType WELL_KNOWN_SID_TYPE, domainSid *SID, sid *SID, sizeSid *uint32) (err error) {
 	r1, _, e1 := syscall.Syscall6(procCreateWellKnownSid.Addr(), 4, uintptr(sidType), uintptr(unsafe.Pointer(domainSid)), uintptr(unsafe.Pointer(sid)), uintptr(unsafe.Pointer(sizeSid)), 0, 0)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func createWellKnownSid(sidType WELL_KNOWN_SID_TYPE, domainSid *SID, sid *SID, sizeSid *uint32) (err error) {
+	r1, _, e1 := syscall.Syscall6(procCreateWellKnownSid.Addr(), 4, uintptr(sidType), uintptr(unsafe.Pointer(domainSid)), uintptr(unsafe.Pointer(sid)), uintptr(unsafe.Pointer(sizeSid)), 0, 0)
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func CryptGenRandom(provhandle Handle, buflen uint32, buf *byte) (err error) {
 	r1, _, e1 := syscall.Syscall(procCryptGenRandom.Addr(), 3, uintptr(provhandle), uintptr(buflen), uintptr(unsafe.Pointer(buf)))
@@ -896,12 +979,17 @@ func CryptGenRandom(provhandle Handle, buflen uint32, buf *byte) (err error) {
 func CryptAcquireContext(provhandle *Handle, container *uint16, provider *uint16, provtype uint32, flags uint32) (err error) {
 	r1, _, e1 := syscall.Syscall6(procCryptAcquireContextW.Addr(), 5, uintptr(unsafe.Pointer(provhandle)), uintptr(unsafe.Pointer(container)), uintptr(unsafe.Pointer(provider)), uintptr(provtype), uintptr(flags), 0)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func CryptAcquireContext(provhandle *Handle, container *uint16, provider *uint16, provtype uint32, flags uint32) (err error) {
+	r1, _, e1 := syscall.Syscall6(procCryptAcquireContextW.Addr(), 5, uintptr(unsafe.Pointer(provhandle)), uintptr(unsafe.Pointer(container)), uintptr(unsafe.Pointer(provider)), uintptr(provtype), uintptr(flags), 0)
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func CryptReleaseContext(provhandle Handle, flags uint32) (err error) {
 	r1, _, e1 := syscall.Syscall(procCryptReleaseContext.Addr(), 2, uintptr(provhandle), uintptr(flags), 0)
@@ -909,12 +997,17 @@ func CryptReleaseContext(provhandle Handle, flags uint32) (err error) {
 func CryptGenRandom(provhandle Handle, buflen uint32, buf *byte) (err error) {
 	r1, _, e1 := syscall.Syscall(procCryptGenRandom.Addr(), 3, uintptr(provhandle), uintptr(buflen), uintptr(unsafe.Pointer(buf)))
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func CryptGenRandom(provhandle Handle, buflen uint32, buf *byte) (err error) {
+	r1, _, e1 := syscall.Syscall(procCryptGenRandom.Addr(), 3, uintptr(provhandle), uintptr(buflen), uintptr(unsafe.Pointer(buf)))
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func DeleteService(service Handle) (err error) {
 	r1, _, e1 := syscall.Syscall(procDeleteService.Addr(), 1, uintptr(service), 0, 0)
@@ -922,12 +1015,17 @@ func DeleteService(service Handle) (err error) {
 func CryptReleaseContext(provhandle Handle, flags uint32) (err error) {
 	r1, _, e1 := syscall.Syscall(procCryptReleaseContext.Addr(), 2, uintptr(provhandle), uintptr(flags), 0)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func CryptReleaseContext(provhandle Handle, flags uint32) (err error) {
+	r1, _, e1 := syscall.Syscall(procCryptReleaseContext.Addr(), 2, uintptr(provhandle), uintptr(flags), 0)
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func DeregisterEventSource(handle Handle) (err error) {
 	r1, _, e1 := syscall.Syscall(procDeregisterEventSource.Addr(), 1, uintptr(handle), 0, 0)
@@ -935,12 +1033,17 @@ func DeregisterEventSource(handle Handle) (err error) {
 func DeleteService(service Handle) (err error) {
 	r1, _, e1 := syscall.Syscall(procDeleteService.Addr(), 1, uintptr(service), 0, 0)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func DeleteService(service Handle) (err error) {
+	r1, _, e1 := syscall.Syscall(procDeleteService.Addr(), 1, uintptr(service), 0, 0)
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func DuplicateTokenEx(existingToken Token, desiredAccess uint32, tokenAttributes *SecurityAttributes, impersonationLevel uint32, tokenType uint32, newToken *Token) (err error) {
 	r1, _, e1 := syscall.Syscall6(procDuplicateTokenEx.Addr(), 6, uintptr(existingToken), uintptr(desiredAccess), uintptr(unsafe.Pointer(tokenAttributes)), uintptr(impersonationLevel), uintptr(tokenType), uintptr(unsafe.Pointer(newToken)))
@@ -948,12 +1051,17 @@ func DuplicateTokenEx(existingToken Token, desiredAccess uint32, tokenAttributes
 func DeregisterEventSource(handle Handle) (err error) {
 	r1, _, e1 := syscall.Syscall(procDeregisterEventSource.Addr(), 1, uintptr(handle), 0, 0)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func DeregisterEventSource(handle Handle) (err error) {
+	r1, _, e1 := syscall.Syscall(procDeregisterEventSource.Addr(), 1, uintptr(handle), 0, 0)
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func EnumServicesStatusEx(mgr Handle, infoLevel uint32, serviceType uint32, serviceState uint32, services *byte, bufSize uint32, bytesNeeded *uint32, servicesReturned *uint32, resumeHandle *uint32, groupName *uint16) (err error) {
 	r1, _, e1 := syscall.Syscall12(procEnumServicesStatusExW.Addr(), 10, uintptr(mgr), uintptr(infoLevel), uintptr(serviceType), uintptr(serviceState), uintptr(unsafe.Pointer(services)), uintptr(bufSize), uintptr(unsafe.Pointer(bytesNeeded)), uintptr(unsafe.Pointer(servicesReturned)), uintptr(unsafe.Pointer(resumeHandle)), uintptr(unsafe.Pointer(groupName)), 0, 0)
@@ -961,12 +1069,17 @@ func EnumServicesStatusEx(mgr Handle, infoLevel uint32, serviceType uint32, serv
 func DuplicateTokenEx(existingToken Token, desiredAccess uint32, tokenAttributes *SecurityAttributes, impersonationLevel uint32, tokenType uint32, newToken *Token) (err error) {
 	r1, _, e1 := syscall.Syscall6(procDuplicateTokenEx.Addr(), 6, uintptr(existingToken), uintptr(desiredAccess), uintptr(unsafe.Pointer(tokenAttributes)), uintptr(impersonationLevel), uintptr(tokenType), uintptr(unsafe.Pointer(newToken)))
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func DuplicateTokenEx(existingToken Token, desiredAccess uint32, tokenAttributes *SecurityAttributes, impersonationLevel uint32, tokenType uint32, newToken *Token) (err error) {
+	r1, _, e1 := syscall.Syscall6(procDuplicateTokenEx.Addr(), 6, uintptr(existingToken), uintptr(desiredAccess), uintptr(unsafe.Pointer(tokenAttributes)), uintptr(impersonationLevel), uintptr(tokenType), uintptr(unsafe.Pointer(newToken)))
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func EqualSid(sid1 *SID, sid2 *SID) (isEqual bool) {
 	r0, _, _ := syscall.Syscall(procEqualSid.Addr(), 2, uintptr(unsafe.Pointer(sid1)), uintptr(unsafe.Pointer(sid2)), 0)
@@ -975,6 +1088,8 @@ func EqualSid(sid1 *SID, sid2 *SID) (isEqual bool) {
 }
 
 =======
+=======
+>>>>>>> 03397665 (update api)
 func EnumServicesStatusEx(mgr Handle, infoLevel uint32, serviceType uint32, serviceState uint32, services *byte, bufSize uint32, bytesNeeded *uint32, servicesReturned *uint32, resumeHandle *uint32, groupName *uint16) (err error) {
 	r1, _, e1 := syscall.Syscall12(procEnumServicesStatusExW.Addr(), 10, uintptr(mgr), uintptr(infoLevel), uintptr(serviceType), uintptr(serviceState), uintptr(unsafe.Pointer(services)), uintptr(bufSize), uintptr(unsafe.Pointer(bytesNeeded)), uintptr(unsafe.Pointer(servicesReturned)), uintptr(unsafe.Pointer(resumeHandle)), uintptr(unsafe.Pointer(groupName)), 0, 0)
 	if r1 == 0 {
@@ -989,7 +1104,10 @@ func EqualSid(sid1 *SID, sid2 *SID) (isEqual bool) {
 	return
 }
 
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func FreeSid(sid *SID) (err error) {
 	r1, _, e1 := syscall.Syscall(procFreeSid.Addr(), 1, uintptr(unsafe.Pointer(sid)), 0, 0)
 	if r1 != 0 {
@@ -1184,6 +1302,7 @@ func isValidSecurityDescriptor(sd *SECURITY_DESCRIPTOR) (isValid bool) {
 	r0, _, _ := syscall.Syscall(procIsValidSecurityDescriptor.Addr(), 1, uintptr(unsafe.Pointer(sd)), 0, 0)
 	isValid = r0 != 0
 <<<<<<< HEAD
+<<<<<<< HEAD
 	return
 }
 
@@ -1226,6 +1345,8 @@ func LookupPrivilegeValue(systemname *uint16, name *uint16, luid *LUID) (err err
 func makeAbsoluteSD(selfRelativeSD *SECURITY_DESCRIPTOR, absoluteSD *SECURITY_DESCRIPTOR, absoluteSDSize *uint32, dacl *ACL, daclSize *uint32, sacl *ACL, saclSize *uint32, owner *SID, ownerSize *uint32, group *SID, groupSize *uint32) (err error) {
 	r1, _, e1 := syscall.Syscall12(procMakeAbsoluteSD.Addr(), 11, uintptr(unsafe.Pointer(selfRelativeSD)), uintptr(unsafe.Pointer(absoluteSD)), uintptr(unsafe.Pointer(absoluteSDSize)), uintptr(unsafe.Pointer(dacl)), uintptr(unsafe.Pointer(daclSize)), uintptr(unsafe.Pointer(sacl)), uintptr(unsafe.Pointer(saclSize)), uintptr(unsafe.Pointer(owner)), uintptr(unsafe.Pointer(ownerSize)), uintptr(unsafe.Pointer(group)), uintptr(unsafe.Pointer(groupSize)), 0)
 =======
+=======
+>>>>>>> 03397665 (update api)
 	return
 }
 
@@ -1243,13 +1364,17 @@ func isWellKnownSid(sid *SID, sidType WELL_KNOWN_SID_TYPE) (isWellKnown bool) {
 
 func LookupAccountName(systemName *uint16, accountName *uint16, sid *SID, sidLen *uint32, refdDomainName *uint16, refdDomainNameLen *uint32, use *uint32) (err error) {
 	r1, _, e1 := syscall.Syscall9(procLookupAccountNameW.Addr(), 7, uintptr(unsafe.Pointer(systemName)), uintptr(unsafe.Pointer(accountName)), uintptr(unsafe.Pointer(sid)), uintptr(unsafe.Pointer(sidLen)), uintptr(unsafe.Pointer(refdDomainName)), uintptr(unsafe.Pointer(refdDomainNameLen)), uintptr(unsafe.Pointer(use)), 0, 0)
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func makeSelfRelativeSD(absoluteSD *SECURITY_DESCRIPTOR, selfRelativeSD *SECURITY_DESCRIPTOR, selfRelativeSDSize *uint32) (err error) {
 	r1, _, e1 := syscall.Syscall(procMakeSelfRelativeSD.Addr(), 3, uintptr(unsafe.Pointer(absoluteSD)), uintptr(unsafe.Pointer(selfRelativeSD)), uintptr(unsafe.Pointer(selfRelativeSDSize)))
@@ -1257,6 +1382,10 @@ func makeSelfRelativeSD(absoluteSD *SECURITY_DESCRIPTOR, selfRelativeSD *SECURIT
 func LookupAccountSid(systemName *uint16, sid *SID, name *uint16, nameLen *uint32, refdDomainName *uint16, refdDomainNameLen *uint32, use *uint32) (err error) {
 	r1, _, e1 := syscall.Syscall9(procLookupAccountSidW.Addr(), 7, uintptr(unsafe.Pointer(systemName)), uintptr(unsafe.Pointer(sid)), uintptr(unsafe.Pointer(name)), uintptr(unsafe.Pointer(nameLen)), uintptr(unsafe.Pointer(refdDomainName)), uintptr(unsafe.Pointer(refdDomainNameLen)), uintptr(unsafe.Pointer(use)), 0, 0)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func LookupAccountSid(systemName *uint16, sid *SID, name *uint16, nameLen *uint32, refdDomainName *uint16, refdDomainNameLen *uint32, use *uint32) (err error) {
+	r1, _, e1 := syscall.Syscall9(procLookupAccountSidW.Addr(), 7, uintptr(unsafe.Pointer(systemName)), uintptr(unsafe.Pointer(sid)), uintptr(unsafe.Pointer(name)), uintptr(unsafe.Pointer(nameLen)), uintptr(unsafe.Pointer(refdDomainName)), uintptr(unsafe.Pointer(refdDomainNameLen)), uintptr(unsafe.Pointer(use)), 0, 0)
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
@@ -1264,20 +1393,27 @@ func LookupAccountSid(systemName *uint16, sid *SID, name *uint16, nameLen *uint3
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 func NotifyServiceStatusChange(service Handle, notifyMask uint32, notifier *SERVICE_NOTIFY) (ret error) {
 	r0, _, _ := syscall.Syscall(procNotifyServiceStatusChangeW.Addr(), 3, uintptr(service), uintptr(notifyMask), uintptr(unsafe.Pointer(notifier)))
 	if r0 != 0 {
 		ret = syscall.Errno(r0)
 =======
+=======
+>>>>>>> 03397665 (update api)
 func LookupPrivilegeValue(systemname *uint16, name *uint16, luid *LUID) (err error) {
 	r1, _, e1 := syscall.Syscall(procLookupPrivilegeValueW.Addr(), 3, uintptr(unsafe.Pointer(systemname)), uintptr(unsafe.Pointer(name)), uintptr(unsafe.Pointer(luid)))
 	if r1 == 0 {
 		err = errnoErr(e1)
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func OpenProcessToken(process Handle, access uint32, token *Token) (err error) {
 	r1, _, e1 := syscall.Syscall(procOpenProcessToken.Addr(), 3, uintptr(process), uintptr(access), uintptr(unsafe.Pointer(token)))
@@ -1285,12 +1421,17 @@ func OpenProcessToken(process Handle, access uint32, token *Token) (err error) {
 func makeAbsoluteSD(selfRelativeSD *SECURITY_DESCRIPTOR, absoluteSD *SECURITY_DESCRIPTOR, absoluteSDSize *uint32, dacl *ACL, daclSize *uint32, sacl *ACL, saclSize *uint32, owner *SID, ownerSize *uint32, group *SID, groupSize *uint32) (err error) {
 	r1, _, e1 := syscall.Syscall12(procMakeAbsoluteSD.Addr(), 11, uintptr(unsafe.Pointer(selfRelativeSD)), uintptr(unsafe.Pointer(absoluteSD)), uintptr(unsafe.Pointer(absoluteSDSize)), uintptr(unsafe.Pointer(dacl)), uintptr(unsafe.Pointer(daclSize)), uintptr(unsafe.Pointer(sacl)), uintptr(unsafe.Pointer(saclSize)), uintptr(unsafe.Pointer(owner)), uintptr(unsafe.Pointer(ownerSize)), uintptr(unsafe.Pointer(group)), uintptr(unsafe.Pointer(groupSize)), 0)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func makeAbsoluteSD(selfRelativeSD *SECURITY_DESCRIPTOR, absoluteSD *SECURITY_DESCRIPTOR, absoluteSDSize *uint32, dacl *ACL, daclSize *uint32, sacl *ACL, saclSize *uint32, owner *SID, ownerSize *uint32, group *SID, groupSize *uint32) (err error) {
+	r1, _, e1 := syscall.Syscall12(procMakeAbsoluteSD.Addr(), 11, uintptr(unsafe.Pointer(selfRelativeSD)), uintptr(unsafe.Pointer(absoluteSD)), uintptr(unsafe.Pointer(absoluteSDSize)), uintptr(unsafe.Pointer(dacl)), uintptr(unsafe.Pointer(daclSize)), uintptr(unsafe.Pointer(sacl)), uintptr(unsafe.Pointer(saclSize)), uintptr(unsafe.Pointer(owner)), uintptr(unsafe.Pointer(ownerSize)), uintptr(unsafe.Pointer(group)), uintptr(unsafe.Pointer(groupSize)), 0)
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func OpenSCManager(machineName *uint16, databaseName *uint16, access uint32) (handle Handle, err error) {
 	r0, _, e1 := syscall.Syscall(procOpenSCManagerW.Addr(), 3, uintptr(unsafe.Pointer(machineName)), uintptr(unsafe.Pointer(databaseName)), uintptr(access))
@@ -1301,11 +1442,17 @@ func makeSelfRelativeSD(absoluteSD *SECURITY_DESCRIPTOR, selfRelativeSD *SECURIT
 	r1, _, e1 := syscall.Syscall(procMakeSelfRelativeSD.Addr(), 3, uintptr(unsafe.Pointer(absoluteSD)), uintptr(unsafe.Pointer(selfRelativeSD)), uintptr(unsafe.Pointer(selfRelativeSDSize)))
 	if r1 == 0 {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func makeSelfRelativeSD(absoluteSD *SECURITY_DESCRIPTOR, selfRelativeSD *SECURITY_DESCRIPTOR, selfRelativeSDSize *uint32) (err error) {
+	r1, _, e1 := syscall.Syscall(procMakeSelfRelativeSD.Addr(), 3, uintptr(unsafe.Pointer(absoluteSD)), uintptr(unsafe.Pointer(selfRelativeSD)), uintptr(unsafe.Pointer(selfRelativeSDSize)))
+	if r1 == 0 {
+>>>>>>> 03397665 (update api)
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func OpenService(mgr Handle, serviceName *uint16, access uint32) (handle Handle, err error) {
 	r0, _, e1 := syscall.Syscall(procOpenServiceW.Addr(), 3, uintptr(mgr), uintptr(unsafe.Pointer(serviceName)), uintptr(access))
@@ -1313,15 +1460,21 @@ func OpenService(mgr Handle, serviceName *uint16, access uint32) (handle Handle,
 	if handle == 0 {
 		err = errnoErr(e1)
 =======
+=======
+>>>>>>> 03397665 (update api)
 func NotifyServiceStatusChange(service Handle, notifyMask uint32, notifier *SERVICE_NOTIFY) (ret error) {
 	r0, _, _ := syscall.Syscall(procNotifyServiceStatusChangeW.Addr(), 3, uintptr(service), uintptr(notifyMask), uintptr(unsafe.Pointer(notifier)))
 	if r0 != 0 {
 		ret = syscall.Errno(r0)
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func OpenThreadToken(thread Handle, access uint32, openAsSelf bool, token *Token) (err error) {
 	var _p0 uint32
@@ -1331,6 +1484,8 @@ func OpenThreadToken(thread Handle, access uint32, openAsSelf bool, token *Token
 	r1, _, e1 := syscall.Syscall6(procOpenThreadToken.Addr(), 4, uintptr(thread), uintptr(access), uintptr(_p0), uintptr(unsafe.Pointer(token)), 0, 0)
 	if r1 == 0 {
 =======
+=======
+>>>>>>> 03397665 (update api)
 func OpenProcessToken(process Handle, access uint32, token *Token) (err error) {
 	r1, _, e1 := syscall.Syscall(procOpenProcessToken.Addr(), 3, uintptr(process), uintptr(access), uintptr(unsafe.Pointer(token)))
 	if r1 == 0 {
@@ -1343,33 +1498,45 @@ func OpenSCManager(machineName *uint16, databaseName *uint16, access uint32) (ha
 	r0, _, e1 := syscall.Syscall(procOpenSCManagerW.Addr(), 3, uintptr(unsafe.Pointer(machineName)), uintptr(unsafe.Pointer(databaseName)), uintptr(access))
 	handle = Handle(r0)
 	if handle == 0 {
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		err = errnoErr(e1)
 	}
 	return
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 func QueryServiceConfig2(service Handle, infoLevel uint32, buff *byte, buffSize uint32, bytesNeeded *uint32) (err error) {
 	r1, _, e1 := syscall.Syscall6(procQueryServiceConfig2W.Addr(), 5, uintptr(service), uintptr(infoLevel), uintptr(unsafe.Pointer(buff)), uintptr(buffSize), uintptr(unsafe.Pointer(bytesNeeded)), 0)
 	if r1 == 0 {
 =======
+=======
+>>>>>>> 03397665 (update api)
 func OpenService(mgr Handle, serviceName *uint16, access uint32) (handle Handle, err error) {
 	r0, _, e1 := syscall.Syscall(procOpenServiceW.Addr(), 3, uintptr(mgr), uintptr(unsafe.Pointer(serviceName)), uintptr(access))
 	handle = Handle(r0)
 	if handle == 0 {
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func QueryServiceConfig(service Handle, serviceConfig *QUERY_SERVICE_CONFIG, bufSize uint32, bytesNeeded *uint32) (err error) {
 	r1, _, e1 := syscall.Syscall6(procQueryServiceConfigW.Addr(), 4, uintptr(service), uintptr(unsafe.Pointer(serviceConfig)), uintptr(bufSize), uintptr(unsafe.Pointer(bytesNeeded)), 0, 0)
 	if r1 == 0 {
 		err = errnoErr(e1)
 =======
+=======
+>>>>>>> 03397665 (update api)
 func OpenThreadToken(thread Handle, access uint32, openAsSelf bool, token *Token) (err error) {
 	var _p0 uint32
 	if openAsSelf {
@@ -1394,7 +1561,10 @@ func QueryServiceConfig(service Handle, serviceConfig *QUERY_SERVICE_CONFIG, buf
 	r1, _, e1 := syscall.Syscall6(procQueryServiceConfigW.Addr(), 4, uintptr(service), uintptr(unsafe.Pointer(serviceConfig)), uintptr(bufSize), uintptr(unsafe.Pointer(bytesNeeded)), 0, 0)
 	if r1 == 0 {
 		err = errnoErr(e1)
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	}
 	return
 }
@@ -1441,8 +1611,11 @@ func RegEnumKeyEx(key Handle, index uint32, name *uint16, nameLen *uint32, reser
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func RegNotifyChangeKeyValue(key Handle, watchSubtree bool, notifyFilter uint32, event Handle, asynchronous bool) (regerrno error) {
 	var _p0 uint32
 	if watchSubtree {
@@ -1464,6 +1637,7 @@ func RegOpenKeyEx(key Handle, subkey *uint16, options uint32, desiredAccess uint
 	if r0 != 0 {
 		regerrno = syscall.Errno(r0)
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 func GetTempPath(buflen uint32, buf *uint16) (n uint32, err error) {
 	r0, _, e1 := syscall.Syscall(procGetTempPathW.Addr(), 2, uintptr(buflen), uintptr(unsafe.Pointer(buf)), 0)
@@ -1477,6 +1651,8 @@ func GetTempPath(buflen uint32, buf *uint16) (n uint32, err error) {
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	}
 	return
 }
@@ -1613,6 +1789,7 @@ func setSecurityDescriptorSacl(sd *SECURITY_DESCRIPTOR, saclPresent bool, sacl *
 	if saclPresent {
 		_p0 = 1
 <<<<<<< HEAD
+<<<<<<< HEAD
 	}
 	var _p1 uint32
 	if saclDefaulted {
@@ -1630,6 +1807,8 @@ func SetSecurityInfo(handle Handle, objectType SE_OBJECT_TYPE, securityInformati
 	if r0 != 0 {
 		ret = syscall.Errno(r0)
 =======
+=======
+>>>>>>> 03397665 (update api)
 	}
 	var _p1 uint32
 	if saclDefaulted {
@@ -1638,26 +1817,36 @@ func SetSecurityInfo(handle Handle, objectType SE_OBJECT_TYPE, securityInformati
 	r1, _, e1 := syscall.Syscall6(procSetSecurityDescriptorSacl.Addr(), 4, uintptr(unsafe.Pointer(sd)), uintptr(_p0), uintptr(unsafe.Pointer(sacl)), uintptr(_p1), 0, 0)
 	if r1 == 0 {
 		err = errnoErr(e1)
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func SetServiceStatus(service Handle, serviceStatus *SERVICE_STATUS) (err error) {
 	r1, _, e1 := syscall.Syscall(procSetServiceStatus.Addr(), 2, uintptr(service), uintptr(unsafe.Pointer(serviceStatus)), 0)
 	if r1 == 0 {
 		err = errnoErr(e1)
 =======
+=======
+>>>>>>> 03397665 (update api)
 func SetSecurityInfo(handle Handle, objectType SE_OBJECT_TYPE, securityInformation SECURITY_INFORMATION, owner *SID, group *SID, dacl *ACL, sacl *ACL) (ret error) {
 	r0, _, _ := syscall.Syscall9(procSetSecurityInfo.Addr(), 7, uintptr(handle), uintptr(objectType), uintptr(securityInformation), uintptr(unsafe.Pointer(owner)), uintptr(unsafe.Pointer(group)), uintptr(unsafe.Pointer(dacl)), uintptr(unsafe.Pointer(sacl)), 0, 0)
 	if r0 != 0 {
 		ret = syscall.Errno(r0)
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func SetThreadToken(thread *Handle, token Token) (err error) {
 	r1, _, e1 := syscall.Syscall(procSetThreadToken.Addr(), 2, uintptr(unsafe.Pointer(thread)), uintptr(token), 0)
@@ -1665,12 +1854,17 @@ func SetThreadToken(thread *Handle, token Token) (err error) {
 func SetServiceStatus(service Handle, serviceStatus *SERVICE_STATUS) (err error) {
 	r1, _, e1 := syscall.Syscall(procSetServiceStatus.Addr(), 2, uintptr(service), uintptr(unsafe.Pointer(serviceStatus)), 0)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func SetServiceStatus(service Handle, serviceStatus *SERVICE_STATUS) (err error) {
+	r1, _, e1 := syscall.Syscall(procSetServiceStatus.Addr(), 2, uintptr(service), uintptr(unsafe.Pointer(serviceStatus)), 0)
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func SetTokenInformation(token Token, infoClass uint32, info *byte, infoLen uint32) (err error) {
 	r1, _, e1 := syscall.Syscall6(procSetTokenInformation.Addr(), 4, uintptr(token), uintptr(infoClass), uintptr(unsafe.Pointer(info)), uintptr(infoLen), 0, 0)
@@ -1678,12 +1872,17 @@ func SetTokenInformation(token Token, infoClass uint32, info *byte, infoLen uint
 func SetThreadToken(thread *Handle, token Token) (err error) {
 	r1, _, e1 := syscall.Syscall(procSetThreadToken.Addr(), 2, uintptr(unsafe.Pointer(thread)), uintptr(token), 0)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func SetThreadToken(thread *Handle, token Token) (err error) {
+	r1, _, e1 := syscall.Syscall(procSetThreadToken.Addr(), 2, uintptr(unsafe.Pointer(thread)), uintptr(token), 0)
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func StartServiceCtrlDispatcher(serviceTable *SERVICE_TABLE_ENTRY) (err error) {
 	r1, _, e1 := syscall.Syscall(procStartServiceCtrlDispatcherW.Addr(), 1, uintptr(unsafe.Pointer(serviceTable)), 0, 0)
@@ -1691,12 +1890,17 @@ func StartServiceCtrlDispatcher(serviceTable *SERVICE_TABLE_ENTRY) (err error) {
 func SetTokenInformation(token Token, infoClass uint32, info *byte, infoLen uint32) (err error) {
 	r1, _, e1 := syscall.Syscall6(procSetTokenInformation.Addr(), 4, uintptr(token), uintptr(infoClass), uintptr(unsafe.Pointer(info)), uintptr(infoLen), 0, 0)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func SetTokenInformation(token Token, infoClass uint32, info *byte, infoLen uint32) (err error) {
+	r1, _, e1 := syscall.Syscall6(procSetTokenInformation.Addr(), 4, uintptr(token), uintptr(infoClass), uintptr(unsafe.Pointer(info)), uintptr(infoLen), 0, 0)
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func StartService(service Handle, numArgs uint32, argVectors **uint16) (err error) {
 	r1, _, e1 := syscall.Syscall(procStartServiceW.Addr(), 3, uintptr(service), uintptr(numArgs), uintptr(unsafe.Pointer(argVectors)))
@@ -1704,12 +1908,17 @@ func StartService(service Handle, numArgs uint32, argVectors **uint16) (err erro
 func StartServiceCtrlDispatcher(serviceTable *SERVICE_TABLE_ENTRY) (err error) {
 	r1, _, e1 := syscall.Syscall(procStartServiceCtrlDispatcherW.Addr(), 1, uintptr(unsafe.Pointer(serviceTable)), 0, 0)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func StartServiceCtrlDispatcher(serviceTable *SERVICE_TABLE_ENTRY) (err error) {
+	r1, _, e1 := syscall.Syscall(procStartServiceCtrlDispatcherW.Addr(), 1, uintptr(unsafe.Pointer(serviceTable)), 0, 0)
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func CertAddCertificateContextToStore(store Handle, certContext *CertContext, addDisposition uint32, storeContext **CertContext) (err error) {
 	r1, _, e1 := syscall.Syscall6(procCertAddCertificateContextToStore.Addr(), 4, uintptr(store), uintptr(unsafe.Pointer(certContext)), uintptr(addDisposition), uintptr(unsafe.Pointer(storeContext)), 0, 0)
@@ -1717,12 +1926,17 @@ func CertAddCertificateContextToStore(store Handle, certContext *CertContext, ad
 func StartService(service Handle, numArgs uint32, argVectors **uint16) (err error) {
 	r1, _, e1 := syscall.Syscall(procStartServiceW.Addr(), 3, uintptr(service), uintptr(numArgs), uintptr(unsafe.Pointer(argVectors)))
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func StartService(service Handle, numArgs uint32, argVectors **uint16) (err error) {
+	r1, _, e1 := syscall.Syscall(procStartServiceW.Addr(), 3, uintptr(service), uintptr(numArgs), uintptr(unsafe.Pointer(argVectors)))
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func CertCloseStore(store Handle, flags uint32) (err error) {
 	r1, _, e1 := syscall.Syscall(procCertCloseStore.Addr(), 2, uintptr(store), uintptr(flags), 0)
@@ -1730,12 +1944,17 @@ func CertCloseStore(store Handle, flags uint32) (err error) {
 func CertAddCertificateContextToStore(store Handle, certContext *CertContext, addDisposition uint32, storeContext **CertContext) (err error) {
 	r1, _, e1 := syscall.Syscall6(procCertAddCertificateContextToStore.Addr(), 4, uintptr(store), uintptr(unsafe.Pointer(certContext)), uintptr(addDisposition), uintptr(unsafe.Pointer(storeContext)), 0, 0)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func CertAddCertificateContextToStore(store Handle, certContext *CertContext, addDisposition uint32, storeContext **CertContext) (err error) {
+	r1, _, e1 := syscall.Syscall6(procCertAddCertificateContextToStore.Addr(), 4, uintptr(store), uintptr(unsafe.Pointer(certContext)), uintptr(addDisposition), uintptr(unsafe.Pointer(storeContext)), 0, 0)
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func CertCreateCertificateContext(certEncodingType uint32, certEncoded *byte, encodedLen uint32) (context *CertContext, err error) {
 	r0, _, e1 := syscall.Syscall(procCertCreateCertificateContext.Addr(), 3, uintptr(certEncodingType), uintptr(unsafe.Pointer(certEncoded)), uintptr(encodedLen))
@@ -1746,20 +1965,29 @@ func CertCloseStore(store Handle, flags uint32) (err error) {
 	r1, _, e1 := syscall.Syscall(procCertCloseStore.Addr(), 2, uintptr(store), uintptr(flags), 0)
 	if r1 == 0 {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func CertCloseStore(store Handle, flags uint32) (err error) {
+	r1, _, e1 := syscall.Syscall(procCertCloseStore.Addr(), 2, uintptr(store), uintptr(flags), 0)
+	if r1 == 0 {
+>>>>>>> 03397665 (update api)
 		err = errnoErr(e1)
 	}
 	return
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 func CertDeleteCertificateFromStore(certContext *CertContext) (err error) {
 	r1, _, e1 := syscall.Syscall(procCertDeleteCertificateFromStore.Addr(), 1, uintptr(unsafe.Pointer(certContext)), 0, 0)
 	if r1 == 0 {
 =======
+=======
+>>>>>>> 03397665 (update api)
 func CertCreateCertificateContext(certEncodingType uint32, certEncoded *byte, encodedLen uint32) (context *CertContext, err error) {
 	r0, _, e1 := syscall.Syscall(procCertCreateCertificateContext.Addr(), 3, uintptr(certEncodingType), uintptr(unsafe.Pointer(certEncoded)), uintptr(encodedLen))
 	context = (*CertContext)(unsafe.Pointer(r0))
 	if context == nil {
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
 		err = errnoErr(e1)
 	}
@@ -1777,16 +2005,21 @@ func CertEnumCertificatesInStore(store Handle, prevContext *CertContext) (contex
 	r0, _, e1 := syscall.Syscall(procCertEnumCertificatesInStore.Addr(), 2, uintptr(store), uintptr(unsafe.Pointer(prevContext)), 0)
 	context = (*CertContext)(unsafe.Pointer(r0))
 	if context == nil {
+=======
+>>>>>>> 03397665 (update api)
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 func CertFindCertificateInStore(store Handle, certEncodingType uint32, findFlags uint32, findType uint32, findPara unsafe.Pointer, prevCertContext *CertContext) (cert *CertContext, err error) {
 	r0, _, e1 := syscall.Syscall6(procCertFindCertificateInStore.Addr(), 6, uintptr(store), uintptr(certEncodingType), uintptr(findFlags), uintptr(findType), uintptr(findPara), uintptr(unsafe.Pointer(prevCertContext)))
 	cert = (*CertContext)(unsafe.Pointer(r0))
 	if cert == nil {
 =======
+=======
+>>>>>>> 03397665 (update api)
 func CertDeleteCertificateFromStore(certContext *CertContext) (err error) {
 	r1, _, e1 := syscall.Syscall(procCertDeleteCertificateFromStore.Addr(), 1, uintptr(unsafe.Pointer(certContext)), 0, 0)
 	if r1 == 0 {
@@ -1805,28 +2038,38 @@ func CertEnumCertificatesInStore(store Handle, prevContext *CertContext) (contex
 	r0, _, e1 := syscall.Syscall(procCertEnumCertificatesInStore.Addr(), 2, uintptr(store), uintptr(unsafe.Pointer(prevContext)), 0)
 	context = (*CertContext)(unsafe.Pointer(r0))
 	if context == nil {
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		err = errnoErr(e1)
 	}
 	return
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 func CertFindChainInStore(store Handle, certEncodingType uint32, findFlags uint32, findType uint32, findPara unsafe.Pointer, prevChainContext *CertChainContext) (certchain *CertChainContext, err error) {
 	r0, _, e1 := syscall.Syscall6(procCertFindChainInStore.Addr(), 6, uintptr(store), uintptr(certEncodingType), uintptr(findFlags), uintptr(findType), uintptr(findPara), uintptr(unsafe.Pointer(prevChainContext)))
 	certchain = (*CertChainContext)(unsafe.Pointer(r0))
 	if certchain == nil {
 =======
+=======
+>>>>>>> 03397665 (update api)
 func CertFindCertificateInStore(store Handle, certEncodingType uint32, findFlags uint32, findType uint32, findPara unsafe.Pointer, prevCertContext *CertContext) (cert *CertContext, err error) {
 	r0, _, e1 := syscall.Syscall6(procCertFindCertificateInStore.Addr(), 6, uintptr(store), uintptr(certEncodingType), uintptr(findFlags), uintptr(findType), uintptr(findPara), uintptr(unsafe.Pointer(prevCertContext)))
 	cert = (*CertContext)(unsafe.Pointer(r0))
 	if cert == nil {
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func CertFindExtension(objId *byte, countExtensions uint32, extensions *CertExtension) (ret *CertExtension) {
 	r0, _, _ := syscall.Syscall(procCertFindExtension.Addr(), 3, uintptr(unsafe.Pointer(objId)), uintptr(countExtensions), uintptr(unsafe.Pointer(extensions)))
@@ -1835,6 +2078,8 @@ func CertFindExtension(objId *byte, countExtensions uint32, extensions *CertExte
 }
 
 =======
+=======
+>>>>>>> 03397665 (update api)
 func CertFindChainInStore(store Handle, certEncodingType uint32, findFlags uint32, findType uint32, findPara unsafe.Pointer, prevChainContext *CertChainContext) (certchain *CertChainContext, err error) {
 	r0, _, e1 := syscall.Syscall6(procCertFindChainInStore.Addr(), 6, uintptr(store), uintptr(certEncodingType), uintptr(findFlags), uintptr(findType), uintptr(findPara), uintptr(unsafe.Pointer(prevChainContext)))
 	certchain = (*CertChainContext)(unsafe.Pointer(r0))
@@ -1850,7 +2095,10 @@ func CertFindExtension(objId *byte, countExtensions uint32, extensions *CertExte
 	return
 }
 
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func CertFreeCertificateChain(ctx *CertChainContext) {
 	syscall.Syscall(procCertFreeCertificateChain.Addr(), 1, uintptr(unsafe.Pointer(ctx)), 0, 0)
 	return
@@ -2164,6 +2412,9 @@ func CreateProcess(appName *uint16, commandLine *uint16, procSecurity *SecurityA
 	if inheritHandles {
 		_p0 = 1
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 	}
 	r1, _, e1 := syscall.Syscall12(procCreateProcessW.Addr(), 10, uintptr(unsafe.Pointer(appName)), uintptr(unsafe.Pointer(commandLine)), uintptr(unsafe.Pointer(procSecurity)), uintptr(unsafe.Pointer(threadSecurity)), uintptr(_p0), uintptr(creationFlags), uintptr(unsafe.Pointer(env)), uintptr(unsafe.Pointer(currentDir)), uintptr(unsafe.Pointer(startupInfo)), uintptr(unsafe.Pointer(outProcInfo)), 0, 0)
 	if r1 == 0 {
@@ -2185,16 +2436,26 @@ func CreateToolhelp32Snapshot(flags uint32, processId uint32) (handle Handle, er
 	handle = Handle(r0)
 	if handle == InvalidHandle {
 		err = errnoErr(e1)
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
 	}
 	r1, _, e1 := syscall.Syscall12(procCreateProcessW.Addr(), 10, uintptr(unsafe.Pointer(appName)), uintptr(unsafe.Pointer(commandLine)), uintptr(unsafe.Pointer(procSecurity)), uintptr(unsafe.Pointer(threadSecurity)), uintptr(_p0), uintptr(creationFlags), uintptr(unsafe.Pointer(env)), uintptr(unsafe.Pointer(currentDir)), uintptr(unsafe.Pointer(startupInfo)), uintptr(unsafe.Pointer(outProcInfo)), 0, 0)
+=======
+	}
+	return
+}
+
+func DefineDosDevice(flags uint32, deviceName *uint16, targetPath *uint16) (err error) {
+	r1, _, e1 := syscall.Syscall(procDefineDosDeviceW.Addr(), 3, uintptr(flags), uintptr(unsafe.Pointer(deviceName)), uintptr(unsafe.Pointer(targetPath)))
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func DeleteFile(path *uint16) (err error) {
 	r1, _, e1 := syscall.Syscall(procDeleteFileW.Addr(), 1, uintptr(unsafe.Pointer(path)), 0, 0)
@@ -2204,12 +2465,20 @@ func CreateSymbolicLink(symlinkfilename *uint16, targetfilename *uint16, flags u
 	r1, _, e1 := syscall.Syscall(procCreateSymbolicLinkW.Addr(), 3, uintptr(unsafe.Pointer(symlinkfilename)), uintptr(unsafe.Pointer(targetfilename)), uintptr(flags))
 	if r1&0xff == 0 {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func DeleteFile(path *uint16) (err error) {
+	r1, _, e1 := syscall.Syscall(procDeleteFileW.Addr(), 1, uintptr(unsafe.Pointer(path)), 0, 0)
+	if r1 == 0 {
+>>>>>>> 03397665 (update api)
 		err = errnoErr(e1)
 	}
 	return
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 func deleteProcThreadAttributeList(attrlist *ProcThreadAttributeList) {
 	syscall.Syscall(procDeleteProcThreadAttributeList.Addr(), 1, uintptr(unsafe.Pointer(attrlist)), 0, 0)
 	return
@@ -2217,6 +2486,7 @@ func deleteProcThreadAttributeList(attrlist *ProcThreadAttributeList) {
 
 func DeleteVolumeMountPoint(volumeMountPoint *uint16) (err error) {
 	r1, _, e1 := syscall.Syscall(procDeleteVolumeMountPointW.Addr(), 1, uintptr(unsafe.Pointer(volumeMountPoint)), 0, 0)
+<<<<<<< HEAD
 =======
 func CreateToolhelp32Snapshot(flags uint32, processId uint32) (handle Handle, err error) {
 	r0, _, e1 := syscall.Syscall(procCreateToolhelp32Snapshot.Addr(), 2, uintptr(flags), uintptr(processId), 0)
@@ -2230,12 +2500,15 @@ func CreateToolhelp32Snapshot(flags uint32, processId uint32) (handle Handle, er
 func DefineDosDevice(flags uint32, deviceName *uint16, targetPath *uint16) (err error) {
 	r1, _, e1 := syscall.Syscall(procDefineDosDeviceW.Addr(), 3, uintptr(flags), uintptr(unsafe.Pointer(deviceName)), uintptr(unsafe.Pointer(targetPath)))
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func DeviceIoControl(handle Handle, ioControlCode uint32, inBuffer *byte, inBufferSize uint32, outBuffer *byte, outBufferSize uint32, bytesReturned *uint32, overlapped *Overlapped) (err error) {
 	r1, _, e1 := syscall.Syscall9(procDeviceIoControl.Addr(), 8, uintptr(handle), uintptr(ioControlCode), uintptr(unsafe.Pointer(inBuffer)), uintptr(inBufferSize), uintptr(unsafe.Pointer(outBuffer)), uintptr(outBufferSize), uintptr(unsafe.Pointer(bytesReturned)), uintptr(unsafe.Pointer(overlapped)), 0)
@@ -2243,6 +2516,10 @@ func DeviceIoControl(handle Handle, ioControlCode uint32, inBuffer *byte, inBuff
 func DeleteFile(path *uint16) (err error) {
 	r1, _, e1 := syscall.Syscall(procDeleteFileW.Addr(), 1, uintptr(unsafe.Pointer(path)), 0, 0)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func DeviceIoControl(handle Handle, ioControlCode uint32, inBuffer *byte, inBufferSize uint32, outBuffer *byte, outBufferSize uint32, bytesReturned *uint32, overlapped *Overlapped) (err error) {
+	r1, _, e1 := syscall.Syscall9(procDeviceIoControl.Addr(), 8, uintptr(handle), uintptr(ioControlCode), uintptr(unsafe.Pointer(inBuffer)), uintptr(inBufferSize), uintptr(unsafe.Pointer(outBuffer)), uintptr(outBufferSize), uintptr(unsafe.Pointer(bytesReturned)), uintptr(unsafe.Pointer(overlapped)), 0)
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
@@ -2250,12 +2527,16 @@ func DeleteFile(path *uint16) (err error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 func DuplicateHandle(hSourceProcessHandle Handle, hSourceHandle Handle, hTargetProcessHandle Handle, lpTargetHandle *Handle, dwDesiredAccess uint32, bInheritHandle bool, dwOptions uint32) (err error) {
 	var _p0 uint32
 	if bInheritHandle {
 		_p0 = 1
 	}
 	r1, _, e1 := syscall.Syscall9(procDuplicateHandle.Addr(), 7, uintptr(hSourceProcessHandle), uintptr(hSourceHandle), uintptr(hTargetProcessHandle), uintptr(unsafe.Pointer(lpTargetHandle)), uintptr(dwDesiredAccess), uintptr(_p0), uintptr(dwOptions), 0, 0)
+<<<<<<< HEAD
 =======
 func deleteProcThreadAttributeList(attrlist *ProcThreadAttributeList) {
 	syscall.Syscall(procDeleteProcThreadAttributeList.Addr(), 1, uintptr(unsafe.Pointer(attrlist)), 0, 0)
@@ -2265,6 +2546,8 @@ func deleteProcThreadAttributeList(attrlist *ProcThreadAttributeList) {
 func DeleteVolumeMountPoint(volumeMountPoint *uint16) (err error) {
 	r1, _, e1 := syscall.Syscall(procDeleteVolumeMountPointW.Addr(), 1, uintptr(unsafe.Pointer(volumeMountPoint)), 0, 0)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
@@ -2272,6 +2555,9 @@ func DeleteVolumeMountPoint(volumeMountPoint *uint16) (err error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 func ExitProcess(exitcode uint32) {
 	syscall.Syscall(procExitProcess.Addr(), 1, uintptr(exitcode), 0, 0)
 	return
@@ -2279,16 +2565,20 @@ func ExitProcess(exitcode uint32) {
 
 func FindClose(handle Handle) (err error) {
 	r1, _, e1 := syscall.Syscall(procFindClose.Addr(), 1, uintptr(handle), 0, 0)
+<<<<<<< HEAD
 =======
 func DeviceIoControl(handle Handle, ioControlCode uint32, inBuffer *byte, inBufferSize uint32, outBuffer *byte, outBufferSize uint32, bytesReturned *uint32, overlapped *Overlapped) (err error) {
 	r1, _, e1 := syscall.Syscall9(procDeviceIoControl.Addr(), 8, uintptr(handle), uintptr(ioControlCode), uintptr(unsafe.Pointer(inBuffer)), uintptr(inBufferSize), uintptr(unsafe.Pointer(outBuffer)), uintptr(outBufferSize), uintptr(unsafe.Pointer(bytesReturned)), uintptr(unsafe.Pointer(overlapped)), 0)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func FindCloseChangeNotification(handle Handle) (err error) {
 	r1, _, e1 := syscall.Syscall(procFindCloseChangeNotification.Addr(), 1, uintptr(handle), 0, 0)
@@ -2300,6 +2590,10 @@ func DuplicateHandle(hSourceProcessHandle Handle, hSourceHandle Handle, hTargetP
 	}
 	r1, _, e1 := syscall.Syscall9(procDuplicateHandle.Addr(), 7, uintptr(hSourceProcessHandle), uintptr(hSourceHandle), uintptr(hTargetProcessHandle), uintptr(unsafe.Pointer(lpTargetHandle)), uintptr(dwDesiredAccess), uintptr(_p0), uintptr(dwOptions), 0, 0)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func FindCloseChangeNotification(handle Handle) (err error) {
+	r1, _, e1 := syscall.Syscall(procFindCloseChangeNotification.Addr(), 1, uintptr(handle), 0, 0)
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
@@ -2307,6 +2601,9 @@ func DuplicateHandle(hSourceProcessHandle Handle, hSourceHandle Handle, hTargetP
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 func FindFirstChangeNotification(path string, watchSubtree bool, notifyFilter uint32) (handle Handle, err error) {
 	var _p0 *uint16
 	_p0, err = syscall.UTF16PtrFromString(path)
@@ -2333,6 +2630,7 @@ func findFirstFile1(name *uint16, data *win32finddata1) (handle Handle, err erro
 	r0, _, e1 := syscall.Syscall(procFindFirstFileW.Addr(), 2, uintptr(unsafe.Pointer(name)), uintptr(unsafe.Pointer(data)), 0)
 	handle = Handle(r0)
 	if handle == InvalidHandle {
+<<<<<<< HEAD
 =======
 func ExitProcess(exitcode uint32) {
 	syscall.Syscall(procExitProcess.Addr(), 1, uintptr(exitcode), 0, 0)
@@ -2343,32 +2641,44 @@ func FindClose(handle Handle) (err error) {
 	r1, _, e1 := syscall.Syscall(procFindClose.Addr(), 1, uintptr(handle), 0, 0)
 	if r1 == 0 {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		err = errnoErr(e1)
 	}
 	return
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 func FindFirstVolumeMountPoint(rootPathName *uint16, volumeMountPoint *uint16, bufferLength uint32) (handle Handle, err error) {
 	r0, _, e1 := syscall.Syscall(procFindFirstVolumeMountPointW.Addr(), 3, uintptr(unsafe.Pointer(rootPathName)), uintptr(unsafe.Pointer(volumeMountPoint)), uintptr(bufferLength))
 	handle = Handle(r0)
 	if handle == InvalidHandle {
+<<<<<<< HEAD
 =======
 func FindCloseChangeNotification(handle Handle) (err error) {
 	r1, _, e1 := syscall.Syscall(procFindCloseChangeNotification.Addr(), 1, uintptr(handle), 0, 0)
 	if r1 == 0 {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		err = errnoErr(e1)
 	}
 	return
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 func FindFirstVolume(volumeName *uint16, bufferLength uint32) (handle Handle, err error) {
 	r0, _, e1 := syscall.Syscall(procFindFirstVolumeW.Addr(), 2, uintptr(unsafe.Pointer(volumeName)), uintptr(bufferLength), 0)
 	handle = Handle(r0)
 	if handle == InvalidHandle {
 		err = errnoErr(e1)
+<<<<<<< HEAD
 =======
 func FindFirstChangeNotification(path string, watchSubtree bool, notifyFilter uint32) (handle Handle, err error) {
 	var _p0 *uint16
@@ -2394,11 +2704,21 @@ func _FindFirstChangeNotification(path *uint16, watchSubtree bool, notifyFilter 
 	handle = Handle(r0)
 	if handle == InvalidHandle {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	}
+	return
+}
+
+func FindNextChangeNotification(handle Handle) (err error) {
+	r1, _, e1 := syscall.Syscall(procFindNextChangeNotification.Addr(), 1, uintptr(handle), 0, 0)
+	if r1 == 0 {
+>>>>>>> 03397665 (update api)
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func findNextFile1(handle Handle, data *win32finddata1) (err error) {
 	r1, _, e1 := syscall.Syscall(procFindNextFileW.Addr(), 2, uintptr(handle), uintptr(unsafe.Pointer(data)), 0)
@@ -2409,11 +2729,17 @@ func findFirstFile1(name *uint16, data *win32finddata1) (handle Handle, err erro
 	handle = Handle(r0)
 	if handle == InvalidHandle {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func findNextFile1(handle Handle, data *win32finddata1) (err error) {
+	r1, _, e1 := syscall.Syscall(procFindNextFileW.Addr(), 2, uintptr(handle), uintptr(unsafe.Pointer(data)), 0)
+	if r1 == 0 {
+>>>>>>> 03397665 (update api)
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func FindNextVolumeMountPoint(findVolumeMountPoint Handle, volumeMountPoint *uint16, bufferLength uint32) (err error) {
 	r1, _, e1 := syscall.Syscall(procFindNextVolumeMountPointW.Addr(), 3, uintptr(findVolumeMountPoint), uintptr(unsafe.Pointer(volumeMountPoint)), uintptr(bufferLength))
@@ -2424,11 +2750,17 @@ func FindFirstVolumeMountPoint(rootPathName *uint16, volumeMountPoint *uint16, b
 	handle = Handle(r0)
 	if handle == InvalidHandle {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func FindNextVolumeMountPoint(findVolumeMountPoint Handle, volumeMountPoint *uint16, bufferLength uint32) (err error) {
+	r1, _, e1 := syscall.Syscall(procFindNextVolumeMountPointW.Addr(), 3, uintptr(findVolumeMountPoint), uintptr(unsafe.Pointer(volumeMountPoint)), uintptr(bufferLength))
+	if r1 == 0 {
+>>>>>>> 03397665 (update api)
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func FindNextVolume(findVolume Handle, volumeName *uint16, bufferLength uint32) (err error) {
 	r1, _, e1 := syscall.Syscall(procFindNextVolumeW.Addr(), 3, uintptr(findVolume), uintptr(unsafe.Pointer(volumeName)), uintptr(bufferLength))
@@ -2439,26 +2771,38 @@ func FindFirstVolume(volumeName *uint16, bufferLength uint32) (handle Handle, er
 	handle = Handle(r0)
 	if handle == InvalidHandle {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func FindNextVolume(findVolume Handle, volumeName *uint16, bufferLength uint32) (err error) {
+	r1, _, e1 := syscall.Syscall(procFindNextVolumeW.Addr(), 3, uintptr(findVolume), uintptr(unsafe.Pointer(volumeName)), uintptr(bufferLength))
+	if r1 == 0 {
+>>>>>>> 03397665 (update api)
 		err = errnoErr(e1)
 	}
 	return
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 func findResource(module Handle, name uintptr, resType uintptr) (resInfo Handle, err error) {
 	r0, _, e1 := syscall.Syscall(procFindResourceW.Addr(), 3, uintptr(module), uintptr(name), uintptr(resType))
 	resInfo = Handle(r0)
 	if resInfo == 0 {
+<<<<<<< HEAD
 =======
 func FindNextChangeNotification(handle Handle) (err error) {
 	r1, _, e1 := syscall.Syscall(procFindNextChangeNotification.Addr(), 1, uintptr(handle), 0, 0)
 	if r1 == 0 {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func FindVolumeClose(findVolume Handle) (err error) {
 	r1, _, e1 := syscall.Syscall(procFindVolumeClose.Addr(), 1, uintptr(findVolume), 0, 0)
@@ -2466,12 +2810,17 @@ func FindVolumeClose(findVolume Handle) (err error) {
 func findNextFile1(handle Handle, data *win32finddata1) (err error) {
 	r1, _, e1 := syscall.Syscall(procFindNextFileW.Addr(), 2, uintptr(handle), uintptr(unsafe.Pointer(data)), 0)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func FindVolumeClose(findVolume Handle) (err error) {
+	r1, _, e1 := syscall.Syscall(procFindVolumeClose.Addr(), 1, uintptr(findVolume), 0, 0)
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func FindVolumeMountPointClose(findVolumeMountPoint Handle) (err error) {
 	r1, _, e1 := syscall.Syscall(procFindVolumeMountPointClose.Addr(), 1, uintptr(findVolumeMountPoint), 0, 0)
@@ -2479,6 +2828,10 @@ func FindVolumeMountPointClose(findVolumeMountPoint Handle) (err error) {
 func FindNextVolumeMountPoint(findVolumeMountPoint Handle, volumeMountPoint *uint16, bufferLength uint32) (err error) {
 	r1, _, e1 := syscall.Syscall(procFindNextVolumeMountPointW.Addr(), 3, uintptr(findVolumeMountPoint), uintptr(unsafe.Pointer(volumeMountPoint)), uintptr(bufferLength))
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func FindVolumeMountPointClose(findVolumeMountPoint Handle) (err error) {
+	r1, _, e1 := syscall.Syscall(procFindVolumeMountPointClose.Addr(), 1, uintptr(findVolumeMountPoint), 0, 0)
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
@@ -2486,18 +2839,24 @@ func FindNextVolumeMountPoint(findVolumeMountPoint Handle, volumeMountPoint *uin
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 func FlushFileBuffers(handle Handle) (err error) {
 	r1, _, e1 := syscall.Syscall(procFlushFileBuffers.Addr(), 1, uintptr(handle), 0, 0)
 =======
 func FindNextVolume(findVolume Handle, volumeName *uint16, bufferLength uint32) (err error) {
 	r1, _, e1 := syscall.Syscall(procFindNextVolumeW.Addr(), 3, uintptr(findVolume), uintptr(unsafe.Pointer(volumeName)), uintptr(bufferLength))
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func FlushFileBuffers(handle Handle) (err error) {
+	r1, _, e1 := syscall.Syscall(procFlushFileBuffers.Addr(), 1, uintptr(handle), 0, 0)
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
 	return
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func FlushViewOfFile(addr uintptr, length uintptr) (err error) {
 	r1, _, e1 := syscall.Syscall(procFlushViewOfFile.Addr(), 2, uintptr(addr), uintptr(length), 0)
@@ -2508,12 +2867,20 @@ func findResource(module Handle, name uintptr, resType uintptr) (resInfo Handle,
 	resInfo = Handle(r0)
 	if resInfo == 0 {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func FlushViewOfFile(addr uintptr, length uintptr) (err error) {
+	r1, _, e1 := syscall.Syscall(procFlushViewOfFile.Addr(), 2, uintptr(addr), uintptr(length), 0)
+	if r1 == 0 {
+>>>>>>> 03397665 (update api)
 		err = errnoErr(e1)
 	}
 	return
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 func FormatMessage(flags uint32, msgsrc uintptr, msgid uint32, langid uint32, buf []uint16, args *byte) (n uint32, err error) {
 	var _p0 *uint16
 	if len(buf) > 0 {
@@ -3565,6 +3932,7 @@ func SetStdHandle(stdhandle uint32, handle Handle) (err error) {
 
 func SetVolumeLabel(rootPathName *uint16, volumeName *uint16) (err error) {
 	r1, _, e1 := syscall.Syscall(procSetVolumeLabelW.Addr(), 2, uintptr(unsafe.Pointer(rootPathName)), uintptr(unsafe.Pointer(volumeName)), 0)
+<<<<<<< HEAD
 =======
 func FindVolumeClose(findVolume Handle) (err error) {
 	r1, _, e1 := syscall.Syscall(procFindVolumeClose.Addr(), 1, uintptr(findVolume), 0, 0)
@@ -5353,6 +5721,8 @@ func SetStdHandle(stdhandle uint32, handle Handle) (err error) {
 
 func SetVolumeLabel(rootPathName *uint16, volumeName *uint16) (err error) {
 	r1, _, e1 := syscall.Syscall(procSetVolumeLabelW.Addr(), 2, uintptr(unsafe.Pointer(rootPathName)), uintptr(unsafe.Pointer(volumeName)), 0)
+=======
+>>>>>>> 03397665 (update api)
 	if r1 == 0 {
 		err = errnoErr(e1)
 	}
@@ -6134,7 +6504,10 @@ func WTSFreeMemory(ptr uintptr) {
 	return
 }
 
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func WTSQueryUserToken(session uint32, token *Token) (err error) {
 	r1, _, e1 := syscall.Syscall(procWTSQueryUserToken.Addr(), 2, uintptr(session), uintptr(unsafe.Pointer(token)), 0)
 	if r1 == 0 {

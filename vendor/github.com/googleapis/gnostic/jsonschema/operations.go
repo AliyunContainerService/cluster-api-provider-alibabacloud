@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Copyright 2017 Google LLC. All Rights Reserved.
 =======
 // Copyright 2017 Google Inc. All Rights Reserved.
@@ -7,6 +8,9 @@
 =======
 // Copyright 2017 Google LLC. All Rights Reserved.
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+// Copyright 2017 Google LLC. All Rights Reserved.
+>>>>>>> 03397665 (update api)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.

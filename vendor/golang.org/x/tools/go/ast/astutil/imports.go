@@ -16,11 +16,15 @@ import (
 // AddImport adds the import path to the file f, if absent.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 func AddImport(fset *token.FileSet, f *ast.File, path string) (added bool) {
 	return AddNamedImport(fset, f, "", path)
 }
 
 // AddNamedImport adds the import with the given name and path to the file f, if absent.
+<<<<<<< HEAD
 =======
 func AddImport(fset *token.FileSet, f *ast.File, ipath string) (added bool) {
 	return AddNamedImport(fset, f, "", ipath)
@@ -35,12 +39,15 @@ func AddImport(fset *token.FileSet, f *ast.File, path string) (added bool) {
 
 // AddNamedImport adds the import with the given name and path to the file f, if absent.
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // If name is not empty, it is used to rename the import.
 //
 // For example, calling
 //	AddNamedImport(fset, f, "pathpkg", "path")
 // adds
 //	import pathpkg "path"
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 func AddNamedImport(fset *token.FileSet, f *ast.File, name, path string) (added bool) {
@@ -53,12 +60,17 @@ func AddNamedImport(fset *token.FileSet, f *ast.File, name, ipath string) (added
 func AddNamedImport(fset *token.FileSet, f *ast.File, name, path string) (added bool) {
 	if imports(f, name, path) {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func AddNamedImport(fset *token.FileSet, f *ast.File, name, path string) (added bool) {
+	if imports(f, name, path) {
+>>>>>>> 03397665 (update api)
 		return false
 	}
 
 	newImport := &ast.ImportSpec{
 		Path: &ast.BasicLit{
 			Kind:  token.STRING,
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 			Value: strconv.Quote(path),
@@ -68,6 +80,9 @@ func AddNamedImport(fset *token.FileSet, f *ast.File, name, path string) (added 
 =======
 			Value: strconv.Quote(path),
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+			Value: strconv.Quote(path),
+>>>>>>> 03397665 (update api)
 		},
 	}
 	if name != "" {
@@ -79,6 +94,7 @@ func AddNamedImport(fset *token.FileSet, f *ast.File, name, path string) (added 
 	// whose import path has the longest shared
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// prefix with path.
 =======
 	// prefix with ipath.
@@ -86,12 +102,16 @@ func AddNamedImport(fset *token.FileSet, f *ast.File, name, path string) (added 
 =======
 	// prefix with path.
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	// prefix with path.
+>>>>>>> 03397665 (update api)
 	var (
 		bestMatch  = -1         // length of longest shared prefix
 		lastImport = -1         // index in f.Decls of the file's final import decl
 		impDecl    *ast.GenDecl // import decl containing the best match
 		impIndex   = -1         // spec index in impDecl containing the best match
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 		isThirdPartyPath = isThirdParty(path)
@@ -101,6 +121,9 @@ func AddNamedImport(fset *token.FileSet, f *ast.File, name, path string) (added 
 =======
 		isThirdPartyPath = isThirdParty(path)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+		isThirdPartyPath = isThirdParty(path)
+>>>>>>> 03397665 (update api)
 	)
 	for i, decl := range f.Decls {
 		gen, ok := decl.(*ast.GenDecl)
@@ -133,6 +156,7 @@ func AddNamedImport(fset *token.FileSet, f *ast.File, name, path string) (added 
 				p := importPath(impspec)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 				n := matchLen(p, path)
 =======
 				n := matchLen(p, ipath)
@@ -140,6 +164,9 @@ func AddNamedImport(fset *token.FileSet, f *ast.File, name, path string) (added 
 =======
 				n := matchLen(p, path)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+				n := matchLen(p, path)
+>>>>>>> 03397665 (update api)
 				if n > bestMatch || (bestMatch == 0 && !seenAnyThirdParty && isThirdPartyPath) {
 					bestMatch = n
 					impDecl = gen
@@ -257,12 +284,16 @@ func isThirdParty(importPath string) bool {
 // DeleteImport deletes the import path from the file f, if present.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 // If there are duplicate import declarations, all matching ones are deleted.
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 // If there are duplicate import declarations, all matching ones are deleted.
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+// If there are duplicate import declarations, all matching ones are deleted.
+>>>>>>> 03397665 (update api)
 func DeleteImport(fset *token.FileSet, f *ast.File, path string) (deleted bool) {
 	return DeleteNamedImport(fset, f, "", path)
 }
@@ -270,12 +301,16 @@ func DeleteImport(fset *token.FileSet, f *ast.File, path string) (deleted bool) 
 // DeleteNamedImport deletes the import with the given name and path from the file f, if present.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 // If there are duplicate import declarations, all matching ones are deleted.
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 // If there are duplicate import declarations, all matching ones are deleted.
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+// If there are duplicate import declarations, all matching ones are deleted.
+>>>>>>> 03397665 (update api)
 func DeleteNamedImport(fset *token.FileSet, f *ast.File, name, path string) (deleted bool) {
 	var delspecs []*ast.ImportSpec
 	var delcomments []*ast.CommentGroup
@@ -292,6 +327,7 @@ func DeleteNamedImport(fset *token.FileSet, f *ast.File, name, path string) (del
 			impspec := spec.(*ast.ImportSpec)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			if importName(impspec) != name || importPath(impspec) != path {
 =======
 			if impspec.Name == nil && name != "" {
@@ -305,6 +341,9 @@ func DeleteNamedImport(fset *token.FileSet, f *ast.File, name, path string) (del
 =======
 			if importName(impspec) != name || importPath(impspec) != path {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+			if importName(impspec) != name || importPath(impspec) != path {
+>>>>>>> 03397665 (update api)
 				continue
 			}
 
@@ -363,10 +402,14 @@ func DeleteNamedImport(fset *token.FileSet, f *ast.File, name, path string) (del
 				// a blank line-sized hole where the import was.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 				if line-lastLine > 1 || !gen.Rparen.IsValid() {
 					// There was a blank line immediately preceding the deleted import,
 					// so there's no need to close the hole. The right parenthesis is
 					// invalid after AddImport to an import statement without parenthesis.
+<<<<<<< HEAD
 =======
 				if line-lastLine > 1 {
 					// There was a blank line immediately preceding the deleted import,
@@ -378,6 +421,8 @@ func DeleteNamedImport(fset *token.FileSet, f *ast.File, name, path string) (del
 					// so there's no need to close the hole. The right parenthesis is
 					// invalid after AddImport to an import statement without parenthesis.
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 					// Do nothing.
 				} else if line != fset.File(gen.Rparen).LineCount() {
 					// There was no blank line. Close the hole.
@@ -481,8 +526,11 @@ func (fn visitFn) Visit(node ast.Node) ast.Visitor {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // imports reports whether f has an import with the specified name and path.
 func imports(f *ast.File, name, path string) bool {
 	for _, s := range f.Imports {
@@ -492,6 +540,7 @@ func imports(f *ast.File, name, path string) bool {
 	}
 	return false
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 // imports returns true if f imports path.
 func imports(f *ast.File, path string) bool {
@@ -499,6 +548,8 @@ func imports(f *ast.File, path string) bool {
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }
 
 // importSpec returns the import spec if f imports path,
@@ -514,8 +565,11 @@ func importSpec(f *ast.File, path string) *ast.ImportSpec {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // importName returns the name of s,
 // or "" if the import is not named.
 func importName(s *ast.ImportSpec) string {
@@ -526,14 +580,18 @@ func importName(s *ast.ImportSpec) string {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // importPath returns the unquoted import path of s,
 // or "" if the path is not properly quoted.
 func importPath(s *ast.ImportSpec) string {
 	t, err := strconv.Unquote(s.Path.Value)
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	if err != nil {
@@ -547,11 +605,16 @@ func importPath(s *ast.ImportSpec) string {
 	return ""
 >>>>>>> 79bfea2d (update vendor)
 =======
+=======
+>>>>>>> 03397665 (update api)
 	if err != nil {
 		return ""
 	}
 	return t
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }
 
 // declImports reports whether gen contains an import of path.

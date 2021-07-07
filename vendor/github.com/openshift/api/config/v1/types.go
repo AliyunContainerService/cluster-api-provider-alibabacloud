@@ -19,6 +19,7 @@ type ConfigMapNameReference struct {
 	// name is the metadata.name of the referenced config map
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// +kubebuilder:validation:Required
 	// +required
 =======
@@ -27,6 +28,10 @@ type ConfigMapNameReference struct {
 	// +kubebuilder:validation:Required
 	// +required
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	// +kubebuilder:validation:Required
+	// +required
+>>>>>>> 03397665 (update api)
 	Name string `json:"name"`
 }
 
@@ -36,6 +41,7 @@ type SecretNameReference struct {
 	// name is the metadata.name of the referenced secret
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// +kubebuilder:validation:Required
 	// +required
 =======
@@ -44,6 +50,10 @@ type SecretNameReference struct {
 	// +kubebuilder:validation:Required
 	// +required
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	// +kubebuilder:validation:Required
+	// +required
+>>>>>>> 03397665 (update api)
 	Name string `json:"name"`
 }
 
@@ -185,12 +195,16 @@ type AdmissionPluginConfig struct {
 	// +nullable
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// +kubebuilder:pruning:PreserveUnknownFields
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 	// +kubebuilder:pruning:PreserveUnknownFields
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	// +kubebuilder:pruning:PreserveUnknownFields
+>>>>>>> 03397665 (update api)
 	Configuration runtime.RawExtension `json:"configuration"`
 }
 
@@ -236,12 +250,16 @@ type AuditConfig struct {
 	// +nullable
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// +kubebuilder:pruning:PreserveUnknownFields
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 	// +kubebuilder:pruning:PreserveUnknownFields
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	// +kubebuilder:pruning:PreserveUnknownFields
+>>>>>>> 03397665 (update api)
 	PolicyConfiguration runtime.RawExtension `json:"policyConfiguration"`
 
 	// Format of saved audits (legacy or json).

@@ -176,7 +176,10 @@ func setattrlistTimes(path string, times []Timespec, flags int) error {
 
 //sys	sysctl(mib []_C_int, old *byte, oldlen *uintptr, new *byte, newlen uintptr) (err error) = SYS___SYSCTL
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 03397665 (update api)
 
 func IoctlGetPtmget(fd int, req uint) (*Ptmget, error) {
 	var value Ptmget
@@ -184,7 +187,10 @@ func IoctlGetPtmget(fd int, req uint) (*Ptmget, error) {
 	runtime.KeepAlive(value)
 	return &value, err
 }
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 
 func Uname(uname *Utsname) error {
 	mib := []_C_int{CTL_KERN, KERN_OSTYPE}
@@ -234,8 +240,11 @@ func Uname(uname *Utsname) error {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func Sendfile(outfd int, infd int, offset *int64, count int) (written int, err error) {
 	if raceenabled {
 		raceReleaseMerge(unsafe.Pointer(&ioSync))
@@ -252,10 +261,13 @@ func Statvfs(path string, buf *Statvfs_t) (err error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 /*
  * Exposed directly
  */

@@ -31,16 +31,21 @@ type Package struct {
 	Name       string
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	PkgPath    string
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 	PkgPath    string
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	PkgPath    string
+>>>>>>> 03397665 (update api)
 	Interfaces []*Interface
 	DotImports []string
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 // Print writes the package name and its exported interfaces.
@@ -55,6 +60,11 @@ func (pkg *Package) Print(w io.Writer) {
 func (pkg *Package) Print(w io.Writer) {
 	_, _ = fmt.Fprintf(w, "package %s\n", pkg.Name)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+// Print writes the package name and its exported interfaces.
+func (pkg *Package) Print(w io.Writer) {
+	_, _ = fmt.Fprintf(w, "package %s\n", pkg.Name)
+>>>>>>> 03397665 (update api)
 	for _, intf := range pkg.Interfaces {
 		intf.Print(w)
 	}
@@ -77,6 +87,7 @@ type Interface struct {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Print writes the interface name and its methods.
 func (intf *Interface) Print(w io.Writer) {
 	_, _ = fmt.Fprintf(w, "interface %s\n", intf.Name)
@@ -89,6 +100,11 @@ func (intf *Interface) Print(w io.Writer) {
 func (intf *Interface) Print(w io.Writer) {
 	_, _ = fmt.Fprintf(w, "interface %s\n", intf.Name)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+// Print writes the interface name and its methods.
+func (intf *Interface) Print(w io.Writer) {
+	_, _ = fmt.Fprintf(w, "interface %s\n", intf.Name)
+>>>>>>> 03397665 (update api)
 	for _, m := range intf.Methods {
 		m.Print(w)
 	}
@@ -102,8 +118,11 @@ func (intf *Interface) addImports(im map[string]bool) {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // AddMethod adds a new method, de-duplicating by method name.
 func (intf *Interface) AddMethod(m *Method) {
 	for _, me := range intf.Methods {
@@ -115,10 +134,13 @@ func (intf *Interface) AddMethod(m *Method) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // Method is a single method of an interface.
 type Method struct {
 	Name     string
@@ -126,6 +148,7 @@ type Method struct {
 	Variadic *Parameter // may be nil
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 // Print writes the method name and its signature.
@@ -146,6 +169,13 @@ func (m *Method) Print(w io.Writer) {
 =======
 		_, _ = fmt.Fprintf(w, "    in:\n")
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+// Print writes the method name and its signature.
+func (m *Method) Print(w io.Writer) {
+	_, _ = fmt.Fprintf(w, "  - method %s\n", m.Name)
+	if len(m.In) > 0 {
+		_, _ = fmt.Fprintf(w, "    in:\n")
+>>>>>>> 03397665 (update api)
 		for _, p := range m.In {
 			p.Print(w)
 		}
@@ -153,11 +183,15 @@ func (m *Method) Print(w io.Writer) {
 	if m.Variadic != nil {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 		_, _ = fmt.Fprintf(w, "    ...:\n")
 		m.Variadic.Print(w)
 	}
 	if len(m.Out) > 0 {
 		_, _ = fmt.Fprintf(w, "    out:\n")
+<<<<<<< HEAD
 =======
 		fmt.Fprintf(w, "    ...:\n")
 		m.Variadic.Print(w)
@@ -172,6 +206,8 @@ func (m *Method) Print(w io.Writer) {
 	if len(m.Out) > 0 {
 		_, _ = fmt.Fprintf(w, "    out:\n")
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		for _, p := range m.Out {
 			p.Print(w)
 		}
@@ -198,17 +234,22 @@ type Parameter struct {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Print writes a method parameter.
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 // Print writes a method parameter.
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+// Print writes a method parameter.
+>>>>>>> 03397665 (update api)
 func (p *Parameter) Print(w io.Writer) {
 	n := p.Name
 	if n == "" {
 		n = `""`
 	}
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	_, _ = fmt.Fprintf(w, "    - %v: %v\n", n, p.Type.String(nil, ""))
@@ -218,6 +259,9 @@ func (p *Parameter) Print(w io.Writer) {
 =======
 	_, _ = fmt.Fprintf(w, "    - %v: %v\n", n, p.Type.String(nil, ""))
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	_, _ = fmt.Fprintf(w, "    - %v: %v\n", n, p.Type.String(nil, ""))
+>>>>>>> 03397665 (update api)
 }
 
 // Type is a Go type.
@@ -284,12 +328,16 @@ type ChanDir int
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Constants for channel directions.
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 // Constants for channel directions.
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+// Constants for channel directions.
+>>>>>>> 03397665 (update api)
 const (
 	RecvDir ChanDir = 1
 	SendDir ChanDir = 2
@@ -353,6 +401,9 @@ type NamedType struct {
 	Package string // may be empty
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 	Type    string
 }
 
@@ -368,6 +419,7 @@ func (nt *NamedType) String(pm map[string]string, pkgOverride string) string {
 	return nt.Type
 }
 
+<<<<<<< HEAD
 =======
 	Type    string // TODO: should this be typed Type?
 =======
@@ -391,6 +443,8 @@ func (nt *NamedType) String(pm map[string]string, pkgOverride string) string {
 =======
 
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func (nt *NamedType) addImports(im map[string]bool) {
 	if nt.Package != "" {
 		im[nt.Package] = true
@@ -412,6 +466,9 @@ type PredeclaredType string
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 func (pt PredeclaredType) String(map[string]string, string) string { return string(pt) }
 func (pt PredeclaredType) addImports(map[string]bool)              {}
 
@@ -419,6 +476,7 @@ func (pt PredeclaredType) addImports(map[string]bool)              {}
 
 // InterfaceFromInterfaceType returns a pointer to an interface for the
 // given reflection interface type.
+<<<<<<< HEAD
 =======
 func (pt PredeclaredType) String(pm map[string]string, pkgOverride string) string { return string(pt) }
 func (pt PredeclaredType) addImports(im map[string]bool)                          {}
@@ -435,6 +493,8 @@ func (pt PredeclaredType) addImports(map[string]bool)              {}
 // InterfaceFromInterfaceType returns a pointer to an interface for the
 // given reflection interface type.
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func InterfaceFromInterfaceType(it reflect.Type) (*Interface, error) {
 	if it.Kind() != reflect.Interface {
 		return nil, fmt.Errorf("%v is not an interface", it)
@@ -456,6 +516,7 @@ func InterfaceFromInterfaceType(it reflect.Type) (*Interface, error) {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		intf.AddMethod(m)
 =======
 		intf.Methods = append(intf.Methods, m)
@@ -463,6 +524,9 @@ func InterfaceFromInterfaceType(it reflect.Type) (*Interface, error) {
 =======
 		intf.AddMethod(m)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+		intf.AddMethod(m)
+>>>>>>> 03397665 (update api)
 	}
 
 	return intf, nil
@@ -521,6 +585,7 @@ func typeFromType(t reflect.Type) (Type, error) {
 	if imp := t.PkgPath(); imp != "" {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		return &NamedType{
 			Package: impPath(imp),
 =======
@@ -538,6 +603,10 @@ func typeFromType(t reflect.Type) (Type, error) {
 		return &NamedType{
 			Package: impPath(imp),
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+		return &NamedType{
+			Package: impPath(imp),
+>>>>>>> 03397665 (update api)
 			Type:    t.Name(),
 		}, nil
 	}
@@ -624,8 +693,11 @@ func typeFromType(t reflect.Type) (Type, error) {
 }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 
 // impPath sanitizes the package path returned by `PkgPath` method of a reflect Type so that
 // it is importable. PkgPath might return a path that includes "vendor". These paths do not
@@ -657,7 +729,10 @@ var ErrorInterface = Interface{
 	},
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)

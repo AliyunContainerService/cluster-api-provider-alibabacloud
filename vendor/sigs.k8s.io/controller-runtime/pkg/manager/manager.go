@@ -61,12 +61,16 @@ type Manager interface {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	// Elected is closed when this manager is elected leader of a group of
 	// managers, either because it won a leader election or because no leader
 	// election was configured.
 	Elected() <-chan struct{}
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 	// SetFields will set any dependencies on an object for which the object has implemented the inject
@@ -94,6 +98,8 @@ type Manager interface {
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 
 	// AddMetricsExtraHandler adds an extra handler served on path to the http server that serves metrics.
 	// Might be useful to register some diagnostic endpoints e.g. pprof. Note that these endpoints meant to be
@@ -495,7 +501,10 @@ func (o Options) AndFromOrDie(loader config.ControllerManagerConfiguration) Opti
 	if err != nil {
 		panic(fmt.Sprintf("could not parse config file: %v", err))
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 03397665 (update api)
 	}
 	return o
 }
@@ -503,6 +512,7 @@ func (o Options) AndFromOrDie(loader config.ControllerManagerConfiguration) Opti
 func (o Options) setLeaderElectionConfig(obj v1alpha1.ControllerManagerConfigurationSpec) Options {
 	if o.LeaderElection == false && obj.LeaderElection.LeaderElect != nil {
 		o.LeaderElection = *obj.LeaderElection.LeaderElect
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
 	}
 	return o
@@ -539,6 +549,10 @@ func (o Options) setLeaderElectionConfig(obj v1alpha1.ControllerManagerConfigura
 	}
 
 =======
+=======
+	}
+
+>>>>>>> 03397665 (update api)
 	if o.LeaderElectionResourceLock == "" && obj.LeaderElection.ResourceLock != "" {
 		o.LeaderElectionResourceLock = obj.LeaderElection.ResourceLock
 	}
@@ -563,7 +577,10 @@ func (o Options) setLeaderElectionConfig(obj v1alpha1.ControllerManagerConfigura
 		o.RetryPeriod = &obj.LeaderElection.RetryPeriod.Duration
 	}
 
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	return o
 }
 

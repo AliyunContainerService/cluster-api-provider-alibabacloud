@@ -2,6 +2,9 @@ module sigs.k8s.io/controller-runtime
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 go 1.16
 
 require (
@@ -28,6 +31,7 @@ require (
 	k8s.io/component-base v0.21.0
 	k8s.io/utils v0.0.0-20210111153108-fddb29f9d009
 	sigs.k8s.io/yaml v1.2.0
+<<<<<<< HEAD
 =======
 go 1.11
 
@@ -105,4 +109,6 @@ require (
 	k8s.io/utils v0.0.0-20210111153108-fddb29f9d009
 	sigs.k8s.io/yaml v1.2.0
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 )

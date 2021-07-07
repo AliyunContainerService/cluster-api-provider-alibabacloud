@@ -41,10 +41,14 @@ func Resource(resource string) schema.GroupResource {
 var (
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 	// SchemeBuilder points to a list of functions added to Scheme.
 	SchemeBuilder = runtime.NewSchemeBuilder(addKnownTypes)
 	// AddToScheme applies all the stored functions to the scheme.
 	AddToScheme = SchemeBuilder.AddToScheme
+<<<<<<< HEAD
 =======
 	SchemeBuilder = runtime.NewSchemeBuilder(addKnownTypes)
 	AddToScheme   = SchemeBuilder.AddToScheme
@@ -55,6 +59,8 @@ var (
 	// AddToScheme applies all the stored functions to the scheme.
 	AddToScheme = SchemeBuilder.AddToScheme
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 )
 
 // Adds the list of known types to api.Scheme.

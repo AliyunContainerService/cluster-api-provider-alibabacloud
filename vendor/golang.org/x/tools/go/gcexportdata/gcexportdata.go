@@ -18,6 +18,7 @@
 // Go 1.8 export data files, so they will work before and after the
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Go update. (See discussion at https://golang.org/issue/15651.)
 =======
 // Go update. (See discussion at https://github.com/golang/go/issues/15651.)
@@ -25,6 +26,9 @@
 =======
 // Go update. (See discussion at https://golang.org/issue/15651.)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+// Go update. (See discussion at https://golang.org/issue/15651.)
+>>>>>>> 03397665 (update api)
 //
 package gcexportdata // import "golang.org/x/tools/go/gcexportdata"
 
@@ -110,6 +114,7 @@ func Read(in io.Reader, fset *token.FileSet, imports map[string]*types.Package, 
 func Write(out io.Writer, fset *token.FileSet, pkg *types.Package) error {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if _, err := io.WriteString(out, "i"); err != nil {
 		return err
 	}
@@ -149,6 +154,8 @@ func WriteBundle(out io.Writer, fset *token.FileSet, pkgs []*types.Package) erro
 	return err
 >>>>>>> 79bfea2d (update vendor)
 =======
+=======
+>>>>>>> 03397665 (update api)
 	if _, err := io.WriteString(out, "i"); err != nil {
 		return err
 	}
@@ -179,5 +186,8 @@ func ReadBundle(in io.Reader, fset *token.FileSet, imports map[string]*types.Pac
 // Experimental: This API is experimental and may change in the future.
 func WriteBundle(out io.Writer, fset *token.FileSet, pkgs []*types.Package) error {
 	return gcimporter.IExportBundle(out, fset, pkgs)
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }

@@ -25,6 +25,7 @@ import (
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var log = logf.RuntimeLog.WithName("metrics")
 
 =======
@@ -33,6 +34,10 @@ var log = logf.RuntimeLog.WithName("metrics")
 var log = logf.RuntimeLog.WithName("metrics")
 
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+var log = logf.RuntimeLog.WithName("metrics")
+
+>>>>>>> 03397665 (update api)
 // DefaultBindAddress sets the default bind address for the metrics listener
 // The metrics is on by default.
 var DefaultBindAddress = ":8080"
@@ -54,6 +59,7 @@ func NewListener(addr string) (net.Listener, error) {
 	if err != nil {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		er := fmt.Errorf("error listening on %s: %w", addr, err)
 =======
 		er := fmt.Errorf("error listening on %s: %v", addr, err)
@@ -61,6 +67,9 @@ func NewListener(addr string) (net.Listener, error) {
 =======
 		er := fmt.Errorf("error listening on %s: %w", addr, err)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+		er := fmt.Errorf("error listening on %s: %w", addr, err)
+>>>>>>> 03397665 (update api)
 		log.Error(er, "metrics server failed to listen. You may want to disable the metrics server or use another port if it is due to conflicts")
 		return nil, er
 	}

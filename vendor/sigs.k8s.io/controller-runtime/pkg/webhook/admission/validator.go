@@ -97,6 +97,7 @@ func (h *validatingHandler) Handle(ctx context.Context, req Request) Response {
 				return validationResponseFromStatus(false, apiStatus.Status())
 			}
 <<<<<<< HEAD
+<<<<<<< HEAD
 			return Denied(err.Error())
 		}
 	}
@@ -117,6 +118,8 @@ func (h *validatingHandler) Handle(ctx context.Context, req Request) Response {
 			}
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 			return Denied(err.Error())
 		}
 	}

@@ -17,6 +17,7 @@ var _ syscall.Errno
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 func fanotifyMark(fd int, flags uint, mask uint64, dirFd int, pathname *byte) (err error) {
 	_, _, e1 := Syscall6(SYS_FANOTIFY_MARK, uintptr(fd), uintptr(flags), uintptr(mask>>32), uintptr(mask), uintptr(dirFd), uintptr(unsafe.Pointer(pathname)))
 =======
@@ -1405,6 +1406,10 @@ func Syncfs(fd int) (err error) {
 func fanotifyMark(fd int, flags uint, mask uint64, dirFd int, pathname *byte) (err error) {
 	_, _, e1 := Syscall6(SYS_FANOTIFY_MARK, uintptr(fd), uintptr(flags), uintptr(mask>>32), uintptr(mask), uintptr(dirFd), uintptr(unsafe.Pointer(pathname)))
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func fanotifyMark(fd int, flags uint, mask uint64, dirFd int, pathname *byte) (err error) {
+	_, _, e1 := Syscall6(SYS_FANOTIFY_MARK, uintptr(fd), uintptr(flags), uintptr(mask>>32), uintptr(mask), uintptr(dirFd), uintptr(unsafe.Pointer(pathname)))
+>>>>>>> 03397665 (update api)
 	if e1 != 0 {
 		err = errnoErr(e1)
 	}

@@ -3532,6 +3532,7 @@ const endpointsJson = `{
 				{
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 					"region": "ap-southeast-3",
 					"endpoint": "metrics.ap-southeast-3.aliyuncs.com"
 				},
@@ -3558,6 +3559,10 @@ const endpointsJson = `{
 					"region": "cn-beijing",
 					"endpoint": "alikafka.cn-beijing.aliyuncs.com"
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+					"region": "cn-beijing",
+					"endpoint": "alikafka.cn-beijing.aliyuncs.com"
+>>>>>>> 03397665 (update api)
 				},
 				{
 					"region": "cn-zhangjiakou",
@@ -3565,6 +3570,7 @@ const endpointsJson = `{
 				},
 				{
 					"region": "cn-huhehaote",
+<<<<<<< HEAD
 <<<<<<< HEAD
 					"endpoint": "vpc.cn-huhehaote.aliyuncs.com"
 				},
@@ -3589,6 +3595,9 @@ const endpointsJson = `{
 =======
 					"endpoint": "alikafka.cn-huhehaote.aliyuncs.com"
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+					"endpoint": "alikafka.cn-huhehaote.aliyuncs.com"
+>>>>>>> 03397665 (update api)
 				},
 				{
 					"region": "cn-hangzhou",
@@ -3637,11 +3646,15 @@ const endpointsJson = `{
 				}
 			],
 <<<<<<< HEAD
+<<<<<<< HEAD
 			"global_endpoint": "vpc.aliyuncs.com",
 >>>>>>> 79bfea2d (update vendor)
 =======
 			"global_endpoint": "",
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+			"global_endpoint": "",
+>>>>>>> 03397665 (update api)
 			"regional_endpoint_pattern": ""
 		},
 		{

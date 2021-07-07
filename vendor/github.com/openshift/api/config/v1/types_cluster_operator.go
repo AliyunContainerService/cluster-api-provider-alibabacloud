@@ -18,6 +18,7 @@ type ClusterOperator struct {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// spec holds configuration that could apply to any operator.
 	// +kubebuilder:validation:Required
 =======
@@ -27,10 +28,15 @@ type ClusterOperator struct {
 	// spec holds configuration that could apply to any operator.
 	// +kubebuilder:validation:Required
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	// spec holds configuration that could apply to any operator.
+	// +kubebuilder:validation:Required
+>>>>>>> 03397665 (update api)
 	// +required
 	Spec ClusterOperatorSpec `json:"spec"`
 
 	// status holds the information about the state of an operator.  It is consistent with status information across
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	// the Kubernetes ecosystem.
@@ -40,6 +46,9 @@ type ClusterOperator struct {
 =======
 	// the Kubernetes ecosystem.
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	// the Kubernetes ecosystem.
+>>>>>>> 03397665 (update api)
 	// +optional
 	Status ClusterOperatorStatus `json:"status"`
 }
@@ -53,6 +62,7 @@ type ClusterOperatorSpec struct {
 type ClusterOperatorStatus struct {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// conditions describes the state of the operator's managed and monitored components.
 =======
 	// conditions describes the state of the operator's reconciliation functionality.
@@ -60,11 +70,15 @@ type ClusterOperatorStatus struct {
 =======
 	// conditions describes the state of the operator's managed and monitored components.
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	// conditions describes the state of the operator's managed and monitored components.
+>>>>>>> 03397665 (update api)
 	// +patchMergeKey=type
 	// +patchStrategy=merge
 	// +optional
 	Conditions []ClusterOperatorStatusCondition `json:"conditions,omitempty"  patchStrategy:"merge" patchMergeKey:"type"`
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	// versions is a slice of operator and operand version tuples.  Operators which manage multiple operands will have multiple
@@ -80,6 +94,11 @@ type ClusterOperatorStatus struct {
 	// operand entries in the array.  Available operators must report the version of the operator itself with the name "operator".
 	// An operator reports a new "operator" version when it has rolled out the new version to all of its operands.
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	// versions is a slice of operator and operand version tuples.  Operators which manage multiple operands will have multiple
+	// operand entries in the array.  Available operators must report the version of the operator itself with the name "operator".
+	// An operator reports a new "operator" version when it has rolled out the new version to all of its operands.
+>>>>>>> 03397665 (update api)
 	// +optional
 	Versions []OperandVersion `json:"versions,omitempty"`
 
@@ -96,12 +115,16 @@ type ClusterOperatorStatus struct {
 	// +optional
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// +kubebuilder:pruning:PreserveUnknownFields
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 	// +kubebuilder:pruning:PreserveUnknownFields
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	// +kubebuilder:pruning:PreserveUnknownFields
+>>>>>>> 03397665 (update api)
 	Extension runtime.RawExtension `json:"extension"`
 }
 
@@ -109,6 +132,7 @@ type OperandVersion struct {
 	// name is the name of the particular operand this version is for.  It usually matches container images, not operators.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// +kubebuilder:validation:Required
 	// +required
 	Name string `json:"name"`
@@ -123,17 +147,26 @@ type OperandVersion struct {
 	// +kubebuilder:validation:Required
 	// +required
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	// +kubebuilder:validation:Required
+	// +required
+>>>>>>> 03397665 (update api)
 	Name string `json:"name"`
 
 	// version indicates which version of a particular operand is currently being managed.  It must always match the Available
 	// operand.  If 1.0.0 is Available, then this must indicate 1.0.0 even if the operator is trying to rollout
 	// 1.1.0
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 79bfea2d (update vendor)
 =======
 	// +kubebuilder:validation:Required
 	// +required
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	// +kubebuilder:validation:Required
+	// +required
+>>>>>>> 03397665 (update api)
 	Version string `json:"version"`
 }
 
@@ -142,8 +175,11 @@ type ObjectReference struct {
 	// group of the referent.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	// +kubebuilder:validation:Required
 	// +required
 	Group string `json:"group"`
@@ -151,12 +187,15 @@ type ObjectReference struct {
 	// +kubebuilder:validation:Required
 	// +required
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	Group string `json:"group"`
 	// resource of the referent.
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	Resource string `json:"resource"`
 	// namespace of the referent.
 	// +optional
@@ -164,6 +203,7 @@ type ObjectReference struct {
 	// name of the referent.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// +kubebuilder:validation:Required
 	// +required
 =======
@@ -172,6 +212,10 @@ type ObjectReference struct {
 	// +kubebuilder:validation:Required
 	// +required
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	// +kubebuilder:validation:Required
+	// +required
+>>>>>>> 03397665 (update api)
 	Name string `json:"name"`
 }
 
@@ -188,6 +232,7 @@ const (
 )
 
 // ClusterOperatorStatusCondition represents the state of the operator's
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 // managed and monitored components.
@@ -254,6 +299,9 @@ const (
 =======
 // managed and monitored components.
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+// managed and monitored components.
+>>>>>>> 03397665 (update api)
 // +k8s:deepcopy-gen=true
 type ClusterOperatorStatusCondition struct {
 	// type specifies the aspect reported by this condition.
@@ -297,11 +345,14 @@ const (
 	OperatorProgressing ClusterStatusConditionType = "Progressing"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// Degraded indicates that the operand is not functioning completely. An example of a degraded state
 	// would be if there should be 5 copies of the operand running but only 4 are running. It may still be available,
 	// but it is degraded
 >>>>>>> 79bfea2d (update vendor)
 =======
+=======
+>>>>>>> 03397665 (update api)
 	// Degraded indicates that the operator's current state does not match its
 	// desired state over a period of time resulting in a lower quality of service.
 	// The period of time may vary by component, but a Degraded state represents
@@ -318,7 +369,10 @@ const (
 	// and must be replaced.  An operator should report Degraded if unexpected
 	// errors occur over a period, but the expectation is that all unexpected errors
 	// are handled as operators mature.
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	OperatorDegraded ClusterStatusConditionType = "Degraded"
 
 	// Upgradeable indicates whether the operator is in a state that is safe to upgrade. When status is `False`

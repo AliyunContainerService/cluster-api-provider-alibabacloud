@@ -26,10 +26,15 @@ import (
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	"k8s.io/klog"
 
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	"k8s.io/klog"
+
+>>>>>>> 03397665 (update api)
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/requests"
 	mapierrors "github.com/openshift/machine-api-operator/pkg/controller/machine"
 
@@ -89,7 +94,6 @@ func runInstances(machine *machinev1.Machine, machineProviderConfig *alibabaclou
 	configv1 "github.com/openshift/api/config/v1"
 	machinev1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 	"github.com/openshift/machine-api-operator/pkg/metrics"
-	"k8s.io/klog/v2"
 	runtimeclient "sigs.k8s.io/controller-runtime/pkg/client"
 )
 
@@ -138,6 +142,7 @@ func runInstances(machine *machinev1.Machine, machineProviderConfig *alibabaclou
 
 	// ImageID
 <<<<<<< HEAD
+<<<<<<< HEAD
 	imageID, err := getImageID(machineKey, machineProviderConfig, client)
 =======
 //
@@ -147,6 +152,9 @@ func createInstance(machine *machinev1.Machine, machineProviderConfig *providerc
 =======
 	imageID, err := getImage(machineKey, machineProviderConfig, client)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	imageID, err := getImageID(machineKey, machineProviderConfig, client)
+>>>>>>> 03397665 (update api)
 	if err != nil {
 		return nil, mapierrors.InvalidMachineConfiguration("error getting ImageID: %v", err)
 	}
@@ -188,7 +196,7 @@ func createInstance(machine *machinev1.Machine, machineProviderConfig *providerc
 	tagList := buildTagList(machine.Name, clusterID, machineProviderConfig.Tags, infra)
 
 	// Tags
-	runInstancesRequest.Tag = covertToCreateInstanceTag(tagList)
+	runInstancesRequest.Tag = covertToRunInstancesTag(tagList)
 
 	// ImageID
 	runInstancesRequest.ImageId = imageID
@@ -623,7 +631,7 @@ func waitForInstancesStatus(client alibabacloudClient.Client, regionID string, i
 	return result.([]*ecs.Instance), nil
 }
 
-func getImage(machine runtimeclient.ObjectKey, machineProviderConfig *alibabacloudproviderv1.AlibabaCloudMachineProviderConfig, client alibabacloudClient.Client) (string, error) {
+func getImageID(machine runtimeclient.ObjectKey, machineProviderConfig *alibabacloudproviderv1.AlibabaCloudMachineProviderConfig, client alibabacloudClient.Client) (string, error) {
 	klog.Infof("%s validate image in region %s", machineProviderConfig.ImageID, machineProviderConfig.RegionID)
 	request := ecs.CreateDescribeImagesRequest()
 	request.ImageId = machineProviderConfig.ImageID
@@ -872,17 +880,16 @@ func buildTagList(machineName string, clusterID string, machineTags []alibabaclo
 // mergeInfrastructureAndMachineSpecTags merge list of tags from machine provider spec and Infrastructure object platform spec.
 // Machine tags have precedence over Infrastructure
 func mergeInfrastructureAndMachineSpecTags(machineSpecTags []alibabacloudproviderv1.Tag, infra *configv1.Infrastructure) []alibabacloudproviderv1.Tag {
-	// TODO Platform alibabacloud not added
-	if infra == nil || infra.Status.PlatformStatus == nil /*|| infra.Status.PlatformStatus.alibabacloud == nil || infra.Status.PlatformStatus.alibabacloud.ResourceTags == nil */ {
+	// TODO Platform AlibabaCloud not added
+	if infra == nil || infra.Status.PlatformStatus == nil /*|| infra.Status.PlatformStatus.AlibabaCloud == nil || infra.Status.PlatformStatus.AlibabaCloud.ResourceTags == nil */ {
 		return machineSpecTags
 	}
 
 	mergedList := make([]alibabacloudproviderv1.Tag, 0)
 	mergedList = append(mergedList, machineSpecTags...)
 
-	//TODO Platform alibabacloud not added
-	// Line 323 to 325
-	//for _, tag := range infra.Status.PlatformStatus.alibabacloud.ResourceTags {
+	//TODO Platform AlibabaCloud not added
+	//for _, tag := range infra.Status.PlatformStatus.AlibabaCloud.ResourceTags {
 	//	mergedList = append(mergedList, alibabacloudproviderv1.Tag{Key: tag.Key, Value: tag.Value})
 	//}
 
@@ -907,10 +914,14 @@ func removeDuplicatedTags(tags []*alibabacloudproviderv1.Tag) []*alibabacloudpro
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 func covertToRunInstancesTag(tags []*alibabacloudproviderv1.Tag) *[]ecs.RunInstancesTag {
 =======
 func covertToCreateInstanceTag(tags []*alibabacloudproviderv1.Tag) *[]ecs.RunInstancesTag {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func covertToRunInstancesTag(tags []*alibabacloudproviderv1.Tag) *[]ecs.RunInstancesTag {
+>>>>>>> 03397665 (update api)
 	runInstancesTags := make([]ecs.RunInstancesTag, 0)
 
 	for _, tag := range tags {
@@ -924,6 +935,7 @@ func covertToCreateInstanceTag(tags []*alibabacloudproviderv1.Tag) *[]ecs.RunIns
 }
 
 func getExistingInstanceByID(instanceID string, regionID string, client alibabacloudClient.Client) (*ecs.Instance, error) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 	return getInstanceByID(instanceID, regionID, client, supportedInstanceStates())
 }
@@ -947,10 +959,13 @@ func getInstanceByID(instanceID string, regionID string, client alibabacloudClie
 	instances, err := describeInstances([]string{instanceID}, regionID, client)
 =======
 	return getInstanceByID(instanceID, regionID, client, existingInstanceStates())
+=======
+	return getInstanceByID(instanceID, regionID, client, supportedInstanceStates())
+>>>>>>> 03397665 (update api)
 }
 
 // getInstanceByID returns the instance with the given ID if it exists.
-func getInstanceByID(instanceID string, regionID string, client alibabacloudClient.Client, instanceStateFilter []string) (*ecs.Instance, error) {
+func getInstanceByID(instanceID string, regionID string, client alibabacloudClient.Client, instanceStates []string) (*ecs.Instance, error) {
 	if instanceID == "" {
 		return nil, fmt.Errorf("instance-id not specified")
 	}
@@ -972,10 +987,10 @@ func getInstanceByID(instanceID string, regionID string, client alibabacloudClie
 
 	instance := result.Instances.Instance[0]
 
-	return &instance, instanceHasAllowedState(&instance, instanceStateFilter)
+	return &instance, instanceHasSupportedState(&instance, instanceStates)
 }
 
-func instanceHasAllowedState(instance *ecs.Instance, instanceStateFilter []string) error {
+func instanceHasSupportedState(instance *ecs.Instance, instanceStates []string) error {
 	if instance.InstanceId == "" {
 		return fmt.Errorf("instance has nil ID")
 	}
@@ -984,32 +999,32 @@ func instanceHasAllowedState(instance *ecs.Instance, instanceStateFilter []strin
 		return fmt.Errorf("instance %s has nil state", instance.InstanceId)
 	}
 
-	if len(instanceStateFilter) == 0 {
+	if len(instanceStates) == 0 {
 		return nil
 	}
 
 	actualState := instance.Status
-	for _, allowedState := range instanceStateFilter {
-		if allowedState == actualState {
+	for _, supportedState := range instanceStates {
+		if supportedState == actualState {
 			return nil
 		}
 	}
 
-	allowedStates := make([]string, 0, len(instanceStateFilter))
-	for _, allowedState := range instanceStateFilter {
-		allowedStates = append(allowedStates, allowedState)
+	supportedStates := make([]string, 0, len(instanceStates))
+	for _, allowedState := range instanceStates {
+		supportedStates = append(supportedStates, allowedState)
 	}
-	return fmt.Errorf("instance %s state %q is not in %s", instance.InstanceId, actualState, strings.Join(allowedStates, ", "))
+	return fmt.Errorf("instance %s state %q is not in %s", instance.InstanceId, actualState, strings.Join(supportedStates, ", "))
 }
 
 // getExistingInstances returns all instances not terminated
 func getExistingInstances(machine *machinev1.Machine, regionID string, client alibabacloudClient.Client) ([]*ecs.Instance, error) {
-	return getInstances(machine, regionID, client, existingInstanceStates())
+	return getInstances(machine, regionID, client, supportedInstanceStates())
 }
 
 // getInstances returns all instances that have a tag matching our machine name,
 // and cluster ID.
-func getInstances(machine *machinev1.Machine, regionID string, client alibabacloudClient.Client, instanceStateFilter []string) ([]*ecs.Instance, error) {
+func getInstances(machine *machinev1.Machine, regionID string, client alibabacloudClient.Client, instanceStates []string) ([]*ecs.Instance, error) {
 	clusterID, ok := getClusterID(machine)
 	if !ok {
 		return nil, fmt.Errorf("unable to get cluster ID for machine: %q", machine.Name)
@@ -1019,7 +1034,7 @@ func getInstances(machine *machinev1.Machine, regionID string, client alibabaclo
 	request.RegionId = regionID
 	instanceTags := []ecs.DescribeInstancesTag{
 		{Key: clusterFilterKeyPrefix + clusterID, Value: clusterFilterValue},
-		{Key: "Name", Value: machine.Name},
+		{Key: clusterFilterName, Value: machine.Name},
 	}
 
 	request.Tag = &instanceTags
@@ -1189,7 +1204,7 @@ func stopInstances(client alibabacloudClient.Client, regionID string, instances 
 	instances := make([]*ecs.Instance, 0)
 
 	for _, instance := range result.Instances.Instance {
-		err := instanceHasAllowedState(&instance, instanceStateFilter)
+		err := instanceHasSupportedState(&instance, instanceStates)
 		if err != nil {
 			klog.Errorf("Excluding instance matching %s: %v", machine.Name, err)
 		} else {

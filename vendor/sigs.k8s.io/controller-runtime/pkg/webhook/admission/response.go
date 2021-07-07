@@ -21,6 +21,7 @@ import (
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	jsonpatch "gomodules.xyz/jsonpatch/v2"
 	admissionv1 "k8s.io/api/admission/v1"
 =======
@@ -32,6 +33,10 @@ import (
 	jsonpatch "gomodules.xyz/jsonpatch/v2"
 	admissionv1 "k8s.io/api/admission/v1"
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	jsonpatch "gomodules.xyz/jsonpatch/v2"
+	admissionv1 "k8s.io/api/admission/v1"
+>>>>>>> 03397665 (update api)
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -110,7 +115,10 @@ func PatchResponseFromRaw(original, current []byte) Response {
 				return &pt
 			}(),
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 03397665 (update api)
 		},
 	}
 }
@@ -121,6 +129,7 @@ func validationResponseFromStatus(allowed bool, status metav1.Status) Response {
 		AdmissionResponse: admissionv1.AdmissionResponse{
 			Allowed: allowed,
 			Result:  &status,
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
 		},
 	}
@@ -140,6 +149,8 @@ func validationResponseFromStatus(allowed bool, status metav1.Status) Response {
 		AdmissionResponse: admissionv1.AdmissionResponse{
 			Allowed: allowed,
 			Result:  &status,
+=======
+>>>>>>> 03397665 (update api)
 		},
 	}
 	return resp

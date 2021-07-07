@@ -73,8 +73,11 @@ type CreateDiskRequest struct {
 	*requests.RpcRequest
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	ResourceOwnerId                requests.Integer `position:"Query" name:"ResourceOwnerId"`
 	SnapshotId                     string           `position:"Query" name:"SnapshotId"`
 	ClientToken                    string           `position:"Query" name:"ClientToken"`
@@ -100,6 +103,7 @@ type CreateDiskRequest struct {
 	ZoneId                         string           `position:"Query" name:"ZoneId"`
 	KMSKeyId                       string           `position:"Query" name:"KMSKeyId"`
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
 	SnapshotId           string           `position:"Query" name:"SnapshotId"`
@@ -122,6 +126,8 @@ type CreateDiskRequest struct {
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }
 
 // CreateDiskTag is a repeated param struct in CreateDiskRequest

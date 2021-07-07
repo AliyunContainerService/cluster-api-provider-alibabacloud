@@ -19,8 +19,11 @@ package ecs
 type Instance struct {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	Hostname                        string                               `json:"Hostname" xml:"Hostname"`
 	ImageId                         string                               `json:"ImageId" xml:"ImageId"`
 	InstanceType                    string                               `json:"InstanceType" xml:"InstanceType"`
@@ -101,6 +104,7 @@ type Instance struct {
 	NetworkInterfaces               NetworkInterfacesInDescribeInstances `json:"NetworkInterfaces" xml:"NetworkInterfaces"`
 	OperationLocks                  OperationLocksInDescribeInstances    `json:"OperationLocks" xml:"OperationLocks"`
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	Cores                      int                                  `json:"Cores" xml:"Cores"`
 	ImageId                    string                               `json:"ImageId" xml:"ImageId"`
@@ -167,4 +171,6 @@ type Instance struct {
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }

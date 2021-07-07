@@ -21,8 +21,11 @@ var jsonParser jsoniter.API
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func init() {
 	jsonParser = jsoniter.Config{
 		EscapeHTML:             true,
@@ -32,6 +35,7 @@ func init() {
 	}.Froze()
 
 	jsonParser.RegisterExtension(newBetterFuzzyExtension())
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 func initJsonParserOnce() {
@@ -47,6 +51,8 @@ func initJsonParserOnce() {
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }
 
 func newBetterFuzzyExtension() jsoniter.DecoderExtension {

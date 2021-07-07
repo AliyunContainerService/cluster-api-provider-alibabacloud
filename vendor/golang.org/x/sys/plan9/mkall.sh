@@ -78,6 +78,7 @@ GOOSARCH="${GOOS}_${GOARCH}"
 # defaults
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 mksyscall="go run mksyscall.go"
 =======
 mksyscall="./mksyscall.pl"
@@ -85,6 +86,9 @@ mksyscall="./mksyscall.pl"
 =======
 mksyscall="go run mksyscall.go"
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+mksyscall="go run mksyscall.go"
+>>>>>>> 03397665 (update api)
 mkerrors="./mkerrors.sh"
 zerrors="zerrors_$GOOSARCH.go"
 mksysctl=""
@@ -124,8 +128,11 @@ plan9_386)
 	mkerrors=
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	mksyscall="go run mksyscall.go -l32 -plan9 -tags plan9,386"
 	mksysnum="./mksysnum_plan9.sh /n/sources/plan9/sys/src/libc/9syscall/sys.h"
 	mktypes="XXX"
@@ -140,11 +147,14 @@ plan9_arm)
 	mkerrors=
 	mksyscall="go run mksyscall.go -l32 -plan9 -tags plan9,arm"
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	mksyscall="./mksyscall.pl -l32 -plan9"
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	mksysnum="./mksysnum_plan9.sh /n/sources/plan9/sys/src/libc/9syscall/sys.h"
 	mktypes="XXX"
 	;;
@@ -161,6 +171,7 @@ esac
 		syscall_goos="syscall_$GOOS.go"
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if [ -n "$mksyscall" ]; then echo "$mksyscall $syscall_goos |gofmt >zsyscall_$GOOSARCH.go"; fi
 =======
 		if [ -n "$mksyscall" ]; then echo "$mksyscall $syscall_goos syscall_$GOOSARCH.go |gofmt >zsyscall_$GOOSARCH.go"; fi
@@ -168,6 +179,9 @@ esac
 =======
 		if [ -n "$mksyscall" ]; then echo "$mksyscall $syscall_goos |gofmt >zsyscall_$GOOSARCH.go"; fi
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+		if [ -n "$mksyscall" ]; then echo "$mksyscall $syscall_goos |gofmt >zsyscall_$GOOSARCH.go"; fi
+>>>>>>> 03397665 (update api)
 		;;
 	esac
 	if [ -n "$mksysctl" ]; then echo "$mksysctl |gofmt >$zsysctl"; fi

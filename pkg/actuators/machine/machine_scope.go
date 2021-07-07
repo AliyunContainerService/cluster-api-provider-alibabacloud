@@ -25,6 +25,7 @@ import (
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/ecs"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	alibabacloudproviderv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alibabacloudprovider/v1beta1"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/klog"
@@ -34,6 +35,11 @@ import (
 	alibabacloudproviderv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alibabacloudprovider/v1beta1"
 	corev1 "k8s.io/api/core/v1"
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	alibabacloudproviderv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alibabacloudprovider/v1beta1"
+	corev1 "k8s.io/api/core/v1"
+	"k8s.io/klog"
+>>>>>>> 03397665 (update api)
 
 	v1beta1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alibabacloudprovider/v1beta1"
 	alibabacloudClient "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client"
@@ -166,9 +172,13 @@ func (s *machineScope) setProviderStatus(instance *ecs.Instance, condition aliba
 	klog.Infof("%s: Updating status", s.machine.Name)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// assign value to providerStatus
 =======
 	networkAddresses := []corev1.NodeAddress{}
+=======
+	networkAddresses := make([]corev1.NodeAddress, 0)
+>>>>>>> 03397665 (update api)
 
 >>>>>>> e879a141 (alibabacloud machine-api provider)
 	if instance == nil {
@@ -216,7 +226,7 @@ func extractNodeAddressesFromInstance(instance *ecs.Instance) ([]corev1.NodeAddr
 		return nil, fmt.Errorf("the ecs instance is nil")
 =======
 
-		addresses, err := extractNodeAddresses(instance, []string{})
+		addresses, err := extractNodeAddresses(instance)
 		if err != nil {
 			klog.Errorf("%s: Error extracting instance IP addresses: %v", s.machine.Name, err)
 			return err
@@ -233,7 +243,7 @@ func extractNodeAddressesFromInstance(instance *ecs.Instance) ([]corev1.NodeAddr
 }
 
 // extractNodeAddresses maps the instance information from ECS to an array of NodeAddresses
-func extractNodeAddresses(instance *ecs.Instance, domainNames []string) ([]corev1.NodeAddress, error) {
+func extractNodeAddresses(instance *ecs.Instance) ([]corev1.NodeAddress, error) {
 	// Not clear if the order matters here, but we might as well indicate a sensible preference order
 
 	if instance == nil {
@@ -246,12 +256,15 @@ func extractNodeAddresses(instance *ecs.Instance, domainNames []string) ([]corev
 	// handle internal network interfaces
 	for _, networkInterface := range instance.NetworkInterfaces.NetworkInterface {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 		// skip network interfaces that are not currently in use
 		//if networkInterface.= ecs.NetworkInterfaceStatusInUse {
 		//	continue
 		//}
 
+=======
+>>>>>>> 03397665 (update api)
 		// Treating IPv6 addresses as type NodeInternalIP to match what the KNI
 		// patch to the alibabacloud cloud-provider code is doing:
 		//

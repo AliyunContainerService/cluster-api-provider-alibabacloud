@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Google Cloud Client Libraries for Go
 
 [![GoDoc](https://godoc.org/cloud.google.com/go?status.svg)](https://godoc.org/cloud.google.com/go)
@@ -501,3 +502,17 @@ for more information.
 [cloud-asset]: https://cloud.google.com/security-command-center/docs/how-to-asset-inventory
 [cloud-asset-docs]: https://cloud.google.com/security-command-center/docs/how-to-asset-inventory
 [cloud-asset-ref]: https://godoc.org/cloud.google.com/go/asset/apiv1
+=======
+# BTree implementation for Go
+
+![Travis CI Build Status](https://api.travis-ci.org/google/btree.svg?branch=master)
+
+This package provides an in-memory B-Tree implementation for Go, useful as
+an ordered, mutable data structure.
+
+The API is based off of the wonderful
+http://godoc.org/github.com/petar/GoLLRB/llrb, and is meant to allow btree to
+act as a drop-in replacement for gollrb trees.
+
+See http://godoc.org/github.com/google/btree for documentation.
+>>>>>>> 03397665 (update api)

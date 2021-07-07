@@ -11,19 +11,26 @@ import (
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // Build configures the behavior of OpenShift builds for the entire cluster.
 // This includes default settings that can be overridden in BuildConfig objects, and overrides which are applied to all builds.
 //
 // The canonical name is "cluster"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 type Build struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
 	// Spec holds user-settable values for the build controller configuration
 	// +kubebuilder:validation:Required
+<<<<<<< HEAD
 =======
 // Build holds cluster-wide information on how to handle builds. The canonical name is `cluster`
 =======
@@ -38,6 +45,8 @@ type Build struct {
 =======
 	// +kubebuilder:validation:Required
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	// +required
 	Spec BuildSpec `json:"spec"`
 }
@@ -48,17 +57,23 @@ type BuildSpec struct {
 	// The namespace for this config map is openshift-config.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	//
 	// DEPRECATED: Additional CAs for image pull and push should be set on
 	// image.config.openshift.io/cluster instead.
 	//
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	// +optional
 	AdditionalTrustedCA ConfigMapNameReference `json:"additionalTrustedCA"`
 	// BuildDefaults controls the default information for Builds
@@ -127,8 +142,11 @@ type BuildOverrides struct {
 	Tolerations []corev1.Toleration `json:"tolerations,omitempty"`
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 
 	// ForcePull overrides, if set, the equivalent value in the builds,
 	// i.e. false disables force pull for all builds,
@@ -137,16 +155,20 @@ type BuildOverrides struct {
 	// +optional
 	ForcePull *bool `json:"forcePull,omitempty"`
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 type BuildList struct {
 	metav1.TypeMeta `json:",inline"`
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	metav1.ListMeta `json:"metadata"`
@@ -162,4 +184,9 @@ type BuildList struct {
 
 	Items []Build `json:"items"`
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	metav1.ListMeta `json:"metadata"`
+
+	Items []Build `json:"items"`
+>>>>>>> 03397665 (update api)
 }

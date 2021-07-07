@@ -100,8 +100,11 @@ type Transport struct {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	// StrictMaxConcurrentStreams controls whether the server's
 	// SETTINGS_MAX_CONCURRENT_STREAMS should be respected
 	// globally. If false, new TCP connections are created to the
@@ -126,10 +129,13 @@ type Transport struct {
 	PingTimeout time.Duration
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	// t1, if non-nil, is the standard library Transport using
 	// this transport. Its settings are used (but not its
 	// RoundTrip method, etc).
@@ -155,8 +161,11 @@ func (t *Transport) disableCompression() bool {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func (t *Transport) pingTimeout() time.Duration {
 	if t.PingTimeout == 0 {
 		return 15 * time.Second
@@ -165,6 +174,9 @@ func (t *Transport) pingTimeout() time.Duration {
 
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 
 // ConfigureTransport configures a net/http HTTP/1 Transport to use HTTP/2.
 // It returns an error if t1 has already been HTTP/2-enabled.
@@ -225,6 +237,7 @@ func configureTransports(t1 *http.Transport) (*Transport, error) {
 	return t2, nil
 }
 
+<<<<<<< HEAD
 =======
 var errTransportVersion = errors.New("http2: ConfigureTransport is only supported starting at Go 1.6")
 =======
@@ -293,6 +306,8 @@ func configureTransports(t1 *http.Transport) (*Transport, error) {
 }
 
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func (t *Transport) connPool() ClientConnPool {
 	t.connPoolOnce.Do(t.initConnPool)
 	return t.connPoolOrDef
@@ -854,8 +869,11 @@ func (cc *ClientConn) idleStateLocked() (st clientConnIdleState) {
 	}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	var maxConcurrentOkay bool
 	if cc.t.StrictMaxConcurrentStreams {
 		// We'll tell the caller we can take a new request to
@@ -871,12 +889,15 @@ func (cc *ClientConn) idleStateLocked() (st clientConnIdleState) {
 		int64(cc.nextStreamID)+2*int64(cc.pendingRequests) < math.MaxInt32 &&
 		!cc.tooIdleLocked()
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	st.canTakeNewRequest = cc.goAway == nil && !cc.closed && !cc.closing &&
 		int64(cc.nextStreamID)+int64(cc.pendingRequests) < math.MaxInt32
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	st.freshConn = cc.nextStreamID == 1 && st.canTakeNewRequest
 	return
 }
@@ -2765,8 +2786,11 @@ func isConnectionCloseRequest(req *http.Request) bool {
 }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 
 // registerHTTPSProtocol calls Transport.RegisterProtocol but
 // converting panics into errors.
@@ -2856,7 +2880,10 @@ func traceFirstResponseByte(trace *httptrace.ClientTrace) {
 	}
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)

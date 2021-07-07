@@ -1,7 +1,10 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 /*
 Copyright 2017 The Kubernetes Authors.
 
@@ -11,6 +14,9 @@ You may obtain a copy of the License at
 
     http://www.apache.org/licenses/LICENSE-2.0
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -39,6 +45,7 @@ func Contains(list []string, strToSearch string) bool {
 		}
 	}
 	return false
+<<<<<<< HEAD
 =======
 package util
 =======
@@ -76,4 +83,6 @@ func Contains(list []string, strToSearch string) bool {
 	}
 	return false
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }

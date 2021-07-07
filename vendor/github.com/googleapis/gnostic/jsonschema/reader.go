@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Copyright 2017 Google LLC. All Rights Reserved.
 =======
 // Copyright 2017 Google Inc. All Rights Reserved.
@@ -7,6 +8,9 @@
 =======
 // Copyright 2017 Google LLC. All Rights Reserved.
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+// Copyright 2017 Google LLC. All Rights Reserved.
+>>>>>>> 03397665 (update api)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,6 +26,7 @@
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 //go:generate go run generate-base.go
 
 =======
@@ -30,11 +35,16 @@
 //go:generate go run generate-base.go
 
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+//go:generate go run generate-base.go
+
+>>>>>>> 03397665 (update api)
 package jsonschema
 
 import (
 	"fmt"
 	"io/ioutil"
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	"strconv"
@@ -49,6 +59,11 @@ import (
 
 	"gopkg.in/yaml.v3"
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	"strconv"
+
+	"gopkg.in/yaml.v3"
+>>>>>>> 03397665 (update api)
 )
 
 // This is a global map of all known Schemas.
@@ -57,8 +72,11 @@ var schemas map[string]*Schema
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // NewBaseSchema builds a schema object from an embedded json representation.
 func NewBaseSchema() (schema *Schema, err error) {
 	b, err := baseSchemaBytes()
@@ -74,10 +92,13 @@ func NewBaseSchema() (schema *Schema, err error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // NewSchemaFromFile reads a schema from a file.
 // Currently this assumes that schemas are stored in the source distribution of this project.
 func NewSchemaFromFile(filename string) (schema *Schema, err error) {
@@ -85,6 +106,7 @@ func NewSchemaFromFile(filename string) (schema *Schema, err error) {
 	if err != nil {
 		return nil, err
 	}
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	var node yaml.Node
@@ -102,13 +124,18 @@ func NewSchemaFromFile(filename string) (schema *Schema, err error) {
 	return NewSchemaFromObject(info), nil
 >>>>>>> 79bfea2d (update vendor)
 =======
+=======
+>>>>>>> 03397665 (update api)
 	var node yaml.Node
 	err = yaml.Unmarshal(file, &node)
 	if err != nil {
 		return nil, err
 	}
 	return NewSchemaFromObject(&node), nil
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }
 
 // NewSchemaFromObject constructs a schema from a parsed JSON object.
@@ -116,13 +143,17 @@ func NewSchemaFromFile(filename string) (schema *Schema, err error) {
 // custom reader and not the standard Go JSON reader (encoding/json).
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func NewSchemaFromObject(jsonData *yaml.Node) *Schema {
 	switch jsonData.Kind {
 	case yaml.DocumentNode:
 		return NewSchemaFromObject(jsonData.Content[0])
 	case yaml.MappingNode:
+<<<<<<< HEAD
 <<<<<<< HEAD
 		schema := &Schema{}
 
@@ -142,12 +173,17 @@ func NewSchemaFromObject(jsonData interface{}) *Schema {
 			v := mapItem.Value
 >>>>>>> 79bfea2d (update vendor)
 =======
+=======
+>>>>>>> 03397665 (update api)
 		schema := &Schema{}
 
 		for i := 0; i < len(jsonData.Content); i += 2 {
 			k := jsonData.Content[i].Value
 			v := jsonData.Content[i+1]
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 
 			switch k {
 			case "$schema":
@@ -223,6 +259,7 @@ func NewSchemaFromObject(jsonData interface{}) *Schema {
 			case "default":
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 				schema.Default = v
 =======
 				schema.Default = &v
@@ -230,6 +267,9 @@ func NewSchemaFromObject(jsonData interface{}) *Schema {
 =======
 				schema.Default = v
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+				schema.Default = v
+>>>>>>> 03397665 (update api)
 
 			case "format":
 				schema.Format = schema.stringValue(v)
@@ -250,12 +290,16 @@ func NewSchemaFromObject(jsonData interface{}) *Schema {
 		return schema
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 
 	default:
 		fmt.Printf("schemaValue: unexpected node %+v\n", jsonData)
 		return nil
+<<<<<<< HEAD
 <<<<<<< HEAD
 	}
 
@@ -266,6 +310,10 @@ func NewSchemaFromObject(jsonData interface{}) *Schema {
 	}
 
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	}
+
+>>>>>>> 03397665 (update api)
 	return nil
 }
 
@@ -278,12 +326,16 @@ func NewSchemaFromObject(jsonData interface{}) *Schema {
 // Gets the string value of an interface{} value if possible.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func (schema *Schema) stringValue(v *yaml.Node) *string {
 	switch v.Kind {
 	case yaml.ScalarNode:
 		return &v.Value
+<<<<<<< HEAD
 <<<<<<< HEAD
 	default:
 		fmt.Printf("stringValue: unexpected node %+v\n", v)
@@ -299,11 +351,16 @@ func (schema *Schema) stringValue(v interface{}) *string {
 	default:
 		fmt.Printf("stringValue: unexpected node %+v\n", v)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	default:
+		fmt.Printf("stringValue: unexpected node %+v\n", v)
+>>>>>>> 03397665 (update api)
 	}
 	return nil
 }
 
 // Gets the numeric value of an interface{} value if possible.
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 func (schema *Schema) numberValue(v *yaml.Node) *SchemaNumber {
@@ -329,6 +386,9 @@ func (schema *Schema) numberValue(v interface{}) *SchemaNumber {
 =======
 func (schema *Schema) numberValue(v *yaml.Node) *SchemaNumber {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func (schema *Schema) numberValue(v *yaml.Node) *SchemaNumber {
+>>>>>>> 03397665 (update api)
 	number := &SchemaNumber{}
 	switch v.Kind {
 	case yaml.ScalarNode:
@@ -346,6 +406,7 @@ func (schema *Schema) numberValue(v *yaml.Node) *SchemaNumber {
 		}
 	default:
 <<<<<<< HEAD
+<<<<<<< HEAD
 		fmt.Printf("numberValue: unexpected type %T\n", v)
 	case float64:
 		v2 := float64(v)
@@ -362,6 +423,9 @@ func (schema *Schema) numberValue(v *yaml.Node) *SchemaNumber {
 =======
 		fmt.Printf("stringValue: unexpected node %+v\n", v)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+		fmt.Printf("stringValue: unexpected node %+v\n", v)
+>>>>>>> 03397665 (update api)
 	}
 	return nil
 }
@@ -369,8 +433,11 @@ func (schema *Schema) numberValue(v *yaml.Node) *SchemaNumber {
 // Gets the integer value of an interface{} value if possible.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func (schema *Schema) intValue(v *yaml.Node) *int64 {
 	switch v.Kind {
 	case yaml.ScalarNode:
@@ -385,6 +452,7 @@ func (schema *Schema) intValue(v *yaml.Node) *int64 {
 		default:
 			fmt.Printf("intValue: unexpected node %+v\n", v)
 		}
+<<<<<<< HEAD
 <<<<<<< HEAD
 	default:
 		fmt.Printf("intValue: unexpected node %+v\n", v)
@@ -406,6 +474,10 @@ func (schema *Schema) intValue(v interface{}) *int64 {
 	default:
 		fmt.Printf("intValue: unexpected node %+v\n", v)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	default:
+		fmt.Printf("intValue: unexpected node %+v\n", v)
+>>>>>>> 03397665 (update api)
 	}
 	return nil
 }
@@ -413,8 +485,11 @@ func (schema *Schema) intValue(v interface{}) *int64 {
 // Gets the bool value of an interface{} value if possible.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func (schema *Schema) boolValue(v *yaml.Node) *bool {
 	switch v.Kind {
 	case yaml.ScalarNode:
@@ -425,6 +500,7 @@ func (schema *Schema) boolValue(v *yaml.Node) *bool {
 		default:
 			fmt.Printf("boolValue: unexpected node %+v\n", v)
 		}
+<<<<<<< HEAD
 <<<<<<< HEAD
 	default:
 		fmt.Printf("boolValue: unexpected node %+v\n", v)
@@ -440,11 +516,16 @@ func (schema *Schema) boolValue(v interface{}) *bool {
 	default:
 		fmt.Printf("boolValue: unexpected node %+v\n", v)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	default:
+		fmt.Printf("boolValue: unexpected node %+v\n", v)
+>>>>>>> 03397665 (update api)
 	}
 	return nil
 }
 
 // Gets a map of Schemas from an interface{} value if possible.
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 func (schema *Schema) mapOfSchemasValue(v *yaml.Node) *[]*NamedSchema {
@@ -466,6 +547,8 @@ func (schema *Schema) mapOfSchemasValue(v interface{}) *[]*NamedSchema {
 			v2 := mapItem.Value
 >>>>>>> 79bfea2d (update vendor)
 =======
+=======
+>>>>>>> 03397665 (update api)
 func (schema *Schema) mapOfSchemasValue(v *yaml.Node) *[]*NamedSchema {
 	switch v.Kind {
 	case yaml.MappingNode:
@@ -473,11 +556,15 @@ func (schema *Schema) mapOfSchemasValue(v *yaml.Node) *[]*NamedSchema {
 		for i := 0; i < len(v.Content); i += 2 {
 			k2 := v.Content[i].Value
 			v2 := v.Content[i+1]
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 			pair := &NamedSchema{Name: k2, Value: NewSchemaFromObject(v2)}
 			m = append(m, pair)
 		}
 		return &m
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	default:
@@ -488,6 +575,10 @@ func (schema *Schema) mapOfSchemasValue(v *yaml.Node) *[]*NamedSchema {
 	default:
 		fmt.Printf("mapOfSchemasValue: unexpected node %+v\n", v)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	default:
+		fmt.Printf("mapOfSchemasValue: unexpected node %+v\n", v)
+>>>>>>> 03397665 (update api)
 	}
 	return nil
 }
@@ -495,6 +586,9 @@ func (schema *Schema) mapOfSchemasValue(v *yaml.Node) *[]*NamedSchema {
 // Gets an array of Schemas from an interface{} value if possible.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 func (schema *Schema) arrayOfSchemasValue(v *yaml.Node) *[]*Schema {
 	switch v.Kind {
 	case yaml.SequenceNode:
@@ -510,6 +604,7 @@ func (schema *Schema) arrayOfSchemasValue(v *yaml.Node) *[]*Schema {
 		}
 		return &m
 	case yaml.MappingNode:
+<<<<<<< HEAD
 =======
 func (schema *Schema) arrayOfSchemasValue(v interface{}) *[]*Schema {
 	switch v := v.(type) {
@@ -538,10 +633,13 @@ func (schema *Schema) arrayOfSchemasValue(v *yaml.Node) *[]*Schema {
 =======
 	case yaml.MappingNode:
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		m := make([]*Schema, 0)
 		s := NewSchemaFromObject(v)
 		m = append(m, s)
 		return &m
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	default:
@@ -552,6 +650,10 @@ func (schema *Schema) arrayOfSchemasValue(v *yaml.Node) *[]*Schema {
 	default:
 		fmt.Printf("arrayOfSchemasValue: unexpected node %+v\n", v)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	default:
+		fmt.Printf("arrayOfSchemasValue: unexpected node %+v\n", v)
+>>>>>>> 03397665 (update api)
 	}
 	return nil
 }
@@ -559,6 +661,9 @@ func (schema *Schema) arrayOfSchemasValue(v *yaml.Node) *[]*Schema {
 // Gets a Schema or an array of Schemas from an interface{} value if possible.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 func (schema *Schema) schemaOrSchemaArrayValue(v *yaml.Node) *SchemaOrSchemaArray {
 	switch v.Kind {
 	case yaml.SequenceNode:
@@ -578,6 +683,7 @@ func (schema *Schema) schemaOrSchemaArrayValue(v *yaml.Node) *SchemaOrSchemaArra
 		return &SchemaOrSchemaArray{Schema: s}
 	default:
 		fmt.Printf("schemaOrSchemaArrayValue: unexpected node %+v\n", v)
+<<<<<<< HEAD
 =======
 func (schema *Schema) schemaOrSchemaArrayValue(v interface{}) *SchemaOrSchemaArray {
 	switch v := v.(type) {
@@ -609,6 +715,8 @@ func (schema *Schema) schemaOrSchemaArrayValue(v *yaml.Node) *SchemaOrSchemaArra
 	default:
 		fmt.Printf("schemaOrSchemaArrayValue: unexpected node %+v\n", v)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	}
 	return nil
 }
@@ -616,13 +724,19 @@ func (schema *Schema) schemaOrSchemaArrayValue(v *yaml.Node) *SchemaOrSchemaArra
 // Gets an array of strings from an interface{} value if possible.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func (schema *Schema) arrayOfStringsValue(v *yaml.Node) *[]string {
 	switch v.Kind {
 	case yaml.ScalarNode:
 		a := []string{v.Value}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 		return &a
 	case yaml.SequenceNode:
 		a := make([]string, 0)
@@ -637,6 +751,7 @@ func (schema *Schema) arrayOfStringsValue(v *yaml.Node) *[]string {
 		return &a
 	default:
 		fmt.Printf("arrayOfStringsValue: unexpected node %+v\n", v)
+<<<<<<< HEAD
 =======
 func (schema *Schema) arrayOfStringsValue(v interface{}) *[]string {
 	switch v := v.(type) {
@@ -666,6 +781,8 @@ func (schema *Schema) arrayOfStringsValue(v interface{}) *[]string {
 	default:
 		fmt.Printf("arrayOfStringsValue: unexpected node %+v\n", v)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	}
 	return nil
 }
@@ -673,6 +790,9 @@ func (schema *Schema) arrayOfStringsValue(v interface{}) *[]string {
 // Gets a string or an array of strings from an interface{} value if possible.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 func (schema *Schema) stringOrStringArrayValue(v *yaml.Node) *StringOrStringArray {
 	switch v.Kind {
 	case yaml.ScalarNode:
@@ -687,6 +807,7 @@ func (schema *Schema) stringOrStringArrayValue(v *yaml.Node) *StringOrStringArra
 				a = append(a, v2.Value)
 			default:
 				fmt.Printf("arrayOfStringsValue: unexpected node %+v\n", v2)
+<<<<<<< HEAD
 =======
 func (schema *Schema) stringOrStringArrayValue(v interface{}) *StringOrStringArray {
 	switch v := v.(type) {
@@ -716,11 +837,14 @@ func (schema *Schema) stringOrStringArrayValue(v *yaml.Node) *StringOrStringArra
 =======
 				fmt.Printf("arrayOfStringsValue: unexpected node %+v\n", v2)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 			}
 		}
 		s := &StringOrStringArray{}
 		s.StringArray = &a
 		return s
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	default:
@@ -731,6 +855,10 @@ func (schema *Schema) stringOrStringArrayValue(v *yaml.Node) *StringOrStringArra
 	default:
 		fmt.Printf("arrayOfStringsValue: unexpected node %+v\n", v)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	default:
+		fmt.Printf("arrayOfStringsValue: unexpected node %+v\n", v)
+>>>>>>> 03397665 (update api)
 	}
 	return nil
 }
@@ -738,6 +866,9 @@ func (schema *Schema) stringOrStringArrayValue(v *yaml.Node) *StringOrStringArra
 // Gets an array of enum values from an interface{} value if possible.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 func (schema *Schema) arrayOfEnumValuesValue(v *yaml.Node) *[]SchemaEnumValue {
 	a := make([]SchemaEnumValue, 0)
 	switch v.Kind {
@@ -760,6 +891,7 @@ func (schema *Schema) arrayOfEnumValuesValue(v *yaml.Node) *[]SchemaEnumValue {
 		}
 	default:
 		fmt.Printf("arrayOfEnumValuesValue: unexpected node %+v\n", v)
+<<<<<<< HEAD
 =======
 func (schema *Schema) arrayOfEnumValuesValue(v interface{}) *[]SchemaEnumValue {
 =======
@@ -790,11 +922,14 @@ func (schema *Schema) arrayOfEnumValuesValue(v *yaml.Node) *[]SchemaEnumValue {
 	default:
 		fmt.Printf("arrayOfEnumValuesValue: unexpected node %+v\n", v)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	}
 	return &a
 }
 
 // Gets a map of schemas or string arrays from an interface{} value if possible.
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 func (schema *Schema) mapOfSchemasOrStringArraysValue(v *yaml.Node) *[]*NamedSchemaOrStringArray {
@@ -818,6 +953,9 @@ func (schema *Schema) mapOfSchemasOrStringArraysValue(v interface{}) *[]*NamedSc
 =======
 func (schema *Schema) mapOfSchemasOrStringArraysValue(v *yaml.Node) *[]*NamedSchemaOrStringArray {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func (schema *Schema) mapOfSchemasOrStringArraysValue(v *yaml.Node) *[]*NamedSchemaOrStringArray {
+>>>>>>> 03397665 (update api)
 	m := make([]*NamedSchemaOrStringArray, 0)
 	switch v.Kind {
 	case yaml.MappingNode:
@@ -833,6 +971,7 @@ func (schema *Schema) mapOfSchemasOrStringArraysValue(v *yaml.Node) *[]*NamedSch
 						a = append(a, v3.Value)
 					default:
 <<<<<<< HEAD
+<<<<<<< HEAD
 						fmt.Printf("mapOfSchemasOrStringArraysValue: unexpected type %T %+v\n", v3, v3)
 					case string:
 						a = append(a, v3)
@@ -840,6 +979,9 @@ func (schema *Schema) mapOfSchemasOrStringArraysValue(v *yaml.Node) *[]*NamedSch
 =======
 						fmt.Printf("mapOfSchemasOrStringArraysValue: unexpected node %+v\n", v3)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+						fmt.Printf("mapOfSchemasOrStringArraysValue: unexpected node %+v\n", v3)
+>>>>>>> 03397665 (update api)
 					}
 				}
 				s := &SchemaOrStringArray{}
@@ -848,8 +990,11 @@ func (schema *Schema) mapOfSchemasOrStringArraysValue(v *yaml.Node) *[]*NamedSch
 				m = append(m, pair)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 			default:
 				fmt.Printf("mapOfSchemasOrStringArraysValue: unexpected node %+v\n", v2)
 			}
@@ -857,12 +1002,15 @@ func (schema *Schema) mapOfSchemasOrStringArraysValue(v *yaml.Node) *[]*NamedSch
 	default:
 		fmt.Printf("mapOfSchemasOrStringArraysValue: unexpected node %+v\n", v)
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 			}
 		}
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	}
 	return &m
 }
@@ -870,6 +1018,9 @@ func (schema *Schema) mapOfSchemasOrStringArraysValue(v *yaml.Node) *[]*NamedSch
 // Gets a schema or a boolean value from an interface{} value if possible.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 func (schema *Schema) schemaOrBooleanValue(v *yaml.Node) *SchemaOrBoolean {
 	schemaOrBoolean := &SchemaOrBoolean{}
 	switch v.Kind {
@@ -880,6 +1031,7 @@ func (schema *Schema) schemaOrBooleanValue(v *yaml.Node) *SchemaOrBoolean {
 		schemaOrBoolean.Schema = NewSchemaFromObject(v)
 	default:
 		fmt.Printf("schemaOrBooleanValue: unexpected node %+v\n", v)
+<<<<<<< HEAD
 =======
 func (schema *Schema) schemaOrBooleanValue(v interface{}) *SchemaOrBoolean {
 =======
@@ -901,6 +1053,8 @@ func (schema *Schema) schemaOrBooleanValue(v *yaml.Node) *SchemaOrBoolean {
 =======
 		fmt.Printf("schemaOrBooleanValue: unexpected node %+v\n", v)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	}
 	return schemaOrBoolean
 }

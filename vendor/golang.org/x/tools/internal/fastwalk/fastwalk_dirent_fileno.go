@@ -4,12 +4,16 @@
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 //go:build freebsd || openbsd || netbsd
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 //go:build freebsd || openbsd || netbsd
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+//go:build freebsd || openbsd || netbsd
+>>>>>>> 03397665 (update api)
 // +build freebsd openbsd netbsd
 
 package fastwalk

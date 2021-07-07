@@ -8,6 +8,9 @@ import (
 	"bytes"
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 	"context"
 	"encoding/json"
 	"fmt"
@@ -34,6 +37,7 @@ import (
 // debug controls verbose logging.
 var debug, _ = strconv.ParseBool(os.Getenv("GOPACKAGESDEBUG"))
 
+<<<<<<< HEAD
 =======
 =======
 	"context"
@@ -67,6 +71,8 @@ var debug, _ = strconv.ParseBool(os.Getenv("GOPACKAGESDEBUG"))
 var debug, _ = strconv.ParseBool(os.Getenv("GOPACKAGESDEBUG"))
 
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // A goTooOldError reports that the go command
 // found by exec.LookPath is too old to use the new go list behavior.
 type goTooOldError struct {
@@ -75,8 +81,11 @@ type goTooOldError struct {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // responseDeduper wraps a driverResponse, deduplicating its contents.
 type responseDeduper struct {
 	seenRoots    map[string]bool
@@ -167,18 +176,24 @@ func (state *golistState) mustGetEnv() map[string]string {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // goListDriver uses the go list command to interpret the patterns and produce
 // the build system package structure.
 // See driver for more details.
 func goListDriver(cfg *Config, patterns ...string) (*driverResponse, error) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	// Make sure that any asynchronous go commands are killed when we return.
 	parentCtx := cfg.Context
 	if parentCtx == nil {
@@ -210,6 +225,7 @@ func goListDriver(cfg *Config, patterns ...string) (*driverResponse, error) {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// Determine files requested in contains patterns
 	var containFiles []string
 =======
@@ -221,6 +237,10 @@ func goListDriver(cfg *Config, patterns ...string) (*driverResponse, error) {
 	// Determine files requested in contains patterns
 	var containFiles []string
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	// Determine files requested in contains patterns
+	var containFiles []string
+>>>>>>> 03397665 (update api)
 	restPatterns := make([]string, 0, len(patterns))
 	// Extract file= and other [querytype]= patterns. Report an error if querytype
 	// doesn't exist.
@@ -238,12 +258,15 @@ extractQueries:
 				restPatterns = append(restPatterns, value)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 			case "name":
 				packagesNamed = append(packagesNamed, value)
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 			case "": // not a reserved query
 				restPatterns = append(restPatterns, pattern)
 			default:
@@ -260,8 +283,11 @@ extractQueries:
 	}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 
 	// See if we have any patterns to pass through to go list. Zero initial
 	// patterns also requires a go list call, since it's the equivalent of
@@ -270,6 +296,7 @@ extractQueries:
 		dr, err := state.createDriverResponse(restPatterns...)
 		if err != nil {
 			return nil, err
+<<<<<<< HEAD
 <<<<<<< HEAD
 		}
 		response.addAll(dr)
@@ -397,6 +424,8 @@ func (state *golistState) runContainsQueries(response *responseDeduper, queries 
 			restPatterns = append(restPatterns, pattern)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		}
 		response.addAll(dr)
 	}
@@ -497,9 +526,12 @@ func (state *golistState) runContainsQueries(response *responseDeduper, queries 
 		pattern, err := filepath.Abs(fdir)
 		if err != nil {
 <<<<<<< HEAD
+<<<<<<< HEAD
 			return nil, err
 >>>>>>> 79bfea2d (update vendor)
 =======
+=======
+>>>>>>> 03397665 (update api)
 			return fmt.Errorf("could not determine absolute path of file= query path %q: %v", query, err)
 		}
 		dirResponse, err := state.createDriverResponse(pattern)
@@ -514,7 +546,10 @@ func (state *golistState) runContainsQueries(response *responseDeduper, queries 
 			if dirResponse, queryErr = state.adhocPackage(pattern, query); queryErr != nil {
 				return err // return the original error
 			}
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		}
 		isRoot := make(map[string]bool, len(dirResponse.Roots))
 		for _, root := range dirResponse.Roots {
@@ -527,6 +562,7 @@ func (state *golistState) runContainsQueries(response *responseDeduper, queries 
 			// Over-reporting packages is not a problem.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			response.addPackage(pkg)
 =======
 			addPkg(pkg)
@@ -534,12 +570,16 @@ func (state *golistState) runContainsQueries(response *responseDeduper, queries 
 =======
 			response.addPackage(pkg)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+			response.addPackage(pkg)
+>>>>>>> 03397665 (update api)
 			// if the package was not a root one, it cannot have the file
 			if !isRoot[pkg.ID] {
 				continue
 			}
 			for _, pkgFile := range pkg.GoFiles {
 				if filepath.Base(query) == filepath.Base(pkgFile) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 					response.addRoot(pkg.ID)
@@ -549,11 +589,15 @@ func (state *golistState) runContainsQueries(response *responseDeduper, queries 
 =======
 					response.addRoot(pkg.ID)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+					response.addRoot(pkg.ID)
+>>>>>>> 03397665 (update api)
 					break
 				}
 			}
 		}
 	}
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	return nil
@@ -600,6 +644,9 @@ func (state *golistState) adhocPackage(pattern, query string) (*driverResponse, 
 =======
 	return nil
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	return nil
+>>>>>>> 03397665 (update api)
 }
 
 // adhocPackage attempts to load or construct an ad-hoc package for a given
@@ -623,6 +670,7 @@ func (state *golistState) adhocPackage(pattern, query string) (*driverResponse, 
 		response.Roots = append(response.Roots, "command-line-arguments")
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	var results []string
 	addResponse := func(r *driverResponse) {
@@ -634,6 +682,8 @@ func (state *golistState) adhocPackage(pattern, query string) (*driverResponse, 
 					break
 >>>>>>> 79bfea2d (update vendor)
 =======
+=======
+>>>>>>> 03397665 (update api)
 	// Handle special cases.
 	if len(response.Packages) == 1 {
 		// golang/go#33482: If this is a file= query for ad-hoc packages where
@@ -650,11 +700,15 @@ func (state *golistState) adhocPackage(pattern, query string) (*driverResponse, 
 						response.Packages[0].GoFiles = []string{path}
 						response.Packages[0].CompiledGoFiles = []string{path}
 					}
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 				}
 			}
 		}
 	}
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	return response, nil
@@ -825,6 +879,9 @@ func lowerASCIIAndRemoveHyphen(s string) (ret string) {
 =======
 	return response, nil
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	return response, nil
+>>>>>>> 03397665 (update api)
 }
 
 // Fields must match go list;
@@ -832,8 +889,11 @@ func lowerASCIIAndRemoveHyphen(s string) (ret string) {
 type jsonPackage struct {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	ImportPath        string
 	Dir               string
 	Name              string
@@ -866,6 +926,7 @@ type jsonPackage struct {
 	Error      *packagesinternal.PackageError
 	DepsErrors []*packagesinternal.PackageError
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	ImportPath      string
 	Dir             string
@@ -897,6 +958,8 @@ type jsonPackage struct {
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }
 
 type jsonPackageError struct {
@@ -909,6 +972,7 @@ func otherFiles(p *jsonPackage) [][]string {
 	return [][]string{p.CFiles, p.CXXFiles, p.MFiles, p.HFiles, p.FFiles, p.SFiles, p.SwigFiles, p.SwigCXXFiles, p.SysoFiles}
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 // createDriverResponse uses the "go list" command to expand the pattern
@@ -930,17 +994,26 @@ func golistDriverCurrent(cfg *Config, words ...string) (*driverResponse, error) 
 // words and return a response for the specified packages.
 func (state *golistState) createDriverResponse(words ...string) (*driverResponse, error) {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+// createDriverResponse uses the "go list" command to expand the pattern
+// words and return a response for the specified packages.
+func (state *golistState) createDriverResponse(words ...string) (*driverResponse, error) {
+>>>>>>> 03397665 (update api)
 	// go list uses the following identifiers in ImportPath and Imports:
 	//
 	// 	"p"			-- importable package or main (command)
 	// 	"q.test"		-- q's test executable
 	// 	"p [q.test]"		-- variant of p as built for q's test executable
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//	"q_test [q.test]"	-- q's external test package
 >>>>>>> 79bfea2d (update vendor)
 =======
 	// 	"q_test [q.test]"	-- q's external test package
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	// 	"q_test [q.test]"	-- q's external test package
+>>>>>>> 03397665 (update api)
 	//
 	// The packages p that are built differently for a test q.test
 	// are q itself, plus any helpers used by the external test q_test,
@@ -948,6 +1021,7 @@ func (state *golistState) createDriverResponse(words ...string) (*driverResponse
 
 	// Run "go list" for complete
 	// information on the specified packages.
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	buf, err := state.invokeGo("list", golistargs(state.cfg, words)...)
@@ -964,6 +1038,8 @@ func (state *golistState) createDriverResponse(words ...string) (*driverResponse
 	}
 >>>>>>> 79bfea2d (update vendor)
 =======
+=======
+>>>>>>> 03397665 (update api)
 	buf, err := state.invokeGo("list", golistargs(state.cfg, words)...)
 	if err != nil {
 		return nil, err
@@ -971,7 +1047,10 @@ func (state *golistState) createDriverResponse(words ...string) (*driverResponse
 	seen := make(map[string]*jsonPackage)
 	pkgs := make(map[string]*Package)
 	additionalErrors := make(map[string][]Error)
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	// Decode the JSON and convert it to Package form.
 	var response driverResponse
 	for dec := json.NewDecoder(buf); dec.More(); {
@@ -996,8 +1075,11 @@ func (state *golistState) createDriverResponse(words ...string) (*driverResponse
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		// Work around https://golang.org/issue/33157:
 		// go list -e, when given an absolute path, will find the package contained at
 		// that directory. But when no package exists there, it will return a fake package
@@ -1085,10 +1167,13 @@ func (state *golistState) createDriverResponse(words ...string) (*driverResponse
 		seen[p.ImportPath] = p
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		pkg := &Package{
 			Name:            p.Name,
 			ID:              p.ImportPath,
@@ -1097,8 +1182,11 @@ func (state *golistState) createDriverResponse(words ...string) (*driverResponse
 			OtherFiles:      absJoin(p.Dir, otherFiles(p)...),
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 			IgnoredFiles:    absJoin(p.Dir, p.IgnoredGoFiles, p.IgnoredOtherFiles),
 			forTest:         p.ForTest,
 			depsErrors:      p.DepsErrors,
@@ -1143,10 +1231,13 @@ func (state *golistState) createDriverResponse(words ...string) (*driverResponse
 			}
 			pkg.CompiledGoFiles = out
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		}
 
 		// Extract the PkgPath from the package's ID.
@@ -1197,6 +1288,7 @@ func (state *golistState) createDriverResponse(words ...string) (*driverResponse
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		// Work around for pre-go.1.11 versions of go list.
 		// TODO(matloob): they should be handled by the fallback.
 		// Can we delete this?
@@ -1208,14 +1300,22 @@ func (state *golistState) createDriverResponse(words ...string) (*driverResponse
 		// TODO(matloob): they should be handled by the fallback.
 		// Can we delete this?
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+		// Work around for pre-go.1.11 versions of go list.
+		// TODO(matloob): they should be handled by the fallback.
+		// Can we delete this?
+>>>>>>> 03397665 (update api)
 		if len(pkg.CompiledGoFiles) == 0 {
 			pkg.CompiledGoFiles = pkg.GoFiles
 		}
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		// Temporary work-around for golang/go#39986. Parse filenames out of
 		// error messages. This happens if there are unrecoverable syntax
 		// errors in the source, so we can't match on a specific error message.
@@ -1250,6 +1350,7 @@ func (state *golistState) createDriverResponse(words ...string) (*driverResponse
 		}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if p.Error != nil {
 			msg := strings.TrimSpace(p.Error.Err) // Trim to work around golang.org/issue/32363.
 			// Address golang.org/issue/35964 by appending import stack to error message.
@@ -1278,6 +1379,8 @@ func (state *golistState) createDriverResponse(words ...string) (*driverResponse
 =======
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		if p.Error != nil {
 			msg := strings.TrimSpace(p.Error.Err) // Trim to work around golang.org/issue/32363.
 			// Address golang.org/issue/35964 by appending import stack to error message.
@@ -1303,18 +1406,25 @@ func (state *golistState) createDriverResponse(words ...string) (*driverResponse
 		response.Packages = append(response.Packages, pkg)
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 79bfea2d (update vendor)
 =======
 	sort.Slice(response.Packages, func(i, j int) bool { return response.Packages[i].ID < response.Packages[j].ID })
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	sort.Slice(response.Packages, func(i, j int) bool { return response.Packages[i].ID < response.Packages[j].ID })
+>>>>>>> 03397665 (update api)
 
 	return &response, nil
 }
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 func (state *golistState) shouldAddFilenameFromError(p *jsonPackage) bool {
 	if len(p.GoFiles) > 0 || len(p.CompiledGoFiles) > 0 {
 		return false
@@ -1383,10 +1493,13 @@ func (state *golistState) getPkgPath(dir string) (string, bool, error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // absJoin absolutizes and flattens the lists of files.
 func absJoin(dir string, fileses ...[]string) (res []string) {
 	for _, files := range fileses {
@@ -1403,6 +1516,7 @@ func absJoin(dir string, fileses ...[]string) (res []string) {
 func golistargs(cfg *Config, words []string) []string {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	const findFlags = NeedImports | NeedTypes | NeedSyntax | NeedTypesInfo
 	fullargs := []string{
 		"-e", "-json",
@@ -1417,20 +1531,29 @@ func golistargs(cfg *Config, words []string) []string {
 =======
 	const findFlags = NeedImports | NeedTypes | NeedSyntax | NeedTypesInfo
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	const findFlags = NeedImports | NeedTypes | NeedSyntax | NeedTypesInfo
+>>>>>>> 03397665 (update api)
 	fullargs := []string{
 		"-e", "-json",
 		fmt.Sprintf("-compiled=%t", cfg.Mode&(NeedCompiledGoFiles|NeedSyntax|NeedTypes|NeedTypesInfo|NeedTypesSizes) != 0),
 		fmt.Sprintf("-test=%t", cfg.Tests),
 		fmt.Sprintf("-export=%t", usesExportData(cfg)),
 <<<<<<< HEAD
+<<<<<<< HEAD
 		fmt.Sprintf("-deps=%t", cfg.Mode >= LoadImports),
 >>>>>>> 79bfea2d (update vendor)
 =======
+=======
+>>>>>>> 03397665 (update api)
 		fmt.Sprintf("-deps=%t", cfg.Mode&NeedImports != 0),
 		// go list doesn't let you pass -test and -find together,
 		// probably because you'd just get the TestMain.
 		fmt.Sprintf("-find=%t", !cfg.Tests && cfg.Mode&findFlags == 0),
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	}
 	fullargs = append(fullargs, cfg.BuildFlags...)
 	fullargs = append(fullargs, "--")
@@ -1440,8 +1563,11 @@ func golistargs(cfg *Config, words []string) []string {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 // cfgInvocation returns an Invocation that reflects cfg's settings.
 func (state *golistState) cfgInvocation() gocommand.Invocation {
 	cfg := state.cfg
@@ -1457,6 +1583,9 @@ func (state *golistState) cfgInvocation() gocommand.Invocation {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 // invokeGo returns the stdout of a go command invocation.
 func (state *golistState) invokeGo(verb string, args ...string) (*bytes.Buffer, error) {
 	cfg := state.cfg
@@ -1500,6 +1629,7 @@ func (state *golistState) invokeGo(verb string, args ...string) (*bytes.Buffer, 
 			// Catastrophic error:
 			// - context cancellation
 			return nil, xerrors.Errorf("couldn't run 'go': %w", err)
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
@@ -1551,6 +1681,8 @@ func (state *golistState) invokeGo(verb string, args ...string) (*bytes.Buffer, 
 =======
 			return nil, xerrors.Errorf("couldn't run 'go': %w", err)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		}
 
 		// Old go version?
@@ -1560,8 +1692,11 @@ func (state *golistState) invokeGo(verb string, args ...string) (*bytes.Buffer, 
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		// Related to #24854
 		if len(stderr.String()) > 0 && strings.Contains(stderr.String(), "unexpected directory layout") {
 			return nil, friendlyErr
@@ -1670,24 +1805,33 @@ func (state *golistState) invokeGo(verb string, args ...string) (*bytes.Buffer, 
 		}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		// Export mode entails a build.
 		// If that build fails, errors appear on stderr
 		// (despite the -e flag) and the Export field is blank.
 		// Do not fail in that case.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 		// The same is true if an ad-hoc package given to go list doesn't exist.
 		// TODO(matloob): Remove these once we can depend on go list to exit with a zero status with -e even when
 		// packages don't exist or a build fails.
 		if !usesExportData(cfg) && !containsGoFile(args) {
 			return nil, friendlyErr
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 		}
 	}
 	return stdout, nil
@@ -1781,6 +1925,7 @@ func cmdDebugStr(cmd *exec.Cmd) string {
 		}
 	}
 	return fmt.Sprintf("GOROOT=%v GOPATH=%v GO111MODULE=%v GOPROXY=%v PWD=%v %v", env["GOROOT"], env["GOPATH"], env["GO111MODULE"], env["GOPROXY"], env["PWD"], strings.Join(args, " "))
+<<<<<<< HEAD
 =======
 		if !usesExportData(cfg) {
 			return nil, fmt.Errorf("go %v: %s: %s", args, exitErr, stderr)
@@ -1884,4 +2029,6 @@ func cmdDebugStr(cmd *exec.Cmd) string {
 	}
 	return fmt.Sprintf("GOROOT=%v GOPATH=%v GO111MODULE=%v GOPROXY=%v PWD=%v %v", env["GOROOT"], env["GOPATH"], env["GO111MODULE"], env["GOPROXY"], env["PWD"], strings.Join(args, " "))
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 }

@@ -14,6 +14,9 @@ import "syscall"
 const (
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 	ASI_LEON_DFLUSH                  = 0x11
 	ASI_LEON_IFLUSH                  = 0x10
 	ASI_LEON_MMUFLUSH                = 0x18
@@ -55,6 +58,7 @@ const (
 	CBAUDEX                          = 0x1000
 	CIBAUD                           = 0x100f0000
 	CLOCAL                           = 0x800
+<<<<<<< HEAD
 =======
 	AF_ALG                           = 0x26
 	AF_APPLETALK                     = 0x5
@@ -262,11 +266,14 @@ const (
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	CR1                              = 0x200
 	CR2                              = 0x400
 	CR3                              = 0x600
 	CRDLY                            = 0x600
 	CREAD                            = 0x80
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	CS6                              = 0x10
@@ -279,11 +286,14 @@ const (
 	CS5                              = 0x0
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	CS6                              = 0x10
 	CS7                              = 0x20
 	CS8                              = 0x30
 	CSIZE                            = 0x30
 	CSTOPB                           = 0x40
+<<<<<<< HEAD
 <<<<<<< HEAD
 	CSUSP                            = 0x1a
 	DT_BLK                           = 0x6
@@ -299,6 +309,8 @@ const (
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	ECHOCTL                          = 0x200
 	ECHOE                            = 0x10
 	ECHOK                            = 0x20
@@ -307,6 +319,9 @@ const (
 	ECHOPRT                          = 0x400
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 	EFD_CLOEXEC                      = 0x400000
 	EFD_NONBLOCK                     = 0x4000
 	EMT_TAGOVF                       = 0x1
@@ -328,6 +343,7 @@ const (
 	F_GETLK64                        = 0x7
 	F_GETOWN                         = 0x5
 	F_RDLCK                          = 0x1
+<<<<<<< HEAD
 =======
 =======
 	EFD_CLOEXEC                      = 0x400000
@@ -359,11 +375,14 @@ const (
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	F_SETLK                          = 0x8
 	F_SETLK64                        = 0x8
 	F_SETLKW                         = 0x9
 	F_SETLKW64                       = 0x9
 	F_SETOWN                         = 0x6
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	F_UNLCK                          = 0x3
@@ -391,6 +410,8 @@ const (
 	F_ULOCK                          = 0x0
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	F_UNLCK                          = 0x3
 	F_WRLCK                          = 0x2
 	HIDIOCGRAWINFO                   = 0x40084803
@@ -406,6 +427,7 @@ const (
 	IUCLC                            = 0x200
 	IXOFF                            = 0x1000
 	IXON                             = 0x400
+<<<<<<< HEAD
 <<<<<<< HEAD
 	LINUX_REBOOT_CMD_CAD_OFF         = 0x0
 	LINUX_REBOOT_CMD_CAD_ON          = 0x89abcdef
@@ -440,10 +462,13 @@ const (
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	MAP_ANON                         = 0x20
 	MAP_ANONYMOUS                    = 0x20
 	MAP_DENYWRITE                    = 0x800
 	MAP_EXECUTABLE                   = 0x1000
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	MAP_GROWSDOWN                    = 0x200
@@ -460,12 +485,19 @@ const (
 	MAP_GROWSDOWN                    = 0x200
 	MAP_HUGETLB                      = 0x40000
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	MAP_GROWSDOWN                    = 0x200
+	MAP_HUGETLB                      = 0x40000
+>>>>>>> 03397665 (update api)
 	MAP_LOCKED                       = 0x100
 	MAP_NONBLOCK                     = 0x10000
 	MAP_NORESERVE                    = 0x40
 	MAP_POPULATE                     = 0x8000
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 	MAP_RENAME                       = 0x20
 	MAP_STACK                        = 0x20000
 	MAP_SYNC                         = 0x80000
@@ -481,6 +513,7 @@ const (
 	NS_GET_USERNS                    = 0x2000b701
 	OLCUC                            = 0x2
 	ONLCR                            = 0x4
+<<<<<<< HEAD
 =======
 	MAP_PRIVATE                      = 0x2
 =======
@@ -508,6 +541,8 @@ const (
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	O_APPEND                         = 0x8
 	O_ASYNC                          = 0x40
 	O_CLOEXEC                        = 0x400000
@@ -526,16 +561,20 @@ const (
 	O_PATH                           = 0x1000000
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	O_RDONLY                         = 0x0
 	O_RDWR                           = 0x2
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	O_RSYNC                          = 0x802000
 	O_SYNC                           = 0x802000
 	O_TMPFILE                        = 0x2010000
 	O_TRUNC                          = 0x400
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	PARENB                           = 0x100
@@ -645,6 +684,8 @@ const (
 	PACKET_VNET_HDR                  = 0xf
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	PARENB                           = 0x100
 	PARODD                           = 0x200
 	PENDIN                           = 0x4000
@@ -705,11 +746,14 @@ const (
 	PTRACE_SETREGS64                 = 0x17
 	PTRACE_SPARC_DETACH              = 0xb
 <<<<<<< HEAD
+<<<<<<< HEAD
 	PTRACE_SYSCALL                   = 0x18
 	PTRACE_TRACEME                   = 0x0
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	PTRACE_WRITEDATA                 = 0x11
 	PTRACE_WRITETEXT                 = 0x13
 	PT_FP                            = 0x48
@@ -761,6 +805,7 @@ const (
 	PT_WIM                           = 0x10
 	PT_Y                             = 0xc
 	RLIMIT_AS                        = 0x9
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	RLIMIT_MEMLOCK                   = 0x8
@@ -830,6 +875,9 @@ const (
 =======
 	RLIMIT_MEMLOCK                   = 0x8
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	RLIMIT_MEMLOCK                   = 0x8
+>>>>>>> 03397665 (update api)
 	RLIMIT_NOFILE                    = 0x6
 	RLIMIT_NPROC                     = 0x7
 	RLIMIT_RSS                       = 0x5
@@ -888,16 +936,21 @@ const (
 	SO_ATTACH_REUSEPORT_EBPF         = 0x36
 	SO_BINDTODEVICE                  = 0xd
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 79bfea2d (update vendor)
 =======
 	SO_BINDTOIFINDEX                 = 0x41
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	SO_BINDTOIFINDEX                 = 0x41
+>>>>>>> 03397665 (update api)
 	SO_BPF_EXTENSIONS                = 0x32
 	SO_BROADCAST                     = 0x20
 	SO_BSDCOMPAT                     = 0x400
 	SO_BUSY_POLL                     = 0x30
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	SO_BUSY_POLL_BUDGET              = 0x49
 	SO_CNX_ADVICE                    = 0x37
 	SO_COOKIE                        = 0x3b
@@ -911,6 +964,9 @@ const (
 =======
 	SO_BUSY_POLL_BUDGET              = 0x49
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	SO_BUSY_POLL_BUDGET              = 0x49
+>>>>>>> 03397665 (update api)
 	SO_CNX_ADVICE                    = 0x37
 	SO_COOKIE                        = 0x3b
 	SO_DETACH_REUSEPORT_BPF          = 0x47
@@ -919,15 +975,20 @@ const (
 	SO_ERROR                         = 0x1007
 	SO_INCOMING_CPU                  = 0x33
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 79bfea2d (update vendor)
 =======
 	SO_INCOMING_NAPI_ID              = 0x3a
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	SO_INCOMING_NAPI_ID              = 0x3a
+>>>>>>> 03397665 (update api)
 	SO_KEEPALIVE                     = 0x8
 	SO_LINGER                        = 0x80
 	SO_LOCK_FILTER                   = 0x28
 	SO_MARK                          = 0x22
 	SO_MAX_PACING_RATE               = 0x31
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	SO_MEMINFO                       = 0x39
@@ -940,11 +1001,16 @@ const (
 	SO_MEMINFO                       = 0x39
 	SO_NOFCS                         = 0x27
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	SO_MEMINFO                       = 0x39
+	SO_NOFCS                         = 0x27
+>>>>>>> 03397665 (update api)
 	SO_OOBINLINE                     = 0x100
 	SO_PASSCRED                      = 0x2
 	SO_PASSSEC                       = 0x1f
 	SO_PEEK_OFF                      = 0x26
 	SO_PEERCRED                      = 0x40
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	SO_PEERGROUPS                    = 0x3d
@@ -960,11 +1026,17 @@ const (
 	SO_PEERSEC                       = 0x1e
 	SO_PREFER_BUSY_POLL              = 0x48
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	SO_PEERGROUPS                    = 0x3d
+	SO_PEERSEC                       = 0x1e
+	SO_PREFER_BUSY_POLL              = 0x48
+>>>>>>> 03397665 (update api)
 	SO_PROTOCOL                      = 0x1028
 	SO_RCVBUF                        = 0x1002
 	SO_RCVBUFFORCE                   = 0x100b
 	SO_RCVLOWAT                      = 0x800
 	SO_RCVTIMEO                      = 0x2000
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	SO_RCVTIMEO_NEW                  = 0x44
@@ -975,6 +1047,10 @@ const (
 	SO_RCVTIMEO_NEW                  = 0x44
 	SO_RCVTIMEO_OLD                  = 0x2000
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	SO_RCVTIMEO_NEW                  = 0x44
+	SO_RCVTIMEO_OLD                  = 0x2000
+>>>>>>> 03397665 (update api)
 	SO_REUSEADDR                     = 0x4
 	SO_REUSEPORT                     = 0x200
 	SO_RXQ_OVFL                      = 0x24
@@ -986,6 +1062,7 @@ const (
 	SO_SNDBUFFORCE                   = 0x100a
 	SO_SNDLOWAT                      = 0x1000
 	SO_SNDTIMEO                      = 0x4000
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	SO_SNDTIMEO_NEW                  = 0x45
@@ -1007,6 +1084,10 @@ const (
 	SO_SNDTIMEO_NEW                  = 0x45
 	SO_SNDTIMEO_OLD                  = 0x4000
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	SO_SNDTIMEO_NEW                  = 0x45
+	SO_SNDTIMEO_OLD                  = 0x4000
+>>>>>>> 03397665 (update api)
 	SO_TIMESTAMPING                  = 0x23
 	SO_TIMESTAMPING_NEW              = 0x43
 	SO_TIMESTAMPING_OLD              = 0x23
@@ -1017,6 +1098,7 @@ const (
 	SO_TXTIME                        = 0x3f
 	SO_TYPE                          = 0x1008
 	SO_WIFI_STATUS                   = 0x25
+<<<<<<< HEAD
 <<<<<<< HEAD
 	SPLICE_F_GIFT                    = 0x8
 	SPLICE_F_MORE                    = 0x4
@@ -1054,6 +1136,9 @@ const (
 =======
 	SO_ZEROCOPY                      = 0x3e
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	SO_ZEROCOPY                      = 0x3e
+>>>>>>> 03397665 (update api)
 	TAB1                             = 0x800
 	TAB2                             = 0x1000
 	TAB3                             = 0x1800
@@ -1062,6 +1147,7 @@ const (
 	TCGETA                           = 0x40125401
 	TCGETS                           = 0x40245408
 	TCGETS2                          = 0x402c540c
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -1116,6 +1202,8 @@ const (
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	TCSAFLUSH                        = 0x2
 	TCSBRK                           = 0x20005405
 	TCSBRKP                          = 0x5425
@@ -1131,6 +1219,7 @@ const (
 	TCXONC                           = 0x20005406
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	TFD_CLOEXEC                      = 0x400000
 	TFD_NONBLOCK                     = 0x4000
 =======
@@ -1139,6 +1228,10 @@ const (
 	TFD_CLOEXEC                      = 0x400000
 	TFD_NONBLOCK                     = 0x4000
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	TFD_CLOEXEC                      = 0x400000
+	TFD_NONBLOCK                     = 0x4000
+>>>>>>> 03397665 (update api)
 	TIOCCBRK                         = 0x2000747a
 	TIOCCONS                         = 0x20007424
 	TIOCEXCL                         = 0x2000740d
@@ -1148,12 +1241,16 @@ const (
 	TIOCGICOUNT                      = 0x545d
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	TIOCGISO7816                     = 0x40285443
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 	TIOCGISO7816                     = 0x40285443
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	TIOCGISO7816                     = 0x40285443
+>>>>>>> 03397665 (update api)
 	TIOCGLCKTRMIOS                   = 0x5456
 	TIOCGPGRP                        = 0x40047483
 	TIOCGPKT                         = 0x40045438
@@ -1161,12 +1258,16 @@ const (
 	TIOCGPTN                         = 0x40047486
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	TIOCGPTPEER                      = 0x20007489
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 	TIOCGPTPEER                      = 0x20007489
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	TIOCGPTPEER                      = 0x20007489
+>>>>>>> 03397665 (update api)
 	TIOCGRS485                       = 0x40205441
 	TIOCGSERIAL                      = 0x541e
 	TIOCGSID                         = 0x40047485
@@ -1185,6 +1286,7 @@ const (
 	TIOCM_DSR                        = 0x100
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	TIOCM_RI                         = 0x80
 	TIOCM_RNG                        = 0x80
 =======
@@ -1201,12 +1303,17 @@ const (
 	TIOCM_RI                         = 0x80
 	TIOCM_RNG                        = 0x80
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	TIOCM_RI                         = 0x80
+	TIOCM_RNG                        = 0x80
+>>>>>>> 03397665 (update api)
 	TIOCM_SR                         = 0x10
 	TIOCM_ST                         = 0x8
 	TIOCNOTTY                        = 0x20007471
 	TIOCNXCL                         = 0x2000740e
 	TIOCOUTQ                         = 0x40047473
 	TIOCPKT                          = 0x80047470
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -1221,6 +1328,8 @@ const (
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	TIOCSBRK                         = 0x2000747b
 	TIOCSCTTY                        = 0x20007484
 	TIOCSERCONFIG                    = 0x5453
@@ -1230,6 +1339,7 @@ const (
 	TIOCSERGWILD                     = 0x5454
 	TIOCSERSETMULTI                  = 0x545b
 	TIOCSERSWILD                     = 0x5455
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	TIOCSETD                         = 0x80047401
@@ -1245,6 +1355,11 @@ const (
 	TIOCSIG                          = 0x80047488
 	TIOCSISO7816                     = 0xc0285444
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	TIOCSETD                         = 0x80047401
+	TIOCSIG                          = 0x80047488
+	TIOCSISO7816                     = 0xc0285444
+>>>>>>> 03397665 (update api)
 	TIOCSLCKTRMIOS                   = 0x5457
 	TIOCSPGRP                        = 0x80047482
 	TIOCSPTLCK                       = 0x80047487
@@ -1261,12 +1376,16 @@ const (
 	TUNDETACHFILTER                  = 0x801054d6
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	TUNGETDEVNETNS                   = 0x200054e3
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 	TUNGETDEVNETNS                   = 0x200054e3
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	TUNGETDEVNETNS                   = 0x200054e3
+>>>>>>> 03397665 (update api)
 	TUNGETFEATURES                   = 0x400454cf
 	TUNGETFILTER                     = 0x401054db
 	TUNGETIFF                        = 0x400454d2
@@ -1276,6 +1395,7 @@ const (
 	TUNGETVNETLE                     = 0x400454dd
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	TUNSETCARRIER                    = 0x800454e2
 	TUNSETDEBUG                      = 0x800454c9
 	TUNSETFILTEREBPF                 = 0x400454e1
@@ -1287,6 +1407,11 @@ const (
 	TUNSETDEBUG                      = 0x800454c9
 	TUNSETFILTEREBPF                 = 0x400454e1
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	TUNSETCARRIER                    = 0x800454e2
+	TUNSETDEBUG                      = 0x800454c9
+	TUNSETFILTEREBPF                 = 0x400454e1
+>>>>>>> 03397665 (update api)
 	TUNSETGROUP                      = 0x800454ce
 	TUNSETIFF                        = 0x800454ca
 	TUNSETIFINDEX                    = 0x800454da
@@ -1299,20 +1424,27 @@ const (
 	TUNSETSNDBUF                     = 0x800454d4
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	TUNSETSTEERINGEBPF               = 0x400454e0
 =======
 >>>>>>> 79bfea2d (update vendor)
 =======
 	TUNSETSTEERINGEBPF               = 0x400454e0
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	TUNSETSTEERINGEBPF               = 0x400454e0
+>>>>>>> 03397665 (update api)
 	TUNSETTXFILTER                   = 0x800454d1
 	TUNSETVNETBE                     = 0x800454de
 	TUNSETVNETHDRSZ                  = 0x800454d8
 	TUNSETVNETLE                     = 0x800454dc
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	UBI_IOCATT                       = 0x80186f40
 	UBI_IOCDET                       = 0x80046f41
 	UBI_IOCEBCH                      = 0x80044f02
@@ -1331,11 +1463,15 @@ const (
 	UBI_IOCVOLRMBLK                  = 0x20004f08
 	UBI_IOCVOLUP                     = 0x80084f00
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03397665 (update api)
 	VDISCARD                         = 0xd
 	VEOF                             = 0x4
 	VEOL                             = 0xb
 	VEOL2                            = 0x10
 	VMIN                             = 0x6
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
@@ -1361,6 +1497,8 @@ const (
 	VEOL2                            = 0x10
 	VMIN                             = 0x6
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	VREPRINT                         = 0xc
 	VSTART                           = 0x8
 	VSTOP                            = 0x9
@@ -1368,19 +1506,25 @@ const (
 	VSWTC                            = 0x7
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	VT0                              = 0x0
 >>>>>>> 79bfea2d (update vendor)
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	VT1                              = 0x4000
 	VTDLY                            = 0x4000
 	VTIME                            = 0x5
 	VWERASE                          = 0xe
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 03397665 (update api)
 	WDIOC_GETBOOTSTATUS              = 0x40045702
 	WDIOC_GETPRETIMEOUT              = 0x40045709
 	WDIOC_GETSTATUS                  = 0x40045701
@@ -1390,6 +1534,7 @@ const (
 	WDIOC_GETTIMEOUT                 = 0x40045707
 	WDIOC_KEEPALIVE                  = 0x40045705
 	WDIOC_SETOPTIONS                 = 0x40045704
+<<<<<<< HEAD
 <<<<<<< HEAD
 	WORDSIZE                         = 0x40
 	XCASE                            = 0x4
@@ -1417,6 +1562,14 @@ const (
 	_HIDIOCGRAWPHYS                  = 0x40404805
 	_HIDIOCGRAWUNIQ                  = 0x40404808
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	WORDSIZE                         = 0x40
+	XCASE                            = 0x4
+	XTABS                            = 0x1800
+	_HIDIOCGRAWNAME                  = 0x40804804
+	_HIDIOCGRAWPHYS                  = 0x40404805
+	_HIDIOCGRAWUNIQ                  = 0x40404808
+>>>>>>> 03397665 (update api)
 	__TIOCFLUSH                      = 0x80047410
 )
 
