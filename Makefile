@@ -140,6 +140,7 @@ build: ## build binaries
                -ldflags "$(LD_FLAGS)" "$(REPO_PATH)/cmd/manager"
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	$(DOCKER_CMD) go build $(GOGCFLAGS) -o bin/manager -ldflags '-extldflags "-static"' \
                "$(REPO_PATH)/vendor/github.com/openshift/cluster-api/cmd/manager"
@@ -151,6 +152,8 @@ alicloud-actuator:
 	# $(DOCKER_CMD) CGO_ENABLED=0 go build  $(GOGCFLAGS) -o "bin/termination-handler" \
 	#             -ldflags "$(LD_FLAGS)" "$(REPO_PATH)/cmd/termination-handler"
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 60dde8f7 (update Makefile)
 
 .PHONY: images
 images: ## Create images

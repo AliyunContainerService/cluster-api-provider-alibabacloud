@@ -24,12 +24,17 @@ import (
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/version"
 
 	"github.com/openshift/machine-api-operator/pkg/metrics"
 
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	"github.com/openshift/machine-api-operator/pkg/metrics"
+
+>>>>>>> 60dde8f7 (update Makefile)
 	"sigs.k8s.io/controller-runtime/pkg/cache"
 	runtimeclient "sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/cluster"
@@ -167,11 +172,11 @@ func main() {
 		"The address for health checking.",
 	)
 
-	//metricsAddress := flag.String(
-	//	"metrics-bind-address",
-	//	metrics.DefaultMachineMetricsAddress,
-	//	"Address for hosting metrics",
-	//)
+	metricsAddress := flag.String(
+		"metrics-bind-address",
+		metrics.DefaultMachineMetricsAddress,
+		"Address for hosting metrics",
+	)
 
 	leaderElectResourceNamespace := flag.String(
 		"leader-elect-resource-namespace",
@@ -213,9 +218,13 @@ func main() {
 		HealthProbeBindAddress:  *healthAddr,
 		SyncPeriod:              &syncPeriod,
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 		//MetricsBindAddress:      *metricsAddress,
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+		MetricsBindAddress:      *metricsAddress,
+>>>>>>> 60dde8f7 (update Makefile)
 		// Slow the default retry and renew election rate to reduce etcd writes at idle: BZ 1858400
 		RetryPeriod:   &retryPeriod,
 		RenewDeadline: &renewDealine,
@@ -312,10 +321,14 @@ func newConfigManagedClient(mgr manager.Manager) (runtimeclient.Client, manager.
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	c, err := cache.New(mgr.GetConfig(), cacheOpts)
 =======
 	cache, err := cache.New(mgr.GetConfig(), cacheOpts)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	c, err := cache.New(mgr.GetConfig(), cacheOpts)
+>>>>>>> 60dde8f7 (update Makefile)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -342,12 +355,17 @@ func newConfigManagedClient(mgr manager.Manager) (runtimeclient.Client, manager.
 		Mapper: mgr.GetRESTMapper(),
 	}
 
+<<<<<<< HEAD
 	cachedClient, err := cluster.DefaultNewClient(cache, config.GetConfigOrDie(), clientOpts)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	cachedClient, err := cluster.DefaultNewClient(c, config.GetConfigOrDie(), clientOpts)
+>>>>>>> 60dde8f7 (update Makefile)
 	if err != nil {
 		return nil, nil, err
 	}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	return cachedClient, c, nil
@@ -357,4 +375,7 @@ func newConfigManagedClient(mgr manager.Manager) (runtimeclient.Client, manager.
 =======
 	return cachedClient, cache, nil
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	return cachedClient, c, nil
+>>>>>>> 60dde8f7 (update Makefile)
 }

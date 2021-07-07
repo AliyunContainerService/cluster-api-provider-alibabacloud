@@ -789,9 +789,14 @@ func NewClient(ctrlRuntimeClient client.Client, secretName, namespace, regionID 
 // For authentication the underlying clients will use either the cluster alibabacloud credentials
 // secret if defined (i.e. in the root cluster),
 // otherwise the IAM profile of the master where the actuator will run. (target clusters)
+<<<<<<< HEAD
 func NewClient(ctrlRuntimeClient client.Client, secretName, namespace, region string, configManagedClient client.Client) (Client, error) {
 	config, err := newConfiguration(ctrlRuntimeClient, secretName, namespace, region, configManagedClient)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func NewClient(ctrlRuntimeClient client.Client, secretName, namespace, regionID string, configManagedClient client.Client) (Client, error) {
+	config, err := newConfiguration(ctrlRuntimeClient, secretName, namespace, configManagedClient)
+>>>>>>> 60dde8f7 (update Makefile)
 	if err != nil {
 		return nil, err
 	}
@@ -856,21 +861,21 @@ func NewClient(ctrlRuntimeClient client.Client, secretName, namespace, region st
 		Scheme:    "HTTPS",
 	}
 	//init ecsClient
-	ecsClient, err := ecs.NewClientWithOptions(region, sdkConfig, credential)
+	ecsClient, err := ecs.NewClientWithOptions(regionID, sdkConfig, credential)
 	if err != nil {
 		klog.Errorf("failed to init ecs client %v", err)
 		return nil, err
 	}
 
 	//init vpcClient
-	vpcClient, err := vpc.NewClientWithOptions(region, sdkConfig, credential)
+	vpcClient, err := vpc.NewClientWithOptions(regionID, sdkConfig, credential)
 	if err != nil {
 		klog.Errorf("failed to init vpc client %v", err)
 		return nil, err
 	}
 
 	//init slbClient
-	slbClient, err := slb.NewClientWithOptions(region, sdkConfig, credential)
+	slbClient, err := slb.NewClientWithOptions(regionID, sdkConfig, credential)
 	if err != nil {
 		klog.Errorf("failed to init slb client %v", err)
 		return nil, err
@@ -885,7 +890,7 @@ func NewClient(ctrlRuntimeClient client.Client, secretName, namespace, region st
 
 //Init alibabacloud configuration
 //https://github.com/aliyun/alibaba-cloud-sdk-go/blob/master/sdk/auth/credentials/providers/configuration.go
-func newConfiguration(ctrlRuntimeClient client.Client, secretName, namespace, region string, configManagedClient client.Client) (*providers.Configuration, error) {
+func newConfiguration(ctrlRuntimeClient client.Client, secretName, namespace string, configManagedClient client.Client) (*providers.Configuration, error) {
 	config := &providers.Configuration{}
 
 	if secretName != "" {
