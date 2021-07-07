@@ -24,10 +24,9 @@ import (
 
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/ecs"
 
-	"k8s.io/klog/v2"
-
 	alibabacloudproviderv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alibabacloudprovider/v1beta1"
 	corev1 "k8s.io/api/core/v1"
+	"k8s.io/klog"
 
 	v1beta1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alibabacloudprovider/v1beta1"
 	alibabacloudClient "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client"
@@ -155,7 +154,7 @@ func (s *machineScope) getUserData() (string, error) {
 func (s *machineScope) setProviderStatus(instance *ecs.Instance, condition alibabacloudproviderv1.AlibabaCloudMachineProviderCondition) error {
 	klog.Infof("%s: Updating status", s.machine.Name)
 
-	networkAddresses := []corev1.NodeAddress{}
+	networkAddresses := make([]corev1.NodeAddress, 0)
 
 	if instance == nil {
 		s.providerStatus.InstanceID = nil
@@ -164,7 +163,7 @@ func (s *machineScope) setProviderStatus(instance *ecs.Instance, condition aliba
 		s.providerStatus.InstanceID = &instance.InstanceId
 		s.providerStatus.InstanceState = &instance.Status
 
-		addresses, err := extractNodeAddresses(instance, []string{})
+		addresses, err := extractNodeAddresses(instance)
 		if err != nil {
 			klog.Errorf("%s: Error extracting instance IP addresses: %v", s.machine.Name, err)
 			return err
@@ -181,7 +180,7 @@ func (s *machineScope) setProviderStatus(instance *ecs.Instance, condition aliba
 }
 
 // extractNodeAddresses maps the instance information from ECS to an array of NodeAddresses
-func extractNodeAddresses(instance *ecs.Instance, domainNames []string) ([]corev1.NodeAddress, error) {
+func extractNodeAddresses(instance *ecs.Instance) ([]corev1.NodeAddress, error) {
 	// Not clear if the order matters here, but we might as well indicate a sensible preference order
 
 	if instance == nil {
@@ -192,11 +191,6 @@ func extractNodeAddresses(instance *ecs.Instance, domainNames []string) ([]corev
 
 	// handle internal network interfaces
 	for _, networkInterface := range instance.NetworkInterfaces.NetworkInterface {
-		// skip network interfaces that are not currently in use
-		//if networkInterface.= ecs.NetworkInterfaceStatusInUse {
-		//	continue
-		//}
-
 		// Treating IPv6 addresses as type NodeInternalIP to match what the KNI
 		// patch to the alibabacloud cloud-provider code is doing:
 		//
