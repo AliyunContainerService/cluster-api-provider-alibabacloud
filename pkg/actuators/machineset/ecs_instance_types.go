@@ -21,6 +21,7 @@ type instanceType struct {
 }
 
 // InstanceTypes is a map of ecs resources
+// TODO next version will be supported
 var InstanceTypes = map[string]*instanceType{
 	"ecs.c6.2xlarge": {
 		InstanceType: "ecs.c6.2xlarge",

@@ -62,13 +62,13 @@ func conditionFailed() alibabacloudproviderv1.AlibabaCloudMachineProviderConditi
 	}
 }
 
-// setAlibabaCloudMachineProviderCondition sets the condition for the machine and
+// setMachineProviderCondition sets the condition for the machine and
 // returns the new slice of conditions.
 // If the machine does not already have a condition with the specified type,
 // a condition will be added to the slice
 // If the machine does already have a condition with the specified type,
 // the condition will be updated if either of the following are true.
-func setAlibabaCloudMachineProviderCondition(condition alibabacloudproviderv1.AlibabaCloudMachineProviderCondition, conditions []alibabacloudproviderv1.AlibabaCloudMachineProviderCondition) []alibabacloudproviderv1.AlibabaCloudMachineProviderCondition {
+func setMachineProviderCondition(condition alibabacloudproviderv1.AlibabaCloudMachineProviderCondition, conditions []alibabacloudproviderv1.AlibabaCloudMachineProviderCondition) []alibabacloudproviderv1.AlibabaCloudMachineProviderCondition {
 	now := metav1.Now()
 
 	if existingCondition := findProviderCondition(conditions, condition.Type); existingCondition == nil {

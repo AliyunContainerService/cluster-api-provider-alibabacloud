@@ -44,7 +44,7 @@ type Actuator struct {
 	client        controllerclient.Client
 	eventRecorder record.EventRecorder
 
-	alibabacloudClientBuilder alibabacloudClient.AlibabaCloudClientBuilderFuncType
+	alibabacloudClientBuilder alibabacloudClient.AlibabaCloudClientBuilderFunc
 	configManagedClient       controllerclient.Client
 
 	reconcilerBuilder func(scope *machineScope) *Reconciler
@@ -55,7 +55,7 @@ type ActuatorParams struct {
 	Client        controllerclient.Client
 	EventRecorder record.EventRecorder
 
-	AlibabaCloudClientBuilder alibabacloudClient.AlibabaCloudClientBuilderFuncType
+	AlibabaCloudClientBuilder alibabacloudClient.AlibabaCloudClientBuilderFunc
 	ConfigManagedClient       controllerclient.Client
 
 	ReconcilerBuilder func(scope *machineScope) *Reconciler

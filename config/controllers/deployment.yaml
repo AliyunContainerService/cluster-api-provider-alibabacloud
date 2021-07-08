@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: machine-api-controllers
-  namespace: default
+  namespace: openshift-config-managed
   labels:
     api: clusterapi
     k8s-app: controller
@@ -24,6 +24,8 @@ spec:
         runAsUser: 65534
       nodeSelector:
         node-role.kubernetes.io/master: ""
+      serviceAccountName: machine-api-manager
+      serviceAccount: machine-api-manager
       tolerations:
         - effect: NoSchedule
           key: node-role.kubernetes.io/master
@@ -36,17 +38,6 @@ spec:
           key: node.alpha.kubernetes.io/unreachable
           operator: Exists
       containers:
-        - name: controller-manager
-          image: openshift/origin-alibabacloud-machine-controllers:v4.0.0
-          command:
-            - "./manager"
-          resources:
-            requests:
-              cpu: 100m
-              memory: 20Mi
-            limits:
-              cpu: 100m
-              memory: 30Mi
         - name: machine-controller
           image: openshift/origin-alibabacloud-machine-controllers:v4.0.0
           env:
