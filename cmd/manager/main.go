@@ -91,6 +91,12 @@ func main() {
 		"Namespace that the controller watches to reconcile machine-api objects. If unspecified, the controller watches for machine-api objects across all namespaces.",
 	)
 
+	enableMetrics := flag.Bool(
+		"enable-metrics",
+		true,
+		"Whether to enable metrics, Default value true. If you test in local, you can disable it",
+	)
+
 	klog.InitFlags(nil)
 	flag.Set("logtostderr", "true")
 	flag.Parse()
@@ -105,10 +111,13 @@ func main() {
 		LeaseDuration:           leaderElectLeaseDuration,
 		HealthProbeBindAddress:  *healthAddr,
 		SyncPeriod:              &syncPeriod,
-		MetricsBindAddress:      *metricsAddress,
 		// Slow the default retry and renew election rate to reduce etcd writes at idle: BZ 1858400
 		RetryPeriod:   &retryPeriod,
 		RenewDeadline: &renewDealine,
+	}
+
+	if enableMetrics != nil && *enableMetrics {
+		opts.MetricsBindAddress = *metricsAddress
 	}
 
 	if *watchNamespace != "" {

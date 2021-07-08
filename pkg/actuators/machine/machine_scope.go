@@ -54,7 +54,7 @@ type machineScope struct {
 type machineScopeParams struct {
 	context.Context
 
-	alibabacloudClientBuilder alibabacloudClient.AlibabaCloudClientBuilderFuncType
+	alibabacloudClientBuilder alibabacloudClient.AlibabaCloudClientBuilderFunc
 	// api server controller runtime client
 	client runtimeclient.Client
 	// machine resource
@@ -154,46 +154,55 @@ func (s *machineScope) getUserData() (string, error) {
 func (s *machineScope) setProviderStatus(instance *ecs.Instance, condition alibabacloudproviderv1.AlibabaCloudMachineProviderCondition) error {
 	klog.Infof("%s: Updating status", s.machine.Name)
 
-	networkAddresses := make([]corev1.NodeAddress, 0)
-
+	// assign value to providerStatus
 	if instance == nil {
 		s.providerStatus.InstanceID = nil
 		s.providerStatus.InstanceState = nil
 	} else {
 		s.providerStatus.InstanceID = &instance.InstanceId
 		s.providerStatus.InstanceState = &instance.Status
-
-		addresses, err := extractNodeAddresses(instance)
-		if err != nil {
-			klog.Errorf("%s: Error extracting instance IP addresses: %v", s.machine.Name, err)
-			return err
-		}
-
-		networkAddresses = append(networkAddresses, addresses...)
 	}
-	klog.Infof("%s: finished calculating alibabacloud status", s.machine.Name)
 
+	networkAddresses, err := s.getNetworkAddress(instance)
+	if err != nil {
+		klog.Errorf("%s : Error get Network Address :%v", s.machine.Name, err)
+		return nil
+	}
 	s.machine.Status.Addresses = networkAddresses
-	s.providerStatus.Conditions = setAlibabaCloudMachineProviderCondition(condition, s.providerStatus.Conditions)
+	s.providerStatus.Conditions = setMachineProviderCondition(condition, s.providerStatus.Conditions)
 
 	return nil
 }
 
-// extractNodeAddresses maps the instance information from ECS to an array of NodeAddresses
-func extractNodeAddresses(instance *ecs.Instance) ([]corev1.NodeAddress, error) {
-	// Not clear if the order matters here, but we might as well indicate a sensible preference order
+func (s *machineScope) getNetworkAddress(instance *ecs.Instance) ([]corev1.NodeAddress, error) {
+	klog.Infof("%s : Setting network address", s.machine.Name)
+
+	networkAddresses := make([]corev1.NodeAddress, 0)
+
+	addresses, err := extractNodeAddressesFromInstance(instance)
+	if err != nil {
+		klog.Errorf("%s: Error extracting instance IP addresses: %v", s.machine.Name, err)
+		return nil, err
+	}
+
+	networkAddresses = append(networkAddresses, addresses...)
+
+	klog.Infof("%s: finished calculating alibabacloud status", s.machine.Name)
+
+	return networkAddresses, nil
+}
+
+// extractNodeAddressesFromInstance maps the instance information from ECS to an array of NodeAddresses
+func extractNodeAddressesFromInstance(instance *ecs.Instance) ([]corev1.NodeAddress, error) {
 
 	if instance == nil {
-		return nil, fmt.Errorf("nil instance passed to extractNodeAddresses")
+		return nil, fmt.Errorf("the ecs instance is nil")
 	}
 
 	addresses := make([]corev1.NodeAddress, 0)
 
 	// handle internal network interfaces
 	for _, networkInterface := range instance.NetworkInterfaces.NetworkInterface {
-		// Treating IPv6 addresses as type NodeInternalIP to match what the KNI
-		// patch to the alibabacloud cloud-provider code is doing:
-		//
 		// https://github.com/openshift-kni/origin/commit/7db21c1e26a344e25ae1b825d4f21e7bef5c3650
 		for _, ipv6Address := range networkInterface.Ipv6Sets.Ipv6Set {
 			if addr := ipv6Address.Ipv6Address; addr != "" {
