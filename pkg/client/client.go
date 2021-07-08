@@ -23,8 +23,8 @@ import (
 
 //go:generate go run ../../vendor/github.com/golang/mock/mockgen -source=./client.go -destination=./mock/client_mock.go -package=mock
 
-// AlibabaCloudClientBuilderFuncType is function type for building alibabacloud client
-type AlibabaCloudClientBuilderFuncType func(client client.Client, secretName, namespace, region string, configManagedClient client.Client) (Client, error)
+// AlibabaCloudClientBuilderFunc is function type for building alibabacloud client
+type AlibabaCloudClientBuilderFunc func(client client.Client, secretName, namespace, region string, configManagedClient client.Client) (Client, error)
 
 // machineProviderUserAgent is a named handler that will add cluster-api-provider-alibabacloud
 var machineProviderUserAgent = fmt.Sprintf("openshift.io cluster-api-provider-alibabacloud:%s", version.Version.String())
@@ -37,9 +37,6 @@ const (
 	kubeRoleSessionName       = "roleSessionName"
 	kubeRoleSessionExpiration = "roleSessionExpiration"
 	kubeRoleName              = "roleName"
-
-	// GlobalInfrastuctureName default name for infrastructure object
-	GlobalInfrastuctureName = "cluster"
 
 	// KubeCloudConfigNamespace is the namespace where the kube cloud config ConfigMap is located
 	KubeCloudConfigNamespace = "openshift-config-managed"
@@ -573,9 +570,6 @@ func (client *alibabacloudClient) DescribeVServerGroupAttribute(request *slb.Des
 }
 
 // NewClient creates our client wrapper object for the actual alibabacloud clients we use.
-// For authentication the underlying clients will use either the cluster alibabacloud credentials
-// secret if defined (i.e. in the root cluster),
-// otherwise the IAM profile of the master where the actuator will run. (target clusters)
 func NewClient(ctrlRuntimeClient client.Client, secretName, namespace, regionID string, configManagedClient client.Client) (Client, error) {
 	config, err := newConfiguration(ctrlRuntimeClient, secretName, namespace, configManagedClient)
 	if err != nil {
@@ -665,6 +659,7 @@ func fetchCredentialsFileFromSecret(secret *corev1.Secret, config *providers.Con
 	return nil
 }
 
+// fetchCredentialsFileFromConfigMap
 // roleArn, roleName ,roleSessionName ,roleSessionExpiration
 func fetchCredentialsFileFromConfigMap(namespace string, configManagedClient client.Client, config *providers.Configuration) error {
 	cm := &corev1.ConfigMap{}

@@ -8,5 +8,5 @@ roleRef:
   name: cluster-api-manager-role
 subjects:
 - kind: ServiceAccount
-  name: default
-  namespace: default
+  name: machine-api-manager
+  namespace: openshift-config-managed
