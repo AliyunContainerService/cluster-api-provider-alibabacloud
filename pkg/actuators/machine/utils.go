@@ -158,15 +158,20 @@ func conditionFailed() alibabacloudproviderv1.AlibabaCloudMachineProviderConditi
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // setMachineProviderCondition sets the condition for the machine and
 =======
 // setAlibabaCloudMachineProviderCondition sets the condition for the machine and
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+// setMachineProviderCondition sets the condition for the machine and
+>>>>>>> 24c35849 (fix stop ecs instance func)
 // returns the new slice of conditions.
 // If the machine does not already have a condition with the specified type,
 // a condition will be added to the slice
 // If the machine does already have a condition with the specified type,
 // the condition will be updated if either of the following are true.
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 func setMachineProviderCondition(condition alibabacloudproviderv1.AlibabaCloudMachineProviderCondition, conditions []alibabacloudproviderv1.AlibabaCloudMachineProviderCondition) []alibabacloudproviderv1.AlibabaCloudMachineProviderCondition {
@@ -199,6 +204,9 @@ func setAliCloudMachineProviderCondition(conditions []providerconfigv1.AlibabaCl
 >>>>>>> c7e62b88 (fix testcase)
 =======
 func setAlibabaCloudMachineProviderCondition(condition alibabacloudproviderv1.AlibabaCloudMachineProviderCondition, conditions []alibabacloudproviderv1.AlibabaCloudMachineProviderCondition) []alibabacloudproviderv1.AlibabaCloudMachineProviderCondition {
+=======
+func setMachineProviderCondition(condition alibabacloudproviderv1.AlibabaCloudMachineProviderCondition, conditions []alibabacloudproviderv1.AlibabaCloudMachineProviderCondition) []alibabacloudproviderv1.AlibabaCloudMachineProviderCondition {
+>>>>>>> 24c35849 (fix stop ecs instance func)
 	now := metav1.Now()
 
 	if existingCondition := findProviderCondition(conditions, condition.Type); existingCondition == nil {

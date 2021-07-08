@@ -22,9 +22,13 @@ type instanceType struct {
 
 // InstanceTypes is a map of ecs resources
 <<<<<<< HEAD
+<<<<<<< HEAD
 // TODO next version will be supported
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+// TODO next version will be supported
+>>>>>>> 24c35849 (fix stop ecs instance func)
 var InstanceTypes = map[string]*instanceType{
 	"ecs.c6.2xlarge": {
 		InstanceType: "ecs.c6.2xlarge",

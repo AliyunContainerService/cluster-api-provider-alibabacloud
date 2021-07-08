@@ -55,8 +55,8 @@ const (
 
 =======
 
-// AlibabaCloudClientBuilderFuncType is function type for building alibabacloud client
-type AlibabaCloudClientBuilderFuncType func(client client.Client, secretName, namespace, region string, configManagedClient client.Client) (Client, error)
+// AlibabaCloudClientBuilderFunc is function type for building alibabacloud client
+type AlibabaCloudClientBuilderFunc func(client client.Client, secretName, namespace, region string, configManagedClient client.Client) (Client, error)
 
 // machineProviderUserAgent is a named handler that will add cluster-api-provider-alibabacloud
 var machineProviderUserAgent = fmt.Sprintf("openshift.io cluster-api-provider-alibabacloud:%s", version.Version.String())
@@ -69,9 +69,6 @@ const (
 	kubeRoleSessionName       = "roleSessionName"
 	kubeRoleSessionExpiration = "roleSessionExpiration"
 	kubeRoleName              = "roleName"
-
-	// GlobalInfrastuctureName default name for infrastructure object
-	GlobalInfrastuctureName = "cluster"
 
 	// KubeCloudConfigNamespace is the namespace where the kube cloud config ConfigMap is located
 	KubeCloudConfigNamespace = "openshift-config-managed"
@@ -783,6 +780,7 @@ func (client *alibabacloudClient) DescribeVServerGroupAttribute(request *slb.Des
 
 // NewClient creates our client wrapper object for the actual alibabacloud clients we use.
 <<<<<<< HEAD
+<<<<<<< HEAD
 func NewClient(ctrlRuntimeClient client.Client, secretName, namespace, regionID string, configManagedClient client.Client) (Client, error) {
 	config, err := newConfiguration(ctrlRuntimeClient, secretName, namespace, configManagedClient)
 =======
@@ -794,6 +792,8 @@ func NewClient(ctrlRuntimeClient client.Client, secretName, namespace, region st
 	config, err := newConfiguration(ctrlRuntimeClient, secretName, namespace, region, configManagedClient)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
 =======
+=======
+>>>>>>> 24c35849 (fix stop ecs instance func)
 func NewClient(ctrlRuntimeClient client.Client, secretName, namespace, regionID string, configManagedClient client.Client) (Client, error) {
 	config, err := newConfiguration(ctrlRuntimeClient, secretName, namespace, configManagedClient)
 >>>>>>> 60dde8f7 (update Makefile)
@@ -984,7 +984,11 @@ func fetchCredentialsFileFromSecret(secret *corev1.Secret, config *providers.Con
 	return nil
 }
 
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+// fetchCredentialsFileFromConfigMap
+>>>>>>> 24c35849 (fix stop ecs instance func)
 // roleArn, roleName ,roleSessionName ,roleSessionExpiration
 func fetchCredentialsFileFromConfigMap(namespace string, configManagedClient client.Client, config *providers.Configuration) error {
 	cm := &corev1.ConfigMap{}

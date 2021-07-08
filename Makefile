@@ -42,7 +42,7 @@ LD_FLAGS    ?= -X $(REPO_PATH)/pkg/version.Version=$(VERSION) -extldflags "-stat
 GOARCH  ?= $(shell go env GOARCH)
 GOOS    ?= $(shell go env GOOS)
 
-VERSION     ?= $(shell git describe --always --abbrev=7)
+VERSION     ?= $(shell git describe --tags --abbrev=7)
 REPO_PATH   ?= github.com/AliyunContainerService/cluster-api-provider-alibabacloud
 LD_FLAGS    ?= -X $(REPO_PATH)/pkg/version.Raw=$(VERSION) -extldflags "-static"
 >>>>>>> e879a141 (alibabacloud machine-api provider)

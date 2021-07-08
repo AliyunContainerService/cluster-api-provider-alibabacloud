@@ -27,6 +27,7 @@ import (
 
 	"github.com/openshift/machine-api-operator/pkg/metrics"
 
+<<<<<<< HEAD
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/ecs"
 
 	machinecontroller "github.com/openshift/machine-api-operator/pkg/controller/machine"
@@ -49,6 +50,11 @@ import (
 >>>>>>> e879a141 (alibabacloud machine-api provider)
 =======
 >>>>>>> 03397665 (update api)
+=======
+	"github.com/aliyun/alibaba-cloud-sdk-go/services/ecs"
+
+	machinecontroller "github.com/openshift/machine-api-operator/pkg/controller/machine"
+>>>>>>> 24c35849 (fix stop ecs instance func)
 )
 
 const (
@@ -74,6 +80,9 @@ func (r *Reconciler) Create(ctx context.Context) error {
 	klog.Infof("%s: creating machine ", r.machine.Name)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 24c35849 (fix stop ecs instance func)
 	instance, err := r.CreateMachine(ctx)
 	if err != nil {
 		return err
@@ -94,16 +103,22 @@ func (r *Reconciler) Create(ctx context.Context) error {
 }
 
 func (r *Reconciler) CreateMachine(ctx context.Context) (*ecs.Instance, error) {
+<<<<<<< HEAD
 	if err := validateMachine(*r.machine); err != nil {
 		return nil, fmt.Errorf("%v: failed validating machine provider spec: %w", r.machine.GetName(), err)
 =======
 	if err := validateMachine(*r.machine); err != nil {
 		return fmt.Errorf("%v: failed validating machine provider spec: %w", r.machine.GetName(), err)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	if err := validateMachine(*r.machine); err != nil {
+		return nil, fmt.Errorf("%v: failed validating machine provider spec: %w", r.machine.GetName(), err)
+>>>>>>> 24c35849 (fix stop ecs instance func)
 	}
 
 	userData, err := r.machineScope.getUserData()
 	if err != nil {
+<<<<<<< HEAD
 <<<<<<< HEAD
 		return nil, fmt.Errorf("failed to get user data: %w", err)
 	}
@@ -123,12 +138,21 @@ func (r *Reconciler) CreateMachine(ctx context.Context) (*ecs.Instance, error) {
 
 	instance, err := runInstances(r.machine, r.providerSpec, userData, r.alibabacloudClient, infra)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+		return nil, fmt.Errorf("failed to get user data: %w", err)
+	}
+
+	instance, err := runInstances(r.machine, r.providerSpec, userData, r.alibabacloudClient)
+>>>>>>> 24c35849 (fix stop ecs instance func)
 	if err != nil {
 		klog.Errorf("%s: error creating machine: %v", r.machine.Name, err)
 		conditionFailed := conditionFailed()
 		conditionFailed.Message = err.Error()
 		_ = r.machineScope.setProviderStatus(nil, conditionFailed)
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 24c35849 (fix stop ecs instance func)
 		return nil, fmt.Errorf("failed to create instance: %w", err)
 	}
 
@@ -142,6 +166,7 @@ func (r *Reconciler) Update(ctx context.Context) error {
 	instance, err := r.UpdateMachine(ctx)
 	if err != nil {
 		return err
+<<<<<<< HEAD
 	}
 
 =======
@@ -150,6 +175,10 @@ func (r *Reconciler) Update(ctx context.Context) error {
 
 	klog.Infof("Created Machine %v", r.machine.Name)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	}
+
+>>>>>>> 24c35849 (fix stop ecs instance func)
 	if err = r.setProviderID(instance); err != nil {
 		return fmt.Errorf("failed to update machine object with providerID: %w", err)
 	}
@@ -158,6 +187,7 @@ func (r *Reconciler) Update(ctx context.Context) error {
 		return fmt.Errorf("failed to set machine cloud provider specifics: %w", err)
 	}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	if err = correctExistingTags(r.machine, r.providerSpec.RegionID, instance, r.alibabacloudClient); err != nil {
 		return fmt.Errorf("failed to correct existing instance tags: %w", err)
@@ -175,17 +205,27 @@ func (r *Reconciler) UpdateMachine(ctx context.Context) (*ecs.Instance, error) {
 		return nil, fmt.Errorf("%v: failed validating machine provider spec: %v", r.machine.GetName(), err)
 =======
 	_ = r.machineScope.setProviderStatus(instance, conditionSuccess())
+=======
+	if err = correctExistingTags(r.machine, r.providerSpec.RegionID, instance, r.alibabacloudClient); err != nil {
+		return fmt.Errorf("failed to correct existing instance tags: %w", err)
+	}
+>>>>>>> 24c35849 (fix stop ecs instance func)
 
-	return nil
+	klog.Infof("Updated machine %s", r.machine.Name)
+
+	r.machineScope.setProviderStatus(instance, conditionSuccess())
+
+	return r.requeueIfInstancePending(instance)
 }
 
-// Update updates machine if and only if machine exists, handled by cluster-api
-func (r *Reconciler) Update(ctx context.Context) error {
-	klog.Infof("%s: updating machine", r.machine.Name)
-
+func (r *Reconciler) UpdateMachine(ctx context.Context) (*ecs.Instance, error) {
 	if err := validateMachine(*r.machine); err != nil {
+<<<<<<< HEAD
 		return fmt.Errorf("%v: failed validating machine provider spec: %v", r.machine.GetName(), err)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+		return nil, fmt.Errorf("%v: failed validating machine provider spec: %v", r.machine.GetName(), err)
+>>>>>>> 24c35849 (fix stop ecs instance func)
 	}
 
 	// Get all instances not deleted.
@@ -198,10 +238,14 @@ func (r *Reconciler) Update(ctx context.Context) error {
 		})
 		klog.Errorf("%s: error getting existing instances: %v", r.machine.Name, err)
 <<<<<<< HEAD
+<<<<<<< HEAD
 		return nil, err
 =======
 		return err
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+		return nil, err
+>>>>>>> 24c35849 (fix stop ecs instance func)
 	}
 
 	existingLen := len(existingInstances)
@@ -209,16 +253,21 @@ func (r *Reconciler) Update(ctx context.Context) error {
 		if r.machine.Spec.ProviderID != nil && *r.machine.Spec.ProviderID != "" && (r.machine.Status.LastUpdated == nil || r.machine.Status.LastUpdated.Add(requeueAfterSeconds*time.Second).After(time.Now())) {
 			klog.Infof("%s: Possible eventual-consistency discrepancy; returning an error to requeue", r.machine.Name)
 <<<<<<< HEAD
+<<<<<<< HEAD
 			return nil, &machinecontroller.RequeueAfterError{RequeueAfter: requeueAfterSeconds * time.Second}
 =======
 			return &machinecontroller.RequeueAfterError{RequeueAfter: requeueAfterSeconds * time.Second}
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+			return nil, &machinecontroller.RequeueAfterError{RequeueAfter: requeueAfterSeconds * time.Second}
+>>>>>>> 24c35849 (fix stop ecs instance func)
 		}
 
 		klog.Warningf("%s: attempted to update machine but no instances found", r.machine.Name)
 
 		// Update status to clear out machine details.
 		r.machineScope.setProviderStatus(nil, conditionSuccess())
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 		return nil, &machinecontroller.RequeueAfterError{RequeueAfter: requeueAfterFatalSeconds * time.Second}
@@ -227,6 +276,10 @@ func (r *Reconciler) Update(ctx context.Context) error {
 		// minimize unnecessary API calls.
 		return &machinecontroller.RequeueAfterError{RequeueAfter: requeueAfterFatalSeconds * time.Second}
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+
+		return nil, &machinecontroller.RequeueAfterError{RequeueAfter: requeueAfterFatalSeconds * time.Second}
+>>>>>>> 24c35849 (fix stop ecs instance func)
 	}
 
 	sortInstances(existingInstances)
@@ -235,6 +288,7 @@ func (r *Reconciler) Update(ctx context.Context) error {
 	var newestInstance *ecs.Instance
 
 	if runningLen > 0 {
+<<<<<<< HEAD
 <<<<<<< HEAD
 		klog.Infof("%s: found %d running instances for machine", r.machine.Name, runningLen)
 		newestInstance = runningInstances[0]
@@ -246,24 +300,15 @@ func (r *Reconciler) Update(ctx context.Context) error {
 =======
 		// It would be very unusual to have more than one here, but it is
 		// possible if someone manually provisions a machine with same tag name.
+=======
+>>>>>>> 24c35849 (fix stop ecs instance func)
 		klog.Infof("%s: found %d running instances for machine", r.machine.Name, runningLen)
 		newestInstance = runningInstances[0]
-
-		//err = r.updateLoadBalancers(newestInstance)
-		//if err != nil {
-		//	metrics.RegisterFailedInstanceUpdate(&metrics.MachineLabels{
-		//		Name:      r.machine.Name,
-		//		Namespace: r.machine.Namespace,
-		//		Reason:    err.Error(),
-		//	})
-		//	return fmt.Errorf("failed to updated update load balancers: %w", err)
-		//}
 	} else {
-		// Didn't find any running instances, just newest existing one.
-		// In most cases, there should only be one existing Instance.
 		newestInstance = existingInstances[0]
 	}
 
+<<<<<<< HEAD
 	if err = r.setProviderID(newestInstance); err != nil {
 		return fmt.Errorf("failed to update machine object with providerID: %w", err)
 	}
@@ -282,6 +327,9 @@ func (r *Reconciler) Update(ctx context.Context) error {
 
 	return r.requeueIfInstancePending(newestInstance)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	return newestInstance, nil
+>>>>>>> 24c35849 (fix stop ecs instance func)
 }
 
 func (r *Reconciler) requeueIfInstancePending(instance *ecs.Instance) error {
@@ -301,6 +349,9 @@ func (r *Reconciler) Delete(ctx context.Context) error {
 	klog.Infof("%s: deleting machine", r.machine.Name)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 24c35849 (fix stop ecs instance func)
 	if err := r.DeleteMachine(ctx); err != nil {
 		return err
 	}
@@ -310,8 +361,11 @@ func (r *Reconciler) Delete(ctx context.Context) error {
 }
 
 func (r *Reconciler) DeleteMachine(ctx context.Context) error {
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 24c35849 (fix stop ecs instance func)
 	// Get all instances not terminated.
 	existingInstances, err := r.getMachineInstances()
 	if err != nil {
@@ -327,10 +381,14 @@ func (r *Reconciler) DeleteMachine(ctx context.Context) error {
 	existingLen := len(existingInstances)
 	klog.Infof("%s: found %d existing instances for machine", r.machine.Name, existingLen)
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if existingLen < 1 {
 =======
 	if existingLen == 0 {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	if existingLen < 1 {
+>>>>>>> 24c35849 (fix stop ecs instance func)
 		klog.Warningf("%s: no instances found to delete for machine", r.machine.Name)
 		return nil
 	}
@@ -393,12 +451,16 @@ func (r *Reconciler) DeleteMachine(ctx context.Context) error {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	klog.V(3).Infof("Delete instance response %v", deleteInstancsResponse)
 =======
 	klog.Infof("Delete instance response %v", deleteInstancsResponse)
 
 	klog.Infof("Deleted machine %v", r.machine.Name)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	klog.V(3).Infof("Delete instance response %v", deleteInstancsResponse)
+>>>>>>> 24c35849 (fix stop ecs instance func)
 	return nil
 }
 
@@ -471,6 +533,7 @@ func (r *Reconciler) setMachineCloudProviderSpecifics(instance *ecs.Instance) er
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	r.machine.Labels[machinecontroller.MachineRegionLabelName] = instance.RegionId
 =======
 	// Reaching to machine provider config since the region is not directly
@@ -482,6 +545,9 @@ func (r *Reconciler) setMachineCloudProviderSpecifics(instance *ecs.Instance) er
 
 	r.machine.Labels[machinecontroller.MachineRegionLabelName] = machineProviderConfig.RegionID
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	r.machine.Labels[machinecontroller.MachineRegionLabelName] = instance.RegionId
+>>>>>>> 24c35849 (fix stop ecs instance func)
 
 	r.machine.Labels[machinecontroller.MachineAZLabelName] = instance.ZoneId
 
@@ -498,10 +564,13 @@ func (r *Reconciler) setMachineCloudProviderSpecifics(instance *ecs.Instance) er
 
 func (r *Reconciler) getMachineInstances() ([]*ecs.Instance, error) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	// If there is a non-empty instance ID, search using that, otherwise
 	// fallback to filtering based on tags.
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 24c35849 (fix stop ecs instance func)
 	if r.providerStatus.InstanceID != nil && *r.providerStatus.InstanceID != "" {
 		i, err := getExistingInstanceByID(*r.providerStatus.InstanceID, r.providerSpec.RegionID, r.alibabacloudClient)
 		if err != nil {

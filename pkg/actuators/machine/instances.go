@@ -42,6 +42,7 @@ import (
 	alibabacloudClient "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client"
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/ecs"
 <<<<<<< HEAD
+<<<<<<< HEAD
 	machinev1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 	"github.com/openshift/machine-api-operator/pkg/metrics"
 	runtimeclient "sigs.k8s.io/controller-runtime/pkg/client"
@@ -92,6 +93,8 @@ const (
 func runInstances(machine *machinev1.Machine, machineProviderConfig *alibabacloudproviderv1.AlibabaCloudMachineProviderConfig, userData string, client alibabacloudClient.Client) (*ecs.Instance, error) {
 =======
 	configv1 "github.com/openshift/api/config/v1"
+=======
+>>>>>>> 24c35849 (fix stop ecs instance func)
 	machinev1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 	"github.com/openshift/machine-api-operator/pkg/metrics"
 	runtimeclient "sigs.k8s.io/controller-runtime/pkg/client"
@@ -133,8 +136,12 @@ const (
 )
 
 // runInstances create ec
+<<<<<<< HEAD
 func runInstances(machine *machinev1.Machine, machineProviderConfig *alibabacloudproviderv1.AlibabaCloudMachineProviderConfig, userData string, client alibabacloudClient.Client, infra *configv1.Infrastructure) (*ecs.Instance, error) {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+func runInstances(machine *machinev1.Machine, machineProviderConfig *alibabacloudproviderv1.AlibabaCloudMachineProviderConfig, userData string, client alibabacloudClient.Client) (*ecs.Instance, error) {
+>>>>>>> 24c35849 (fix stop ecs instance func)
 	machineKey := runtimeclient.ObjectKey{
 		Name:      machine.Name,
 		Namespace: machine.Namespace,
@@ -193,7 +200,7 @@ func createInstance(machine *machinev1.Machine, machineProviderConfig *providerc
 	runInstancesRequest.SecurityGroupId = securityGroupID
 
 	// Add tags to the created machine
-	tagList := buildTagList(machine.Name, clusterID, machineProviderConfig.Tags, infra)
+	tagList := buildTagList(machine.Name, clusterID, machineProviderConfig.Tags)
 
 	// Tags
 	runInstancesRequest.Tag = covertToRunInstancesTag(tagList)
@@ -583,10 +590,14 @@ func waitForInstancesStatus(client alibabacloudClient.Client, regionID string, i
 		describeInstancesRequest.Scheme = "https"
 		describeInstancesResponse, err := client.DescribeInstances(describeInstancesRequest)
 <<<<<<< HEAD
+<<<<<<< HEAD
 		klog.V(3).Infof("instance resonpse %v", describeInstancesResponse)
 =======
 		klog.Infof("instance resonpse %v", describeInstancesResponse)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+		klog.V(3).Infof("instance resonpse %v", describeInstancesResponse)
+>>>>>>> 24c35849 (fix stop ecs instance func)
 		if err != nil {
 			return false, nil, err
 		}
@@ -858,25 +869,25 @@ func getMaxInstancesBySecurityGroupType(securityGroupType string) int {
 }
 
 // buildTagList compile a list of ecs tags from machine provider spec and infrastructure object platform spec
-func buildTagList(machineName string, clusterID string, machineTags []alibabacloudproviderv1.Tag, infra *configv1.Infrastructure) []*alibabacloudproviderv1.Tag {
+func buildTagList(machineName string, clusterID string, machineTags []alibabacloudproviderv1.Tag) []*alibabacloudproviderv1.Tag {
 	rawTagList := make([]*alibabacloudproviderv1.Tag, 0)
 
-	mergedTags := mergeInfrastructureAndMachineSpecTags(machineTags, infra)
-
-	for _, tag := range mergedTags {
-		// Alicoud tags are case sensitive, so we don't need to worry about other casing of "Name"
-		if !strings.HasPrefix(tag.Key, clusterFilterKeyPrefix) && tag.Key != "Name" {
+	for _, tag := range machineTags {
+		// Alibabacoud tags are case sensitive, so we don't need to worry about other casing of "Name"
+		if !strings.HasPrefix(tag.Key, clusterFilterKeyPrefix) && tag.Key != clusterFilterName {
 			rawTagList = append(rawTagList, &alibabacloudproviderv1.Tag{Key: tag.Key, Value: tag.Value})
 		}
 	}
 	rawTagList = append(rawTagList, []*alibabacloudproviderv1.Tag{
 		{Key: clusterFilterKeyPrefix + clusterID, Value: clusterFilterValue},
-		{Key: "Name", Value: machineName},
+		{Key: clusterFilterName, Value: machineName},
+		{Key: clusterOwnedKey, Value: clusterOwnedValue},
 	}...)
 
 	return removeDuplicatedTags(rawTagList)
 }
 
+<<<<<<< HEAD
 // mergeInfrastructureAndMachineSpecTags merge list of tags from machine provider spec and Infrastructure object platform spec.
 // Machine tags have precedence over Infrastructure
 func mergeInfrastructureAndMachineSpecTags(machineSpecTags []alibabacloudproviderv1.Tag, infra *configv1.Infrastructure) []alibabacloudproviderv1.Tag {
@@ -897,6 +908,8 @@ func mergeInfrastructureAndMachineSpecTags(machineSpecTags []alibabacloudprovide
 }
 
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 24c35849 (fix stop ecs instance func)
 // Scan machine tags, and return a deduped tags list. The first found value gets precedence.
 func removeDuplicatedTags(tags []*alibabacloudproviderv1.Tag) []*alibabacloudproviderv1.Tag {
 	m := make(map[string]bool)
@@ -970,10 +983,29 @@ func getInstanceByID(instanceID string, regionID string, client alibabacloudClie
 		return nil, fmt.Errorf("instance-id not specified")
 	}
 
+	instances, err := describeInstances([]string{instanceID}, regionID, client)
+	if err != nil {
+		return nil, err
+	}
+
+	if len(instances) != 1 {
+		return nil, fmt.Errorf("found %d instances for instance-id %s", len(instances), instanceID)
+	}
+
+	instance := instances[0]
+
+	return &instance, instanceHasSupportedState(&instance, instanceStates)
+}
+
+func describeInstances(instanceIds []string, regionID string, client alibabacloudClient.Client) ([]ecs.Instance, error) {
+	if len(instanceIds) < 1 {
+		return nil, fmt.Errorf("instance-ids not specified")
+	}
+
 	describeInstancesRequest := ecs.CreateDescribeInstancesRequest()
 	describeInstancesRequest.RegionId = regionID
 	describeInstancesRequest.Scheme = "https"
-	instancesIds, _ := json.Marshal([]string{instanceID})
+	instancesIds, _ := json.Marshal(instanceIds)
 	describeInstancesRequest.InstanceIds = string(instancesIds)
 
 	result, err := client.DescribeInstances(describeInstancesRequest)
@@ -981,13 +1013,7 @@ func getInstanceByID(instanceID string, regionID string, client alibabacloudClie
 		return nil, err
 	}
 
-	if len(result.Instances.Instance) != 1 {
-		return nil, fmt.Errorf("found %d instances for instance-id %s", len(result.Instances.Instance), instanceID)
-	}
-
-	instance := result.Instances.Instance[0]
-
-	return &instance, instanceHasSupportedState(&instance, instanceStates)
+	return result.Instances.Instance, nil
 }
 
 func instanceHasSupportedState(instance *ecs.Instance, instanceStates []string) error {
@@ -1032,12 +1058,13 @@ func getInstances(machine *machinev1.Machine, regionID string, client alibabaclo
 
 	request := ecs.CreateDescribeInstancesRequest()
 	request.RegionId = regionID
-	instanceTags := []ecs.DescribeInstancesTag{
+	describeInstancesTags := []ecs.DescribeInstancesTag{
 		{Key: clusterFilterKeyPrefix + clusterID, Value: clusterFilterValue},
 		{Key: clusterFilterName, Value: machine.Name},
+		{Key: clusterOwnedKey, Value: clusterOwnedValue},
 	}
 
-	request.Tag = &instanceTags
+	request.Tag = &describeInstancesTags
 
 	result, err := client.DescribeInstances(request)
 >>>>>>> e879a141 (alibabacloud machine-api provider)
@@ -1182,6 +1209,7 @@ func stopInstances(client alibabacloudClient.Client, regionID string, instances 
 	}
 
 	for _, instanceID := range needStoppedInstanceIDs {
+<<<<<<< HEAD
 		klog.Infof("Stopping %v instance", instanceID)
 	}
 
@@ -1224,13 +1252,15 @@ func stopInstances(client alibabacloudClient.Client, regionID string, instances 
 		instanceIDs = append(instanceIDs, instance.InstanceId)
 	}
 	for _, instanceID := range instanceIDs {
+=======
+>>>>>>> 24c35849 (fix stop ecs instance func)
 		klog.Infof("Stopping %v instance", instanceID)
 	}
 
 	stopInstancesRequest := ecs.CreateStopInstancesRequest()
 	stopInstancesRequest.RegionId = regionID
 	stopInstancesRequest.Scheme = "https"
-	stopInstancesRequest.InstanceId = &instanceIDs
+	stopInstancesRequest.InstanceId = &needStoppedInstanceIDs
 
 	stopInstancesResponse, err := client.StopInstances(stopInstancesRequest)
 	if err != nil {
@@ -1345,6 +1375,7 @@ func correctExistingTags(machine *machinev1.Machine, regionID string, instance *
 	nameTagOk := false
 	clusterTagOk := false
 <<<<<<< HEAD
+<<<<<<< HEAD
 	ownedTagOk := false
 	for _, tag := range instance.Tags.Tag {
 		if tag.TagKey != "" && tag.TagValue != "" {
@@ -1358,24 +1389,37 @@ func correctExistingTags(machine *machinev1.Machine, regionID string, instance *
 				ownedTagOk = true
 			}
 =======
+=======
+	ownedTagOk := false
+>>>>>>> 24c35849 (fix stop ecs instance func)
 	for _, tag := range instance.Tags.Tag {
 		if tag.TagKey != "" && tag.TagValue != "" {
-			if tag.TagKey == "Name" && tag.TagValue == machine.Name {
+			if tag.TagKey == clusterFilterName && tag.TagValue == machine.Name {
 				nameTagOk = true
 			}
-			if tag.TagKey == "kubernetes.io/cluster/"+clusterID && tag.TagValue == "owned" {
+			if tag.TagKey == clusterFilterKeyPrefix+clusterID && tag.TagValue == clusterFilterValue {
 				clusterTagOk = true
 			}
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+			if tag.TagKey == clusterOwnedKey && tag.TagValue == clusterOwnedValue {
+				ownedTagOk = true
+			}
+>>>>>>> 24c35849 (fix stop ecs instance func)
 		}
 	}
 
 	// Update our tags if they're not set or correct
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if !nameTagOk || !clusterTagOk || !ownedTagOk {
 =======
 	if !nameTagOk || !clusterTagOk {
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	if !nameTagOk || !clusterTagOk || !ownedTagOk {
+>>>>>>> 24c35849 (fix stop ecs instance func)
 		// Create tags only adds/replaces what is present, does not affect other tags.
 		request := ecs.CreateTagResourcesRequest()
 		request.Scheme = "https"

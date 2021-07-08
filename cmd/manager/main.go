@@ -127,12 +127,15 @@ func main() {
 		"Whether to enable metrics, Default value true. If you test in local, you can disable it",
 	)
 
+<<<<<<< HEAD
 	printVersion := flag.Bool(
 		"enable-print-version",
 		true,
 		"Whether to print release version, Default value true.",
 	)
 
+=======
+>>>>>>> 24c35849 (fix stop ecs instance func)
 	klog.InitFlags(nil)
 	flag.Set("logtostderr", "true")
 	flag.Parse()
@@ -219,24 +222,33 @@ func main() {
 		SyncPeriod:              &syncPeriod,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 		//MetricsBindAddress:      *metricsAddress,
 >>>>>>> e879a141 (alibabacloud machine-api provider)
 =======
 		MetricsBindAddress:      *metricsAddress,
 >>>>>>> 60dde8f7 (update Makefile)
+=======
+>>>>>>> 24c35849 (fix stop ecs instance func)
 		// Slow the default retry and renew election rate to reduce etcd writes at idle: BZ 1858400
 		RetryPeriod:   &retryPeriod,
 		RenewDeadline: &renewDealine,
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 24c35849 (fix stop ecs instance func)
 	if enableMetrics != nil && *enableMetrics {
 		opts.MetricsBindAddress = *metricsAddress
 	}
 
+<<<<<<< HEAD
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 24c35849 (fix stop ecs instance func)
 	if *watchNamespace != "" {
 		opts.Namespace = *watchNamespace
 		klog.Infof("Watching machine-api objects only in namespace %q for reconciliation.", opts.Namespace)

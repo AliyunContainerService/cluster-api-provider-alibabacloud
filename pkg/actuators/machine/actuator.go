@@ -69,10 +69,14 @@ type Actuator struct {
 	eventRecorder record.EventRecorder
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	alibabacloudClientBuilder alibabacloudClient.AlibabaCloudClientBuilderFunc
 =======
 	alibabacloudClientBuilder alibabacloudClient.AlibabaCloudClientBuilderFuncType
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	alibabacloudClientBuilder alibabacloudClient.AlibabaCloudClientBuilderFunc
+>>>>>>> 24c35849 (fix stop ecs instance func)
 	configManagedClient       controllerclient.Client
 
 	reconcilerBuilder func(scope *machineScope) *Reconciler
@@ -84,10 +88,14 @@ type ActuatorParams struct {
 	EventRecorder record.EventRecorder
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	AlibabaCloudClientBuilder alibabacloudClient.AlibabaCloudClientBuilderFunc
 =======
 	AlibabaCloudClientBuilder alibabacloudClient.AlibabaCloudClientBuilderFuncType
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	AlibabaCloudClientBuilder alibabacloudClient.AlibabaCloudClientBuilderFunc
+>>>>>>> 24c35849 (fix stop ecs instance func)
 	ConfigManagedClient       controllerclient.Client
 
 	ReconcilerBuilder func(scope *machineScope) *Reconciler

@@ -40,6 +40,7 @@ spec:
       containers:
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         - name: machine-controller
           image: openshift/origin-alibabacloud-machine-controllers:v4.0.0
 =======
@@ -54,6 +55,8 @@ spec:
             limits:
               cpu: 100m
               memory: 30Mi
+=======
+>>>>>>> 24c35849 (fix stop ecs instance func)
         - name: machine-controller
 <<<<<<< HEAD
           image: openshift/origin-aws-machine-controllers:v4.0.0

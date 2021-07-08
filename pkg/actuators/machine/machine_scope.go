@@ -68,10 +68,14 @@ type machineScopeParams struct {
 	context.Context
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	alibabacloudClientBuilder alibabacloudClient.AlibabaCloudClientBuilderFunc
 =======
 	alibabacloudClientBuilder alibabacloudClient.AlibabaCloudClientBuilderFuncType
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	alibabacloudClientBuilder alibabacloudClient.AlibabaCloudClientBuilderFunc
+>>>>>>> 24c35849 (fix stop ecs instance func)
 	// api server controller runtime client
 	client runtimeclient.Client
 	// machine resource
@@ -173,6 +177,7 @@ func (s *machineScope) setProviderStatus(instance *ecs.Instance, condition aliba
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// assign value to providerStatus
 =======
 	networkAddresses := []corev1.NodeAddress{}
@@ -181,12 +186,16 @@ func (s *machineScope) setProviderStatus(instance *ecs.Instance, condition aliba
 >>>>>>> 03397665 (update api)
 
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	// assign value to providerStatus
+>>>>>>> 24c35849 (fix stop ecs instance func)
 	if instance == nil {
 		s.providerStatus.InstanceID = nil
 		s.providerStatus.InstanceState = nil
 	} else {
 		s.providerStatus.InstanceID = &instance.InstanceId
 		s.providerStatus.InstanceState = &instance.Status
+<<<<<<< HEAD
 <<<<<<< HEAD
 	}
 
@@ -233,28 +242,56 @@ func extractNodeAddressesFromInstance(instance *ecs.Instance) ([]corev1.NodeAddr
 		}
 
 		networkAddresses = append(networkAddresses, addresses...)
+=======
+>>>>>>> 24c35849 (fix stop ecs instance func)
 	}
-	klog.Infof("%s: finished calculating alibabacloud status", s.machine.Name)
 
+	networkAddresses, err := s.getNetworkAddress(instance)
+	if err != nil {
+		klog.Errorf("%s : Error get Network Address :%v", s.machine.Name, err)
+		return nil
+	}
 	s.machine.Status.Addresses = networkAddresses
-	s.providerStatus.Conditions = setAlibabaCloudMachineProviderCondition(condition, s.providerStatus.Conditions)
+	s.providerStatus.Conditions = setMachineProviderCondition(condition, s.providerStatus.Conditions)
 
 	return nil
 }
 
-// extractNodeAddresses maps the instance information from ECS to an array of NodeAddresses
-func extractNodeAddresses(instance *ecs.Instance) ([]corev1.NodeAddress, error) {
-	// Not clear if the order matters here, but we might as well indicate a sensible preference order
+func (s *machineScope) getNetworkAddress(instance *ecs.Instance) ([]corev1.NodeAddress, error) {
+	klog.Infof("%s : Setting network address", s.machine.Name)
+
+	networkAddresses := make([]corev1.NodeAddress, 0)
+
+	addresses, err := extractNodeAddressesFromInstance(instance)
+	if err != nil {
+		klog.Errorf("%s: Error extracting instance IP addresses: %v", s.machine.Name, err)
+		return nil, err
+	}
+
+	networkAddresses = append(networkAddresses, addresses...)
+
+	klog.Infof("%s: finished calculating alibabacloud status", s.machine.Name)
+
+	return networkAddresses, nil
+}
+
+// extractNodeAddressesFromInstance maps the instance information from ECS to an array of NodeAddresses
+func extractNodeAddressesFromInstance(instance *ecs.Instance) ([]corev1.NodeAddress, error) {
 
 	if instance == nil {
+<<<<<<< HEAD
 		return nil, fmt.Errorf("nil instance passed to extractNodeAddresses")
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+		return nil, fmt.Errorf("the ecs instance is nil")
+>>>>>>> 24c35849 (fix stop ecs instance func)
 	}
 
 	addresses := make([]corev1.NodeAddress, 0)
 
 	// handle internal network interfaces
 	for _, networkInterface := range instance.NetworkInterfaces.NetworkInterface {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -269,6 +306,8 @@ func extractNodeAddresses(instance *ecs.Instance) ([]corev1.NodeAddress, error) 
 		// patch to the alibabacloud cloud-provider code is doing:
 		//
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 24c35849 (fix stop ecs instance func)
 		// https://github.com/openshift-kni/origin/commit/7db21c1e26a344e25ae1b825d4f21e7bef5c3650
 		for _, ipv6Address := range networkInterface.Ipv6Sets.Ipv6Set {
 			if addr := ipv6Address.Ipv6Address; addr != "" {

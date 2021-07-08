@@ -116,22 +116,34 @@ rules:
       - ""
     resources:
       - configmaps
+<<<<<<< HEAD
       - secrets
+=======
+>>>>>>> 24c35849 (fix stop ecs instance func)
     verbs:
       - list
       - get
       - create
       - update
   - apiGroups:
+<<<<<<< HEAD
       - "apps"
     resources:
       - daemonsets
+=======
+      - ""
+    resources:
+      - secrets
+>>>>>>> 24c35849 (fix stop ecs instance func)
     verbs:
       - list
       - get
       - create
       - update
+<<<<<<< HEAD
       - delete
+=======
+>>>>>>> 24c35849 (fix stop ecs instance func)
   - apiGroups:
       - ""
     resources:

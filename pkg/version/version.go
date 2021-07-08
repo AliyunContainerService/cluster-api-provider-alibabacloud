@@ -1,11 +1,14 @@
 package version
 
 import (
+<<<<<<< HEAD
 	"fmt"
 <<<<<<< HEAD
 	"runtime"
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 24c35849 (fix stop ecs instance func)
 	"strings"
 
 	"github.com/blang/semver"
@@ -38,6 +41,7 @@ var (
 
 	// Version is semver representation of the version.
 	Version = semver.MustParse(strings.TrimLeft(Raw, "v"))
+<<<<<<< HEAD
 
 	// String is the human-friendly representation of the version.
 <<<<<<< HEAD
@@ -46,6 +50,8 @@ var (
 =======
 	String = fmt.Sprintf("ClusterAPIProviderAlibabaCloud %s", Raw)
 >>>>>>> ecfeb08f (remove unused code)
+=======
+>>>>>>> 24c35849 (fix stop ecs instance func)
 )
 
 type Info struct {
