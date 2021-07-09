@@ -117,15 +117,20 @@ rules:
     resources:
       - configmaps
 <<<<<<< HEAD
+<<<<<<< HEAD
       - secrets
 =======
 >>>>>>> 24c35849 (fix stop ecs instance func)
+=======
+      - secrets
+>>>>>>> 654e3196 (add permissiong for daemonsets)
     verbs:
       - list
       - get
       - create
       - update
   - apiGroups:
+<<<<<<< HEAD
 <<<<<<< HEAD
       - "apps"
     resources:
@@ -135,15 +140,24 @@ rules:
     resources:
       - secrets
 >>>>>>> 24c35849 (fix stop ecs instance func)
+=======
+      - "apps"
+    resources:
+      - daemonsets
+>>>>>>> 654e3196 (add permissiong for daemonsets)
     verbs:
       - list
       - get
       - create
       - update
 <<<<<<< HEAD
+<<<<<<< HEAD
       - delete
 =======
 >>>>>>> 24c35849 (fix stop ecs instance func)
+=======
+      - delete
+>>>>>>> 654e3196 (add permissiong for daemonsets)
   - apiGroups:
       - ""
     resources:
