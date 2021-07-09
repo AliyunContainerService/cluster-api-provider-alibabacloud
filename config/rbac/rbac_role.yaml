@@ -116,20 +116,22 @@ rules:
       - ""
     resources:
       - configmaps
-    verbs:
-      - list
-      - get
-      - create
-      - update
-  - apiGroups:
-      - ""
-    resources:
       - secrets
     verbs:
       - list
       - get
       - create
       - update
+  - apiGroups:
+      - "apps"
+    resources:
+      - daemonsets
+    verbs:
+      - list
+      - get
+      - create
+      - update
+      - delete
   - apiGroups:
       - ""
     resources:
