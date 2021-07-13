@@ -21,6 +21,8 @@ import (
 	"os"
 	"time"
 
+	"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/version"
+
 	"github.com/openshift/machine-api-operator/pkg/metrics"
 
 	"sigs.k8s.io/controller-runtime/pkg/cache"
@@ -97,9 +99,20 @@ func main() {
 		"Whether to enable metrics, Default value true. If you test in local, you can disable it",
 	)
 
+	printVersion := flag.Bool(
+		"enable-print-version",
+		true,
+		"Whether to print release version, Default value true.",
+	)
+
 	klog.InitFlags(nil)
 	flag.Set("logtostderr", "true")
 	flag.Parse()
+
+	// print release version
+	if printVersion != nil && *printVersion {
+		klog.Infof("The cluster-api-provider-alibabacloud version {%s}", version.PrintVerboseVersionInfo())
+	}
 
 	cfg := config.GetConfigOrDie()
 	syncPeriod := 10 * time.Minute
