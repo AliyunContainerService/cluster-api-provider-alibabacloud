@@ -23,3 +23,4 @@ y=$(echo -n "$ALIBABACLOUD_SECRET_ACCESS_KEY" | base64)
 sed -e "s/accessKeyID:.*/accessKeyID: $x/" \
     -e "s/accessKeySecret:.*/accessKeySecret: $y/" \
     "$1"
+
