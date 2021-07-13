@@ -166,7 +166,11 @@ spec:
       serviceAccountName: flannel
       initContainers:
         - name: install-cni
+<<<<<<< HEAD
           image: registry.cn-hangzhou.aliyuncs.com/k8sos/flannel:v0.14.0
+=======
+          image: quay.io/coreos/flannel:v0.14.0
+>>>>>>> 56ed82a5 (add master and worker userdata for kubeadm)
           command:
             - cp
           args:
@@ -180,7 +184,11 @@ spec:
               mountPath: /etc/kube-flannel/
       containers:
         - name: kube-flannel
+<<<<<<< HEAD
           image: registry.cn-hangzhou.aliyuncs.com/k8sos/flannel:v0.14.0
+=======
+          image: quay.io/coreos/flannel:v0.14.0
+>>>>>>> 56ed82a5 (add master and worker userdata for kubeadm)
           command:
             - /opt/bin/flanneld
           args:

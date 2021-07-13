@@ -90,9 +90,15 @@ docker tag registry.aliyuncs.com/google_containers/etcd:3.4.13-0 k8s.gcr.io/etcd
 docker rmi registry.aliyuncs.com/google_containers/etcd:3.4.13-0
 
 # Replace coredns
+<<<<<<< HEAD
 docker pull registry.aliyuncs.com/google_containers/coredns:1.8.0
 docker tag registry.aliyuncs.com/google_containers/coredns:1.8.0 k8s.gcr.io/coredns/coredns:v1.8.0
 docker rmi registry.aliyuncs.com/google_containers/coredns:1.8.0
+=======
+docker pull coredns/coredns:1.8.0
+docker tag coredns/coredns:1.8.0 k8s.gcr.io/coredns/coredns:v1.8.0
+docker rmi coredns/coredns:1.8.0
+>>>>>>> 56ed82a5 (add master and worker userdata for kubeadm)
 
 
 
@@ -100,7 +106,11 @@ docker rmi registry.aliyuncs.com/google_containers/coredns:1.8.0
 ######## Deploy kubernetes master
 ################################################
 
+<<<<<<< HEAD
 kubeadm init  --apiserver-bind-port 6443 --token bign04.m6l27w1gu6vqbloq  --token-ttl 0  --kubernetes-version=v1.21.0 --apiserver-cert-extra-sans=$(curl -s http://100.100.100.200/latest/meta-data/private-ipv4) --apiserver-cert-extra-sans=$(curl -s http://100.100.100.200/latest/meta-data/eipv4)   --pod-network-cidr=10.244.0.0/16
+=======
+kubeadm init  --apiserver-bind-port 6443 --token bign04.m6l27w1gu6vqbloq  --kubernetes-version=v1.21.0 --apiserver-cert-extra-sans=$(curl -s http://100.100.100.200/latest/meta-data/private-ipv4) --apiserver-cert-extra-sans=$(curl -s http://100.100.100.200/latest/meta-data/eipv4)   --pod-network-cidr=10.244.0.0/16
+>>>>>>> 56ed82a5 (add master and worker userdata for kubeadm)
 
 mkdir -p $HOME/.kube
 cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
@@ -279,7 +289,11 @@ spec:
       serviceAccountName: flannel
       initContainers:
       - name: install-cni
+<<<<<<< HEAD
         image: registry.cn-hangzhou.aliyuncs.com/k8sos/flannel:v0.14.0
+=======
+        image: quay.io/coreos/flannel:v0.14.0
+>>>>>>> 56ed82a5 (add master and worker userdata for kubeadm)
         command:
         - cp
         args:
@@ -293,7 +307,11 @@ spec:
           mountPath: /etc/kube-flannel/
       containers:
       - name: kube-flannel
+<<<<<<< HEAD
         image: registry.cn-hangzhou.aliyuncs.com/k8sos/flannel:v0.14.0
+=======
+        image: quay.io/coreos/flannel:v0.14.0
+>>>>>>> 56ed82a5 (add master and worker userdata for kubeadm)
         command:
         - /opt/bin/flanneld
         args:
