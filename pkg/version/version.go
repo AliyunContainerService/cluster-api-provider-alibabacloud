@@ -110,6 +110,7 @@ func (info Info) String() string {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 func PrintShortDirtyVersionInfo() string {
 	return fmt.Sprintf("Version Info: GitReleaseTag: %q, MajorVersion: %q, MinorVersion:%q, GitReleaseCommit:%q, GitTreeState:%q",
 		gitReleaseTag, gitMajor, gitMinor, gitReleaseCommit, gitTreeState)
@@ -125,14 +126,18 @@ func PrintVerboseVersionInfo() string {
 =======
 func printShortDirtyVersionInfo() {
 	fmt.Printf("Version Info: GitReleaseTag: %q, MajorVersion: %q, MinorVersion:%q, GitReleaseCommit:%q, GitTreeState:%q\n",
+=======
+func PrintShortDirtyVersionInfo() string {
+	return fmt.Sprintf("Version Info: GitReleaseTag: %q, MajorVersion: %q, MinorVersion:%q, GitReleaseCommit:%q, GitTreeState:%q",
+>>>>>>> 6a93b4ce (print version)
 		gitReleaseTag, gitMajor, gitMinor, gitReleaseCommit, gitTreeState)
 }
 
-func printShortCleanVersionInfo() {
-	fmt.Printf("Version Info: GitReleaseTag: %q, MajorVersion: %q, MinorVersion:%q\n",
-		gitReleaseTag, gitMajor, gitMinor)
+func PrintShortCleanVersionInfo() string {
+	return fmt.Sprintf("Version Info: GitReleaseTag: %q, MajorVersion: %q, MinorVersion:%q", gitReleaseTag, gitMajor, gitMinor)
 }
 
+<<<<<<< HEAD
 func printVerboseVersionInfo() {
 	fmt.Println("Version Info:")
 	fmt.Printf("GitReleaseTag: %q, Major: %q, Minor: %q, GitRelaseCommit: %q\n", gitReleaseTag, gitMajor, gitMinor, gitReleaseCommit)
@@ -140,4 +145,9 @@ func printVerboseVersionInfo() {
 	fmt.Printf("Git commit: %q\n", gitCommit)
 	fmt.Printf("Git tree state: %q\n", gitTreeState)
 >>>>>>> 836a3e90 (update README)
+=======
+func PrintVerboseVersionInfo() string {
+	return fmt.Sprintf("Version Info: GitReleaseTag: %q, Major: %q, Minor: %q, GitRelaseCommit: %q,Git Branch: %q,Git commit: %q,Git tree state: %q",
+		gitReleaseTag, gitMajor, gitMinor, gitReleaseCommit, gitBranch, gitCommit, gitTreeState)
+>>>>>>> 6a93b4ce (print version)
 }

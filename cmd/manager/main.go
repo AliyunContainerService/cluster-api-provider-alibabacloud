@@ -25,6 +25,7 @@ import (
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/version"
 
 	"github.com/openshift/machine-api-operator/pkg/metrics"
@@ -32,6 +33,10 @@ import (
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
 =======
+=======
+	"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/version"
+
+>>>>>>> 6a93b4ce (print version)
 	"github.com/openshift/machine-api-operator/pkg/metrics"
 
 >>>>>>> 60dde8f7 (update Makefile)
@@ -128,12 +133,16 @@ func main() {
 	)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 6a93b4ce (print version)
 	printVersion := flag.Bool(
 		"enable-print-version",
 		true,
 		"Whether to print release version, Default value true.",
 	)
 
+<<<<<<< HEAD
 =======
 >>>>>>> 24c35849 (fix stop ecs instance func)
 	klog.InitFlags(nil)
@@ -205,11 +214,21 @@ func main() {
 		"Namespace that the controller watches to reconcile machine-api objects. If unspecified, the controller watches for machine-api objects across all namespaces.",
 	)
 
+=======
+>>>>>>> 6a93b4ce (print version)
 	klog.InitFlags(nil)
 	flag.Set("logtostderr", "true")
 	flag.Parse()
 
+<<<<<<< HEAD
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	// print release version
+	if printVersion != nil && *printVersion {
+		klog.Infof("The cluster-api-provider-alibabacloud version {%s}", version.PrintVerboseVersionInfo())
+	}
+
+>>>>>>> 6a93b4ce (print version)
 	cfg := config.GetConfigOrDie()
 	syncPeriod := 10 * time.Minute
 
