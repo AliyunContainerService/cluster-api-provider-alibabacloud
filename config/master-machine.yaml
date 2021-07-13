@@ -15,6 +15,9 @@ spec:
       apiVersion: alibabacloudproviderconfig.openshift.io/v1alpha1
       kind: AlibabaCloudMachineProviderConfig
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 836a3e90 (update README)
       instanceType: FILLIN
       imageId: FILLIN
       regionId: FILLIN
@@ -26,6 +29,7 @@ spec:
       systemDiskSize: FILLIN
       internetMaxBandwidthOut: FILLIN
       password: FILLIN
+<<<<<<< HEAD
 =======
       instanceType: ecs.c6.2xlarge
       imageId:
@@ -39,6 +43,8 @@ spec:
       internetMaxBandwidthOut: 100
       password: Hello1234
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+>>>>>>> 836a3e90 (update README)
       tags:
         - key: openshift-node-group-config
           value: node-config-node

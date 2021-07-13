@@ -180,6 +180,51 @@ Note: this info is RH only, it needs to be backported every time the `README.md`
    ```
    If running in container with `podman`, or locally without `docker` installed, and encountering issues, see [hacking-guide](https://github.com/openshift/machine-api-operator/blob/master/docs/dev/hacking-guide.md#troubleshooting-make-targets).
 
+1. **Deploy k8s apiserver through machine manifest**:
+
+   To deploy user data secret with kubernetes apiserver initialization (under [config/master-user-data-secret.yaml](config/master-user-data-secret.yaml)):
+
+   ```sh
+   $ kubectl apply -f config/master-user-data-secret.yaml
+   ```
+
+   To deploy kubernetes master machine (under [config/master-machine.yaml](config/master-machine.yaml)):
+
+   ```sh
+   $ kubectl apply -f config/master-machine.yaml
+   ```
+
+1. **Join worker node through machine manifest**:
+
+   To deploy user data secret with kubernetes apiserver initialization (under [config/worker-user-data-secret.yaml](config/worker-user-data-secret.yaml)):
+
+   ```sh
+   $ kubectl apply -f config/worker-user-data-secret.yaml
+   ```
+
+   To deploy kubernetes worker machine (under [config/worker-machine.yaml](config/worker-machine.yaml)):
+
+   ```sh
+   $ kubectl apply -f config/worker-machine.yaml
+   ```
+
+1. **Pull kubeconfig from created master machine**
+
+   The master public IP can be accessed from AlibabaCloud Portal. Once done, you
+   can collect the kube config by running:
+
+   ```
+   $ ssh -i SSHPMKEY root@PUBLICIP 'sudo cat /root/.kube/config' > kubeconfig
+   $ kubectl --kubeconfig=kubeconfig config set-cluster kubernetes --server=https://PUBLICIP:6443
+   ```
+
+   Once done, you can access the cluster via `kubectl`. E.g.
+
+   ```sh
+   $ kubectl --kubeconfig=kubeconfig get nodes
+   ```
+
+
 ## Deploy machine API plane with AlibabaCloud ACK Cluster
 
 <<<<<<< HEAD
@@ -399,7 +444,53 @@ Note: this info is RH only, it needs to be backported every time the `README.md`
    $ kubectl apply -f secret.yaml
    ``` 
 
-4. **Deploy secret with AlibabaCloud worker nodes userdata**
+1. **Deploy k8s apiserver through machine manifest**:
+
+   To deploy user data secret with kubernetes apiserver initialization (under [config/master-user-data-secret.yaml](config/master-user-data-secret.yaml)):
+
+   ```sh
+   $ kubectl apply -f config/master-user-data-secret.yaml
+   ```
+
+   To deploy kubernetes master machine (under [config/master-machine.yaml](config/master-machine.yaml)):
+
+   ```sh
+   $ kubectl apply -f config/master-machine.yaml
+   ```
+
+1. **Join worker node through machine manifest**:
+
+   To deploy user data secret with kubernetes apiserver initialization (under [config/worker-user-data-secret.yaml](config/worker-user-data-secret.yaml)):
+
+   ```sh
+   $ kubectl apply -f config/worker-user-data-secret.yaml
+   ```
+
+   To deploy kubernetes worker machine (under [config/worker-machine.yaml](config/worker-machine.yaml)):
+
+   ```sh
+   $ kubectl apply -f config/worker-machine.yaml
+   ```
+
+1. **Pull kubeconfig from created master machine**
+
+   The master public IP can be accessed from AlibabaCloud Portal. Once done, you
+   can collect the kube config by running:
+
+   ```
+   $ ssh -i SSHPMKEY root@PUBLICIP 'sudo cat /root/.kube/config' > kubeconfig
+   $ kubectl --kubeconfig=kubeconfig config set-cluster kubernetes --server=https://PUBLICIP:6443
+   ```
+
+   Once done, you can access the cluster via `kubectl`. E.g.
+
+   ```sh
+   $ kubectl --kubeconfig=kubeconfig get nodes
+   ```
+
+### Add worker nodes to the ACK cluster via Machine-API
+
+1. **Deploy secret with AlibabaCloud worker nodes userdata**
 
    AlibabaCloud actuator assumes existence of a secret file (references in machine object) with base64 encoded userdata:
 
@@ -439,7 +530,7 @@ Note: this info is RH only, it needs to be backported every time the `README.md`
    kubectl apply -f worker-user-data-secret.yaml
    ``` 
 
- 5. **Add worker machine to ACK Cluster**
+ 1. **Add worker machine to ACK Cluster**
     
    ```yaml
    apiVersion: machine.openshift.io/v1beta1

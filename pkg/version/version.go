@@ -2,6 +2,7 @@ package version
 
 import (
 <<<<<<< HEAD
+<<<<<<< HEAD
 	"fmt"
 <<<<<<< HEAD
 	"runtime"
@@ -9,6 +10,10 @@ import (
 >>>>>>> e879a141 (alibabacloud machine-api provider)
 =======
 >>>>>>> 24c35849 (fix stop ecs instance func)
+=======
+	"fmt"
+	"runtime"
+>>>>>>> 836a3e90 (update README)
 	"strings"
 
 	"github.com/blang/semver"
@@ -35,8 +40,7 @@ var (
 	gitBranch        string // gitBranch is the branch from which this binary was built
 =======
 var (
-	// Raw is the string representation of the version. This will be replaced
-	// with the calculated version at build time.
+	// Raw is the string representation of the version. This will be replaced with the calculated version at build time.
 	Raw = "v0.1.0-alpha.1"
 
 	// Version is semver representation of the version.
@@ -54,6 +58,21 @@ var (
 >>>>>>> 24c35849 (fix stop ecs instance func)
 )
 
+<<<<<<< HEAD
+=======
+var (
+	gitMajor         string // major version, always numeric
+	gitMinor         string // minor version, numeric possibly followed by "+"
+	gitVersion       string // semantic version, derived by build scripts
+	gitCommit        string // sha1 from git, output of $(git rev-parse HEAD)
+	gitTreeState     string // state of git tree, either "clean" or "dirty"
+	buildDate        string // build date in ISO8601 format, output of $(date -u +'%Y-%m-%dT%H:%M:%SZ')
+	gitReleaseTag    string // gitReleaseTag is the git tag from which this binary is released
+	gitReleaseCommit string // gitReleaseCommit is the commit corresponding to the GitReleaseTag
+	gitBranch        string // gitBranch is the branch from which this binary was built
+)
+
+>>>>>>> 836a3e90 (update README)
 type Info struct {
 	Major            string `json:"major,omitempty"`
 	Minor            string `json:"minor,omitempty"`
@@ -90,6 +109,7 @@ func (info Info) String() string {
 	return info.GitVersion
 }
 
+<<<<<<< HEAD
 func PrintShortDirtyVersionInfo() string {
 	return fmt.Sprintf("Version Info: GitReleaseTag: %q, MajorVersion: %q, MinorVersion:%q, GitReleaseCommit:%q, GitTreeState:%q",
 		gitReleaseTag, gitMajor, gitMinor, gitReleaseCommit, gitTreeState)
@@ -102,4 +122,22 @@ func PrintShortCleanVersionInfo() string {
 func PrintVerboseVersionInfo() string {
 	return fmt.Sprintf("Version Info: GitReleaseTag: %q, Major: %q, Minor: %q, GitRelaseCommit: %q,Git Branch: %q,Git commit: %q,Git tree state: %q",
 		gitReleaseTag, gitMajor, gitMinor, gitReleaseCommit, gitBranch, gitCommit, gitTreeState)
+=======
+func printShortDirtyVersionInfo() {
+	fmt.Printf("Version Info: GitReleaseTag: %q, MajorVersion: %q, MinorVersion:%q, GitReleaseCommit:%q, GitTreeState:%q\n",
+		gitReleaseTag, gitMajor, gitMinor, gitReleaseCommit, gitTreeState)
+}
+
+func printShortCleanVersionInfo() {
+	fmt.Printf("Version Info: GitReleaseTag: %q, MajorVersion: %q, MinorVersion:%q\n",
+		gitReleaseTag, gitMajor, gitMinor)
+}
+
+func printVerboseVersionInfo() {
+	fmt.Println("Version Info:")
+	fmt.Printf("GitReleaseTag: %q, Major: %q, Minor: %q, GitRelaseCommit: %q\n", gitReleaseTag, gitMajor, gitMinor, gitReleaseCommit)
+	fmt.Printf("Git Branch: %q\n", gitBranch)
+	fmt.Printf("Git commit: %q\n", gitCommit)
+	fmt.Printf("Git tree state: %q\n", gitTreeState)
+>>>>>>> 836a3e90 (update README)
 }
