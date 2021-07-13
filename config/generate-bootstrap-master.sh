@@ -12,11 +12,11 @@ fi
 
 script_dir="$(cd $(dirname "${BASH_SOURCE[0]}") && pwd -P)"
 
-secrethash=$(cat $script_dir/bootstrap.sh | \
+secrethash=$(cat $script_dir/bootstrap-master.sh | \
   sed "s/  accessKeyID: FILLIN/  accessKeyID: $(echo -n $ALIBABACLOUD_ACCESS_KEY_ID | base64)/" | \
-  sed "s/  accessKeySecret: FILLIN/  accessKeySecret: $(echo -n $ALIBABACLOUD_SECRET_ACCESS_KEY | base64)/" )
+  sed "s/  accessKeySecret: FILLIN/  accessKeySecret: $(echo -n $ALIBABACLOUD_SECRET_ACCESS_KEY | base64)/" | base64 )
 
-cat <<EOF > $script_dir/bootstrap.yaml
+cat <<EOF > $script_dir/bootstrap-master.yaml
 apiVersion: v1
 kind: Secret
 metadata:
@@ -24,5 +24,6 @@ metadata:
   namespace: default
 type: Opaque
 data:
-  userData: $secrethash
+  userData: |
+    $secrethash
 EOF
