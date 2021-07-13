@@ -30,7 +30,7 @@ GOOS    ?= $(shell go env GOOS)
 
 VERSION     ?= $(shell git describe --tags --abbrev=7)
 REPO_PATH   ?= github.com/AliyunContainerService/cluster-api-provider-alibabacloud
-LD_FLAGS    ?= -X $(REPO_PATH)/pkg/version.Raw=$(VERSION) -extldflags "-static"
+LD_FLAGS    ?= -X $(REPO_PATH)/pkg/version.Raw=$(VERSION) $(shell hack/version.sh)  -extldflags "-static"
 MUTABLE_TAG ?= latest
 IMAGE        = origin-alibabacloud-machine-controllers
 
