@@ -72,7 +72,7 @@ const (
 	ECSTagResourceTypeInstance = "instance"
 )
 
-// runInstances create ec
+// runInstances create ecs
 func runInstances(machine *machinev1.Machine, machineProviderConfig *alibabacloudproviderv1.AlibabaCloudMachineProviderConfig, userData string, client alibabacloudClient.Client) (*ecs.Instance, error) {
 	machineKey := runtimeclient.ObjectKey{
 		Name:      machine.Name,
@@ -272,7 +272,7 @@ func runInstances(machine *machinev1.Machine, machineProviderConfig *alibabaclou
 		return nil, mapierrors.CreateMachine("error waiting ECS instance to Running: %v", err)
 	}
 
-	if len(instance) < 1 {
+	if instance == nil || len(instance) < 1 {
 		return nil, mapierrors.CreateMachine(" ECS instance %s not found", runResponse.InstanceIdSets.InstanceIdSet[0])
 	}
 
@@ -321,6 +321,10 @@ func waitForInstancesStatus(client alibabacloudClient.Client, regionID string, i
 	if err != nil {
 		klog.Errorf("Wait for the instances %v state change to %v occur error %v", instanceIds, instanceStatus, err)
 		return nil, err
+	}
+
+	if result == nil {
+		return nil, nil
 	}
 
 	return result.([]*ecs.Instance), nil

@@ -91,9 +91,10 @@ docker tag registry.aliyuncs.com/google_containers/etcd:3.4.13-0 k8s.gcr.io/etcd
 docker rmi registry.aliyuncs.com/google_containers/etcd:3.4.13-0
 
 # Replace coredns
-docker pull coredns/coredns:1.8.0
-docker tag coredns/coredns:1.8.0 k8s.gcr.io/coredns/coredns:v1.8.0
-docker rmi coredns/coredns:1.8.0
+docker pull registry.aliyuncs.com/google_containers/coredns:1.8.0
+docker tag registry.aliyuncs.com/google_containers/coredns:1.8.0 k8s.gcr.io/coredns/coredns:v1.8.0
+docker rmi registry.aliyuncs.com/google_containers/coredns:1.8.0
+
 
 
 ################################################

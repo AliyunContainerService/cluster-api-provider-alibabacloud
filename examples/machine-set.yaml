@@ -25,17 +25,17 @@ spec:
         value:
           apiVersion: alibabacloudproviderconfig.openshift.io/v1alpha1
           kind: AlibabaCloudMachineProviderConfig
-          instanceType: ecs.c6.2xlarge
-          imageId:
-          regionId:
-          zoneId:
-          securityGroupId:
-          vpcId:
-          vSwitchId:
-          systemDiskCategory: cloud_essd
-          systemDiskSize: 120
-          internetMaxBandwidthOut: 100
-          password: Hello1234
+          instanceType: FILLIN
+          imageId: FILLIN
+          regionId: FILLIN
+          zoneId: FILLIN
+          securityGroupId: FILLIN
+          vpcId: FILLIN
+          vSwitchId: FILLIN
+          systemDiskCategory: FILLIN
+          systemDiskSize: FILLIN
+          internetMaxBandwidthOut: FILLIN
+          password: FILLIN
           tags:
             - key: openshift-node-group-config
               value: node-config-node
@@ -47,7 +47,4 @@ spec:
             name: alibabacloud-worker-user-data-secret
           credentialsSecret:
             name: alibabacloud-credentials-secret
-      versions:
-        kubelet: 1.10.1
-        controlPlane: 1.10.1
 
