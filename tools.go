@@ -14,7 +14,7 @@ limitations under the License.
 */
 
 // This package imports things required by build scripts, to force `go mod` to see them as dependencies
-package cluster_api_provider_alibabacloud
+package tools
 
 import (
 	_ "github.com/golang/mock/mockgen"
