@@ -71,6 +71,23 @@ func ProviderStatusFromRawExtension(rawExtension *runtime.RawExtension) (*Alibab
 	return providerStatus, nil
 }
 
+// RawExtensionFromProviderSpec marshals the machine provider spec.
+func RawExtensionFromProviderSpec(spec *AlibabaCloudMachineProviderConfig) (*runtime.RawExtension, error) {
+	if spec == nil {
+		return &runtime.RawExtension{}, nil
+	}
+
+	var rawBytes []byte
+	var err error
+	if rawBytes, err = json.Marshal(spec); err != nil {
+		return nil, fmt.Errorf("error marshalling providerSpec: %v", err)
+	}
+
+	return &runtime.RawExtension{
+		Raw: rawBytes,
+	}, nil
+}
+
 // RawExtensionFromProviderStatus marshals the machine provider status
 func RawExtensionFromProviderStatus(status *AlibabaCloudMachineProviderStatus) (*runtime.RawExtension, error) {
 	if status == nil {
