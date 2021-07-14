@@ -1,6 +1,5 @@
 /*
 Copyright 2021 The Kubernetes Authors.
-<<<<<<< HEAD
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,19 +25,8 @@ import (
 	"path/filepath"
 	"testing"
 
-<<<<<<< HEAD
 	"sigs.k8s.io/controller-runtime/pkg/envtest"
 	"sigs.k8s.io/controller-runtime/pkg/manager"
-=======
-	providerconfigv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alicloudprovider/v1alpha1"
-	aliCloudClient "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client"
-	mockaliCloud "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client/mock"
-	clusterv1 "github.com/openshift/cluster-api/pkg/apis/cluster/v1alpha1"
-	machinev1 "github.com/openshift/cluster-api/pkg/apis/machine/v1beta1"
-
-	"k8s.io/apimachinery/pkg/types"
-	"k8s.io/client-go/kubernetes/scheme"
->>>>>>> 8dbd34ff (update project name)
 
 	"github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client/mock"
 	"github.com/golang/mock/gomock"
@@ -65,7 +53,6 @@ var (
 	eventRecorder record.EventRecorder
 )
 
-<<<<<<< HEAD
 // Init
 func TestMain(m *testing.M) {
 	testEnv := &envtest.Environment{
@@ -76,160 +63,6 @@ func TestMain(m *testing.M) {
 	}
 
 	configv1.AddToScheme(scheme.Scheme)
-=======
-func TestMachineEvents(t *testing.T) {
-	codec, err := providerconfigv1.NewCodec()
-	if err != nil {
-		t.Fatalf("unable to build codec: %v", err)
-	}
-
-	machine, err := stubMachine()
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	cluster := stubCluster()
-	aliCloudCredentialsSecret := stubAlicloudCredentialsSecret()
-	userDataSecret := stubUserDataSecret()
-
-	machineInvalidProviderConfig := machine.DeepCopy()
-	machineInvalidProviderConfig.Spec.ProviderSpec.Value = nil
-
-	workerMachine := machine.DeepCopy()
-	workerMachine.Spec.Labels["node-role.kubernetes.io/worker"] = ""
-
-	cases := []struct {
-		name                     string
-		machine                  *machinev1.Machine
-		error                    string
-		operation                func(actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine)
-		event                    string
-		describeInstancesReponse *ecs.DescribeInstancesResponse
-		describeInstancesErr     error
-		runInstancesErr          error
-		deleteInstancesErr       error
-		lbErr                    error
-		regInstancesWithLbErr    error
-	}{
-		{
-			name:    "Create machine event failed (invalid configuration)",
-			machine: machineInvalidProviderConfig,
-			operation: func(actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine) {
-				actuator.CreateMachine(cluster, machine)
-			},
-			event: "Warning FailedCreate InvalidConfiguration",
-		},
-		{
-			name:    "Create machine event failed (error creating alicloud service)",
-			machine: machine,
-			error:   aliCloudServiceError,
-			operation: func(actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine) {
-				actuator.CreateMachine(cluster, machine)
-			},
-			event: "Warning FailedCreate CreateError",
-		},
-		{
-			name:                     "Create machine event failed (error launching instance)",
-			machine:                  machine,
-			runInstancesErr:          fmt.Errorf("error"),
-			describeInstancesReponse: &ecs.DescribeInstancesResponse{},
-			operation: func(actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine) {
-				actuator.CreateMachine(cluster, machine)
-			},
-			event: "Warning FailedCreate CreateError",
-		},
-		{
-			name:    "Create machine event succeed",
-			machine: machine,
-			operation: func(actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine) {
-				actuator.CreateMachine(cluster, machine)
-			},
-			event: "Normal Created Created Machine alicloud-actuator-testing-machine",
-		},
-		{
-			name:    "Create worker machine event succeed",
-			machine: workerMachine,
-			operation: func(actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine) {
-				actuator.CreateMachine(cluster, machine)
-			},
-			event: "Normal Created Created Machine alicloud-actuator-testing-machine",
-		},
-		{
-			name:    "Delete machine event failed",
-			machine: machineInvalidProviderConfig,
-			operation: func(actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine) {
-				actuator.DeleteMachine(cluster, machine)
-			},
-			event: "Warning FailedDelete InvalidConfiguration",
-		},
-		{
-			name:    "Delete machine event succeed",
-			machine: machine,
-			operation: func(actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine) {
-				actuator.DeleteMachine(cluster, machine)
-			},
-			event: "Normal Deleted Deleted machine alicloud-actuator-testing-machine",
-		},
-	}
-
-	for _, tc := range cases {
-		t.Run(tc.name, func(t *testing.T) {
-
-			mockCtrl := gomock.NewController(t)
-			mockAlicloudClient := mockaliCloud.NewMockClient(mockCtrl)
-
-			eventsChannel := make(chan string, 1)
-
-			params := ActuatorParams{
-				Client: fake.NewFakeClient(tc.machine, aliCloudCredentialsSecret, userDataSecret),
-				AliCloudClientBuilder: func(client client.Client, secretName, namespace, region string) (aliCloudClient.Client, error) {
-					if tc.error == aliCloudServiceError {
-						return nil, fmt.Errorf(aliCloudServiceError)
-					}
-					return mockAlicloudClient, nil
-				},
-				Codec: codec,
-				// use fake recorder and store an event into one item long buffer for subsequent check
-				EventRecorder: &record.FakeRecorder{
-					Events: eventsChannel,
-				},
-			}
-
-			mockAlicloudClient.EXPECT().StartInstance(gomock.Any()).Return(&ecs.StartInstanceResponse{}, tc.runInstancesErr).AnyTimes()
-
-			if tc.describeInstancesReponse == nil {
-				mockAlicloudClient.EXPECT().DescribeInstances(gomock.Any()).Return(stubDescribeInstances("centos_7_06_64_20G_alibase_20190619.vhd", "i-bp1bsuzspukvo4t56a4f"), tc.describeInstancesErr).AnyTimes()
-			} else {
-				mockAlicloudClient.EXPECT().DescribeInstances(gomock.Any()).Return(&ecs.DescribeInstancesResponse{}, tc.describeInstancesErr).AnyTimes()
-			}
-
-			mockAlicloudClient.EXPECT().DescribeSecurityGroups(gomock.Any()).Return(stubSecurityGroups("sg-bp1iccjoxddumf300okm"), nil)
-			mockAlicloudClient.EXPECT().DescribeImages(gomock.Any()).Return(stubImages("centos_7_06_64_20G_alibase_20190619.vhd"), nil)
-
-			mockAlicloudClient.EXPECT().CreateInstance(gomock.Any()).Return(stubCreateInstance("i-bp1bsuzspukvo4t56a4f"), nil)
-			mockAlicloudClient.EXPECT().WaitForInstance(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Return(nil)
-			mockAlicloudClient.EXPECT().WaitForInstance(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Return(nil)
-			mockAlicloudClient.EXPECT().DeleteInstance(gomock.Any()).Return(&ecs.DeleteInstanceResponse{}, tc.deleteInstancesErr).AnyTimes()
-			mockAlicloudClient.EXPECT().DeleteInstance(gomock.Any()).Return(&ecs.DeleteInstanceResponse{}, nil)
-
-			actuator, err := NewActuator(params)
-			if err != nil {
-				t.Fatalf("Could not create AliCloud machine actuator: %v", err)
-			}
-
-			tc.operation(actuator, cluster, tc.machine)
-			select {
-			case event := <-eventsChannel:
-				if event != tc.event {
-					t.Errorf("Expected %q event, got %q", tc.event, event)
-				}
-			default:
-				t.Errorf("Expected %q event, got none", tc.event)
-			}
-		})
-	}
-}
->>>>>>> ebdd9bd0 (update test case)
 
 	cfg, err := testEnv.Start()
 	if err != nil {
@@ -250,284 +83,16 @@ func TestMachineEvents(t *testing.T) {
 		log.Fatal(err)
 	}
 
-<<<<<<< HEAD
 	mgrCtx, cancel := context.WithCancel(context.Background())
 	go func() {
 		if err := mgr.Start(mgrCtx); err != nil {
 			log.Fatal(err)
-=======
-	getMachineStatus := func(objectClient client.Client, machine *machinev1.Machine) (*providerconfigv1.AlibabaCloudMachineProviderStatus, error) {
-		// Get updated machine object from the cluster client
-		key := types.NamespacedName{
-			Namespace: machine.Namespace,
-			Name:      machine.Name,
-		}
-		updatedMachine := machinev1.Machine{}
-		err := objectClient.Get(context.Background(), client.ObjectKey(key), &updatedMachine)
-		if err != nil {
-			return nil, fmt.Errorf("unable to retrieve machine: %v", err)
->>>>>>> c7e62b88 (fix testcase)
 		}
 	}()
 	defer cancel()
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	k8sClient = mgr.GetClient()
 	eventRecorder = mgr.GetEventRecorderFor("alibabacloud-controller")
-=======
-=======
-		machineStatus := &providerconfigv1.AlibabaCloudMachineProviderStatus{}
-		if err := codec.DecodeProviderStatus(updatedMachine.Status.ProviderStatus, machineStatus); err != nil {
-			return nil, fmt.Errorf("error decoding machine provider status: %v", err)
-		}
-		return machineStatus, nil
-	}
-
->>>>>>> c7e62b88 (fix testcase)
-	machineInvalidProviderConfig := machine.DeepCopy()
-	machineInvalidProviderConfig.Spec.ProviderSpec.Value = nil
-
-	machineNoClusterID := machine.DeepCopy()
-	delete(machineNoClusterID.Labels, providerconfigv1.ClusterIDLabel)
-
-	pendingInstance := stubInstance("centos_7_06_64_20G_alibase_20190711.vhd", "i-bp1bsuzspukvo4t56a4f")
-	pendingInstance.Status = "Starting"
-
-	cases := []struct {
-		name                      string
-		machine                   *machinev1.Machine
-		error                     string
-		operation                 func(client client.Client, actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine)
-		describeInstancesResponse *ecs.DescribeInstancesResponse
-		runInstancesErr           error
-		describeInstancesErr      error
-		deleteInstancesErr        error
-		lbErr                     error
-	}{
-		{
-			name:    "Create machine with success",
-			machine: machine,
-			operation: func(objectClient client.Client, actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine) {
-				createErr := actuator.Create(context.TODO(), cluster, machine)
-				assert.NoError(t, createErr)
-
-				machineStatus, err := getMachineStatus(objectClient, machine)
-				if err != nil {
-					t.Fatalf("Unable to get machine status: %v", err)
-				}
-
-				assert.Equal(t, machineStatus.Conditions[0].Reason, MachineCreationSucceeded)
-
-				// Get the machine
-				if exists, err := actuator.Exists(context.TODO(), cluster, machine); err != nil || !exists {
-					t.Errorf("Instance for %v does not exists: %v", strings.Join([]string{machine.Namespace, machine.Name}, "/"), err)
-				} else {
-					t.Logf("Instance for %v exists", strings.Join([]string{machine.Namespace, machine.Name}, "/"))
-				}
-
-				// Update a machine
-				if err := actuator.Update(context.TODO(), cluster, machine); err != nil {
-					t.Errorf("Unable to create instance for machine: %v", err)
-				}
-
-				// Get the machine
-				if exists, err := actuator.Exists(context.TODO(), cluster, machine); err != nil || !exists {
-					t.Errorf("Instance for %v does not exists: %v", strings.Join([]string{machine.Namespace, machine.Name}, "/"), err)
-				} else {
-					t.Logf("Instance for %v exists", strings.Join([]string{machine.Namespace, machine.Name}, "/"))
-				}
-
-				// Delete a machine
-				if err := actuator.Delete(context.TODO(), cluster, machine); err != nil {
-					t.Errorf("Unable to delete instance for machine: %v", err)
-				}
-			},
-		},
-		{
-			name:            "Create machine with failure",
-			machine:         machine,
-			runInstancesErr: fmt.Errorf("error"),
-			operation: func(objectClient client.Client, actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine) {
-				createErr := actuator.Create(context.TODO(), cluster, machine)
-				assert.Error(t, createErr)
-
-				machineStatus, err := getMachineStatus(objectClient, machine)
-				if err != nil {
-					t.Fatalf("Unable to get machine status: %v", err)
-				}
-
-				assert.Equal(t, machineStatus.Conditions[0].Reason, MachineCreationFailed)
-			},
-		},
-		{
-			name:    "Update machine with success",
-			machine: machine,
-			operation: func(objectClient client.Client, actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine) {
-				actuator.Update(context.TODO(), cluster, machine)
-			},
-		},
-		{
-			name:    "Update machine failed (invalid configuration)",
-			machine: machineInvalidProviderConfig,
-			operation: func(objectClient client.Client, actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine) {
-				actuator.Update(context.TODO(), cluster, machine)
-			},
-		},
-		{
-			name:  "Update machine failed (error creating alicloud service)",
-			error: aliCloudServiceError,
-			operation: func(objectClient client.Client, actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine) {
-				actuator.Update(context.TODO(), cluster, machine)
-			},
-		},
-		{
-			name:                 "Update machine failed (error getting running instances)",
-			describeInstancesErr: fmt.Errorf("error"),
-			operation: func(objectClient client.Client, actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine) {
-				actuator.Update(context.TODO(), cluster, machine)
-			},
-		},
-		{
-			name: "Update machine failed (no running instances)",
-			describeInstancesResponse: &ecs.DescribeInstancesResponse{
-				Instances: ecs.InstancesInDescribeInstances{
-					Instance: []ecs.Instance{},
-				},
-			},
-			operation: func(objectClient client.Client, actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine) {
-				actuator.Update(context.TODO(), cluster, machine)
-			},
-		},
-		{
-			name: "Update machine succeeds (two running instances)",
-			describeInstancesResponse: &ecs.DescribeInstancesResponse{
-				Instances: ecs.InstancesInDescribeInstances{
-					Instance: []ecs.Instance{
-						{InstanceId: "i-bp1bsuzspukvo4t56a4f", ImageId: "centos_7_06_64_20G_alibase_20190711.vhd"},
-						{InstanceId: "i-bp1bsuzspukvo4t56a4g", ImageId: "centos_7_06_64_20G_alibase_20190711.vhd"},
-					},
-				},
-			},
-			operation: func(objectClient client.Client, actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine) {
-				actuator.Update(context.TODO(), cluster, machine)
-			},
-		},
-		{
-			name: "Update machine status fails (instance pending)",
-			describeInstancesResponse: &ecs.DescribeInstancesResponse{
-				Instances: ecs.InstancesInDescribeInstances{
-					Instance: []ecs.Instance{
-						pendingInstance,
-					},
-				},
-			},
-			operation: func(objectClient client.Client, actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine) {
-				actuator.Update(context.TODO(), cluster, machine)
-			},
-		},
-		{
-			name: "Update machine failed (two running instances, error terminating one)",
-			describeInstancesResponse: &ecs.DescribeInstancesResponse{
-				Instances: ecs.InstancesInDescribeInstances{
-					Instance: []ecs.Instance{
-						{InstanceId: "i-bp1bsuzspukvo4t56a4f", ImageId: "centos_7_06_64_20G_alibase_20190711.vhd"},
-						{InstanceId: "i-bp1bsuzspukvo4t56a4g", ImageId: "centos_7_06_64_20G_alibase_20190711.vhd"},
-					},
-				},
-			},
-			deleteInstancesErr: fmt.Errorf("error"),
-			operation: func(objectClient client.Client, actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine) {
-				actuator.Update(context.TODO(), cluster, machine)
-			},
-		},
-		{
-			name:    "Update machine with failure (cluster ID missing)",
-			machine: machineNoClusterID,
-			operation: func(objectClient client.Client, actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine) {
-				actuator.Update(context.TODO(), cluster, machine)
-			},
-		},
-		{
-			name:                 "Describe machine fails (error getting running instance)",
-			describeInstancesErr: fmt.Errorf("error"),
-			operation: func(objectClient client.Client, actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine) {
-				actuator.Describe(cluster, machine)
-			},
-		},
-		{
-			name:    "Describe machine failed (invalid configuration)",
-			machine: machineInvalidProviderConfig,
-			operation: func(objectClient client.Client, actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine) {
-				actuator.Describe(cluster, machine)
-			},
-		},
-		{
-			name:  "Describe machine failed (error creating alicloud service)",
-			error: aliCloudServiceError,
-			operation: func(objectClient client.Client, actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine) {
-				actuator.Describe(cluster, machine)
-			},
-		},
-		{
-			name: "Describe machine fails (no running instance)",
-			describeInstancesResponse: &ecs.DescribeInstancesResponse{
-				Instances: ecs.InstancesInDescribeInstances{
-					Instance: []ecs.Instance{},
-				},
-			},
-			operation: func(objectClient client.Client, actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine) {
-				actuator.Describe(cluster, machine)
-			},
-		},
-		{
-			name: "Describe machine succeeds",
-			operation: func(objectClient client.Client, actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine) {
-				actuator.Describe(cluster, machine)
-			},
-		},
-		{
-			name:    "Exists machine failed (invalid configuration)",
-			machine: machineInvalidProviderConfig,
-			operation: func(objectClient client.Client, actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine) {
-				actuator.Exists(context.TODO(), cluster, machine)
-			},
-		},
-		{
-			name: "Exists machine fails (no running instance)",
-			describeInstancesResponse: &ecs.DescribeInstancesResponse{
-				Instances: ecs.InstancesInDescribeInstances{
-					Instance: []ecs.Instance{},
-				},
-			},
-			operation: func(objectClient client.Client, actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine) {
-				actuator.Exists(context.TODO(), cluster, machine)
-			},
-		},
-		{
-			name:    "Delete machine failed (invalid configuration)",
-			machine: machineInvalidProviderConfig,
-			operation: func(objectClient client.Client, actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine) {
-				actuator.Delete(context.TODO(), cluster, machine)
-			},
-		},
-		{
-			name:  "Delete machine failed (error creating alicloud service)",
-			error: aliCloudServiceError,
-			operation: func(objectClient client.Client, actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine) {
-				actuator.Delete(context.TODO(), cluster, machine)
-			},
-		},
-		{
-			name:                 "Delete machine failed (error getting running instances)",
-			describeInstancesErr: fmt.Errorf("error"),
-			operation: func(objectClient client.Client, actuator *Actuator, cluster *clusterv1.Cluster, machine *machinev1.Machine) {
-				actuator.Delete(context.TODO(), cluster, machine)
-			},
-		},
-		{
-			name: "Delete machine failed (no running instances)",
->>>>>>> ebdd9bd0 (update test case)
 
 	code := m.Run()
 	os.Exit(code)
@@ -699,14 +264,7 @@ func Test_HandleMachineErrors(t *testing.T) {
 			},
 		}
 
-<<<<<<< HEAD
 		actuator := NewActuator(params)
-=======
-			mockAliCloudClient.EXPECT().CreateInstance(gomock.Any()).Return(stubCreateInstance("i-bp1bsuzspukvo4t56a4f"), tc.runInstancesErr)
-			mockAliCloudClient.EXPECT().WaitForInstance(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Return(nil)
-			mockAliCloudClient.EXPECT().WaitForInstance(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Return(nil)
-			mockAliCloudClient.EXPECT().DeleteInstance(gomock.Any()).Return(&ecs.DeleteInstanceResponse{}, tc.deleteInstancesErr).AnyTimes()
->>>>>>> ebdd9bd0 (update test case)
 
 		actuator.handleMachineError(masterMachine, config["Error"].(*machineapierrors.MachineError), config["EventAction"].(string))
 		select {
@@ -719,20 +277,3 @@ func Test_HandleMachineErrors(t *testing.T) {
 		}
 	}
 }
-=======
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
-package machine
->>>>>>> e879a141 (alibabacloud machine-api provider)

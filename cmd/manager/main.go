@@ -128,7 +128,7 @@ func main() {
 
 	enableMetrics := flag.Bool(
 		"enable-metrics",
-		true,
+		false,
 		"Whether to enable metrics, Default value true. If you test in local, you can disable it",
 	)
 

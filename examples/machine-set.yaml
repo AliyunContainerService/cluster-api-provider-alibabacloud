@@ -2,31 +2,14 @@
 apiVersion: machine.openshift.io/v1beta1
 kind: MachineSet
 metadata:
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
   name: alibabacloud-actuator-testing-machineset
   namespace: default
   labels:
     machine.openshift.io/cluster-api-cluster: alibabacloud-actuator-k8s
-<<<<<<< HEAD
-=======
-  name: alicloud-actuator-testing-machine
-  namespace: default
-  labels:
-    machine.openshift.io/cluster-api-cluster: alicloud-actuator-k8s
->>>>>>> 5a63acd2 (update test case)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
 spec:
   replicas: 2
   selector:
     matchLabels:
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
       machine.openshift.io/cluster-api-machineset: test-worker
       machine.openshift.io/cluster-api-cluster: alibabacloud-actuator-k8s
   template:
@@ -42,7 +25,6 @@ spec:
         value:
           apiVersion: alibabacloudproviderconfig.openshift.io/v1alpha1
           kind: AlibabaCloudMachineProviderConfig
-<<<<<<< HEAD
           instanceType: FILLIN
           imageId: FILLIN
           regionId: FILLIN
@@ -54,19 +36,6 @@ spec:
           systemDiskSize: FILLIN
           internetMaxBandwidthOut: FILLIN
           password: FILLIN
-=======
-          instanceType: ecs.c6.2xlarge
-          imageId:
-          regionId:
-          zoneId:
-          securityGroupId:
-          vpcId:
-          vSwitchId:
-          systemDiskCategory: cloud_essd
-          systemDiskSize: 120
-          internetMaxBandwidthOut: 100
-          password: Hello1234
->>>>>>> e879a141 (alibabacloud machine-api provider)
           tags:
             - key: openshift-node-group-config
               value: node-config-node
@@ -78,46 +47,4 @@ spec:
             name: alibabacloud-worker-user-data-secret
           credentialsSecret:
             name: alibabacloud-credentials-secret
-<<<<<<< HEAD
 
-=======
-      machine.openshift.io/cluster-api-machineset: test-master
-      machine.openshift.io/cluster-api-cluster: alicloud-actuator-k8s
-  template:
-    metadata:
-      labels:
-        machine.openshift.io/cluster-api-machineset: test-master
-        machine.openshift.io/cluster-api-cluster: alicloud-actuator-k8s
-    spec:
-      metadata:
-        labels:
-          node-role.kubernetes.io/master: ""
-          node-role.kubernetes.io/infra: ""
-      providerSpec:
-        value:
-          apiVersion: alicloudproviderconfig.openshift.io/v1alpha1
-          kind: AlicloudMachineProviderConfig
-          instanceType: ecs.c5.xlarge
-          imageId: centos_7_06_64_20G_alibase_20190711.vhd
-          regionId: cn-hangzhou
-          securityGroupId: sg-bp16yqwdlflk32p679ik
-          vpcId: vpc-bp1td11g1i90b1fjnm7jw
-          vSwitchId: vsw-bp1ra53n8ban94mbbgb4w
-          systemDiskSize: 40
-          tags:
-            - key: openshift-node-group-config
-              value: node-config-master
-            - key: host-type
-              value: master
-            - key: sub-host-type
-              value: default
-          publicIp: true
-          userDataSecret:
-            name: alicloud-actuator-user-data-secret
->>>>>>> 5a63acd2 (update test case)
-=======
-      versions:
-        kubelet: 1.10.1
-        controlPlane: 1.10.1
-
->>>>>>> e879a141 (alibabacloud machine-api provider)

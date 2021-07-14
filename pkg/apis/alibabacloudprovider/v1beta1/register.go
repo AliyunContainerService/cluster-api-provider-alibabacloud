@@ -71,7 +71,6 @@ func ProviderStatusFromRawExtension(rawExtension *runtime.RawExtension) (*Alibab
 	return providerStatus, nil
 }
 
-<<<<<<< HEAD
 // RawExtensionFromProviderSpec marshals the machine provider spec.
 func RawExtensionFromProviderSpec(spec *AlibabaCloudMachineProviderConfig) (*runtime.RawExtension, error) {
 	if spec == nil {
@@ -89,8 +88,6 @@ func RawExtensionFromProviderSpec(spec *AlibabaCloudMachineProviderConfig) (*run
 	}, nil
 }
 
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
 // RawExtensionFromProviderStatus marshals the machine provider status
 func RawExtensionFromProviderStatus(status *AlibabaCloudMachineProviderStatus) (*runtime.RawExtension, error) {
 	if status == nil {
