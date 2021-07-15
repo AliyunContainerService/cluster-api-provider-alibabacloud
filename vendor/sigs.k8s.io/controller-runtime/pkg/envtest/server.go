@@ -24,16 +24,22 @@ import (
 	"time"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 737a8f1c (add more test case)
 	"k8s.io/client-go/rest"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/client/config"
 	"sigs.k8s.io/controller-runtime/pkg/internal/testing/integration"
+<<<<<<< HEAD
 =======
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	"k8s.io/client-go/rest"
 	"sigs.k8s.io/controller-runtime/pkg/client/config"
 	"sigs.k8s.io/testing_frameworks/integration"
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> 737a8f1c (add more test case)
 
 	logf "sigs.k8s.io/controller-runtime/pkg/internal/log"
 )
@@ -41,6 +47,9 @@ import (
 var log = logf.RuntimeLog.WithName("test-env")
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 737a8f1c (add more test case)
 /*
 It's possible to override some defaults, by setting the following environment variables:
 	USE_EXISTING_CLUSTER (boolean): if set to true, envtest will use an existing cluster
@@ -53,9 +62,12 @@ It's possible to override some defaults, by setting the following environment va
 	KUBEBUILDER_ATTACH_CONTROL_PLANE_OUTPUT (boolean): if set to true, the control plane's stdout and stderr are attached to os.Stdout and os.Stderr
 
 */
+<<<<<<< HEAD
 =======
 // Default binary path for test framework
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> 737a8f1c (add more test case)
 const (
 	envUseExistingCluster  = "USE_EXISTING_CLUSTER"
 	envKubeAPIServerBin    = "TEST_ASSET_KUBE_APISERVER"
@@ -74,6 +86,9 @@ const (
 )
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 737a8f1c (add more test case)
 // getBinAssetPath returns a path for binary from the following list of locations,
 // ordered by precedence:
 // 0. KUBEBUILDER_ASSETS
@@ -100,6 +115,7 @@ type APIServer = integration.APIServer
 
 // Etcd is the re-exported Etcd type from the internal integration package
 type Etcd = integration.Etcd
+<<<<<<< HEAD
 =======
 func defaultAssetPath(binary string) string {
 	assetPath := os.Getenv(envKubebuilderPath)
@@ -120,6 +136,8 @@ var DefaultKubeAPIServerFlags = []string{
 	"--admission-control=AlwaysAdmit",
 }
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> 737a8f1c (add more test case)
 
 // Environment creates a Kubernetes test environment that will start / stop the Kubernetes control plane and
 // install extension APIs
@@ -133,6 +151,9 @@ type Environment struct {
 	Config *rest.Config
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 737a8f1c (add more test case)
 	// CRDInstallOptions are the options for installing CRDs.
 	CRDInstallOptions CRDInstallOptions
 
@@ -159,6 +180,7 @@ type Environment struct {
 	BinaryAssetsDirectory string
 
 	// UseExistingCluster indicates that this environments should use an
+<<<<<<< HEAD
 =======
 	// CRDs is a list of CRDs to install
 	CRDs []*apiextensionsv1beta1.CustomResourceDefinition
@@ -168,6 +190,8 @@ type Environment struct {
 
 	// UseExisting indicates that this environments should use an
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> 737a8f1c (add more test case)
 	// existing kubeconfig, instead of trying to stand up a new control plane.
 	// This is useful in cases that need aggregated API servers and the like.
 	UseExistingCluster *bool
@@ -192,6 +216,9 @@ type Environment struct {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 737a8f1c (add more test case)
 // Stop stops a running server.
 // Previously installed CRDs, as listed in CRDInstallOptions.CRDs, will be uninstalled
 // if CRDInstallOptions.CleanUpAfterUse are set to true.
@@ -208,6 +235,7 @@ func (te *Environment) Stop() error {
 	if err != nil {
 		return err
 	}
+<<<<<<< HEAD
 =======
 // Stop stops a running server
 func (te *Environment) Stop() error {
@@ -215,11 +243,16 @@ func (te *Environment) Stop() error {
 		return nil
 	}
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> 737a8f1c (add more test case)
 	return te.ControlPlane.Stop()
 }
 
 // getAPIServerFlags returns flags to be used with the Kubernetes API server.
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 737a8f1c (add more test case)
 // it returns empty slice for api server defined defaults to be applied if no args specified
 func (te Environment) getAPIServerFlags() []string {
 	// Set default API server flags if not set.
@@ -236,12 +269,15 @@ func (te Environment) getAPIServerFlags() []string {
 	}
 	if !containServiceClusterIPRange {
 		te.KubeAPIServerFlags = append(te.KubeAPIServerFlags, "--service-cluster-ip-range=10.0.0.0/24")
+<<<<<<< HEAD
 =======
 func (te Environment) getAPIServerFlags() []string {
 	// Set default API server flags if not set.
 	if len(te.KubeAPIServerFlags) == 0 {
 		return DefaultKubeAPIServerFlags
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> 737a8f1c (add more test case)
 	}
 	return te.KubeAPIServerFlags
 }
@@ -287,6 +323,9 @@ func (te *Environment) Start() (*rest.Config, error) {
 
 		if os.Getenv(envKubeAPIServerBin) == "" {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 737a8f1c (add more test case)
 			te.ControlPlane.APIServer.Path = te.getBinAssetPath("kube-apiserver")
 		}
 		if os.Getenv(envEtcdBin) == "" {
@@ -295,6 +334,7 @@ func (te *Environment) Start() (*rest.Config, error) {
 		if os.Getenv(envKubectlBin) == "" {
 			// we can't just set the path manually (it's behind a function), so set the environment variable instead
 			if err := os.Setenv(envKubectlBin, te.getBinAssetPath("kubectl")); err != nil {
+<<<<<<< HEAD
 =======
 			te.ControlPlane.APIServer.Path = defaultAssetPath("kube-apiserver")
 		}
@@ -305,16 +345,22 @@ func (te *Environment) Start() (*rest.Config, error) {
 			// we can't just set the path manually (it's behind a function), so set the environment variable instead
 			if err := os.Setenv(envKubectlBin, defaultAssetPath("kubectl")); err != nil {
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> 737a8f1c (add more test case)
 				return nil, err
 			}
 		}
 
 		if err := te.defaultTimeouts(); err != nil {
 <<<<<<< HEAD
+<<<<<<< HEAD
 			return nil, fmt.Errorf("failed to default controlplane timeouts: %w", err)
 =======
 			return nil, fmt.Errorf("failed to default controlplane timeouts: %v", err)
 >>>>>>> 79bfea2d (update vendor)
+=======
+			return nil, fmt.Errorf("failed to default controlplane timeouts: %w", err)
+>>>>>>> 737a8f1c (add more test case)
 		}
 		te.ControlPlane.Etcd.StartTimeout = te.ControlPlaneStartTimeout
 		te.ControlPlane.Etcd.StopTimeout = te.ControlPlaneStopTimeout
@@ -337,6 +383,9 @@ func (te *Environment) Start() (*rest.Config, error) {
 
 	log.V(1).Info("installing CRDs")
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 737a8f1c (add more test case)
 	te.CRDInstallOptions.CRDs = mergeCRDs(te.CRDInstallOptions.CRDs, te.CRDs)
 	te.CRDInstallOptions.Paths = mergePaths(te.CRDInstallOptions.Paths, te.CRDDirectoryPaths)
 	te.CRDInstallOptions.ErrorIfPathMissing = te.ErrorIfCRDPathMissing
@@ -349,12 +398,15 @@ func (te *Environment) Start() (*rest.Config, error) {
 	log.V(1).Info("installing webhooks")
 	err = te.WebhookInstallOptions.Install(te.Config)
 
+<<<<<<< HEAD
 =======
 	_, err := InstallCRDs(te.Config, CRDInstallOptions{
 		Paths: te.CRDDirectoryPaths,
 		CRDs:  te.CRDs,
 	})
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> 737a8f1c (add more test case)
 	return te.Config, err
 }
 
@@ -371,10 +423,14 @@ func (te *Environment) startControlPlane() error {
 	}
 	if numTries == maxRetries {
 <<<<<<< HEAD
+<<<<<<< HEAD
 		return fmt.Errorf("failed to start the controlplane. retried %d times: %w", numTries, err)
 =======
 		return fmt.Errorf("failed to start the controlplane. retried %d times: %v", numTries, err)
 >>>>>>> 79bfea2d (update vendor)
+=======
+		return fmt.Errorf("failed to start the controlplane. retried %d times: %w", numTries, err)
+>>>>>>> 737a8f1c (add more test case)
 	}
 	return nil
 }
@@ -412,9 +468,15 @@ func (te *Environment) useExistingCluster() bool {
 	return *te.UseExistingCluster
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 737a8f1c (add more test case)
 
 // DefaultKubeAPIServerFlags exposes the default args for the APIServer so that
 // you can use those to append your own additional arguments.
 var DefaultKubeAPIServerFlags = integration.APIServerDefaultArgs
+<<<<<<< HEAD
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+>>>>>>> 737a8f1c (add more test case)

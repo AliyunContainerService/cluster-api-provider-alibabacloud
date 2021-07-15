@@ -2,11 +2,17 @@
 Package gexec provides support for testing external processes.
 */
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 // untested sections: 1
 
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+
+// untested sections: 1
+
+>>>>>>> 737a8f1c (add more test case)
 package gexec
 
 import (

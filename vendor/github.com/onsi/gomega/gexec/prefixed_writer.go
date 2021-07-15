@@ -1,8 +1,13 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 // untested sections: 1
 
 =======
 >>>>>>> 79bfea2d (update vendor)
+=======
+// untested sections: 1
+
+>>>>>>> 737a8f1c (add more test case)
 package gexec
 
 import (
@@ -12,10 +17,14 @@ import (
 
 /*
 <<<<<<< HEAD
+<<<<<<< HEAD
 PrefixedWriter wraps an io.Writer, emitting the passed in prefix at the beginning of each new line.
 =======
 PrefixedWriter wraps an io.Writer, emiting the passed in prefix at the beginning of each new line.
 >>>>>>> 79bfea2d (update vendor)
+=======
+PrefixedWriter wraps an io.Writer, emitting the passed in prefix at the beginning of each new line.
+>>>>>>> 737a8f1c (add more test case)
 This can be useful when running multiple gexec.Sessions concurrently - you can prefix the log output of each
 session by passing in a PrefixedWriter:
 

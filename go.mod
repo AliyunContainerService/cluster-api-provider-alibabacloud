@@ -8,9 +8,13 @@ require (
 	github.com/go-logr/logr v0.4.0
 	github.com/golang/mock v1.6.0
 <<<<<<< HEAD
+<<<<<<< HEAD
 	github.com/onsi/gomega v1.10.5
 =======
 >>>>>>> e879a141 (alibabacloud machine-api provider)
+=======
+	github.com/onsi/gomega v1.10.5
+>>>>>>> 737a8f1c (add more test case)
 	github.com/openshift/api v0.0.0-20210416115537-a60c0dc032fd
 	github.com/openshift/machine-api-operator v0.2.1-0.20210504014029-a132ec00f7dd
 	github.com/stretchr/testify v1.7.0
