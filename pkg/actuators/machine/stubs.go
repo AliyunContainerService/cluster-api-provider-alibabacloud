@@ -3,6 +3,11 @@ package machine
 import (
 	"fmt"
 	"os"
+	"strconv"
+
+	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/requests"
+
+	"github.com/aliyun/alibaba-cloud-sdk-go/services/ecs"
 
 	machinev1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 	machinecontroller "github.com/openshift/machine-api-operator/pkg/controller/machine"
@@ -129,4 +134,31 @@ func stubMachine(machineName string, machineLabels map[string]string) (*machinev
 		},
 	}
 	return machine, nil
+}
+
+func stubRunInstancesRequest() *ecs.RunInstancesRequest {
+	request := ecs.CreateRunInstancesRequest()
+	request.Scheme = "https"
+	request.RegionId = stubRegionID
+	request.InstanceType = stubInstanceType
+	request.ImageId = stubImageID
+	request.VSwitchId = stubVSwitchID
+	request.SecurityGroupId = stubSecurityGroupId
+	request.Password = stubPassword
+	request.MinAmount = requests.NewInteger(1)
+	request.Amount = requests.NewInteger(1)
+
+	request.SystemDiskCategory = stubSystemDiskCategory
+	request.SystemDiskSize = strconv.Itoa(stubSystemDiskSize)
+
+	return request
+}
+
+func stubRunInstancesResponse() *ecs.RunInstancesResponse {
+	response := ecs.CreateRunInstancesResponse()
+	response.InstanceIdSets = ecs.InstanceIdSets{
+		InstanceIdSet: []string{stubInstanceID},
+	}
+
+	return response
 }
