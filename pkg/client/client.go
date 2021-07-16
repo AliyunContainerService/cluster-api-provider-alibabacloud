@@ -17,20 +17,11 @@ import (
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/vpc"
 	machineapiapierrors "github.com/openshift/machine-api-operator/pkg/controller/machine"
 	corev1 "k8s.io/api/core/v1"
-<<<<<<< HEAD
-<<<<<<< HEAD
 	apimachineryerrors "k8s.io/apimachinery/pkg/api/errors"
-=======
-	"os"
->>>>>>> ebdd9bd0 (update test case)
-=======
-	apimachineryerrors "k8s.io/apimachinery/pkg/api/errors"
->>>>>>> e879a141 (alibabacloud machine-api provider)
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
 //go:generate go run ../../vendor/github.com/golang/mock/mockgen -source=./client.go -destination=./mock/client_mock.go -package=mock
-<<<<<<< HEAD
 
 // AlibabaCloudClientBuilderFunc is function type for building alibabacloud client
 type AlibabaCloudClientBuilderFunc func(client client.Client, secretName, namespace, region string, configManagedClient client.Client) (Client, error)
@@ -53,30 +44,6 @@ const (
 	kubeCloudConfigName = "kube-cloud-config"
 )
 
-=======
-
-// AlibabaCloudClientBuilderFunc is function type for building alibabacloud client
-type AlibabaCloudClientBuilderFunc func(client client.Client, secretName, namespace, region string, configManagedClient client.Client) (Client, error)
-
-// machineProviderUserAgent is a named handler that will add cluster-api-provider-alibabacloud
-var machineProviderUserAgent = fmt.Sprintf("openshift.io cluster-api-provider-alibabacloud:%s", version.Version.String())
-
-const (
-	kubeAccessKeyID           = "accessKeyID"
-	kubeAccessKeySecret       = "accessKeySecret"
-	kubeAccessKeyStsToken     = "accessKeyStsToken"
-	kubeRoleArn               = "roleArn"
-	kubeRoleSessionName       = "roleSessionName"
-	kubeRoleSessionExpiration = "roleSessionExpiration"
-	kubeRoleName              = "roleName"
-
-	// KubeCloudConfigNamespace is the namespace where the kube cloud config ConfigMap is located
-	KubeCloudConfigNamespace = "openshift-config-managed"
-
-	kubeCloudConfigName = "kube-cloud-config"
-)
-
->>>>>>> e879a141 (alibabacloud machine-api provider)
 // Client is a wrapper object for actual alibabacloud SDK clients to allow for easier testing.
 type Client interface {
 	//Ecs
@@ -250,35 +217,8 @@ func (client *alibabacloudClient) DeleteInstance(request *ecs.DeleteInstanceRequ
 	return client.ecsClient.DeleteInstance(request)
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 func (client *alibabacloudClient) AttachInstanceRAMRole(request *ecs.AttachInstanceRamRoleRequest) (*ecs.AttachInstanceRamRoleResponse, error) {
 	return client.ecsClient.AttachInstanceRamRole(request)
-=======
-	for {
-		describeInstancesRequest := ecs.CreateDescribeInstancesRequest()
-		describeInstancesRequest.RegionId = regionId
-		instancesIds, _ := json.Marshal([]string{instanceId})
-		describeInstancesRequest.InstanceIds = string(instancesIds)
-		describeInstancesRequest.Scheme = "https"
-		describeInstancesResponse, err := c.ecs2Client.DescribeInstances(describeInstancesRequest)
-		if err == nil {
-			if len(describeInstancesResponse.Instances.Instance) > 0 && describeInstancesResponse.Instances.Instance[0].Status == instanceStatus {
-				break
-			}
-		}
-		timeout = timeout - DefaultWaitForInterval
-		if timeout <= 0 {
-			return fmt.Errorf("Timeout")
-		}
-		time.Sleep(DefaultWaitForInterval * time.Second)
-	}
-	return nil
->>>>>>> ebdd9bd0 (update test case)
-=======
-func (client *alibabacloudClient) AttachInstanceRAMRole(request *ecs.AttachInstanceRamRoleRequest) (*ecs.AttachInstanceRamRoleResponse, error) {
-	return client.ecsClient.AttachInstanceRamRole(request)
->>>>>>> e879a141 (alibabacloud machine-api provider)
 }
 
 func (client *alibabacloudClient) DetachInstanceRAMRole(request *ecs.DetachInstanceRamRoleRequest) (*ecs.DetachInstanceRamRoleResponse, error) {
@@ -293,10 +233,6 @@ func (client *alibabacloudClient) ReActivateInstances(request *ecs.ReActivateIns
 	return client.ecsClient.ReActivateInstances(request)
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
 func (client *alibabacloudClient) DescribeUserData(request *ecs.DescribeUserDataRequest) (*ecs.DescribeUserDataResponse, error) {
 	return client.ecsClient.DescribeUserData(request)
 }
@@ -343,7 +279,6 @@ func (client *alibabacloudClient) ModifyDiskSpec(request *ecs.ModifyDiskSpecRequ
 
 func (client *alibabacloudClient) ReplaceSystemDisk(request *ecs.ReplaceSystemDiskRequest) (*ecs.ReplaceSystemDiskResponse, error) {
 	return client.ecsClient.ReplaceSystemDisk(request)
-<<<<<<< HEAD
 }
 
 func (client *alibabacloudClient) ReInitDisk(request *ecs.ReInitDiskRequest) (*ecs.ReInitDiskResponse, error) {
@@ -486,150 +421,6 @@ func (client *alibabacloudClient) DeleteNatGateway(request *vpc.DeleteNatGateway
 	return client.vpcClient.DeleteNatGateway(request)
 }
 
-=======
-}
-
-func (client *alibabacloudClient) ReInitDisk(request *ecs.ReInitDiskRequest) (*ecs.ReInitDiskResponse, error) {
-	return client.ecsClient.ReInitDisk(request)
-}
-
-func (client *alibabacloudClient) ResetDisk(request *ecs.ResetDiskRequest) (*ecs.ResetDiskResponse, error) {
-	return client.ecsClient.ResetDisk(request)
-}
-
-func (client *alibabacloudClient) ResizeDisk(request *ecs.ResizeDiskRequest) (*ecs.ResizeDiskResponse, error) {
-	return client.ecsClient.ResizeDisk(request)
-}
-
-func (client *alibabacloudClient) DetachDisk(request *ecs.DetachDiskRequest) (*ecs.DetachDiskResponse, error) {
-	return client.ecsClient.DetachDisk(request)
-}
-
-func (client *alibabacloudClient) DeleteDisk(request *ecs.DeleteDiskRequest) (*ecs.DeleteDiskResponse, error) {
-	return client.ecsClient.DeleteDisk(request)
-}
-
-func (client *alibabacloudClient) DescribeRegions(request *ecs.DescribeRegionsRequest) (*ecs.DescribeRegionsResponse, error) {
-	return client.ecsClient.DescribeRegions(request)
-}
-
-func (client *alibabacloudClient) DescribeZones(request *ecs.DescribeZonesRequest) (*ecs.DescribeZonesResponse, error) {
-	return client.ecsClient.DescribeZones(request)
-}
-
-func (client *alibabacloudClient) DescribeImages(request *ecs.DescribeImagesRequest) (*ecs.DescribeImagesResponse, error) {
-	return client.ecsClient.DescribeImages(request)
-}
-
-func (client *alibabacloudClient) CreateSecurityGroup(request *ecs.CreateSecurityGroupRequest) (*ecs.CreateSecurityGroupResponse, error) {
-	return client.ecsClient.CreateSecurityGroup(request)
-}
-
-func (client *alibabacloudClient) AuthorizeSecurityGroup(request *ecs.AuthorizeSecurityGroupRequest) (*ecs.AuthorizeSecurityGroupResponse, error) {
-	return client.ecsClient.AuthorizeSecurityGroup(request)
-}
-
-func (client *alibabacloudClient) AuthorizeSecurityGroupEgress(request *ecs.AuthorizeSecurityGroupEgressRequest) (*ecs.AuthorizeSecurityGroupEgressResponse, error) {
-	return client.ecsClient.AuthorizeSecurityGroupEgress(request)
-}
-
-func (client *alibabacloudClient) RevokeSecurityGroup(request *ecs.RevokeSecurityGroupRequest) (*ecs.RevokeSecurityGroupResponse, error) {
-	return client.ecsClient.RevokeSecurityGroup(request)
-}
-
-func (client *alibabacloudClient) RevokeSecurityGroupEgress(request *ecs.RevokeSecurityGroupEgressRequest) (*ecs.RevokeSecurityGroupEgressResponse, error) {
-	return client.ecsClient.RevokeSecurityGroupEgress(request)
-}
-
-func (client *alibabacloudClient) JoinSecurityGroup(request *ecs.JoinSecurityGroupRequest) (*ecs.JoinSecurityGroupResponse, error) {
-	return client.ecsClient.JoinSecurityGroup(request)
-}
-
-func (client *alibabacloudClient) LeaveSecurityGroup(request *ecs.LeaveSecurityGroupRequest) (*ecs.LeaveSecurityGroupResponse, error) {
-	return client.ecsClient.LeaveSecurityGroup(request)
-}
-
-func (client *alibabacloudClient) DescribeSecurityGroupAttribute(request *ecs.DescribeSecurityGroupAttributeRequest) (*ecs.DescribeSecurityGroupAttributeResponse, error) {
-	return client.ecsClient.DescribeSecurityGroupAttribute(request)
-}
-
-func (client *alibabacloudClient) DescribeSecurityGroups(request *ecs.DescribeSecurityGroupsRequest) (*ecs.DescribeSecurityGroupsResponse, error) {
-	return client.ecsClient.DescribeSecurityGroups(request)
-}
-
-func (client *alibabacloudClient) DescribeSecurityGroupReferences(request *ecs.DescribeSecurityGroupReferencesRequest) (*ecs.DescribeSecurityGroupReferencesResponse, error) {
-	return client.ecsClient.DescribeSecurityGroupReferences(request)
-}
-
-func (client *alibabacloudClient) ModifySecurityGroupAttribute(request *ecs.ModifySecurityGroupAttributeRequest) (*ecs.ModifySecurityGroupAttributeResponse, error) {
-	return client.ecsClient.ModifySecurityGroupAttribute(request)
-}
-
-func (client *alibabacloudClient) ModifySecurityGroupEgressRule(request *ecs.ModifySecurityGroupEgressRuleRequest) (*ecs.ModifySecurityGroupEgressRuleResponse, error) {
-	return client.ecsClient.ModifySecurityGroupEgressRule(request)
-}
-
-func (client *alibabacloudClient) ModifySecurityGroupPolicy(request *ecs.ModifySecurityGroupPolicyRequest) (*ecs.ModifySecurityGroupPolicyResponse, error) {
-	return client.ecsClient.ModifySecurityGroupPolicy(request)
-}
-
-func (client *alibabacloudClient) ModifySecurityGroupRule(request *ecs.ModifySecurityGroupRuleRequest) (*ecs.ModifySecurityGroupRuleResponse, error) {
-	return client.ecsClient.ModifySecurityGroupRule(request)
-}
-
-func (client *alibabacloudClient) DeleteSecurityGroup(request *ecs.DeleteSecurityGroupRequest) (*ecs.DeleteSecurityGroupResponse, error) {
-	return client.ecsClient.DeleteSecurityGroup(request)
-}
-
-func (client *alibabacloudClient) TagResources(request *ecs.TagResourcesRequest) (*ecs.TagResourcesResponse, error) {
-	return client.ecsClient.TagResources(request)
-}
-
-func (client *alibabacloudClient) ListTagResources(request *ecs.ListTagResourcesRequest) (*ecs.ListTagResourcesResponse, error) {
-	return client.ecsClient.ListTagResources(request)
-}
-
-func (client *alibabacloudClient) UntagResources(request *ecs.UntagResourcesRequest) (*ecs.UntagResourcesResponse, error) {
-	return client.ecsClient.UntagResources(request)
-}
-
-func (client *alibabacloudClient) CreateVpc(request *vpc.CreateVpcRequest) (*vpc.CreateVpcResponse, error) {
-	return client.vpcClient.CreateVpc(request)
-}
-
-func (client *alibabacloudClient) DeleteVpc(request *vpc.DeleteVpcRequest) (*vpc.DeleteVpcResponse, error) {
-	return client.vpcClient.DeleteVpc(request)
-}
-
-func (client *alibabacloudClient) DescribeVpcs(request *vpc.DescribeVpcsRequest) (*vpc.DescribeVpcsResponse, error) {
-	return client.vpcClient.DescribeVpcs(request)
-}
-
-func (client *alibabacloudClient) CreateVSwitch(request *vpc.CreateVSwitchRequest) (*vpc.CreateVSwitchResponse, error) {
-	return client.vpcClient.CreateVSwitch(request)
-}
-
-func (client *alibabacloudClient) DeleteVSwitch(request *vpc.DeleteVSwitchRequest) (*vpc.DeleteVSwitchResponse, error) {
-	return client.vpcClient.DeleteVSwitch(request)
-}
-
-func (client *alibabacloudClient) DescribeVSwitches(request *vpc.DescribeVSwitchesRequest) (*vpc.DescribeVSwitchesResponse, error) {
-	return client.vpcClient.DescribeVSwitches(request)
-}
-
-func (client *alibabacloudClient) CreateNatGateway(request *vpc.CreateNatGatewayRequest) (*vpc.CreateNatGatewayResponse, error) {
-	return client.vpcClient.CreateNatGateway(request)
-}
-
-func (client *alibabacloudClient) DescribeNatGateways(request *vpc.DescribeNatGatewaysRequest) (*vpc.DescribeNatGatewaysResponse, error) {
-	return client.vpcClient.DescribeNatGateways(request)
-}
-
-func (client *alibabacloudClient) DeleteNatGateway(request *vpc.DeleteNatGatewayRequest) (*vpc.DeleteNatGatewayResponse, error) {
-	return client.vpcClient.DeleteNatGateway(request)
-}
-
->>>>>>> e879a141 (alibabacloud machine-api provider)
 func (client *alibabacloudClient) AllocateEipAddress(request *vpc.AllocateEipAddressRequest) (*vpc.AllocateEipAddressResponse, error) {
 	return client.vpcClient.AllocateEipAddress(request)
 }
@@ -779,24 +570,8 @@ func (client *alibabacloudClient) DescribeVServerGroupAttribute(request *slb.Des
 }
 
 // NewClient creates our client wrapper object for the actual alibabacloud clients we use.
-<<<<<<< HEAD
-<<<<<<< HEAD
 func NewClient(ctrlRuntimeClient client.Client, secretName, namespace, regionID string, configManagedClient client.Client) (Client, error) {
 	config, err := newConfiguration(ctrlRuntimeClient, secretName, namespace, configManagedClient)
-=======
-// For authentication the underlying clients will use either the cluster alibabacloud credentials
-// secret if defined (i.e. in the root cluster),
-// otherwise the IAM profile of the master where the actuator will run. (target clusters)
-<<<<<<< HEAD
-func NewClient(ctrlRuntimeClient client.Client, secretName, namespace, region string, configManagedClient client.Client) (Client, error) {
-	config, err := newConfiguration(ctrlRuntimeClient, secretName, namespace, region, configManagedClient)
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-=======
->>>>>>> 24c35849 (fix stop ecs instance func)
-func NewClient(ctrlRuntimeClient client.Client, secretName, namespace, regionID string, configManagedClient client.Client) (Client, error) {
-	config, err := newConfiguration(ctrlRuntimeClient, secretName, namespace, configManagedClient)
->>>>>>> 60dde8f7 (update Makefile)
 	if err != nil {
 		return nil, err
 	}
@@ -807,54 +582,7 @@ func NewClient(ctrlRuntimeClient client.Client, secretName, namespace, regionID 
 	if err != nil {
 		klog.Errorf("error %v ", err)
 		return nil, err
-<<<<<<< HEAD
 	}
-
-	sdkConfig := &sdk.Config{
-		UserAgent: machineProviderUserAgent,
-		Scheme:    "HTTPS",
-	}
-	//init ecsClient
-	ecsClient, err := ecs.NewClientWithOptions(regionID, sdkConfig, credential)
-	if err != nil {
-		klog.Errorf("failed to init ecs client %v", err)
-		return nil, err
-	}
-
-	//init vpcClient
-	vpcClient, err := vpc.NewClientWithOptions(regionID, sdkConfig, credential)
-	if err != nil {
-		klog.Errorf("failed to init vpc client %v", err)
-		return nil, err
-	}
-
-	//init slbClient
-	slbClient, err := slb.NewClientWithOptions(regionID, sdkConfig, credential)
-	if err != nil {
-		klog.Errorf("failed to init slb client %v", err)
-		return nil, err
-	}
-
-	return &alibabacloudClient{
-		ecsClient: ecsClient,
-		vpcClient: vpcClient,
-		slbClient: slbClient,
-	}, nil
-}
-
-//Init alibabacloud configuration
-//https://github.com/aliyun/alibaba-cloud-sdk-go/blob/master/sdk/auth/credentials/providers/configuration.go
-func newConfiguration(ctrlRuntimeClient client.Client, secretName, namespace string, configManagedClient client.Client) (*providers.Configuration, error) {
-	config := &providers.Configuration{}
-=======
-func NewClient(ctrlRuntimeClient client.Client, secretName, namespace, region string) (Client, error) {
-	aliCloudConfig := &providers.Configuration{
-		AccessKeyID:     os.Getenv("ALICLOUD_ACCESS_KEY_ID"),
-		AccessKeySecret: os.Getenv("ALICLOUD_ACCESS_KEY_SECRET"),
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-	}
->>>>>>> ebdd9bd0 (update test case)
 
 	sdkConfig := &sdk.Config{
 		UserAgent: machineProviderUserAgent,
@@ -905,8 +633,6 @@ func newConfiguration(ctrlRuntimeClient client.Client, secretName, namespace str
 		if err != nil {
 			return nil, fmt.Errorf("failed to fetch  credentials file from Secret: %v", err)
 		}
-<<<<<<< HEAD
-<<<<<<< HEAD
 	}
 
 	return config, nil
@@ -925,18 +651,6 @@ func fetchCredentialsFileFromSecret(secret *corev1.Secret, config *providers.Con
 	//ststoken
 	if len(secret.Data[kubeAccessKeyStsToken]) > 0 {
 		config.AccessKeyStsToken = utils.ByteArray2String(secret.Data[kubeAccessKeyStsToken])
-=======
-		aliCloudConfig.AccessKeyID = string(accessKeyID)
-
-		accessKeySecret, ok := secret.Data[AliCloudAccessKeySecret]
-		if !ok {
-			return nil, fmt.Errorf("AliCloud credentials secret %v did not contain key %v",
-				secretName, AliCloudAccessKeySecret)
-		}
-		aliCloudConfig.AccessKeySecret = string(accessKeySecret)
-		accessKeyStsToken, _ := secret.Data[AliCloudAccessKeyStsToken]
-		aliCloudConfig.AccessKeyStsToken = string(accessKeyStsToken)
->>>>>>> ebdd9bd0 (update test case)
 	}
 
 	// roleArn ,roleSessionName ,roleSessionExpiration
@@ -957,38 +671,6 @@ func fetchCredentialsFileFromSecret(secret *corev1.Secret, config *providers.Con
 }
 
 // fetchCredentialsFileFromConfigMap fetch oleArn, roleName ,roleSessionName ,roleSessionExpiration from configmap
-=======
-	}
-
-	if err := fetchCredentialsFileFromConfigMap(namespace, configManagedClient, config); err != nil {
-		klog.Errorf("failed to fetch credentials from ConfigMap : %v", err)
-	}
-
-	return config, nil
-}
-
-// fetchCredentialsFileFromSecret fetch credentials from screct
-// alibabacloud accessKeyID accessKeySecret
-func fetchCredentialsFileFromSecret(secret *corev1.Secret, config *providers.Configuration) error {
-	//accessKeyID/accessKeySecret
-	if len(secret.Data[kubeAccessKeyID]) > 0 && len(secret.Data[kubeAccessKeySecret]) > 0 {
-		config.AccessKeyID = utils.ByteArray2String(secret.Data[kubeAccessKeyID])
-		config.AccessKeySecret = utils.ByteArray2String(secret.Data[kubeAccessKeySecret])
-	}
-
-	//ststoken
-	if len(secret.Data[kubeAccessKeyStsToken]) > 0 {
-		config.AccessKeyStsToken = utils.ByteArray2String(secret.Data[kubeAccessKeyStsToken])
-	}
-
-	return nil
-}
-
-<<<<<<< HEAD
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-// fetchCredentialsFileFromConfigMap
->>>>>>> 24c35849 (fix stop ecs instance func)
 // roleArn, roleName ,roleSessionName ,roleSessionExpiration
 func fetchCredentialsFileFromConfigMap(namespace string, configManagedClient client.Client, config *providers.Configuration) error {
 	cm := &corev1.ConfigMap{}
