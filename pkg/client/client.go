@@ -635,15 +635,12 @@ func newConfiguration(ctrlRuntimeClient client.Client, secretName, namespace str
 		}
 	}
 
-	if err := fetchCredentialsFileFromConfigMap(namespace, configManagedClient, config); err != nil {
-		klog.Errorf("failed to fetch credentials from ConfigMap : %v", err)
-	}
-
 	return config, nil
 }
 
 // fetchCredentialsFileFromSecret fetch credentials from screct
-// alibabacloud accessKeyID accessKeySecret
+// alibabacloud accessKeyID accessKeySecret stsToken
+//roleArn, roleName ,roleSessionName ,roleSessionExpiration
 func fetchCredentialsFileFromSecret(secret *corev1.Secret, config *providers.Configuration) error {
 	//accessKeyID/accessKeySecret
 	if len(secret.Data[kubeAccessKeyID]) > 0 && len(secret.Data[kubeAccessKeySecret]) > 0 {
@@ -656,10 +653,24 @@ func fetchCredentialsFileFromSecret(secret *corev1.Secret, config *providers.Con
 		config.AccessKeyStsToken = utils.ByteArray2String(secret.Data[kubeAccessKeyStsToken])
 	}
 
+	// roleArn ,roleSessionName ,roleSessionExpiration
+	if len(secret.Data[kubeRoleArn]) > 0 && len(secret.Data[kubeRoleSessionName]) > 0 && len(secret.Data[kubeRoleSessionExpiration]) > 0 {
+		if roleSessionExpiration, err := utils.String2IntPointer(string(secret.Data[kubeRoleSessionExpiration])); roleSessionExpiration != nil && err == nil {
+			config.RoleArn = string(secret.Data[kubeRoleArn])
+			config.RoleSessionName = string(secret.Data[kubeRoleSessionName])
+			config.RoleSessionExpiration = roleSessionExpiration
+		}
+	}
+
+	// roleName
+	if len(secret.Data[kubeRoleName]) > 0 {
+		config.RoleName = string(secret.Data[kubeRoleName])
+	}
+
 	return nil
 }
 
-// fetchCredentialsFileFromConfigMap
+// fetchCredentialsFileFromConfigMap fetch oleArn, roleName ,roleSessionName ,roleSessionExpiration from configmap
 // roleArn, roleName ,roleSessionName ,roleSessionExpiration
 func fetchCredentialsFileFromConfigMap(namespace string, configManagedClient client.Client, config *providers.Configuration) error {
 	cm := &corev1.ConfigMap{}
