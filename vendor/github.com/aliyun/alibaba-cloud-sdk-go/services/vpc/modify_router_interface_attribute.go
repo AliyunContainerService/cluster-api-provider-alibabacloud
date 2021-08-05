@@ -21,7 +21,6 @@ import (
 )
 
 // ModifyRouterInterfaceAttribute invokes the vpc.ModifyRouterInterfaceAttribute API synchronously
-// api document: https://help.aliyun.com/api/vpc/modifyrouterinterfaceattribute.html
 func (client *Client) ModifyRouterInterfaceAttribute(request *ModifyRouterInterfaceAttributeRequest) (response *ModifyRouterInterfaceAttributeResponse, err error) {
 	response = CreateModifyRouterInterfaceAttributeResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) ModifyRouterInterfaceAttribute(request *ModifyRouterInterf
 }
 
 // ModifyRouterInterfaceAttributeWithChan invokes the vpc.ModifyRouterInterfaceAttribute API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifyrouterinterfaceattribute.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyRouterInterfaceAttributeWithChan(request *ModifyRouterInterfaceAttributeRequest) (<-chan *ModifyRouterInterfaceAttributeResponse, <-chan error) {
 	responseChan := make(chan *ModifyRouterInterfaceAttributeResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) ModifyRouterInterfaceAttributeWithChan(request *ModifyRout
 }
 
 // ModifyRouterInterfaceAttributeWithCallback invokes the vpc.ModifyRouterInterfaceAttribute API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifyrouterinterfaceattribute.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyRouterInterfaceAttributeWithCallback(request *ModifyRouterInterfaceAttributeRequest, callback func(response *ModifyRouterInterfaceAttributeResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -78,17 +73,19 @@ type ModifyRouterInterfaceAttributeRequest struct {
 	*requests.RpcRequest
 	OppositeRouterId         string           `position:"Query" name:"OppositeRouterId"`
 	ResourceOwnerId          requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	ResourceOwnerAccount     string           `position:"Query" name:"ResourceOwnerAccount"`
-	DeleteHealthCheckIp      requests.Boolean `position:"Query" name:"DeleteHealthCheckIp"`
 	Description              string           `position:"Query" name:"Description"`
 	HealthCheckTargetIp      string           `position:"Query" name:"HealthCheckTargetIp"`
+	OppositeInterfaceId      string           `position:"Query" name:"OppositeInterfaceId"`
+	HcThreshold              requests.Integer `position:"Query" name:"HcThreshold"`
+	ResourceOwnerAccount     string           `position:"Query" name:"ResourceOwnerAccount"`
+	DeleteHealthCheckIp      requests.Boolean `position:"Query" name:"DeleteHealthCheckIp"`
 	OwnerId                  requests.Integer `position:"Query" name:"OwnerId"`
 	RouterInterfaceId        string           `position:"Query" name:"RouterInterfaceId"`
 	OppositeInterfaceOwnerId requests.Integer `position:"Query" name:"OppositeInterfaceOwnerId"`
 	HealthCheckSourceIp      string           `position:"Query" name:"HealthCheckSourceIp"`
 	Name                     string           `position:"Query" name:"Name"`
 	OppositeRouterType       string           `position:"Query" name:"OppositeRouterType"`
-	OppositeInterfaceId      string           `position:"Query" name:"OppositeInterfaceId"`
+	HcRate                   requests.Integer `position:"Query" name:"HcRate"`
 }
 
 // ModifyRouterInterfaceAttributeResponse is the response struct for api ModifyRouterInterfaceAttribute
@@ -103,6 +100,7 @@ func CreateModifyRouterInterfaceAttributeRequest() (request *ModifyRouterInterfa
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "ModifyRouterInterfaceAttribute", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

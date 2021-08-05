@@ -21,7 +21,6 @@ import (
 )
 
 // EnableVpcClassicLink invokes the vpc.EnableVpcClassicLink API synchronously
-// api document: https://help.aliyun.com/api/vpc/enablevpcclassiclink.html
 func (client *Client) EnableVpcClassicLink(request *EnableVpcClassicLinkRequest) (response *EnableVpcClassicLinkResponse, err error) {
 	response = CreateEnableVpcClassicLinkResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) EnableVpcClassicLink(request *EnableVpcClassicLinkRequest)
 }
 
 // EnableVpcClassicLinkWithChan invokes the vpc.EnableVpcClassicLink API asynchronously
-// api document: https://help.aliyun.com/api/vpc/enablevpcclassiclink.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) EnableVpcClassicLinkWithChan(request *EnableVpcClassicLinkRequest) (<-chan *EnableVpcClassicLinkResponse, <-chan error) {
 	responseChan := make(chan *EnableVpcClassicLinkResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) EnableVpcClassicLinkWithChan(request *EnableVpcClassicLink
 }
 
 // EnableVpcClassicLinkWithCallback invokes the vpc.EnableVpcClassicLink API asynchronously
-// api document: https://help.aliyun.com/api/vpc/enablevpcclassiclink.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) EnableVpcClassicLinkWithCallback(request *EnableVpcClassicLinkRequest, callback func(response *EnableVpcClassicLinkResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,11 +72,11 @@ func (client *Client) EnableVpcClassicLinkWithCallback(request *EnableVpcClassic
 type EnableVpcClassicLinkRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	ClientToken          string           `position:"Query" name:"ClientToken"`
-	VpcId                string           `position:"Query" name:"VpcId"`
+	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
+	VpcId                string           `position:"Query" name:"VpcId"`
 }
 
 // EnableVpcClassicLinkResponse is the response struct for api EnableVpcClassicLink
@@ -96,6 +91,7 @@ func CreateEnableVpcClassicLinkRequest() (request *EnableVpcClassicLinkRequest) 
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "EnableVpcClassicLink", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

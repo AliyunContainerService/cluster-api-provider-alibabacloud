@@ -21,7 +21,6 @@ import (
 )
 
 // ModifyRouteEntry invokes the vpc.ModifyRouteEntry API synchronously
-// api document: https://help.aliyun.com/api/vpc/modifyrouteentry.html
 func (client *Client) ModifyRouteEntry(request *ModifyRouteEntryRequest) (response *ModifyRouteEntryResponse, err error) {
 	response = CreateModifyRouteEntryResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) ModifyRouteEntry(request *ModifyRouteEntryRequest) (respon
 }
 
 // ModifyRouteEntryWithChan invokes the vpc.ModifyRouteEntry API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifyrouteentry.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyRouteEntryWithChan(request *ModifyRouteEntryRequest) (<-chan *ModifyRouteEntryResponse, <-chan error) {
 	responseChan := make(chan *ModifyRouteEntryResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) ModifyRouteEntryWithChan(request *ModifyRouteEntryRequest)
 }
 
 // ModifyRouteEntryWithCallback invokes the vpc.ModifyRouteEntry API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifyrouteentry.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyRouteEntryWithCallback(request *ModifyRouteEntryRequest, callback func(response *ModifyRouteEntryResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -76,11 +71,13 @@ func (client *Client) ModifyRouteEntryWithCallback(request *ModifyRouteEntryRequ
 // ModifyRouteEntryRequest is the request struct for api ModifyRouteEntry
 type ModifyRouteEntryRequest struct {
 	*requests.RpcRequest
+	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
 	RouteEntryName       string           `position:"Query" name:"RouteEntryName"`
-	RouteEntryId         string           `position:"Query" name:"RouteEntryId"`
+	Description          string           `position:"Query" name:"Description"`
 	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
+	RouteEntryId         string           `position:"Query" name:"RouteEntryId"`
 }
 
 // ModifyRouteEntryResponse is the response struct for api ModifyRouteEntry
@@ -95,6 +92,7 @@ func CreateModifyRouteEntryRequest() (request *ModifyRouteEntryRequest) {
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "ModifyRouteEntry", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

@@ -21,7 +21,6 @@ import (
 )
 
 // CreateVpnGateway invokes the vpc.CreateVpnGateway API synchronously
-// api document: https://help.aliyun.com/api/vpc/createvpngateway.html
 func (client *Client) CreateVpnGateway(request *CreateVpnGatewayRequest) (response *CreateVpnGatewayResponse, err error) {
 	response = CreateCreateVpnGatewayResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) CreateVpnGateway(request *CreateVpnGatewayRequest) (respon
 }
 
 // CreateVpnGatewayWithChan invokes the vpc.CreateVpnGateway API asynchronously
-// api document: https://help.aliyun.com/api/vpc/createvpngateway.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) CreateVpnGatewayWithChan(request *CreateVpnGatewayRequest) (<-chan *CreateVpnGatewayResponse, <-chan error) {
 	responseChan := make(chan *CreateVpnGatewayResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) CreateVpnGatewayWithChan(request *CreateVpnGatewayRequest)
 }
 
 // CreateVpnGatewayWithCallback invokes the vpc.CreateVpnGateway API asynchronously
-// api document: https://help.aliyun.com/api/vpc/createvpngateway.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) CreateVpnGatewayWithCallback(request *CreateVpnGatewayRequest, callback func(response *CreateVpnGatewayResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,18 +72,21 @@ func (client *Client) CreateVpnGatewayWithCallback(request *CreateVpnGatewayRequ
 type CreateVpnGatewayRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
+	ClientToken          string           `position:"Query" name:"ClientToken"`
+	EnableIpsec          requests.Boolean `position:"Query" name:"EnableIpsec"`
+	InstanceChargeType   string           `position:"Query" name:"InstanceChargeType"`
 	Period               requests.Integer `position:"Query" name:"Period"`
 	AutoPay              requests.Boolean `position:"Query" name:"AutoPay"`
 	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	Bandwidth            requests.Integer `position:"Query" name:"Bandwidth"`
-	EnableIpsec          requests.Boolean `position:"Query" name:"EnableIpsec"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
+	VpnType              string           `position:"Query" name:"VpnType"`
+	VSwitchId            string           `position:"Query" name:"VSwitchId"`
 	EnableSsl            requests.Boolean `position:"Query" name:"EnableSsl"`
 	SslConnections       requests.Integer `position:"Query" name:"SslConnections"`
 	VpcId                string           `position:"Query" name:"VpcId"`
 	Name                 string           `position:"Query" name:"Name"`
-	InstanceChargeType   string           `position:"Query" name:"InstanceChargeType"`
 }
 
 // CreateVpnGatewayResponse is the response struct for api CreateVpnGateway
@@ -106,6 +104,7 @@ func CreateCreateVpnGatewayRequest() (request *CreateVpnGatewayRequest) {
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "CreateVpnGateway", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

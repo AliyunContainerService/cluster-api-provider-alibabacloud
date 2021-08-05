@@ -21,7 +21,6 @@ import (
 )
 
 // DescribeSnatTableEntries invokes the vpc.DescribeSnatTableEntries API synchronously
-// api document: https://help.aliyun.com/api/vpc/describesnattableentries.html
 func (client *Client) DescribeSnatTableEntries(request *DescribeSnatTableEntriesRequest) (response *DescribeSnatTableEntriesResponse, err error) {
 	response = CreateDescribeSnatTableEntriesResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) DescribeSnatTableEntries(request *DescribeSnatTableEntries
 }
 
 // DescribeSnatTableEntriesWithChan invokes the vpc.DescribeSnatTableEntries API asynchronously
-// api document: https://help.aliyun.com/api/vpc/describesnattableentries.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DescribeSnatTableEntriesWithChan(request *DescribeSnatTableEntriesRequest) (<-chan *DescribeSnatTableEntriesResponse, <-chan error) {
 	responseChan := make(chan *DescribeSnatTableEntriesResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) DescribeSnatTableEntriesWithChan(request *DescribeSnatTabl
 }
 
 // DescribeSnatTableEntriesWithCallback invokes the vpc.DescribeSnatTableEntries API asynchronously
-// api document: https://help.aliyun.com/api/vpc/describesnattableentries.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DescribeSnatTableEntriesWithCallback(request *DescribeSnatTableEntriesRequest, callback func(response *DescribeSnatTableEntriesResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,17 +72,17 @@ func (client *Client) DescribeSnatTableEntriesWithCallback(request *DescribeSnat
 type DescribeSnatTableEntriesRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
-	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	SourceCIDR           string           `position:"Query" name:"SourceCIDR"`
-	SnatTableId          string           `position:"Query" name:"SnatTableId"`
-	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
 	SnatIp               string           `position:"Query" name:"SnatIp"`
 	PageNumber           requests.Integer `position:"Query" name:"PageNumber"`
 	SourceVSwitchId      string           `position:"Query" name:"SourceVSwitchId"`
-	SnatEntryName        string           `position:"Query" name:"SnatEntryName"`
 	PageSize             requests.Integer `position:"Query" name:"PageSize"`
 	SnatEntryId          string           `position:"Query" name:"SnatEntryId"`
+	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
+	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
+	SnatTableId          string           `position:"Query" name:"SnatTableId"`
+	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
+	SnatEntryName        string           `position:"Query" name:"SnatEntryName"`
 }
 
 // DescribeSnatTableEntriesResponse is the response struct for api DescribeSnatTableEntries
@@ -106,6 +101,7 @@ func CreateDescribeSnatTableEntriesRequest() (request *DescribeSnatTableEntriesR
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "DescribeSnatTableEntries", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

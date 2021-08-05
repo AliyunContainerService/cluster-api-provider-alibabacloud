@@ -21,7 +21,6 @@ import (
 )
 
 // CreateVSwitch invokes the vpc.CreateVSwitch API synchronously
-// api document: https://help.aliyun.com/api/vpc/createvswitch.html
 func (client *Client) CreateVSwitch(request *CreateVSwitchRequest) (response *CreateVSwitchResponse, err error) {
 	response = CreateCreateVSwitchResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) CreateVSwitch(request *CreateVSwitchRequest) (response *Cr
 }
 
 // CreateVSwitchWithChan invokes the vpc.CreateVSwitch API asynchronously
-// api document: https://help.aliyun.com/api/vpc/createvswitch.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) CreateVSwitchWithChan(request *CreateVSwitchRequest) (<-chan *CreateVSwitchResponse, <-chan error) {
 	responseChan := make(chan *CreateVSwitchResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) CreateVSwitchWithChan(request *CreateVSwitchRequest) (<-ch
 }
 
 // CreateVSwitchWithCallback invokes the vpc.CreateVSwitch API asynchronously
-// api document: https://help.aliyun.com/api/vpc/createvswitch.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) CreateVSwitchWithCallback(request *CreateVSwitchRequest, callback func(response *CreateVSwitchResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,12 +72,13 @@ func (client *Client) CreateVSwitchWithCallback(request *CreateVSwitchRequest, c
 type CreateVSwitchRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	ClientToken          string           `position:"Query" name:"ClientToken"`
-	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	Description          string           `position:"Query" name:"Description"`
+	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
+	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
 	Ipv6CidrBlock        requests.Integer `position:"Query" name:"Ipv6CidrBlock"`
+	VpcIpv6CidrBlock     string           `position:"Query" name:"VpcIpv6CidrBlock"`
 	VpcId                string           `position:"Query" name:"VpcId"`
 	VSwitchName          string           `position:"Query" name:"VSwitchName"`
 	CidrBlock            string           `position:"Query" name:"CidrBlock"`
@@ -102,6 +98,7 @@ func CreateCreateVSwitchRequest() (request *CreateVSwitchRequest) {
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "CreateVSwitch", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

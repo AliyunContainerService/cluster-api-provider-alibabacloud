@@ -21,7 +21,6 @@ import (
 )
 
 // CreateBgpPeer invokes the vpc.CreateBgpPeer API synchronously
-// api document: https://help.aliyun.com/api/vpc/createbgppeer.html
 func (client *Client) CreateBgpPeer(request *CreateBgpPeerRequest) (response *CreateBgpPeerResponse, err error) {
 	response = CreateCreateBgpPeerResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) CreateBgpPeer(request *CreateBgpPeerRequest) (response *Cr
 }
 
 // CreateBgpPeerWithChan invokes the vpc.CreateBgpPeer API asynchronously
-// api document: https://help.aliyun.com/api/vpc/createbgppeer.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) CreateBgpPeerWithChan(request *CreateBgpPeerRequest) (<-chan *CreateBgpPeerResponse, <-chan error) {
 	responseChan := make(chan *CreateBgpPeerResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) CreateBgpPeerWithChan(request *CreateBgpPeerRequest) (<-ch
 }
 
 // CreateBgpPeerWithCallback invokes the vpc.CreateBgpPeer API asynchronously
-// api document: https://help.aliyun.com/api/vpc/createbgppeer.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) CreateBgpPeerWithCallback(request *CreateBgpPeerRequest, callback func(response *CreateBgpPeerResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,12 +72,15 @@ func (client *Client) CreateBgpPeerWithCallback(request *CreateBgpPeerRequest, c
 type CreateBgpPeerRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	ClientToken          string           `position:"Query" name:"ClientToken"`
-	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	BgpGroupId           string           `position:"Query" name:"BgpGroupId"`
-	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
 	PeerIpAddress        string           `position:"Query" name:"PeerIpAddress"`
+	BfdMultiHop          requests.Integer `position:"Query" name:"BfdMultiHop"`
+	IpVersion            string           `position:"Query" name:"IpVersion"`
+	EnableBfd            requests.Boolean `position:"Query" name:"EnableBfd"`
+	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
+	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
+	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
 }
 
 // CreateBgpPeerResponse is the response struct for api CreateBgpPeer
@@ -98,6 +96,7 @@ func CreateCreateBgpPeerRequest() (request *CreateBgpPeerRequest) {
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "CreateBgpPeer", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

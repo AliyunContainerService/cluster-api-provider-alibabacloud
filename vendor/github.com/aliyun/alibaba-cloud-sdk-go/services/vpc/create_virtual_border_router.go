@@ -21,7 +21,6 @@ import (
 )
 
 // CreateVirtualBorderRouter invokes the vpc.CreateVirtualBorderRouter API synchronously
-// api document: https://help.aliyun.com/api/vpc/createvirtualborderrouter.html
 func (client *Client) CreateVirtualBorderRouter(request *CreateVirtualBorderRouterRequest) (response *CreateVirtualBorderRouterResponse, err error) {
 	response = CreateCreateVirtualBorderRouterResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) CreateVirtualBorderRouter(request *CreateVirtualBorderRout
 }
 
 // CreateVirtualBorderRouterWithChan invokes the vpc.CreateVirtualBorderRouter API asynchronously
-// api document: https://help.aliyun.com/api/vpc/createvirtualborderrouter.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) CreateVirtualBorderRouterWithChan(request *CreateVirtualBorderRouterRequest) (<-chan *CreateVirtualBorderRouterResponse, <-chan error) {
 	responseChan := make(chan *CreateVirtualBorderRouterResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) CreateVirtualBorderRouterWithChan(request *CreateVirtualBo
 }
 
 // CreateVirtualBorderRouterWithCallback invokes the vpc.CreateVirtualBorderRouter API asynchronously
-// api document: https://help.aliyun.com/api/vpc/createvirtualborderrouter.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) CreateVirtualBorderRouterWithCallback(request *CreateVirtualBorderRouterRequest, callback func(response *CreateVirtualBorderRouterResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -76,20 +71,25 @@ func (client *Client) CreateVirtualBorderRouterWithCallback(request *CreateVirtu
 // CreateVirtualBorderRouterRequest is the request struct for api CreateVirtualBorderRouter
 type CreateVirtualBorderRouterRequest struct {
 	*requests.RpcRequest
-	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	CircuitCode          string           `position:"Query" name:"CircuitCode"`
-	VlanId               requests.Integer `position:"Query" name:"VlanId"`
-	ClientToken          string           `position:"Query" name:"ClientToken"`
-	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
-	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
-	Description          string           `position:"Query" name:"Description"`
-	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
-	PeerGatewayIp        string           `position:"Query" name:"PeerGatewayIp"`
-	PeeringSubnetMask    string           `position:"Query" name:"PeeringSubnetMask"`
-	PhysicalConnectionId string           `position:"Query" name:"PhysicalConnectionId"`
-	Name                 string           `position:"Query" name:"Name"`
-	LocalGatewayIp       string           `position:"Query" name:"LocalGatewayIp"`
-	VbrOwnerId           requests.Integer `position:"Query" name:"VbrOwnerId"`
+	ResourceOwnerId       requests.Integer `position:"Query" name:"ResourceOwnerId"`
+	CircuitCode           string           `position:"Query" name:"CircuitCode"`
+	VlanId                requests.Integer `position:"Query" name:"VlanId"`
+	ClientToken           string           `position:"Query" name:"ClientToken"`
+	EnableIpv6            requests.Boolean `position:"Query" name:"EnableIpv6"`
+	Description           string           `position:"Query" name:"Description"`
+	PeerGatewayIp         string           `position:"Query" name:"PeerGatewayIp"`
+	PeerIpv6GatewayIp     string           `position:"Query" name:"PeerIpv6GatewayIp"`
+	PeeringSubnetMask     string           `position:"Query" name:"PeeringSubnetMask"`
+	LocalGatewayIp        string           `position:"Query" name:"LocalGatewayIp"`
+	PeeringIpv6SubnetMask string           `position:"Query" name:"PeeringIpv6SubnetMask"`
+	ResourceOwnerAccount  string           `position:"Query" name:"ResourceOwnerAccount"`
+	Bandwidth             requests.Integer `position:"Query" name:"Bandwidth"`
+	OwnerAccount          string           `position:"Query" name:"OwnerAccount"`
+	OwnerId               requests.Integer `position:"Query" name:"OwnerId"`
+	PhysicalConnectionId  string           `position:"Query" name:"PhysicalConnectionId"`
+	LocalIpv6GatewayIp    string           `position:"Query" name:"LocalIpv6GatewayIp"`
+	Name                  string           `position:"Query" name:"Name"`
+	VbrOwnerId            requests.Integer `position:"Query" name:"VbrOwnerId"`
 }
 
 // CreateVirtualBorderRouterResponse is the response struct for api CreateVirtualBorderRouter
@@ -105,6 +105,7 @@ func CreateCreateVirtualBorderRouterRequest() (request *CreateVirtualBorderRoute
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "CreateVirtualBorderRouter", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

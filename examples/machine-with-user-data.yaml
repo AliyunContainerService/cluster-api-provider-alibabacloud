@@ -2,34 +2,38 @@
 apiVersion: machine.openshift.io/v1beta1
 kind: Machine
 metadata:
-  name: alicloud-actuator-testing-machine
+  name: alibabacloud-actuator-testing-machine
   namespace: default
   generateName: vs-master-
   labels:
-    machine.openshift.io/cluster-api-cluster: alicloud-actuator-k8s
+    machine.openshift.io/cluster-api-cluster: alibabacloud-actuator-k8s
 spec:
   metadata:
     labels:
-      node-role.kubernetes.io/master: ""
       node-role.kubernetes.io/infra: ""
   providerSpec:
     value:
-      apiVersion: alicloudproviderconfig.openshift.io/v1alpha1
+      apiVersion: alibabacloudproviderconfig.openshift.io/v1alpha1
       kind: AlibabaCloudMachineProviderConfig
-      instanceType: ecs.c5.xlarge
-      imageId: centos_7_06_64_20G_alibase_20190711.vhd
-      regionId: cn-hangzhou
-      securityGroupId: sg-bp1517hncuo5e64hg4rw
-      vpcId: vpc-bp1td11g1i90b1fjnm7jw
-      vSwitchId: vsw-bp1ra53n8ban94mbbgb4w
-      systemDiskSize: 40
+      instanceType: FILLIN
+      imageId: FILLIN
+      regionId: FILLIN
+      zoneId: FILLIN
+      securityGroupId: FILLIN
+      vpcId: FILLIN
+      vSwitchId: FILLIN
+      systemDiskCategory: FILLIN
+      systemDiskSize: FILLIN
+      internetMaxBandwidthOut: FILLIN
+      password: FILLIN
       tags:
-      - key: openshift-node-group-config
-        value: node-config-node
-      - key: host-type
-        value: node
-      - key: sub-host-type
-        value: default
-      publicIp: true
+        - key: openshift-node-group-config
+          value: node-config-node
+        - key: host-type
+          value: node
+        - key: sub-host-type
+          value: default
       userDataSecret:
-        name: alicloud-actuator-user-data-secret
+        name: alibabacloud-worker-user-data-secret
+      credentialsSecret:
+        name: alibabacloud-credentials-secret
