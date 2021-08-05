@@ -21,7 +21,6 @@ import (
 )
 
 // CreateBgpGroup invokes the vpc.CreateBgpGroup API synchronously
-// api document: https://help.aliyun.com/api/vpc/createbgpgroup.html
 func (client *Client) CreateBgpGroup(request *CreateBgpGroupRequest) (response *CreateBgpGroupResponse, err error) {
 	response = CreateCreateBgpGroupResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) CreateBgpGroup(request *CreateBgpGroupRequest) (response *
 }
 
 // CreateBgpGroupWithChan invokes the vpc.CreateBgpGroup API asynchronously
-// api document: https://help.aliyun.com/api/vpc/createbgpgroup.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) CreateBgpGroupWithChan(request *CreateBgpGroupRequest) (<-chan *CreateBgpGroupResponse, <-chan error) {
 	responseChan := make(chan *CreateBgpGroupResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) CreateBgpGroupWithChan(request *CreateBgpGroupRequest) (<-
 }
 
 // CreateBgpGroupWithCallback invokes the vpc.CreateBgpGroup API asynchronously
-// api document: https://help.aliyun.com/api/vpc/createbgpgroup.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) CreateBgpGroupWithCallback(request *CreateBgpGroupRequest, callback func(response *CreateBgpGroupResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -78,15 +73,17 @@ type CreateBgpGroupRequest struct {
 	*requests.RpcRequest
 	AuthKey              string           `position:"Query" name:"AuthKey"`
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	ClientToken          string           `position:"Query" name:"ClientToken"`
-	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	Description          string           `position:"Query" name:"Description"`
-	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
 	PeerAsn              requests.Integer `position:"Query" name:"PeerAsn"`
 	IsFakeAsn            requests.Boolean `position:"Query" name:"IsFakeAsn"`
+	IpVersion            string           `position:"Query" name:"IpVersion"`
+	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
+	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
+	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
 	RouterId             string           `position:"Query" name:"RouterId"`
 	Name                 string           `position:"Query" name:"Name"`
+	LocalAsn             requests.Integer `position:"Query" name:"LocalAsn"`
 }
 
 // CreateBgpGroupResponse is the response struct for api CreateBgpGroup
@@ -102,6 +99,7 @@ func CreateCreateBgpGroupRequest() (request *CreateBgpGroupRequest) {
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "CreateBgpGroup", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

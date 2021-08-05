@@ -21,7 +21,6 @@ import (
 )
 
 // ModifyVirtualBorderRouterAttribute invokes the vpc.ModifyVirtualBorderRouterAttribute API synchronously
-// api document: https://help.aliyun.com/api/vpc/modifyvirtualborderrouterattribute.html
 func (client *Client) ModifyVirtualBorderRouterAttribute(request *ModifyVirtualBorderRouterAttributeRequest) (response *ModifyVirtualBorderRouterAttributeResponse, err error) {
 	response = CreateModifyVirtualBorderRouterAttributeResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) ModifyVirtualBorderRouterAttribute(request *ModifyVirtualB
 }
 
 // ModifyVirtualBorderRouterAttributeWithChan invokes the vpc.ModifyVirtualBorderRouterAttribute API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifyvirtualborderrouterattribute.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyVirtualBorderRouterAttributeWithChan(request *ModifyVirtualBorderRouterAttributeRequest) (<-chan *ModifyVirtualBorderRouterAttributeResponse, <-chan error) {
 	responseChan := make(chan *ModifyVirtualBorderRouterAttributeResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) ModifyVirtualBorderRouterAttributeWithChan(request *Modify
 }
 
 // ModifyVirtualBorderRouterAttributeWithCallback invokes the vpc.ModifyVirtualBorderRouterAttribute API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifyvirtualborderrouterattribute.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyVirtualBorderRouterAttributeWithCallback(request *ModifyVirtualBorderRouterAttributeRequest, callback func(response *ModifyVirtualBorderRouterAttributeResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -80,16 +75,24 @@ type ModifyVirtualBorderRouterAttributeRequest struct {
 	CircuitCode                   string           `position:"Query" name:"CircuitCode"`
 	AssociatedPhysicalConnections string           `position:"Query" name:"AssociatedPhysicalConnections"`
 	VlanId                        requests.Integer `position:"Query" name:"VlanId"`
-	ResourceOwnerAccount          string           `position:"Query" name:"ResourceOwnerAccount"`
 	ClientToken                   string           `position:"Query" name:"ClientToken"`
-	OwnerAccount                  string           `position:"Query" name:"OwnerAccount"`
+	EnableIpv6                    requests.Boolean `position:"Query" name:"EnableIpv6"`
 	Description                   string           `position:"Query" name:"Description"`
 	VbrId                         string           `position:"Query" name:"VbrId"`
-	OwnerId                       requests.Integer `position:"Query" name:"OwnerId"`
 	PeerGatewayIp                 string           `position:"Query" name:"PeerGatewayIp"`
+	PeerIpv6GatewayIp             string           `position:"Query" name:"PeerIpv6GatewayIp"`
+	DetectMultiplier              requests.Integer `position:"Query" name:"DetectMultiplier"`
 	PeeringSubnetMask             string           `position:"Query" name:"PeeringSubnetMask"`
-	Name                          string           `position:"Query" name:"Name"`
 	LocalGatewayIp                string           `position:"Query" name:"LocalGatewayIp"`
+	MinTxInterval                 requests.Integer `position:"Query" name:"MinTxInterval"`
+	PeeringIpv6SubnetMask         string           `position:"Query" name:"PeeringIpv6SubnetMask"`
+	ResourceOwnerAccount          string           `position:"Query" name:"ResourceOwnerAccount"`
+	Bandwidth                     requests.Integer `position:"Query" name:"Bandwidth"`
+	OwnerAccount                  string           `position:"Query" name:"OwnerAccount"`
+	OwnerId                       requests.Integer `position:"Query" name:"OwnerId"`
+	MinRxInterval                 requests.Integer `position:"Query" name:"MinRxInterval"`
+	LocalIpv6GatewayIp            string           `position:"Query" name:"LocalIpv6GatewayIp"`
+	Name                          string           `position:"Query" name:"Name"`
 }
 
 // ModifyVirtualBorderRouterAttributeResponse is the response struct for api ModifyVirtualBorderRouterAttribute
@@ -104,6 +107,7 @@ func CreateModifyVirtualBorderRouterAttributeRequest() (request *ModifyVirtualBo
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "ModifyVirtualBorderRouterAttribute", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

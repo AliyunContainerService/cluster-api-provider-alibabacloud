@@ -20,12 +20,16 @@ import (
 	"bytes"
 	"encoding/gob"
 	"flag"
+	"fmt"
 	"go/build"
+	"io"
 	"io/ioutil"
+	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"runtime"
+	"strings"
 	"text/template"
 
 	"github.com/golang/mock/mockgen/model"
@@ -36,6 +40,43 @@ var (
 	execOnly   = flag.String("exec_only", "", "(reflect mode) If set, execute this reflection program.")
 	buildFlags = flag.String("build_flags", "", "(reflect mode) Additional flags for go build.")
 )
+
+// reflectMode generates mocks via reflection on an interface.
+func reflectMode(importPath string, symbols []string) (*model.Package, error) {
+	if *execOnly != "" {
+		return run(*execOnly)
+	}
+
+	program, err := writeProgram(importPath, symbols)
+	if err != nil {
+		return nil, err
+	}
+
+	if *progOnly {
+		if _, err := os.Stdout.Write(program); err != nil {
+			return nil, err
+		}
+		os.Exit(0)
+	}
+
+	wd, _ := os.Getwd()
+
+	// Try to run the reflection program  in the current working directory.
+	if p, err := runInDir(program, wd); err == nil {
+		return p, nil
+	}
+
+	// Try to run the program in the same directory as the input package.
+	if p, err := build.Import(importPath, wd, build.FindOnly); err == nil {
+		dir := p.Dir
+		if p, err := runInDir(program, dir); err == nil {
+			return p, nil
+		}
+	}
+
+	// Try to run it in a standard temp directory.
+	return runInDir(program, "")
+}
 
 func writeProgram(importPath string, symbols []string) ([]byte, error) {
 	var program bytes.Buffer
@@ -49,22 +90,42 @@ func writeProgram(importPath string, symbols []string) ([]byte, error) {
 	return program.Bytes(), nil
 }
 
-// run the given command and parse the output as a model.Package.
-func run(command string) (*model.Package, error) {
+// run the given program and parse the output as a model.Package.
+func run(program string) (*model.Package, error) {
+	f, err := ioutil.TempFile("", "")
+	if err != nil {
+		return nil, err
+	}
+
+	filename := f.Name()
+	defer os.Remove(filename)
+	if err := f.Close(); err != nil {
+		return nil, err
+	}
+
 	// Run the program.
-	cmd := exec.Command(command)
-	var stdout bytes.Buffer
-	cmd.Stdout = &stdout
+	cmd := exec.Command(program, "-output", filename)
+	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {
 		return nil, err
 	}
 
-	// Process output.
-	var pkg model.Package
-	if err := gob.NewDecoder(&stdout).Decode(&pkg); err != nil {
+	f, err = os.Open(filename)
+	if err != nil {
 		return nil, err
 	}
+
+	// Process output.
+	var pkg model.Package
+	if err := gob.NewDecoder(f).Decode(&pkg); err != nil {
+		return nil, err
+	}
+
+	if err := f.Close(); err != nil {
+		return nil, err
+	}
+
 	return &pkg, nil
 }
 
@@ -76,7 +137,11 @@ func runInDir(program []byte, dir string) (*model.Package, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer func() { os.RemoveAll(tmpDir) }()
+	defer func() {
+		if err := os.RemoveAll(tmpDir); err != nil {
+			log.Printf("failed to remove temp directory: %s", err)
+		}
+	}()
 	const progSource = "prog.go"
 	var progBinary = "prog.bin"
 	if runtime.GOOS == "windows" {
@@ -91,54 +156,27 @@ func runInDir(program []byte, dir string) (*model.Package, error) {
 	cmdArgs := []string{}
 	cmdArgs = append(cmdArgs, "build")
 	if *buildFlags != "" {
-		cmdArgs = append(cmdArgs, *buildFlags)
+		cmdArgs = append(cmdArgs, strings.Split(*buildFlags, " ")...)
 	}
 	cmdArgs = append(cmdArgs, "-o", progBinary, progSource)
 
 	// Build the program.
+	buf := bytes.NewBuffer(nil)
 	cmd := exec.Command("go", cmdArgs...)
 	cmd.Dir = tmpDir
 	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
+	cmd.Stderr = io.MultiWriter(os.Stderr, buf)
 	if err := cmd.Run(); err != nil {
-		return nil, err
-	}
-	return run(filepath.Join(tmpDir, progBinary))
-}
-
-func Reflect(importPath string, symbols []string) (*model.Package, error) {
-	// TODO: sanity check arguments
-
-	if *execOnly != "" {
-		return run(*execOnly)
-	}
-
-	program, err := writeProgram(importPath, symbols)
-	if err != nil {
-		return nil, err
-	}
-
-	if *progOnly {
-		os.Stdout.Write(program)
-		os.Exit(0)
-	}
-
-	wd, _ := os.Getwd()
-
-	// Try to run the program in the same directory as the input package.
-	if p, err := build.Import(importPath, wd, build.FindOnly); err == nil {
-		dir := p.Dir
-		if p, err := runInDir(program, dir); err == nil {
-			return p, nil
+		sErr := buf.String()
+		if strings.Contains(sErr, `cannot find package "."`) &&
+			strings.Contains(sErr, "github.com/golang/mock/mockgen/model") {
+			fmt.Fprint(os.Stderr, "Please reference the steps in the README to fix this error:\n\thttps://github.com/golang/mock#reflect-vendoring-error.")
+			return nil, err
 		}
+		return nil, err
 	}
 
-	// Since that didn't work, try to run it in the current working directory.
-	if p, err := runInDir(program, wd); err == nil {
-		return p, nil
-	}
-	// Since that didn't work, try to run it in a standard temp directory.
-	return runInDir(program, "")
+	return run(filepath.Join(tmpDir, progBinary))
 }
 
 type reflectData struct {
@@ -154,6 +192,7 @@ package main
 
 import (
 	"encoding/gob"
+	"flag"
 	"fmt"
 	"os"
 	"path"
@@ -164,7 +203,11 @@ import (
 	pkg_ {{printf "%q" .ImportPath}}
 )
 
+var output = flag.String("output", "", "The output file name, or empty to use stdout.")
+
 func main() {
+	flag.Parse()
+
 	its := []struct{
 		sym string
 		typ reflect.Type
@@ -189,7 +232,23 @@ func main() {
 		intf.Name = it.sym
 		pkg.Interfaces = append(pkg.Interfaces, intf)
 	}
-	if err := gob.NewEncoder(os.Stdout).Encode(pkg); err != nil {
+
+	outfile := os.Stdout
+	if len(*output) != 0 {
+		var err error
+		outfile, err = os.Create(*output)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "failed to open output file %q", *output)
+		}
+		defer func() {
+			if err := outfile.Close(); err != nil {
+				fmt.Fprintf(os.Stderr, "failed to close output file %q", *output)
+				os.Exit(1)
+			}
+		}()
+	}
+
+	if err := gob.NewEncoder(outfile).Encode(pkg); err != nil {
 		fmt.Fprintf(os.Stderr, "gob encode: %v\n", err)
 		os.Exit(1)
 	}

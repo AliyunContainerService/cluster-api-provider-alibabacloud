@@ -21,7 +21,6 @@ import (
 )
 
 // ModifyGlobalAccelerationInstanceAttributes invokes the vpc.ModifyGlobalAccelerationInstanceAttributes API synchronously
-// api document: https://help.aliyun.com/api/vpc/modifyglobalaccelerationinstanceattributes.html
 func (client *Client) ModifyGlobalAccelerationInstanceAttributes(request *ModifyGlobalAccelerationInstanceAttributesRequest) (response *ModifyGlobalAccelerationInstanceAttributesResponse, err error) {
 	response = CreateModifyGlobalAccelerationInstanceAttributesResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) ModifyGlobalAccelerationInstanceAttributes(request *Modify
 }
 
 // ModifyGlobalAccelerationInstanceAttributesWithChan invokes the vpc.ModifyGlobalAccelerationInstanceAttributes API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifyglobalaccelerationinstanceattributes.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyGlobalAccelerationInstanceAttributesWithChan(request *ModifyGlobalAccelerationInstanceAttributesRequest) (<-chan *ModifyGlobalAccelerationInstanceAttributesResponse, <-chan error) {
 	responseChan := make(chan *ModifyGlobalAccelerationInstanceAttributesResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) ModifyGlobalAccelerationInstanceAttributesWithChan(request
 }
 
 // ModifyGlobalAccelerationInstanceAttributesWithCallback invokes the vpc.ModifyGlobalAccelerationInstanceAttributes API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifyglobalaccelerationinstanceattributes.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyGlobalAccelerationInstanceAttributesWithCallback(request *ModifyGlobalAccelerationInstanceAttributesRequest, callback func(response *ModifyGlobalAccelerationInstanceAttributesResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,12 +72,12 @@ func (client *Client) ModifyGlobalAccelerationInstanceAttributesWithCallback(req
 type ModifyGlobalAccelerationInstanceAttributesRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId              requests.Integer `position:"Query" name:"ResourceOwnerId"`
+	Description                  string           `position:"Query" name:"Description"`
+	GlobalAccelerationInstanceId string           `position:"Query" name:"GlobalAccelerationInstanceId"`
 	ResourceOwnerAccount         string           `position:"Query" name:"ResourceOwnerAccount"`
 	OwnerAccount                 string           `position:"Query" name:"OwnerAccount"`
-	Name                         string           `position:"Query" name:"Name"`
-	Description                  string           `position:"Query" name:"Description"`
 	OwnerId                      requests.Integer `position:"Query" name:"OwnerId"`
-	GlobalAccelerationInstanceId string           `position:"Query" name:"GlobalAccelerationInstanceId"`
+	Name                         string           `position:"Query" name:"Name"`
 }
 
 // ModifyGlobalAccelerationInstanceAttributesResponse is the response struct for api ModifyGlobalAccelerationInstanceAttributes
@@ -97,6 +92,7 @@ func CreateModifyGlobalAccelerationInstanceAttributesRequest() (request *ModifyG
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "ModifyGlobalAccelerationInstanceAttributes", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

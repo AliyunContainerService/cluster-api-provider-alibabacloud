@@ -21,7 +21,6 @@ import (
 )
 
 // DescribeSslVpnServers invokes the vpc.DescribeSslVpnServers API synchronously
-// api document: https://help.aliyun.com/api/vpc/describesslvpnservers.html
 func (client *Client) DescribeSslVpnServers(request *DescribeSslVpnServersRequest) (response *DescribeSslVpnServersResponse, err error) {
 	response = CreateDescribeSslVpnServersResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) DescribeSslVpnServers(request *DescribeSslVpnServersReques
 }
 
 // DescribeSslVpnServersWithChan invokes the vpc.DescribeSslVpnServers API asynchronously
-// api document: https://help.aliyun.com/api/vpc/describesslvpnservers.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DescribeSslVpnServersWithChan(request *DescribeSslVpnServersRequest) (<-chan *DescribeSslVpnServersResponse, <-chan error) {
 	responseChan := make(chan *DescribeSslVpnServersResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) DescribeSslVpnServersWithChan(request *DescribeSslVpnServe
 }
 
 // DescribeSslVpnServersWithCallback invokes the vpc.DescribeSslVpnServers API asynchronously
-// api document: https://help.aliyun.com/api/vpc/describesslvpnservers.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DescribeSslVpnServersWithCallback(request *DescribeSslVpnServersRequest, callback func(response *DescribeSslVpnServersResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -76,15 +71,15 @@ func (client *Client) DescribeSslVpnServersWithCallback(request *DescribeSslVpnS
 // DescribeSslVpnServersRequest is the request struct for api DescribeSslVpnServers
 type DescribeSslVpnServersRequest struct {
 	*requests.RpcRequest
-	SslVpnServerId       string           `position:"Query" name:"SslVpnServerId"`
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
+	PageNumber           requests.Integer `position:"Query" name:"PageNumber"`
+	SslVpnServerId       string           `position:"Query" name:"SslVpnServerId"`
+	PageSize             requests.Integer `position:"Query" name:"PageSize"`
 	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
-	Name                 string           `position:"Query" name:"Name"`
-	PageSize             requests.Integer `position:"Query" name:"PageSize"`
 	VpnGatewayId         string           `position:"Query" name:"VpnGatewayId"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
-	PageNumber           requests.Integer `position:"Query" name:"PageNumber"`
+	Name                 string           `position:"Query" name:"Name"`
 }
 
 // DescribeSslVpnServersResponse is the response struct for api DescribeSslVpnServers
@@ -103,6 +98,7 @@ func CreateDescribeSslVpnServersRequest() (request *DescribeSslVpnServersRequest
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "DescribeSslVpnServers", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

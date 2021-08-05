@@ -21,7 +21,6 @@ import (
 )
 
 // DescribeIPv6TranslatorAclLists invokes the vpc.DescribeIPv6TranslatorAclLists API synchronously
-// api document: https://help.aliyun.com/api/vpc/describeipv6translatoracllists.html
 func (client *Client) DescribeIPv6TranslatorAclLists(request *DescribeIPv6TranslatorAclListsRequest) (response *DescribeIPv6TranslatorAclListsResponse, err error) {
 	response = CreateDescribeIPv6TranslatorAclListsResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) DescribeIPv6TranslatorAclLists(request *DescribeIPv6Transl
 }
 
 // DescribeIPv6TranslatorAclListsWithChan invokes the vpc.DescribeIPv6TranslatorAclLists API asynchronously
-// api document: https://help.aliyun.com/api/vpc/describeipv6translatoracllists.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DescribeIPv6TranslatorAclListsWithChan(request *DescribeIPv6TranslatorAclListsRequest) (<-chan *DescribeIPv6TranslatorAclListsResponse, <-chan error) {
 	responseChan := make(chan *DescribeIPv6TranslatorAclListsResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) DescribeIPv6TranslatorAclListsWithChan(request *DescribeIP
 }
 
 // DescribeIPv6TranslatorAclListsWithCallback invokes the vpc.DescribeIPv6TranslatorAclLists API asynchronously
-// api document: https://help.aliyun.com/api/vpc/describeipv6translatoracllists.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DescribeIPv6TranslatorAclListsWithCallback(request *DescribeIPv6TranslatorAclListsRequest, callback func(response *DescribeIPv6TranslatorAclListsResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -76,14 +71,14 @@ func (client *Client) DescribeIPv6TranslatorAclListsWithCallback(request *Descri
 // DescribeIPv6TranslatorAclListsRequest is the request struct for api DescribeIPv6TranslatorAclLists
 type DescribeIPv6TranslatorAclListsRequest struct {
 	*requests.RpcRequest
-	AclId                string           `position:"Query" name:"AclId"`
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
 	AclName              string           `position:"Query" name:"AclName"`
+	PageNumber           requests.Integer `position:"Query" name:"PageNumber"`
+	PageSize             requests.Integer `position:"Query" name:"PageSize"`
+	AclId                string           `position:"Query" name:"AclId"`
 	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
-	PageSize             requests.Integer `position:"Query" name:"PageSize"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
-	PageNumber           requests.Integer `position:"Query" name:"PageNumber"`
 }
 
 // DescribeIPv6TranslatorAclListsResponse is the response struct for api DescribeIPv6TranslatorAclLists
@@ -102,6 +97,7 @@ func CreateDescribeIPv6TranslatorAclListsRequest() (request *DescribeIPv6Transla
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "DescribeIPv6TranslatorAclLists", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

@@ -37,6 +37,17 @@ type VirtualBorderRouterType struct {
 	AccessPointId                    string                                       `json:"AccessPointId" xml:"AccessPointId"`
 	Name                             string                                       `json:"Name" xml:"Name"`
 	Description                      string                                       `json:"Description" xml:"Description"`
+	PConnVbrExpireTime               string                                       `json:"PConnVbrExpireTime" xml:"PConnVbrExpireTime"`
+	EccId                            string                                       `json:"EccId" xml:"EccId"`
+	Type                             string                                       `json:"Type" xml:"Type"`
+	MinTxInterval                    int64                                        `json:"MinTxInterval" xml:"MinTxInterval"`
+	MinRxInterval                    int64                                        `json:"MinRxInterval" xml:"MinRxInterval"`
+	DetectMultiplier                 int64                                        `json:"DetectMultiplier" xml:"DetectMultiplier"`
+	LocalIpv6GatewayIp               string                                       `json:"LocalIpv6GatewayIp" xml:"LocalIpv6GatewayIp"`
+	PeerIpv6GatewayIp                string                                       `json:"PeerIpv6GatewayIp" xml:"PeerIpv6GatewayIp"`
+	PeeringIpv6SubnetMask            string                                       `json:"PeeringIpv6SubnetMask" xml:"PeeringIpv6SubnetMask"`
+	EnableIpv6                       bool                                         `json:"EnableIpv6" xml:"EnableIpv6"`
+	CloudBoxInstanceId               string                                       `json:"CloudBoxInstanceId" xml:"CloudBoxInstanceId"`
 	AssociatedPhysicalConnections    AssociatedPhysicalConnections                `json:"AssociatedPhysicalConnections" xml:"AssociatedPhysicalConnections"`
 	AssociatedCens                   AssociatedCensInDescribeVirtualBorderRouters `json:"AssociatedCens" xml:"AssociatedCens"`
 }

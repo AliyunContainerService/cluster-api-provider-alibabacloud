@@ -21,7 +21,6 @@ import (
 )
 
 // CompletePhysicalConnectionLOA invokes the vpc.CompletePhysicalConnectionLOA API synchronously
-// api document: https://help.aliyun.com/api/vpc/completephysicalconnectionloa.html
 func (client *Client) CompletePhysicalConnectionLOA(request *CompletePhysicalConnectionLOARequest) (response *CompletePhysicalConnectionLOAResponse, err error) {
 	response = CreateCompletePhysicalConnectionLOAResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) CompletePhysicalConnectionLOA(request *CompletePhysicalCon
 }
 
 // CompletePhysicalConnectionLOAWithChan invokes the vpc.CompletePhysicalConnectionLOA API asynchronously
-// api document: https://help.aliyun.com/api/vpc/completephysicalconnectionloa.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) CompletePhysicalConnectionLOAWithChan(request *CompletePhysicalConnectionLOARequest) (<-chan *CompletePhysicalConnectionLOAResponse, <-chan error) {
 	responseChan := make(chan *CompletePhysicalConnectionLOAResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) CompletePhysicalConnectionLOAWithChan(request *CompletePhy
 }
 
 // CompletePhysicalConnectionLOAWithCallback invokes the vpc.CompletePhysicalConnectionLOA API asynchronously
-// api document: https://help.aliyun.com/api/vpc/completephysicalconnectionloa.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) CompletePhysicalConnectionLOAWithCallback(request *CompletePhysicalConnectionLOARequest, callback func(response *CompletePhysicalConnectionLOAResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -76,14 +71,14 @@ func (client *Client) CompletePhysicalConnectionLOAWithCallback(request *Complet
 // CompletePhysicalConnectionLOARequest is the request struct for api CompletePhysicalConnectionLOA
 type CompletePhysicalConnectionLOARequest struct {
 	*requests.RpcRequest
-	LineLabel            string           `position:"Query" name:"LineLabel"`
 	LineCode             string           `position:"Query" name:"LineCode"`
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	InstanceId           string           `position:"Query" name:"InstanceId"`
 	ClientToken          string           `position:"Query" name:"ClientToken"`
+	LineLabel            string           `position:"Query" name:"LineLabel"`
 	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
+	InstanceId           string           `position:"Query" name:"InstanceId"`
 }
 
 // CompletePhysicalConnectionLOAResponse is the response struct for api CompletePhysicalConnectionLOA
@@ -98,6 +93,7 @@ func CreateCompletePhysicalConnectionLOARequest() (request *CompletePhysicalConn
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "CompletePhysicalConnectionLOA", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

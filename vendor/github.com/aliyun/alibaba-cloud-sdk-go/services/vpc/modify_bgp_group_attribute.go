@@ -21,7 +21,6 @@ import (
 )
 
 // ModifyBgpGroupAttribute invokes the vpc.ModifyBgpGroupAttribute API synchronously
-// api document: https://help.aliyun.com/api/vpc/modifybgpgroupattribute.html
 func (client *Client) ModifyBgpGroupAttribute(request *ModifyBgpGroupAttributeRequest) (response *ModifyBgpGroupAttributeResponse, err error) {
 	response = CreateModifyBgpGroupAttributeResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) ModifyBgpGroupAttribute(request *ModifyBgpGroupAttributeRe
 }
 
 // ModifyBgpGroupAttributeWithChan invokes the vpc.ModifyBgpGroupAttribute API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifybgpgroupattribute.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyBgpGroupAttributeWithChan(request *ModifyBgpGroupAttributeRequest) (<-chan *ModifyBgpGroupAttributeResponse, <-chan error) {
 	responseChan := make(chan *ModifyBgpGroupAttributeResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) ModifyBgpGroupAttributeWithChan(request *ModifyBgpGroupAtt
 }
 
 // ModifyBgpGroupAttributeWithCallback invokes the vpc.ModifyBgpGroupAttribute API asynchronously
-// api document: https://help.aliyun.com/api/vpc/modifybgpgroupattribute.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) ModifyBgpGroupAttributeWithCallback(request *ModifyBgpGroupAttributeRequest, callback func(response *ModifyBgpGroupAttributeResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -78,15 +73,16 @@ type ModifyBgpGroupAttributeRequest struct {
 	*requests.RpcRequest
 	AuthKey              string           `position:"Query" name:"AuthKey"`
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	ClientToken          string           `position:"Query" name:"ClientToken"`
-	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
 	BgpGroupId           string           `position:"Query" name:"BgpGroupId"`
 	Description          string           `position:"Query" name:"Description"`
-	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
 	PeerAsn              requests.Integer `position:"Query" name:"PeerAsn"`
 	IsFakeAsn            requests.Boolean `position:"Query" name:"IsFakeAsn"`
+	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
+	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
+	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
 	Name                 string           `position:"Query" name:"Name"`
+	LocalAsn             requests.Integer `position:"Query" name:"LocalAsn"`
 }
 
 // ModifyBgpGroupAttributeResponse is the response struct for api ModifyBgpGroupAttribute
@@ -101,6 +97,7 @@ func CreateModifyBgpGroupAttributeRequest() (request *ModifyBgpGroupAttributeReq
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "ModifyBgpGroupAttribute", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

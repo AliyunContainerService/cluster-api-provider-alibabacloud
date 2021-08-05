@@ -21,7 +21,6 @@ import (
 )
 
 // DescribeBgpGroups invokes the vpc.DescribeBgpGroups API synchronously
-// api document: https://help.aliyun.com/api/vpc/describebgpgroups.html
 func (client *Client) DescribeBgpGroups(request *DescribeBgpGroupsRequest) (response *DescribeBgpGroupsResponse, err error) {
 	response = CreateDescribeBgpGroupsResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) DescribeBgpGroups(request *DescribeBgpGroupsRequest) (resp
 }
 
 // DescribeBgpGroupsWithChan invokes the vpc.DescribeBgpGroups API asynchronously
-// api document: https://help.aliyun.com/api/vpc/describebgpgroups.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DescribeBgpGroupsWithChan(request *DescribeBgpGroupsRequest) (<-chan *DescribeBgpGroupsResponse, <-chan error) {
 	responseChan := make(chan *DescribeBgpGroupsResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) DescribeBgpGroupsWithChan(request *DescribeBgpGroupsReques
 }
 
 // DescribeBgpGroupsWithCallback invokes the vpc.DescribeBgpGroups API asynchronously
-// api document: https://help.aliyun.com/api/vpc/describebgpgroups.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DescribeBgpGroupsWithCallback(request *DescribeBgpGroupsRequest, callback func(response *DescribeBgpGroupsResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,14 +72,14 @@ func (client *Client) DescribeBgpGroupsWithCallback(request *DescribeBgpGroupsRe
 type DescribeBgpGroupsRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
-	RouterId             string           `position:"Query" name:"RouterId"`
-	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
-	PageSize             requests.Integer `position:"Query" name:"PageSize"`
 	BgpGroupId           string           `position:"Query" name:"BgpGroupId"`
-	IsDefault            requests.Boolean `position:"Query" name:"IsDefault"`
-	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
 	PageNumber           requests.Integer `position:"Query" name:"PageNumber"`
+	PageSize             requests.Integer `position:"Query" name:"PageSize"`
+	IsDefault            requests.Boolean `position:"Query" name:"IsDefault"`
+	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
+	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
+	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
+	RouterId             string           `position:"Query" name:"RouterId"`
 }
 
 // DescribeBgpGroupsResponse is the response struct for api DescribeBgpGroups
@@ -103,6 +98,7 @@ func CreateDescribeBgpGroupsRequest() (request *DescribeBgpGroupsRequest) {
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "DescribeBgpGroups", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

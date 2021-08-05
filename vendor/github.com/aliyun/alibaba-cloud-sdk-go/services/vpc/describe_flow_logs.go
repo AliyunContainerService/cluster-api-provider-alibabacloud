@@ -21,7 +21,6 @@ import (
 )
 
 // DescribeFlowLogs invokes the vpc.DescribeFlowLogs API synchronously
-// api document: https://help.aliyun.com/api/vpc/describeflowlogs.html
 func (client *Client) DescribeFlowLogs(request *DescribeFlowLogsRequest) (response *DescribeFlowLogsResponse, err error) {
 	response = CreateDescribeFlowLogsResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) DescribeFlowLogs(request *DescribeFlowLogsRequest) (respon
 }
 
 // DescribeFlowLogsWithChan invokes the vpc.DescribeFlowLogs API asynchronously
-// api document: https://help.aliyun.com/api/vpc/describeflowlogs.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DescribeFlowLogsWithChan(request *DescribeFlowLogsRequest) (<-chan *DescribeFlowLogsResponse, <-chan error) {
 	responseChan := make(chan *DescribeFlowLogsResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) DescribeFlowLogsWithChan(request *DescribeFlowLogsRequest)
 }
 
 // DescribeFlowLogsWithCallback invokes the vpc.DescribeFlowLogs API asynchronously
-// api document: https://help.aliyun.com/api/vpc/describeflowlogs.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DescribeFlowLogsWithCallback(request *DescribeFlowLogsRequest, callback func(response *DescribeFlowLogsResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,16 +72,17 @@ func (client *Client) DescribeFlowLogsWithCallback(request *DescribeFlowLogsRequ
 type DescribeFlowLogsRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
+	Description          string           `position:"Query" name:"Description"`
+	PageNumber           requests.Integer `position:"Query" name:"PageNumber"`
+	PageSize             requests.Integer `position:"Query" name:"PageSize"`
 	ResourceId           string           `position:"Query" name:"ResourceId"`
 	ProjectName          string           `position:"Query" name:"ProjectName"`
 	LogStoreName         string           `position:"Query" name:"LogStoreName"`
 	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
-	Description          string           `position:"Query" name:"Description"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
 	ResourceType         string           `position:"Query" name:"ResourceType"`
-	PageNumber           requests.Integer `position:"Query" name:"PageNumber"`
-	PageSize             requests.Integer `position:"Query" name:"PageSize"`
+	VpcId                string           `position:"Query" name:"VpcId"`
 	TrafficType          string           `position:"Query" name:"TrafficType"`
 	FlowLogId            string           `position:"Query" name:"FlowLogId"`
 	FlowLogName          string           `position:"Query" name:"FlowLogName"`
@@ -110,6 +106,7 @@ func CreateDescribeFlowLogsRequest() (request *DescribeFlowLogsRequest) {
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "DescribeFlowLogs", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 

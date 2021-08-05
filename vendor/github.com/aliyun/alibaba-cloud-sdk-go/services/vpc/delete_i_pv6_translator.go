@@ -21,7 +21,6 @@ import (
 )
 
 // DeleteIPv6Translator invokes the vpc.DeleteIPv6Translator API synchronously
-// api document: https://help.aliyun.com/api/vpc/deleteipv6translator.html
 func (client *Client) DeleteIPv6Translator(request *DeleteIPv6TranslatorRequest) (response *DeleteIPv6TranslatorResponse, err error) {
 	response = CreateDeleteIPv6TranslatorResponse()
 	err = client.DoAction(request, response)
@@ -29,8 +28,6 @@ func (client *Client) DeleteIPv6Translator(request *DeleteIPv6TranslatorRequest)
 }
 
 // DeleteIPv6TranslatorWithChan invokes the vpc.DeleteIPv6Translator API asynchronously
-// api document: https://help.aliyun.com/api/vpc/deleteipv6translator.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DeleteIPv6TranslatorWithChan(request *DeleteIPv6TranslatorRequest) (<-chan *DeleteIPv6TranslatorResponse, <-chan error) {
 	responseChan := make(chan *DeleteIPv6TranslatorResponse, 1)
 	errChan := make(chan error, 1)
@@ -53,8 +50,6 @@ func (client *Client) DeleteIPv6TranslatorWithChan(request *DeleteIPv6Translator
 }
 
 // DeleteIPv6TranslatorWithCallback invokes the vpc.DeleteIPv6Translator API asynchronously
-// api document: https://help.aliyun.com/api/vpc/deleteipv6translator.html
-// asynchronous document: https://help.aliyun.com/document_detail/66220.html
 func (client *Client) DeleteIPv6TranslatorWithCallback(request *DeleteIPv6TranslatorRequest, callback func(response *DeleteIPv6TranslatorResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
@@ -77,11 +72,11 @@ func (client *Client) DeleteIPv6TranslatorWithCallback(request *DeleteIPv6Transl
 type DeleteIPv6TranslatorRequest struct {
 	*requests.RpcRequest
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	ClientToken          string           `position:"Query" name:"ClientToken"`
+	ResourceOwnerAccount string           `position:"Query" name:"ResourceOwnerAccount"`
 	OwnerAccount         string           `position:"Query" name:"OwnerAccount"`
-	Ipv6TranslatorId     string           `position:"Query" name:"Ipv6TranslatorId"`
 	OwnerId              requests.Integer `position:"Query" name:"OwnerId"`
+	Ipv6TranslatorId     string           `position:"Query" name:"Ipv6TranslatorId"`
 }
 
 // DeleteIPv6TranslatorResponse is the response struct for api DeleteIPv6Translator
@@ -96,6 +91,7 @@ func CreateDeleteIPv6TranslatorRequest() (request *DeleteIPv6TranslatorRequest) 
 		RpcRequest: &requests.RpcRequest{},
 	}
 	request.InitWithApiInfo("Vpc", "2016-04-28", "DeleteIPv6Translator", "vpc", "openAPI")
+	request.Method = requests.POST
 	return
 }
 
