@@ -1,3 +1,4 @@
 .DS_Store
 .idea/
-bin/machine-controller-manager
+bin/
+examples/secret.yaml
