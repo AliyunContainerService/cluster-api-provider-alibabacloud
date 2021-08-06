@@ -2,8 +2,6 @@
 apiVersion: machine.openshift.io/v1beta1
 kind: Machine
 metadata:
-<<<<<<< HEAD
-<<<<<<< HEAD
   name: alibabacloud-actuator-testing-machine
   namespace: default
   generateName: vs-master-
@@ -12,7 +10,6 @@ metadata:
 spec:
   metadata:
     labels:
-<<<<<<< HEAD
       node-role.kubernetes.io/infra: ""
   providerSpec:
     value:
@@ -40,56 +37,3 @@ spec:
         name: alibabacloud-worker-user-data-secret
       credentialsSecret:
         name: alibabacloud-credentials-secret
-=======
-  name: alicloud-actuator-testing-machine
-=======
-  name: alibabacloud-actuator-testing-machine
->>>>>>> e879a141 (alibabacloud machine-api provider)
-  namespace: default
-  generateName: vs-master-
-  labels:
-    machine.openshift.io/cluster-api-cluster: alibabacloud-actuator-k8s
-spec:
-  metadata:
-    labels:
-      # node-role.kubernetes.io/worker: ""
-=======
->>>>>>> ecfeb08f (remove unused code)
-      node-role.kubernetes.io/infra: ""
-  providerSpec:
-    value:
-      apiVersion: alibabacloudproviderconfig.openshift.io/v1alpha1
-      kind: AlibabaCloudMachineProviderConfig
-      instanceType: FILLIN
-      imageId: FILLIN
-      regionId: FILLIN
-      zoneId: FILLIN
-      securityGroupId: FILLIN
-      vpcId: FILLIN
-      vSwitchId: FILLIN
-      systemDiskCategory: FILLIN
-      systemDiskSize: FILLIN
-      internetMaxBandwidthOut: FILLIN
-      password: FILLIN
-      tags:
-        - key: openshift-node-group-config
-          value: node-config-node
-        - key: host-type
-          value: node
-        - key: sub-host-type
-          value: default
-      userDataSecret:
-<<<<<<< HEAD
-        name: alicloud-actuator-user-data-secret
->>>>>>> ebdd9bd0 (update test case)
-=======
-        name: alibabacloud-worker-user-data-secret
-      credentialsSecret:
-        name: alibabacloud-credentials-secret
-<<<<<<< HEAD
-  versions:
-    kubelet: 1.10.1
-    controlPlane: 1.10.1
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> ecfeb08f (remove unused code)

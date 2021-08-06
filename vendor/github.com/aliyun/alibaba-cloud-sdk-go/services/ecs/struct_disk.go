@@ -17,13 +17,6 @@ package ecs
 
 // Disk is a nested struct in ecs response
 type Disk struct {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	Category                       string                        `json:"Category" xml:"Category"`
 	BdfId                          string                        `json:"BdfId" xml:"BdfId"`
 	ImageId                        string                        `json:"ImageId" xml:"ImageId"`
@@ -67,48 +60,4 @@ type Disk struct {
 	Tags                           TagsInDescribeDisks           `json:"Tags" xml:"Tags"`
 	MountInstances                 MountInstances                `json:"MountInstances" xml:"MountInstances"`
 	OperationLocks                 OperationLocksInDescribeDisks `json:"OperationLocks" xml:"OperationLocks"`
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-	DiskId                        string                        `json:"DiskId" xml:"DiskId"`
-	RegionId                      string                        `json:"RegionId" xml:"RegionId"`
-	ZoneId                        string                        `json:"ZoneId" xml:"ZoneId"`
-	DiskName                      string                        `json:"DiskName" xml:"DiskName"`
-	Description                   string                        `json:"Description" xml:"Description"`
-	Type                          string                        `json:"Type" xml:"Type"`
-	Category                      string                        `json:"Category" xml:"Category"`
-	Size                          int                           `json:"Size" xml:"Size"`
-	ImageId                       string                        `json:"ImageId" xml:"ImageId"`
-	SourceSnapshotId              string                        `json:"SourceSnapshotId" xml:"SourceSnapshotId"`
-	AutoSnapshotPolicyId          string                        `json:"AutoSnapshotPolicyId" xml:"AutoSnapshotPolicyId"`
-	ProductCode                   string                        `json:"ProductCode" xml:"ProductCode"`
-	Portable                      bool                          `json:"Portable" xml:"Portable"`
-	Status                        string                        `json:"Status" xml:"Status"`
-	InstanceId                    string                        `json:"InstanceId" xml:"InstanceId"`
-	Device                        string                        `json:"Device" xml:"Device"`
-	DeleteWithInstance            bool                          `json:"DeleteWithInstance" xml:"DeleteWithInstance"`
-	DeleteAutoSnapshot            bool                          `json:"DeleteAutoSnapshot" xml:"DeleteAutoSnapshot"`
-	EnableAutoSnapshot            bool                          `json:"EnableAutoSnapshot" xml:"EnableAutoSnapshot"`
-	EnableAutomatedSnapshotPolicy bool                          `json:"EnableAutomatedSnapshotPolicy" xml:"EnableAutomatedSnapshotPolicy"`
-	CreationTime                  string                        `json:"CreationTime" xml:"CreationTime"`
-	AttachedTime                  string                        `json:"AttachedTime" xml:"AttachedTime"`
-	DetachedTime                  string                        `json:"DetachedTime" xml:"DetachedTime"`
-	DiskChargeType                string                        `json:"DiskChargeType" xml:"DiskChargeType"`
-	ExpiredTime                   string                        `json:"ExpiredTime" xml:"ExpiredTime"`
-	ResourceGroupId               string                        `json:"ResourceGroupId" xml:"ResourceGroupId"`
-	Encrypted                     bool                          `json:"Encrypted" xml:"Encrypted"`
-	MountInstanceNum              int                           `json:"MountInstanceNum" xml:"MountInstanceNum"`
-	IOPS                          int                           `json:"IOPS" xml:"IOPS"`
-	IOPSRead                      int                           `json:"IOPSRead" xml:"IOPSRead"`
-	IOPSWrite                     int                           `json:"IOPSWrite" xml:"IOPSWrite"`
-	KMSKeyId                      string                        `json:"KMSKeyId" xml:"KMSKeyId"`
-	BdfId                         string                        `json:"BdfId" xml:"BdfId"`
-	OperationLocks                OperationLocksInDescribeDisks `json:"OperationLocks" xml:"OperationLocks"`
-	MountInstances                MountInstances                `json:"MountInstances" xml:"MountInstances"`
-	Tags                          TagsInDescribeDisks           `json:"Tags" xml:"Tags"`
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 }

@@ -347,13 +347,6 @@ const (
 	SYS_COPY_FILE_RANGE        = 357
 	SYS_PREADV2                = 358
 	SYS_PWRITEV2               = 359
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	SYS_STATX                  = 360
 	SYS_IO_PGETEVENTS          = 361
 	SYS_PKEY_MPROTECT          = 362
@@ -389,12 +382,4 @@ const (
 	SYS_PROCESS_MADVISE        = 440
 	SYS_EPOLL_PWAIT2           = 441
 	SYS_MOUNT_SETATTR          = 442
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 )

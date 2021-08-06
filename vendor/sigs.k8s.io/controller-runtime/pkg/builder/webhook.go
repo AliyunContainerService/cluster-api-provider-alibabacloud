@@ -38,18 +38,7 @@ type WebhookBuilder struct {
 	config  *rest.Config
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 // WebhookManagedBy allows inform its manager.Manager
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
-// WebhookManagedBy allows inform its manager.Manager
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-// WebhookManagedBy allows inform its manager.Manager
->>>>>>> 03397665 (update api)
 func WebhookManagedBy(m manager.Manager) *WebhookBuilder {
 	return &WebhookBuilder{mgr: m}
 }

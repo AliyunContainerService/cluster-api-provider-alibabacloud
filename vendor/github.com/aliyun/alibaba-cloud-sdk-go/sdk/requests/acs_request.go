@@ -393,13 +393,6 @@ func handleStruct(request AcsRequest, dataValue reflect.Value, prefix, name, fie
 						return
 					}
 				}
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 			} else {
 				if elementValue.Type().Kind().String() == "string" {
 					value := elementValue.String()
@@ -424,11 +417,6 @@ func handleStruct(request AcsRequest, dataValue reflect.Value, prefix, name, fie
 						}
 					}
 				}
-<<<<<<< HEAD
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> 03397665 (update api)
 			}
 		}
 	}

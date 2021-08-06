@@ -38,32 +38,8 @@ spec:
           key: node.alpha.kubernetes.io/unreachable
           operator: Exists
       containers:
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         - name: machine-controller
           image: openshift/origin-alibabacloud-machine-controllers:v4.0.0
-=======
-        - name: controller-manager
-          image: openshift/origin-alibabacloud-machine-controllers:v4.0.0
-          command:
-            - "./manager"
-          resources:
-            requests:
-              cpu: 100m
-              memory: 20Mi
-            limits:
-              cpu: 100m
-              memory: 30Mi
-=======
->>>>>>> 24c35849 (fix stop ecs instance func)
-        - name: machine-controller
-<<<<<<< HEAD
-          image: openshift/origin-aws-machine-controllers:v4.0.0
->>>>>>> 7e2c5241 (remove test case)
-=======
-          image: openshift/origin-alibabacloud-machine-controllers:v4.0.0
->>>>>>> ecfeb08f (remove unused code)
           env:
             - name: NODE_NAME
               valueFrom:
@@ -88,52 +64,3 @@ spec:
             limits:
               cpu: 100m
               memory: 30Mi
-<<<<<<< HEAD
-=======
-      - name: controller-manager
-        image: openshift/origin-alibabacloud-machine-controllers:v4.0.0
-        command:
-        - "./manager"
-        resources:
-          requests:
-            cpu: 100m
-            memory: 20Mi
-          limits:
-            cpu: 100m
-            memory: 30Mi
-      - name: machine-controller
-        image: openshift/origin-alibabacloud-machine-controllers:v4.0.0
-        env:
-          - name: NODE_NAME
-            valueFrom:
-              fieldRef:
-                fieldPath: spec.nodeName
-        command:
-          - /machine-controller-manager
-        args:
-          - --logtostderr=true
-          - --v=3
-      - name: nodelink-controller
-        image: openshift/origin-machine-api-operator:latest
-        command:
-          - /nodelink-controller
-        args:
-          - --logtostderr=true
-          - --v=3
-        resources:
-          requests:
-            cpu: 100m
-            memory: 20Mi
-          limits:
-            cpu: 100m
-            memory: 30Mi
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> ac8840a3 (update image)
-=======
-
->>>>>>> fc426375 (fix manager run error)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 7e2c5241 (remove test case)

@@ -24,22 +24,9 @@ import (
 
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/ecs"
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	alibabacloudproviderv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alibabacloudprovider/v1beta1"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/klog"
-=======
-	"k8s.io/klog/v2"
-
-	alibabacloudproviderv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alibabacloudprovider/v1beta1"
-	corev1 "k8s.io/api/core/v1"
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	alibabacloudproviderv1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alibabacloudprovider/v1beta1"
-	corev1 "k8s.io/api/core/v1"
-	"k8s.io/klog"
->>>>>>> 03397665 (update api)
 
 	v1beta1 "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/apis/alibabacloudprovider/v1beta1"
 	alibabacloudClient "github.com/AliyunContainerService/cluster-api-provider-alibabacloud/pkg/client"
@@ -67,15 +54,7 @@ type machineScope struct {
 type machineScopeParams struct {
 	context.Context
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	alibabacloudClientBuilder alibabacloudClient.AlibabaCloudClientBuilderFunc
-=======
-	alibabacloudClientBuilder alibabacloudClient.AlibabaCloudClientBuilderFuncType
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	alibabacloudClientBuilder alibabacloudClient.AlibabaCloudClientBuilderFunc
->>>>>>> 24c35849 (fix stop ecs instance func)
 	// api server controller runtime client
 	client runtimeclient.Client
 	// machine resource
@@ -175,28 +154,13 @@ func (s *machineScope) getUserData() (string, error) {
 func (s *machineScope) setProviderStatus(instance *ecs.Instance, condition alibabacloudproviderv1.AlibabaCloudMachineProviderCondition) error {
 	klog.Infof("%s: Updating status", s.machine.Name)
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// assign value to providerStatus
-=======
-	networkAddresses := []corev1.NodeAddress{}
-=======
-	networkAddresses := make([]corev1.NodeAddress, 0)
->>>>>>> 03397665 (update api)
-
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	// assign value to providerStatus
->>>>>>> 24c35849 (fix stop ecs instance func)
 	if instance == nil {
 		s.providerStatus.InstanceID = nil
 		s.providerStatus.InstanceState = nil
 	} else {
 		s.providerStatus.InstanceID = &instance.InstanceId
 		s.providerStatus.InstanceState = &instance.Status
-<<<<<<< HEAD
-<<<<<<< HEAD
 	}
 
 	networkAddresses, err := s.getNetworkAddress(instance)
@@ -233,81 +197,12 @@ func extractNodeAddressesFromInstance(instance *ecs.Instance) ([]corev1.NodeAddr
 
 	if instance == nil {
 		return nil, fmt.Errorf("the ecs instance is nil")
-=======
-
-		addresses, err := extractNodeAddresses(instance)
-		if err != nil {
-			klog.Errorf("%s: Error extracting instance IP addresses: %v", s.machine.Name, err)
-			return err
-		}
-
-		networkAddresses = append(networkAddresses, addresses...)
-=======
->>>>>>> 24c35849 (fix stop ecs instance func)
-	}
-
-	networkAddresses, err := s.getNetworkAddress(instance)
-	if err != nil {
-		klog.Errorf("%s : Error get Network Address :%v", s.machine.Name, err)
-		return nil
-	}
-	s.machine.Status.Addresses = networkAddresses
-	s.providerStatus.Conditions = setMachineProviderCondition(condition, s.providerStatus.Conditions)
-
-	return nil
-}
-
-func (s *machineScope) getNetworkAddress(instance *ecs.Instance) ([]corev1.NodeAddress, error) {
-	klog.Infof("%s : Setting network address", s.machine.Name)
-
-	networkAddresses := make([]corev1.NodeAddress, 0)
-
-	addresses, err := extractNodeAddressesFromInstance(instance)
-	if err != nil {
-		klog.Errorf("%s: Error extracting instance IP addresses: %v", s.machine.Name, err)
-		return nil, err
-	}
-
-	networkAddresses = append(networkAddresses, addresses...)
-
-	klog.Infof("%s: finished calculating alibabacloud status", s.machine.Name)
-
-	return networkAddresses, nil
-}
-
-// extractNodeAddressesFromInstance maps the instance information from ECS to an array of NodeAddresses
-func extractNodeAddressesFromInstance(instance *ecs.Instance) ([]corev1.NodeAddress, error) {
-
-	if instance == nil {
-<<<<<<< HEAD
-		return nil, fmt.Errorf("nil instance passed to extractNodeAddresses")
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-		return nil, fmt.Errorf("the ecs instance is nil")
->>>>>>> 24c35849 (fix stop ecs instance func)
 	}
 
 	addresses := make([]corev1.NodeAddress, 0)
 
 	// handle internal network interfaces
 	for _, networkInterface := range instance.NetworkInterfaces.NetworkInterface {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-		// skip network interfaces that are not currently in use
-		//if networkInterface.= ecs.NetworkInterfaceStatusInUse {
-		//	continue
-		//}
-
-=======
->>>>>>> 03397665 (update api)
-		// Treating IPv6 addresses as type NodeInternalIP to match what the KNI
-		// patch to the alibabacloud cloud-provider code is doing:
-		//
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 24c35849 (fix stop ecs instance func)
 		// https://github.com/openshift-kni/origin/commit/7db21c1e26a344e25ae1b825d4f21e7bef5c3650
 		for _, ipv6Address := range networkInterface.Ipv6Sets.Ipv6Set {
 			if addr := ipv6Address.Ipv6Address; addr != "" {
@@ -343,42 +238,3 @@ func extractNodeAddressesFromInstance(instance *ecs.Instance) ([]corev1.NodeAddr
 
 	return addresses, nil
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
-func (s *machineScope) getCustomDomainFromDHCP(vpcID string) ([]string, error) {
-	//vpc, err := s.awsClient.DescribeVpcs(&ec2.DescribeVpcsInput{
-	//	VpcIds: []*string{vpcID},
-	//})
-	//if err != nil {
-	//	klog.Errorf("%s: error describing vpc: %v", s.machine.Name, err)
-	//	return nil, err
-	//}
-	//
-	//if len(vpc.Vpcs) == 0 || vpc.Vpcs[0] == nil || vpc.Vpcs[0].DhcpOptionsId == nil {
-	//	return nil, nil
-	//}
-	//
-	//dhcp, err := s.awsClient.DescribeDHCPOptions(&ec2.DescribeDhcpOptionsInput{
-	//	DhcpOptionsIds: []*string{vpc.Vpcs[0].DhcpOptionsId},
-	//})
-	//if err != nil {
-	//	klog.Errorf("%s: error describing dhcp: %v", s.machine.Name, err)
-	//	return nil, err
-	//}
-	//
-	//if dhcp == nil || len(dhcp.DhcpOptions) == 0 || dhcp.DhcpOptions[0] == nil {
-	//	return nil, nil
-	//}
-	//
-	//for _, i := range dhcp.DhcpOptions[0].DhcpConfigurations {
-	//	if i.Key != nil && *i.Key == dhcpDomainKeyName && len(i.Values) > 0 && i.Values[0] != nil && i.Values[0].Value != nil {
-	//		return strings.Split(*i.Values[0].Value, " "), nil
-	//	}
-	//}
-	return nil, nil
-}
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> ecfeb08f (remove unused code)

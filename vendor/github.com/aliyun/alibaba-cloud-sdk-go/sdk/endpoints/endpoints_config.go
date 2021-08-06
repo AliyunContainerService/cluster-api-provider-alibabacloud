@@ -3530,39 +3530,8 @@ const endpointsJson = `{
 			"location_service_code": "alikafka",
 			"regional_endpoints": [
 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"region": "ap-southeast-3",
-					"endpoint": "metrics.ap-southeast-3.aliyuncs.com"
-				},
-				{
-					"region": "ap-southeast-5",
-					"endpoint": "metrics.ap-southeast-5.aliyuncs.com"
-=======
-					"region": "us-west-1",
-					"endpoint": "vpc.aliyuncs.com"
-				},
-				{
-					"region": "us-east-1",
-					"endpoint": "vpc.aliyuncs.com"
->>>>>>> 79bfea2d (update vendor)
-				},
-				{
-					"region": "cn-hangzhou",
-					"endpoint": "vpc.aliyuncs.com"
-				},
-				{
-					"region": "cn-shenzhen",
-					"endpoint": "vpc.aliyuncs.com"
-=======
 					"region": "cn-beijing",
 					"endpoint": "alikafka.cn-beijing.aliyuncs.com"
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-					"region": "cn-beijing",
-					"endpoint": "alikafka.cn-beijing.aliyuncs.com"
->>>>>>> 03397665 (update api)
 				},
 				{
 					"region": "cn-zhangjiakou",
@@ -3570,34 +3539,7 @@ const endpointsJson = `{
 				},
 				{
 					"region": "cn-huhehaote",
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"endpoint": "vpc.cn-huhehaote.aliyuncs.com"
-				},
-				{
-<<<<<<< HEAD
-					"region": "ap-northeast-1",
-					"endpoint": "metrics.ap-northeast-1.aliyuncs.com"
-				}
-			],
-			"global_endpoint": "",
-=======
-					"region": "me-east-1",
-					"endpoint": "vpc.me-east-1.aliyuncs.com"
-				},
-				{
-					"region": "ap-northeast-1",
-					"endpoint": "vpc.ap-northeast-1.aliyuncs.com"
-				},
-				{
-					"region": "ap-southeast-3",
-					"endpoint": "vpc.ap-southeast-3.aliyuncs.com"
-=======
 					"endpoint": "alikafka.cn-huhehaote.aliyuncs.com"
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-					"endpoint": "alikafka.cn-huhehaote.aliyuncs.com"
->>>>>>> 03397665 (update api)
 				},
 				{
 					"region": "cn-hangzhou",
@@ -3645,16 +3587,7 @@ const endpointsJson = `{
 					"endpoint": "faas.cn-beijing.aliyuncs.com"
 				}
 			],
-<<<<<<< HEAD
-<<<<<<< HEAD
-			"global_endpoint": "vpc.aliyuncs.com",
->>>>>>> 79bfea2d (update vendor)
-=======
 			"global_endpoint": "",
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-			"global_endpoint": "",
->>>>>>> 03397665 (update api)
 			"regional_endpoint_pattern": ""
 		},
 		{

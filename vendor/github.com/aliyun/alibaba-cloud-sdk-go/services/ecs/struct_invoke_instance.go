@@ -19,13 +19,6 @@ package ecs
 type InvokeInstance struct {
 	UpdateTime           string `json:"UpdateTime" xml:"UpdateTime"`
 	InstanceInvokeStatus string `json:"InstanceInvokeStatus" xml:"InstanceInvokeStatus"`
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	Timed                bool   `json:"Timed" xml:"Timed"`
 	CreationTime         string `json:"CreationTime" xml:"CreationTime"`
 	ErrorInfo            string `json:"ErrorInfo" xml:"ErrorInfo"`
@@ -39,12 +32,4 @@ type InvokeInstance struct {
 	InvocationStatus     string `json:"InvocationStatus" xml:"InvocationStatus"`
 	StopTime             string `json:"StopTime" xml:"StopTime"`
 	ErrorCode            string `json:"ErrorCode" xml:"ErrorCode"`
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 }

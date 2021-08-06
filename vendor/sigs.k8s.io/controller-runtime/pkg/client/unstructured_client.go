@@ -37,19 +37,7 @@ type unstructuredClient struct {
 }
 
 // Create implements client.Client
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 func (uc *unstructuredClient) Create(ctx context.Context, obj Object, opts ...CreateOption) error {
-=======
-func (uc *unstructuredClient) Create(_ context.Context, obj runtime.Object, opts ...CreateOption) error {
->>>>>>> 79bfea2d (update vendor)
-=======
-func (uc *unstructuredClient) Create(ctx context.Context, obj Object, opts ...CreateOption) error {
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-func (uc *unstructuredClient) Create(ctx context.Context, obj Object, opts ...CreateOption) error {
->>>>>>> 03397665 (update api)
 	u, ok := obj.(*unstructured.Unstructured)
 	if !ok {
 		return fmt.Errorf("unstructured client did not understand object: %T", obj)
@@ -77,19 +65,7 @@ func (uc *unstructuredClient) Create(ctx context.Context, obj Object, opts ...Cr
 }
 
 // Update implements client.Client
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 func (uc *unstructuredClient) Update(ctx context.Context, obj Object, opts ...UpdateOption) error {
-=======
-func (uc *unstructuredClient) Update(_ context.Context, obj runtime.Object, opts ...UpdateOption) error {
->>>>>>> 79bfea2d (update vendor)
-=======
-func (uc *unstructuredClient) Update(ctx context.Context, obj Object, opts ...UpdateOption) error {
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-func (uc *unstructuredClient) Update(ctx context.Context, obj Object, opts ...UpdateOption) error {
->>>>>>> 03397665 (update api)
 	u, ok := obj.(*unstructured.Unstructured)
 	if !ok {
 		return fmt.Errorf("unstructured client did not understand object: %T", obj)
@@ -98,10 +74,6 @@ func (uc *unstructuredClient) Update(ctx context.Context, obj Object, opts ...Up
 	gvk := u.GroupVersionKind()
 
 	o, err := uc.cache.getObjMeta(obj)
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 03397665 (update api)
 	if err != nil {
 		return err
 	}
@@ -129,100 +101,10 @@ func (uc *unstructuredClient) Delete(ctx context.Context, obj Object, opts ...De
 	}
 
 	o, err := uc.cache.getObjMeta(obj)
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	if err != nil {
 		return err
 	}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 03397665 (update api)
-	deleteOpts := DeleteOptions{}
-	deleteOpts.ApplyOptions(opts)
-	return o.Delete().
-		NamespaceIfScoped(o.GetNamespace(), o.isNamespaced()).
-		Resource(o.resource()).
-		Name(o.GetName()).
-		Body(deleteOpts.AsDeleteOptions()).
-		Do(ctx).
-		Error()
-<<<<<<< HEAD
-=======
-	updateOpts := UpdateOptions{}
-	updateOpts.ApplyOptions(opts)
-	result := o.Put().
-		NamespaceIfScoped(o.GetNamespace(), o.isNamespaced()).
-		Resource(o.resource()).
-		Name(o.GetName()).
-		Body(obj).
-		VersionedParams(updateOpts.AsUpdateOptions(), uc.paramCodec).
-		Do(ctx).
-		Into(obj)
-
-	u.SetGroupVersionKind(gvk)
-	return result
->>>>>>> e879a141 (alibabacloud machine-api provider)
-}
-
-<<<<<<< HEAD
-// DeleteAllOf implements client.Client
-func (uc *unstructuredClient) DeleteAllOf(ctx context.Context, obj Object, opts ...DeleteAllOfOption) error {
-	_, ok := obj.(*unstructured.Unstructured)
-=======
-// Delete implements client.Client
-<<<<<<< HEAD
-func (uc *unstructuredClient) Delete(_ context.Context, obj runtime.Object, opts ...DeleteOption) error {
-	u, ok := obj.(*unstructured.Unstructured)
->>>>>>> 79bfea2d (update vendor)
-=======
-func (uc *unstructuredClient) Delete(ctx context.Context, obj Object, opts ...DeleteOption) error {
-	_, ok := obj.(*unstructured.Unstructured)
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-}
-
-// DeleteAllOf implements client.Client
-func (uc *unstructuredClient) DeleteAllOf(ctx context.Context, obj Object, opts ...DeleteAllOfOption) error {
-	_, ok := obj.(*unstructured.Unstructured)
->>>>>>> 03397665 (update api)
-	if !ok {
-		return fmt.Errorf("unstructured client did not understand object: %T", obj)
-	}
-
-	o, err := uc.cache.getObjMeta(obj)
-	if err != nil {
-		return err
-	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 03397665 (update api)
-
-	deleteAllOfOpts := DeleteAllOfOptions{}
-	deleteAllOfOpts.ApplyOptions(opts)
-	return o.Delete().
-		NamespaceIfScoped(deleteAllOfOpts.ListOptions.Namespace, o.isNamespaced()).
-		Resource(o.resource()).
-		VersionedParams(deleteAllOfOpts.AsListOptions(), uc.paramCodec).
-		Body(deleteAllOfOpts.AsDeleteOptions()).
-		Do(ctx).
-		Error()
-}
-
-// Patch implements client.Client
-func (uc *unstructuredClient) Patch(ctx context.Context, obj Object, patch Patch, opts ...PatchOption) error {
-	_, ok := obj.(*unstructured.Unstructured)
-<<<<<<< HEAD
-=======
-=======
-
->>>>>>> e879a141 (alibabacloud machine-api provider)
 	deleteOpts := DeleteOptions{}
 	deleteOpts.ApplyOptions(opts)
 	return o.Delete().
@@ -258,16 +140,8 @@ func (uc *unstructuredClient) DeleteAllOf(ctx context.Context, obj Object, opts 
 }
 
 // Patch implements client.Client
-<<<<<<< HEAD
-func (uc *unstructuredClient) Patch(_ context.Context, obj runtime.Object, patch Patch, opts ...PatchOption) error {
-	u, ok := obj.(*unstructured.Unstructured)
->>>>>>> 79bfea2d (update vendor)
-=======
 func (uc *unstructuredClient) Patch(ctx context.Context, obj Object, patch Patch, opts ...PatchOption) error {
 	_, ok := obj.(*unstructured.Unstructured)
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	if !ok {
 		return fmt.Errorf("unstructured client did not understand object: %T", obj)
 	}
@@ -320,19 +194,7 @@ func (uc *unstructuredClient) Get(ctx context.Context, key ObjectKey, obj Object
 }
 
 // List implements client.Client
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 func (uc *unstructuredClient) List(ctx context.Context, obj ObjectList, opts ...ListOption) error {
-=======
-func (uc *unstructuredClient) List(_ context.Context, obj runtime.Object, opts ...ListOption) error {
->>>>>>> 79bfea2d (update vendor)
-=======
-func (uc *unstructuredClient) List(ctx context.Context, obj ObjectList, opts ...ListOption) error {
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-func (uc *unstructuredClient) List(ctx context.Context, obj ObjectList, opts ...ListOption) error {
->>>>>>> 03397665 (update api)
 	u, ok := obj.(*unstructured.UnstructuredList)
 	if !ok {
 		return fmt.Errorf("unstructured client did not understand object: %T", obj)
@@ -359,23 +221,8 @@ func (uc *unstructuredClient) List(ctx context.Context, obj ObjectList, opts ...
 		Into(obj)
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 func (uc *unstructuredClient) UpdateStatus(ctx context.Context, obj Object, opts ...UpdateOption) error {
 	_, ok := obj.(*unstructured.Unstructured)
-=======
-func (uc *unstructuredClient) UpdateStatus(_ context.Context, obj runtime.Object, opts ...UpdateOption) error {
-	u, ok := obj.(*unstructured.Unstructured)
->>>>>>> 79bfea2d (update vendor)
-=======
-func (uc *unstructuredClient) UpdateStatus(ctx context.Context, obj Object, opts ...UpdateOption) error {
-	_, ok := obj.(*unstructured.Unstructured)
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-func (uc *unstructuredClient) UpdateStatus(ctx context.Context, obj Object, opts ...UpdateOption) error {
-	_, ok := obj.(*unstructured.Unstructured)
->>>>>>> 03397665 (update api)
 	if !ok {
 		return fmt.Errorf("unstructured client did not understand object: %T", obj)
 	}
@@ -396,19 +243,7 @@ func (uc *unstructuredClient) UpdateStatus(ctx context.Context, obj Object, opts
 		Into(obj)
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 func (uc *unstructuredClient) PatchStatus(ctx context.Context, obj Object, patch Patch, opts ...PatchOption) error {
-=======
-func (uc *unstructuredClient) PatchStatus(_ context.Context, obj runtime.Object, patch Patch, opts ...PatchOption) error {
->>>>>>> 79bfea2d (update vendor)
-=======
-func (uc *unstructuredClient) PatchStatus(ctx context.Context, obj Object, patch Patch, opts ...PatchOption) error {
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-func (uc *unstructuredClient) PatchStatus(ctx context.Context, obj Object, patch Patch, opts ...PatchOption) error {
->>>>>>> 03397665 (update api)
 	u, ok := obj.(*unstructured.Unstructured)
 	if !ok {
 		return fmt.Errorf("unstructured client did not understand object: %T", obj)

@@ -20,18 +20,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	"time"
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
-	"time"
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	"time"
->>>>>>> 03397665 (update api)
 
 	"k8s.io/apimachinery/pkg/util/httpstream"
 	"k8s.io/apimachinery/pkg/util/httpstream/spdy"
@@ -50,13 +39,6 @@ func RoundTripperFor(config *restclient.Config) (http.RoundTripper, Upgrader, er
 	if err != nil {
 		return nil, nil, err
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	proxy := http.ProxyFromEnvironment
 	if config.Proxy != nil {
 		proxy = config.Proxy
@@ -68,15 +50,6 @@ func RoundTripperFor(config *restclient.Config) (http.RoundTripper, Upgrader, er
 		Proxier:                  proxy,
 		PingPeriod:               time.Second * 5,
 	})
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-	upgradeRoundTripper := spdy.NewRoundTripper(tlsConfig, true, false)
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	wrapper, err := restclient.HTTPWrappersForConfig(config, upgradeRoundTripper)
 	if err != nil {
 		return nil, nil, err

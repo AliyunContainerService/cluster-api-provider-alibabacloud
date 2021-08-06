@@ -20,47 +20,16 @@ import (
 	"bytes"
 	"encoding/gob"
 	"flag"
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 03397665 (update api)
 	"fmt"
 	"go/build"
 	"io"
 	"io/ioutil"
 	"log"
-<<<<<<< HEAD
-=======
-=======
-	"fmt"
->>>>>>> e879a141 (alibabacloud machine-api provider)
-	"go/build"
-	"io"
-	"io/ioutil"
-<<<<<<< HEAD
->>>>>>> 79bfea2d (update vendor)
-=======
-	"log"
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	"os"
 	"os/exec"
 	"path/filepath"
 	"runtime"
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	"strings"
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
-	"strings"
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	"strings"
->>>>>>> 03397665 (update api)
 	"text/template"
 
 	"github.com/golang/mock/mockgen/model"
@@ -72,13 +41,6 @@ var (
 	buildFlags = flag.String("build_flags", "", "(reflect mode) Additional flags for go build.")
 )
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 // reflectMode generates mocks via reflection on an interface.
 func reflectMode(importPath string, symbols []string) (*model.Package, error) {
 	if *execOnly != "" {
@@ -116,14 +78,6 @@ func reflectMode(importPath string, symbols []string) (*model.Package, error) {
 	return runInDir(program, "")
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 func writeProgram(importPath string, symbols []string) ([]byte, error) {
 	var program bytes.Buffer
 	data := reflectData{
@@ -136,13 +90,6 @@ func writeProgram(importPath string, symbols []string) ([]byte, error) {
 	return program.Bytes(), nil
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 // run the given program and parse the output as a model.Package.
 func run(program string) (*model.Package, error) {
 	f, err := ioutil.TempFile("", "")
@@ -156,50 +103,19 @@ func run(program string) (*model.Package, error) {
 		return nil, err
 	}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// Run the program.
 	cmd := exec.Command(program, "-output", filename)
 	cmd.Stdout = os.Stdout
-=======
-// run the given command and parse the output as a model.Package.
-func run(command string) (*model.Package, error) {
-	// Run the program.
-	cmd := exec.Command(command)
-	var stdout bytes.Buffer
-	cmd.Stdout = &stdout
->>>>>>> 79bfea2d (update vendor)
-=======
-	// Run the program.
-	cmd := exec.Command(program, "-output", filename)
-	cmd.Stdout = os.Stdout
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	// Run the program.
-	cmd := exec.Command(program, "-output", filename)
-	cmd.Stdout = os.Stdout
->>>>>>> 03397665 (update api)
 	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {
 		return nil, err
 	}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	f, err = os.Open(filename)
 	if err != nil {
 		return nil, err
 	}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 03397665 (update api)
 	// Process output.
 	var pkg model.Package
 	if err := gob.NewDecoder(f).Decode(&pkg); err != nil {
@@ -210,26 +126,6 @@ func run(command string) (*model.Package, error) {
 		return nil, err
 	}
 
-<<<<<<< HEAD
-=======
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-	// Process output.
-	var pkg model.Package
-	if err := gob.NewDecoder(f).Decode(&pkg); err != nil {
-		return nil, err
-	}
-
-	if err := f.Close(); err != nil {
-		return nil, err
-	}
-<<<<<<< HEAD
->>>>>>> 79bfea2d (update vendor)
-=======
-
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	return &pkg, nil
 }
 
@@ -241,27 +137,11 @@ func runInDir(program []byte, dir string) (*model.Package, error) {
 	if err != nil {
 		return nil, err
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	defer func() {
 		if err := os.RemoveAll(tmpDir); err != nil {
 			log.Printf("failed to remove temp directory: %s", err)
 		}
 	}()
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-	defer func() { os.RemoveAll(tmpDir) }()
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	const progSource = "prog.go"
 	var progBinary = "prog.bin"
 	if runtime.GOOS == "windows" {
@@ -276,28 +156,11 @@ func runInDir(program []byte, dir string) (*model.Package, error) {
 	cmdArgs := []string{}
 	cmdArgs = append(cmdArgs, "build")
 	if *buildFlags != "" {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 		cmdArgs = append(cmdArgs, strings.Split(*buildFlags, " ")...)
-=======
-		cmdArgs = append(cmdArgs, *buildFlags)
->>>>>>> 79bfea2d (update vendor)
-=======
-		cmdArgs = append(cmdArgs, strings.Split(*buildFlags, " ")...)
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-		cmdArgs = append(cmdArgs, strings.Split(*buildFlags, " ")...)
->>>>>>> 03397665 (update api)
 	}
 	cmdArgs = append(cmdArgs, "-o", progBinary, progSource)
 
 	// Build the program.
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 03397665 (update api)
 	buf := bytes.NewBuffer(nil)
 	cmd := exec.Command("go", cmdArgs...)
 	cmd.Dir = tmpDir
@@ -316,31 +179,6 @@ func runInDir(program []byte, dir string) (*model.Package, error) {
 	return run(filepath.Join(tmpDir, progBinary))
 }
 
-<<<<<<< HEAD
-=======
-=======
-	buf := bytes.NewBuffer(nil)
->>>>>>> e879a141 (alibabacloud machine-api provider)
-	cmd := exec.Command("go", cmdArgs...)
-	cmd.Dir = tmpDir
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = io.MultiWriter(os.Stderr, buf)
-	if err := cmd.Run(); err != nil {
-		sErr := buf.String()
-		if strings.Contains(sErr, `cannot find package "."`) &&
-			strings.Contains(sErr, "github.com/golang/mock/mockgen/model") {
-			fmt.Fprint(os.Stderr, "Please reference the steps in the README to fix this error:\n\thttps://github.com/golang/mock#reflect-vendoring-error.")
-			return nil, err
-		}
-		return nil, err
-	}
-
-	return run(filepath.Join(tmpDir, progBinary))
-}
-
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> 03397665 (update api)
 type reflectData struct {
 	ImportPath string
 	Symbols    []string
@@ -354,18 +192,7 @@ package main
 
 import (
 	"encoding/gob"
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	"flag"
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
-	"flag"
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	"flag"
->>>>>>> 03397665 (update api)
 	"fmt"
 	"os"
 	"path"
@@ -376,27 +203,11 @@ import (
 	pkg_ {{printf "%q" .ImportPath}}
 )
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 var output = flag.String("output", "", "The output file name, or empty to use stdout.")
 
 func main() {
 	flag.Parse()
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-func main() {
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	its := []struct{
 		sym string
 		typ reflect.Type
@@ -421,13 +232,6 @@ func main() {
 		intf.Name = it.sym
 		pkg.Interfaces = append(pkg.Interfaces, intf)
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 
 	outfile := os.Stdout
 	if len(*output) != 0 {
@@ -445,15 +249,6 @@ func main() {
 	}
 
 	if err := gob.NewEncoder(outfile).Encode(pkg); err != nil {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-	if err := gob.NewEncoder(os.Stdout).Encode(pkg); err != nil {
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 		fmt.Fprintf(os.Stderr, "gob encode: %v\n", err)
 		os.Exit(1)
 	}

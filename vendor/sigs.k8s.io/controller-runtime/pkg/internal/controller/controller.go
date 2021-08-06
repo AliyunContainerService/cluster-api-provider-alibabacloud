@@ -157,99 +157,6 @@ func (c *Controller) Start(ctx context.Context) error {
 
 		// TODO(pwittrock): Reconsider HandleCrash
 		defer utilruntime.HandleCrash()
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-<<<<<<< HEAD
-		// NB(directxman12): launch the sources *before* trying to wait for the
-		// caches to sync so that they have a chance to register their intendeded
-		// caches.
-		for _, watch := range c.startWatches {
-			c.Log.Info("Starting EventSource", "source", watch.src)
-
-			if err := watch.src.Start(ctx, watch.handler, c.Queue, watch.predicates...); err != nil {
-				return err
-			}
-		}
-=======
-	// Launch workers to process resources
-	log.Info("Starting workers", "controller", c.Name, "worker count", c.MaxConcurrentReconciles)
-	for i := 0; i < c.MaxConcurrentReconciles; i++ {
-		// Process work items
-		go wait.Until(c.worker, c.JitterPeriod, stop)
-	}
->>>>>>> 79bfea2d (update vendor)
-
-		// Start the SharedIndexInformer factories to begin populating the SharedIndexInformer caches
-		c.Log.Info("Starting Controller")
-
-		for _, watch := range c.startWatches {
-			syncingSource, ok := watch.src.(source.SyncingSource)
-			if !ok {
-				continue
-			}
-
-<<<<<<< HEAD
-			if err := func() error {
-				// use a context with timeout for launching sources and syncing caches.
-				sourceStartCtx, cancel := context.WithTimeout(ctx, c.CacheSyncTimeout)
-				defer cancel()
-
-				// WaitForSync waits for a definitive timeout, and returns if there
-				// is an error or a timeout
-				if err := syncingSource.WaitForSync(sourceStartCtx); err != nil {
-					err := fmt.Errorf("failed to wait for %s caches to sync: %w", c.Name, err)
-					c.Log.Error(err, "Could not wait for Cache to sync")
-					return err
-				}
-
-				return nil
-			}(); err != nil {
-				return err
-			}
-		}
-
-		// All the watches have been started, we can reset the local slice.
-		//
-		// We should never hold watches more than necessary, each watch source can hold a backing cache,
-		// which won't be garbage collected if we hold a reference to it.
-		c.startWatches = nil
-
-		// Launch workers to process resources
-		c.Log.Info("Starting workers", "worker count", c.MaxConcurrentReconciles)
-		wg.Add(c.MaxConcurrentReconciles)
-		for i := 0; i < c.MaxConcurrentReconciles; i++ {
-			go func() {
-				defer wg.Done()
-				// Run a worker thread that just dequeues items, processes them, and marks them done.
-				// It enforces that the reconcileHandler is never invoked concurrently with the same object.
-				for c.processNextWorkItem(ctx) {
-				}
-			}()
-		}
-
-		c.Started = true
-		return nil
-	}()
-	if err != nil {
-		return err
-	}
-
-	<-ctx.Done()
-	c.Log.Info("Shutdown signal received, waiting for all workers to finish")
-	wg.Wait()
-	c.Log.Info("All workers finished")
-	return nil
-=======
-// worker runs a worker thread that just dequeues items, processes them, and marks them done.
-// It enforces that the reconcileHandler is never invoked concurrently with the same object.
-func (c *Controller) worker() {
-	for c.processNextWorkItem() {
-	}
->>>>>>> 79bfea2d (update vendor)
-=======
-=======
->>>>>>> 03397665 (update api)
 
 		// NB(directxman12): launch the sources *before* trying to wait for the
 		// caches to sync so that they have a chance to register their intendeded
@@ -321,27 +228,11 @@ func (c *Controller) worker() {
 	wg.Wait()
 	c.Log.Info("All workers finished")
 	return nil
-<<<<<<< HEAD
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 }
 
 // processNextWorkItem will read a single work item off the workqueue and
 // attempt to process it, by calling the reconcileHandler.
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 func (c *Controller) processNextWorkItem(ctx context.Context) bool {
-=======
-func (c *Controller) processNextWorkItem() bool {
->>>>>>> 79bfea2d (update vendor)
-=======
-func (c *Controller) processNextWorkItem(ctx context.Context) bool {
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-func (c *Controller) processNextWorkItem(ctx context.Context) bool {
->>>>>>> 03397665 (update api)
 	obj, shutdown := c.Queue.Get()
 	if shutdown {
 		// Stop working
@@ -356,13 +247,6 @@ func (c *Controller) processNextWorkItem(ctx context.Context) bool {
 	// period.
 	defer c.Queue.Done(obj)
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	ctrlmetrics.ActiveWorkers.WithLabelValues(c.Name).Add(1)
 	defer ctrlmetrics.ActiveWorkers.WithLabelValues(c.Name).Add(-1)
 
@@ -385,8 +269,6 @@ func (c *Controller) initMetrics() {
 	ctrlmetrics.ReconcileTotal.WithLabelValues(c.Name, labelRequeue).Add(0)
 	ctrlmetrics.ReconcileTotal.WithLabelValues(c.Name, labelSuccess).Add(0)
 	ctrlmetrics.WorkerCount.WithLabelValues(c.Name).Set(float64(c.MaxConcurrentReconciles))
-<<<<<<< HEAD
-<<<<<<< HEAD
 }
 
 func (c *Controller) reconcileHandler(ctx context.Context, obj interface{}) {
@@ -399,37 +281,6 @@ func (c *Controller) reconcileHandler(ctx context.Context, obj interface{}) {
 	// Make sure that the the object is a valid request.
 	req, ok := obj.(reconcile.Request)
 	if !ok {
-=======
-	return c.reconcileHandler(obj)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
-}
-
-func (c *Controller) reconcileHandler(ctx context.Context, obj interface{}) {
-	// Update metrics after processing each item
-	reconcileStartTS := time.Now()
-	defer func() {
-		c.updateMetrics(time.Since(reconcileStartTS))
-	}()
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-	var req reconcile.Request
-	var ok bool
-	if req, ok = obj.(reconcile.Request); !ok {
->>>>>>> 79bfea2d (update vendor)
-=======
-	// Make sure that the the object is a valid request.
-	req, ok := obj.(reconcile.Request)
-	if !ok {
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	// Make sure that the the object is a valid request.
-	req, ok := obj.(reconcile.Request)
-	if !ok {
->>>>>>> 03397665 (update api)
 		// As the item in the workqueue is actually invalid, we call
 		// Forget here else we'd go into a loop of attempting to
 		// process a work item that is invalid.
@@ -438,27 +289,11 @@ func (c *Controller) reconcileHandler(ctx context.Context, obj interface{}) {
 		// Return true, don't take a break
 		return
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 
 	log := c.Log.WithValues("name", req.Name, "namespace", req.Namespace)
 	ctx = logf.IntoContext(ctx, log)
 
 	// RunInformersAndControllers the syncHandler, passing it the Namespace/Name string of the
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-	// RunInformersAndControllers the syncHandler, passing it the namespace/Name string of the
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	// resource to be synced.
 	if result, err := c.Do.Reconcile(ctx, req); err != nil {
 		c.Queue.AddRateLimited(req)

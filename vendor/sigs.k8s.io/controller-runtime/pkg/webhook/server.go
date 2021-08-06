@@ -100,24 +100,12 @@ func (s *Server) setDefaults() {
 
 	if len(s.CertDir) == 0 {
 		s.CertDir = filepath.Join(os.TempDir(), "k8s-webhook-server", "serving-certs")
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 03397665 (update api)
 	}
 
 	if len(s.CertName) == 0 {
 		s.CertName = "tls.crt"
-<<<<<<< HEAD
-=======
->>>>>>> 79bfea2d (update vendor)
 	}
 
-<<<<<<< HEAD
-=======
-	}
-
->>>>>>> 03397665 (update api)
 	if len(s.KeyName) == 0 {
 		s.KeyName = "tls.key"
 	}
@@ -127,24 +115,6 @@ func (s *Server) setDefaults() {
 // the webhook server doesn't need leader election.
 func (*Server) NeedLeaderElection() bool {
 	return false
-<<<<<<< HEAD
-=======
-	if len(s.CertName) == 0 {
-		s.CertName = "tls.crt"
-	}
-
-	if len(s.KeyName) == 0 {
-		s.KeyName = "tls.key"
-	}
->>>>>>> e879a141 (alibabacloud machine-api provider)
-}
-
-// NeedLeaderElection implements the LeaderElectionRunnable interface, which indicates
-// the webhook server doesn't need leader election.
-func (*Server) NeedLeaderElection() bool {
-	return false
-=======
->>>>>>> 03397665 (update api)
 }
 
 // Register marks the given webhook as being served at the given path.

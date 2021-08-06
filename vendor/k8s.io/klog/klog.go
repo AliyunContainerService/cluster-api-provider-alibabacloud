@@ -78,10 +78,7 @@ import (
 	"fmt"
 	"io"
 	stdLog "log"
-<<<<<<< HEAD
-=======
 	"math"
->>>>>>> 03397665 (update api)
 	"os"
 	"path/filepath"
 	"runtime"
@@ -419,10 +416,6 @@ func InitFlags(flagset *flag.FlagSet) {
 	if flagset == nil {
 		flagset = flag.CommandLine
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 03397665 (update api)
 
 	flagset.StringVar(&logging.logDir, "log_dir", logging.logDir, "If non-empty, write log files in this directory")
 	flagset.StringVar(&logging.logFile, "log_file", logging.logFile, "If non-empty, use this log file")
@@ -435,17 +428,6 @@ func InitFlags(flagset *flag.FlagSet) {
 	flagset.BoolVar(&logging.skipHeaders, "add_dir_header", logging.addDirHeader, "If true, adds the file directory to the header")
 	flagset.BoolVar(&logging.skipHeaders, "skip_headers", logging.skipHeaders, "If true, avoid header prefixes in the log messages")
 	flagset.BoolVar(&logging.skipLogHeaders, "skip_log_headers", logging.skipLogHeaders, "If true, avoid headers when opening log files")
-<<<<<<< HEAD
-=======
-	flagset.StringVar(&logging.logDir, "log_dir", "", "If non-empty, write log files in this directory")
-	flagset.StringVar(&logging.logFile, "log_file", "", "If non-empty, use this log file")
-	flagset.BoolVar(&logging.toStderr, "logtostderr", false, "log to standard error instead of files")
-	flagset.BoolVar(&logging.alsoToStderr, "alsologtostderr", false, "log to standard error as well as files")
-	flagset.Var(&logging.verbosity, "v", "log level for V logs")
-	flagset.BoolVar(&logging.skipHeaders, "skip_headers", false, "If true, avoid header prefixes in the log messages")
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> 03397665 (update api)
 	flagset.Var(&logging.stderrThreshold, "stderrthreshold", "logs at or above this threshold go to stderr")
 	flagset.Var(&logging.vmodule, "vmodule", "comma-separated list of pattern=N settings for file-filtered logging")
 	flagset.Var(&logging.traceLocation, "log_backtrace_at", "when logging hits line file:N, emit a stack trace")
@@ -503,29 +485,18 @@ type loggingT struct {
 	// with the log-dir option.
 	logFile string
 
-<<<<<<< HEAD
-	// If true, do not add the prefix headers, useful when used with SetOutput
-	skipHeaders bool
-<<<<<<< HEAD
-=======
 	// When logFile is specified, this limiter makes sure the logFile won't exceeds a certain size. When exceeds, the
 	// logFile will be cleaned up. If this value is 0, no size limitation will be applied to logFile.
 	logFileMaxSizeMB uint64
 
 	// If true, do not add the prefix headers, useful when used with SetOutput
 	skipHeaders bool
->>>>>>> 03397665 (update api)
 
 	// If true, do not add the headers to log files
 	skipLogHeaders bool
 
 	// If true, add the file directory to the header
 	addDirHeader bool
-<<<<<<< HEAD
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> 03397665 (update api)
 }
 
 // buffer holds a byte Buffer for reuse. The zero value is ready for use.
@@ -937,27 +908,16 @@ func (l *loggingT) exit(err error) {
 type syncBuffer struct {
 	logger *loggingT
 	*bufio.Writer
-<<<<<<< HEAD
-	file   *os.File
-	sev    severity
-	nbytes uint64 // The number of bytes written to this file
-=======
 	file     *os.File
 	sev      severity
 	nbytes   uint64 // The number of bytes written to this file
 	maxbytes uint64 // The max number of bytes this syncBuffer.file can hold before cleaning up.
->>>>>>> 03397665 (update api)
 }
 
 func (sb *syncBuffer) Sync() error {
 	return sb.file.Sync()
 }
 
-<<<<<<< HEAD
-func (sb *syncBuffer) Write(p []byte) (n int, err error) {
-	if sb.nbytes+uint64(len(p)) >= MaxSize {
-		if err := sb.rotateFile(time.Now()); err != nil {
-=======
 // CalculateMaxSize returns the real max size in bytes after considering the default max size and the flag options.
 func CalculateMaxSize() uint64 {
 	if logging.logFile != "" {
@@ -975,7 +935,6 @@ func CalculateMaxSize() uint64 {
 func (sb *syncBuffer) Write(p []byte) (n int, err error) {
 	if sb.nbytes+uint64(len(p)) >= sb.maxbytes {
 		if err := sb.rotateFile(time.Now(), false); err != nil {
->>>>>>> 03397665 (update api)
 			sb.logger.exit(err)
 		}
 	}
@@ -988,23 +947,15 @@ func (sb *syncBuffer) Write(p []byte) (n int, err error) {
 }
 
 // rotateFile closes the syncBuffer's file and starts a new one.
-<<<<<<< HEAD
-func (sb *syncBuffer) rotateFile(now time.Time) error {
-=======
 // The startup argument indicates whether this is the initial startup of klog.
 // If startup is true, existing files are opened for appending instead of truncated.
 func (sb *syncBuffer) rotateFile(now time.Time, startup bool) error {
->>>>>>> 03397665 (update api)
 	if sb.file != nil {
 		sb.Flush()
 		sb.file.Close()
 	}
 	var err error
-<<<<<<< HEAD
-	sb.file, _, err = create(severityName[sb.sev], now)
-=======
 	sb.file, _, err = create(severityName[sb.sev], now, startup)
->>>>>>> 03397665 (update api)
 	sb.nbytes = 0
 	if err != nil {
 		return err
@@ -1012,13 +963,10 @@ func (sb *syncBuffer) rotateFile(now time.Time, startup bool) error {
 
 	sb.Writer = bufio.NewWriterSize(sb.file, bufferSize)
 
-<<<<<<< HEAD
-=======
 	if sb.logger.skipLogHeaders {
 		return nil
 	}
 
->>>>>>> 03397665 (update api)
 	// Write header.
 	var buf bytes.Buffer
 	fmt.Fprintf(&buf, "Log file created at: %s\n", now.Format("2006/01/02 15:04:05"))
@@ -1043,18 +991,11 @@ func (l *loggingT) createFiles(sev severity) error {
 	// has already been created, we can stop.
 	for s := sev; s >= infoLog && l.file[s] == nil; s-- {
 		sb := &syncBuffer{
-<<<<<<< HEAD
-			logger: l,
-			sev:    s,
-		}
-		if err := sb.rotateFile(now); err != nil {
-=======
 			logger:   l,
 			sev:      s,
 			maxbytes: CalculateMaxSize(),
 		}
 		if err := sb.rotateFile(now, true); err != nil {
->>>>>>> 03397665 (update api)
 			return err
 		}
 		l.file[s] = sb
@@ -1062,11 +1003,7 @@ func (l *loggingT) createFiles(sev severity) error {
 	return nil
 }
 
-<<<<<<< HEAD
-const flushInterval = 30 * time.Second
-=======
 const flushInterval = 5 * time.Second
->>>>>>> 03397665 (update api)
 
 // flushDaemon periodically flushes the log file buffers.
 func (l *loggingT) flushDaemon() {

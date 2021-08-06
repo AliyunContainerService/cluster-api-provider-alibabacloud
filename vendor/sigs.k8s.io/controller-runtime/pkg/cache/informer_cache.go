@@ -69,26 +69,9 @@ func (ip *informerCache) Get(ctx context.Context, key client.ObjectKey, out clie
 }
 
 // List implements Reader
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 func (ip *informerCache) List(ctx context.Context, out client.ObjectList, opts ...client.ListOption) error {
 
 	gvk, cacheTypeObj, err := ip.objectTypeForListObject(out)
-=======
-func (ip *informerCache) List(ctx context.Context, out runtime.Object, opts ...client.ListOption) error {
-	gvk, err := apiutil.GVKForObject(out, ip.Scheme)
->>>>>>> 79bfea2d (update vendor)
-=======
-func (ip *informerCache) List(ctx context.Context, out client.ObjectList, opts ...client.ListOption) error {
-
-	gvk, cacheTypeObj, err := ip.objectTypeForListObject(out)
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-func (ip *informerCache) List(ctx context.Context, out client.ObjectList, opts ...client.ListOption) error {
-
-	gvk, cacheTypeObj, err := ip.objectTypeForListObject(out)
->>>>>>> 03397665 (update api)
 	if err != nil {
 		return err
 	}

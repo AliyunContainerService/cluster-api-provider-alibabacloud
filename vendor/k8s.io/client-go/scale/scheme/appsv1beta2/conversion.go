@@ -22,41 +22,9 @@ import (
 	v1beta2 "k8s.io/api/apps/v1beta2"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/conversion"
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	scheme "k8s.io/client-go/scale/scheme"
 )
 
-=======
-	"k8s.io/apimachinery/pkg/runtime"
-	scheme "k8s.io/client-go/scale/scheme"
-)
-
-// addConversions registers conversions between the internal version
-// of Scale and supported external versions of Scale.
-func addConversionFuncs(scheme *runtime.Scheme) error {
-	err := scheme.AddConversionFuncs(
-		Convert_scheme_ScaleStatus_To_v1beta2_ScaleStatus,
-		Convert_v1beta2_ScaleStatus_To_scheme_ScaleStatus,
-	)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
->>>>>>> 79bfea2d (update vendor)
-=======
-	scheme "k8s.io/client-go/scale/scheme"
-)
-
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	scheme "k8s.io/client-go/scale/scheme"
-)
-
->>>>>>> 03397665 (update api)
 func Convert_scheme_ScaleStatus_To_v1beta2_ScaleStatus(in *scheme.ScaleStatus, out *v1beta2.ScaleStatus, s conversion.Scope) error {
 	out.Replicas = in.Replicas
 	out.Selector = nil

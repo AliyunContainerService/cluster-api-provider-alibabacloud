@@ -56,21 +56,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&NetworkList{},
 		&OAuth{},
 		&OAuthList{},
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 		&OperatorHub{},
 		&OperatorHubList{},
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
-		&OperatorHub{},
-		&OperatorHubList{},
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-		&OperatorHub{},
-		&OperatorHubList{},
->>>>>>> 03397665 (update api)
 		&Project{},
 		&ProjectList{},
 		&Proxy{},

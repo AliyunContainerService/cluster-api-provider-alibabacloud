@@ -126,19 +126,7 @@ func BImportData(fset *token.FileSet, imports map[string]*types.Package, data []
 	// --- generic export data ---
 
 	// populate typList with predeclared "known" types
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	p.typList = append(p.typList, predeclared()...)
-=======
-	p.typList = append(p.typList, predeclared...)
->>>>>>> 79bfea2d (update vendor)
-=======
-	p.typList = append(p.typList, predeclared()...)
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	p.typList = append(p.typList, predeclared()...)
->>>>>>> 03397665 (update api)
 
 	// read package data
 	pkg = p.pkg()
@@ -344,19 +332,7 @@ func (p *importer) pos() token.Pos {
 	p.prevFile = file
 	p.prevLine = line
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	return p.fake.pos(file, line, 0)
-=======
-	return p.fake.pos(file, line)
->>>>>>> 79bfea2d (update vendor)
-=======
-	return p.fake.pos(file, line, 0)
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	return p.fake.pos(file, line, 0)
->>>>>>> 03397665 (update api)
 }
 
 // Synthesize a token.Pos
@@ -365,25 +341,9 @@ type fakeFileSet struct {
 	files map[string]*token.File
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 func (s *fakeFileSet) pos(file string, line, column int) token.Pos {
 	// TODO(mdempsky): Make use of column.
 
-=======
-func (s *fakeFileSet) pos(file string, line int) token.Pos {
->>>>>>> 79bfea2d (update vendor)
-=======
-func (s *fakeFileSet) pos(file string, line, column int) token.Pos {
-	// TODO(mdempsky): Make use of column.
-
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-func (s *fakeFileSet) pos(file string, line, column int) token.Pos {
-	// TODO(mdempsky): Make use of column.
-
->>>>>>> 03397665 (update api)
 	// Since we don't know the set of needed file positions, we
 	// reserve maxlines positions per file.
 	const maxlines = 64 * 1024
@@ -1018,13 +978,6 @@ const (
 	aliasTag
 )
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 var predeclOnce sync.Once
 var predecl []types.Type // initialized lazily
 
@@ -1078,58 +1031,6 @@ func predeclared() []types.Type {
 		}
 	})
 	return predecl
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-var predeclared = []types.Type{
-	// basic types
-	types.Typ[types.Bool],
-	types.Typ[types.Int],
-	types.Typ[types.Int8],
-	types.Typ[types.Int16],
-	types.Typ[types.Int32],
-	types.Typ[types.Int64],
-	types.Typ[types.Uint],
-	types.Typ[types.Uint8],
-	types.Typ[types.Uint16],
-	types.Typ[types.Uint32],
-	types.Typ[types.Uint64],
-	types.Typ[types.Uintptr],
-	types.Typ[types.Float32],
-	types.Typ[types.Float64],
-	types.Typ[types.Complex64],
-	types.Typ[types.Complex128],
-	types.Typ[types.String],
-
-	// basic type aliases
-	types.Universe.Lookup("byte").Type(),
-	types.Universe.Lookup("rune").Type(),
-
-	// error
-	types.Universe.Lookup("error").Type(),
-
-	// untyped types
-	types.Typ[types.UntypedBool],
-	types.Typ[types.UntypedInt],
-	types.Typ[types.UntypedRune],
-	types.Typ[types.UntypedFloat],
-	types.Typ[types.UntypedComplex],
-	types.Typ[types.UntypedString],
-	types.Typ[types.UntypedNil],
-
-	// package unsafe
-	types.Typ[types.UnsafePointer],
-
-	// invalid type
-	types.Typ[types.Invalid], // only appears in packages with errors
-
-	// used internally by gc; never used by this package or in .a files
-	anyType{},
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 }
 
 type anyType struct{}

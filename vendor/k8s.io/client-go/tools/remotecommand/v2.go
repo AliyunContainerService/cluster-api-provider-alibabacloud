@@ -142,25 +142,10 @@ func (p *streamProtocolV2) copyStdout(wg *sync.WaitGroup) {
 	go func() {
 		defer runtime.HandleCrash()
 		defer wg.Done()
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 		// make sure, packet in queue can be consumed.
 		// block in queue may lead to deadlock in conn.server
 		// issue: https://github.com/kubernetes/kubernetes/issues/96339
 		defer io.Copy(ioutil.Discard, p.remoteStdout)
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 
 		if _, err := io.Copy(p.Stdout, p.remoteStdout); err != nil {
 			runtime.HandleError(err)
@@ -177,18 +162,7 @@ func (p *streamProtocolV2) copyStderr(wg *sync.WaitGroup) {
 	go func() {
 		defer runtime.HandleCrash()
 		defer wg.Done()
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 		defer io.Copy(ioutil.Discard, p.remoteStderr)
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
-		defer io.Copy(ioutil.Discard, p.remoteStderr)
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-		defer io.Copy(ioutil.Discard, p.remoteStderr)
->>>>>>> 03397665 (update api)
 
 		if _, err := io.Copy(p.Stderr, p.remoteStderr); err != nil {
 			runtime.HandleError(err)

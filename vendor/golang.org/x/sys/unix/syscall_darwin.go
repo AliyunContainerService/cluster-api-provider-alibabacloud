@@ -119,74 +119,7 @@ type attrList struct {
 	Forkattr    uint32
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 //sysnb	pipe(p *[2]int32) (err error)
-=======
-func getAttrList(path string, attrList attrList, attrBuf []byte, options uint) (attrs [][]byte, err error) {
-	if len(attrBuf) < 4 {
-		return nil, errors.New("attrBuf too small")
-	}
-	attrList.bitmapCount = attrBitMapCount
-
-	var _p0 *byte
-	_p0, err = BytePtrFromString(path)
-	if err != nil {
-		return nil, err
-	}
-
-	_, _, e1 := Syscall6(
-		SYS_GETATTRLIST,
-		uintptr(unsafe.Pointer(_p0)),
-		uintptr(unsafe.Pointer(&attrList)),
-		uintptr(unsafe.Pointer(&attrBuf[0])),
-		uintptr(len(attrBuf)),
-		uintptr(options),
-		0,
-	)
-	if e1 != 0 {
-		return nil, e1
-	}
-	size := *(*uint32)(unsafe.Pointer(&attrBuf[0]))
-
-	// dat is the section of attrBuf that contains valid data,
-	// without the 4 byte length header. All attribute offsets
-	// are relative to dat.
-	dat := attrBuf
-	if int(size) < len(attrBuf) {
-		dat = dat[:size]
-	}
-	dat = dat[4:] // remove length prefix
-
-	for i := uint32(0); int(i) < len(dat); {
-		header := dat[i:]
-		if len(header) < 8 {
-			return attrs, errors.New("truncated attribute header")
-		}
-		datOff := *(*int32)(unsafe.Pointer(&header[0]))
-		attrLen := *(*uint32)(unsafe.Pointer(&header[4]))
-		if datOff < 0 || uint32(datOff)+attrLen > uint32(len(dat)) {
-			return attrs, errors.New("truncated results; attrBuf too small")
-		}
-		end := uint32(datOff) + attrLen
-		attrs = append(attrs, dat[datOff:end])
-		i = end
-		if r := i % 4; r != 0 {
-			i += (4 - r)
-		}
-	}
-	return
-}
-
-//sysnb pipe() (r int, w int, err error)
->>>>>>> 79bfea2d (update vendor)
-=======
-//sysnb	pipe(p *[2]int32) (err error)
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-//sysnb	pipe(p *[2]int32) (err error)
->>>>>>> 03397665 (update api)
 
 func Pipe(p []int) (err error) {
 	if len(p) != 2 {
@@ -339,21 +272,8 @@ func setattrlistTimes(path string, times []Timespec, flags int) error {
 		options)
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 //sys	setattrlist(path *byte, list unsafe.Pointer, buf unsafe.Pointer, size uintptr, options int) (err error)
 
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
-//sys	setattrlist(path *byte, list unsafe.Pointer, buf unsafe.Pointer, size uintptr, options int) (err error)
-
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-//sys	setattrlist(path *byte, list unsafe.Pointer, buf unsafe.Pointer, size uintptr, options int) (err error)
-
->>>>>>> 03397665 (update api)
 func utimensat(dirfd int, path string, times *[2]Timespec, flags int) error {
 	// Darwin doesn't support SYS_UTIMENSAT
 	return ENOSYS
@@ -448,13 +368,6 @@ func Uname(uname *Utsname) error {
 	return nil
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 func Sendfile(outfd int, infd int, offset *int64, count int) (written int, err error) {
 	if raceenabled {
 		raceReleaseMerge(unsafe.Pointer(&ioSync))
@@ -487,14 +400,6 @@ func GetsockoptXucred(fd, level, opt int) (*Xucred, error) {
 
 //sys	sendfile(infd int, outfd int, offset int64, len *int64, hdtr unsafe.Pointer, flags int) (err error)
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 /*
  * Exposed directly
  */
@@ -525,19 +430,7 @@ func GetsockoptXucred(fd, level, opt int) (*Xucred, error) {
 //sys	Fpathconf(fd int, name int) (val int, err error)
 //sys	Fsync(fd int) (err error)
 //sys	Ftruncate(fd int, length int64) (err error)
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 //sys	Getcwd(buf []byte) (n int, err error)
-=======
-//sys	Getdirentries(fd int, buf []byte, basep *uintptr) (n int, err error) = SYS_GETDIRENTRIES64
->>>>>>> 79bfea2d (update vendor)
-=======
-//sys	Getcwd(buf []byte) (n int, err error)
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-//sys	Getcwd(buf []byte) (n int, err error)
->>>>>>> 03397665 (update api)
 //sys	Getdtablesize() (size int)
 //sysnb	Getegid() (egid int)
 //sysnb	Geteuid() (uid int)

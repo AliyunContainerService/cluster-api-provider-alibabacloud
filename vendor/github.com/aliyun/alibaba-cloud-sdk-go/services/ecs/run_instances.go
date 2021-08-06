@@ -71,13 +71,6 @@ func (client *Client) RunInstancesWithCallback(request *RunInstancesRequest, cal
 // RunInstancesRequest is the request struct for api RunInstances
 type RunInstancesRequest struct {
 	*requests.RpcRequest
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	UniqueSuffix                           requests.Boolean                `position:"Query" name:"UniqueSuffix"`
 	SecurityEnhancementStrategy            string                          `position:"Query" name:"SecurityEnhancementStrategy"`
 	MinAmount                              requests.Integer                `position:"Query" name:"MinAmount"`
@@ -168,75 +161,6 @@ type RunInstancesArn struct {
 	RoleType      string `name:"RoleType"`
 	Rolearn       string `name:"Rolearn"`
 	AssumeRoleFor string `name:"AssumeRoleFor"`
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-	LaunchTemplateName            string                          `position:"Query" name:"LaunchTemplateName"`
-	ResourceOwnerId               requests.Integer                `position:"Query" name:"ResourceOwnerId"`
-	UniqueSuffix                  requests.Boolean                `position:"Query" name:"UniqueSuffix"`
-	HpcClusterId                  string                          `position:"Query" name:"HpcClusterId"`
-	SecurityEnhancementStrategy   string                          `position:"Query" name:"SecurityEnhancementStrategy"`
-	KeyPairName                   string                          `position:"Query" name:"KeyPairName"`
-	MinAmount                     requests.Integer                `position:"Query" name:"MinAmount"`
-	SpotPriceLimit                requests.Float                  `position:"Query" name:"SpotPriceLimit"`
-	DeletionProtection            requests.Boolean                `position:"Query" name:"DeletionProtection"`
-	ResourceGroupId               string                          `position:"Query" name:"ResourceGroupId"`
-	HostName                      string                          `position:"Query" name:"HostName"`
-	Password                      string                          `position:"Query" name:"Password"`
-	Tag                           *[]RunInstancesTag              `position:"Query" name:"Tag"  type:"Repeated"`
-	AutoRenewPeriod               requests.Integer                `position:"Query" name:"AutoRenewPeriod"`
-	Period                        requests.Integer                `position:"Query" name:"Period"`
-	DryRun                        requests.Boolean                `position:"Query" name:"DryRun"`
-	LaunchTemplateId              string                          `position:"Query" name:"LaunchTemplateId"`
-	Ipv6AddressCount              requests.Integer                `position:"Query" name:"Ipv6AddressCount"`
-	OwnerId                       requests.Integer                `position:"Query" name:"OwnerId"`
-	CapacityReservationPreference string                          `position:"Query" name:"CapacityReservationPreference"`
-	VSwitchId                     string                          `position:"Query" name:"VSwitchId"`
-	SpotStrategy                  string                          `position:"Query" name:"SpotStrategy"`
-	PrivateIpAddress              string                          `position:"Query" name:"PrivateIpAddress"`
-	PeriodUnit                    string                          `position:"Query" name:"PeriodUnit"`
-	InstanceName                  string                          `position:"Query" name:"InstanceName"`
-	AutoRenew                     requests.Boolean                `position:"Query" name:"AutoRenew"`
-	InternetChargeType            string                          `position:"Query" name:"InternetChargeType"`
-	ZoneId                        string                          `position:"Query" name:"ZoneId"`
-	Ipv6Address                   *[]string                       `position:"Query" name:"Ipv6Address"  type:"Repeated"`
-	InternetMaxBandwidthIn        requests.Integer                `position:"Query" name:"InternetMaxBandwidthIn"`
-	Affinity                      string                          `position:"Query" name:"Affinity"`
-	ImageId                       string                          `position:"Query" name:"ImageId"`
-	SpotInterruptionBehavior      string                          `position:"Query" name:"SpotInterruptionBehavior"`
-	ClientToken                   string                          `position:"Query" name:"ClientToken"`
-	IoOptimized                   string                          `position:"Query" name:"IoOptimized"`
-	SecurityGroupId               string                          `position:"Query" name:"SecurityGroupId"`
-	InternetMaxBandwidthOut       requests.Integer                `position:"Query" name:"InternetMaxBandwidthOut"`
-	Description                   string                          `position:"Query" name:"Description"`
-	SystemDiskCategory            string                          `position:"Query" name:"SystemDisk.Category"`
-	CapacityReservationId         string                          `position:"Query" name:"CapacityReservationId"`
-	UserData                      string                          `position:"Query" name:"UserData"`
-	PasswordInherit               requests.Boolean                `position:"Query" name:"PasswordInherit"`
-	InstanceType                  string                          `position:"Query" name:"InstanceType"`
-	HibernationConfigured         requests.Boolean                `position:"Query" name:"HibernationConfigured"`
-	InstanceChargeType            string                          `position:"Query" name:"InstanceChargeType"`
-	NetworkInterface              *[]RunInstancesNetworkInterface `position:"Query" name:"NetworkInterface"  type:"Repeated"`
-	DeploymentSetId               string                          `position:"Query" name:"DeploymentSetId"`
-	Amount                        requests.Integer                `position:"Query" name:"Amount"`
-	ResourceOwnerAccount          string                          `position:"Query" name:"ResourceOwnerAccount"`
-	OwnerAccount                  string                          `position:"Query" name:"OwnerAccount"`
-	Tenancy                       string                          `position:"Query" name:"Tenancy"`
-	SystemDiskDiskName            string                          `position:"Query" name:"SystemDisk.DiskName"`
-	RamRoleName                   string                          `position:"Query" name:"RamRoleName"`
-	AutoReleaseTime               string                          `position:"Query" name:"AutoReleaseTime"`
-	DedicatedHostId               string                          `position:"Query" name:"DedicatedHostId"`
-	CreditSpecification           string                          `position:"Query" name:"CreditSpecification"`
-	SecurityGroupIds              *[]string                       `position:"Query" name:"SecurityGroupIds"  type:"Repeated"`
-	DataDisk                      *[]RunInstancesDataDisk         `position:"Query" name:"DataDisk"  type:"Repeated"`
-	LaunchTemplateVersion         requests.Integer                `position:"Query" name:"LaunchTemplateVersion"`
-	SystemDiskSize                string                          `position:"Query" name:"SystemDisk.Size"`
-	SystemDiskDescription         string                          `position:"Query" name:"SystemDisk.Description"`
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 }
 
 // RunInstancesTag is a repeated param struct in RunInstancesRequest
@@ -258,13 +182,6 @@ type RunInstancesNetworkInterface struct {
 
 // RunInstancesDataDisk is a repeated param struct in RunInstancesRequest
 type RunInstancesDataDisk struct {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	PerformanceLevel     string `name:"PerformanceLevel"`
 	AutoSnapshotPolicyId string `name:"AutoSnapshotPolicyId"`
 	Encrypted            string `name:"Encrypted"`
@@ -277,23 +194,6 @@ type RunInstancesDataDisk struct {
 	EncryptAlgorithm     string `name:"EncryptAlgorithm"`
 	DeleteWithInstance   string `name:"DeleteWithInstance"`
 	KMSKeyId             string `name:"KMSKeyId"`
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-	Size               string `name:"Size"`
-	SnapshotId         string `name:"SnapshotId"`
-	Category           string `name:"Category"`
-	Encrypted          string `name:"Encrypted"`
-	KMSKeyId           string `name:"KMSKeyId"`
-	DiskName           string `name:"DiskName"`
-	Description        string `name:"Description"`
-	Device             string `name:"Device"`
-	DeleteWithInstance string `name:"DeleteWithInstance"`
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 }
 
 // RunInstancesResponse is the response struct for api RunInstances

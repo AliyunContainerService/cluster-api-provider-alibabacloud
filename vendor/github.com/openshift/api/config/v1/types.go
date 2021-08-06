@@ -17,21 +17,8 @@ type ConfigMapFileReference struct {
 // The namespace must be specified at the point of use.
 type ConfigMapNameReference struct {
 	// name is the metadata.name of the referenced config map
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// +kubebuilder:validation:Required
 	// +required
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
-	// +kubebuilder:validation:Required
-	// +required
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	// +kubebuilder:validation:Required
-	// +required
->>>>>>> 03397665 (update api)
 	Name string `json:"name"`
 }
 
@@ -39,21 +26,8 @@ type ConfigMapNameReference struct {
 // The namespace must be specified at the point of use.
 type SecretNameReference struct {
 	// name is the metadata.name of the referenced secret
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// +kubebuilder:validation:Required
 	// +required
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
-	// +kubebuilder:validation:Required
-	// +required
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	// +kubebuilder:validation:Required
-	// +required
->>>>>>> 03397665 (update api)
 	Name string `json:"name"`
 }
 
@@ -193,18 +167,7 @@ type AdmissionPluginConfig struct {
 	// Configuration is an embedded configuration object to be used as the plugin's
 	// configuration. If present, it will be used instead of the path to the configuration file.
 	// +nullable
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// +kubebuilder:pruning:PreserveUnknownFields
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
-	// +kubebuilder:pruning:PreserveUnknownFields
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	// +kubebuilder:pruning:PreserveUnknownFields
->>>>>>> 03397665 (update api)
 	Configuration runtime.RawExtension `json:"configuration"`
 }
 
@@ -248,18 +211,7 @@ type AuditConfig struct {
 	// as the audit policy configuration. If present, it will be used instead of
 	// the path to the policy file.
 	// +nullable
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// +kubebuilder:pruning:PreserveUnknownFields
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
-	// +kubebuilder:pruning:PreserveUnknownFields
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	// +kubebuilder:pruning:PreserveUnknownFields
->>>>>>> 03397665 (update api)
 	PolicyConfiguration runtime.RawExtension `json:"policyConfiguration"`
 
 	// Format of saved audits (legacy or json).

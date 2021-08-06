@@ -114,13 +114,6 @@ func negotiateProtocol(clientProtocols, serverProtocols []string) string {
 	return ""
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 func commaSeparatedHeaderValues(header []string) []string {
 	var parsedClientProtocols []string
 	for i := range header {
@@ -133,14 +126,6 @@ func commaSeparatedHeaderValues(header []string) []string {
 	return parsedClientProtocols
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 // Handshake performs a subprotocol negotiation. If the client did request a
 // subprotocol, Handshake will select the first common value found in
 // serverProtocols. If a match is found, Handshake adds a response header
@@ -148,11 +133,6 @@ func commaSeparatedHeaderValues(header []string) []string {
 // returned, along with a response header containing the list of protocols the
 // server can accept.
 func Handshake(req *http.Request, w http.ResponseWriter, serverProtocols []string) (string, error) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 03397665 (update api)
 	clientProtocols := commaSeparatedHeaderValues(req.Header[http.CanonicalHeaderKey(HeaderProtocolVersion)])
 	if len(clientProtocols) == 0 {
 		return "", fmt.Errorf("unable to upgrade: %s is required", HeaderProtocolVersion)
@@ -160,27 +140,6 @@ func Handshake(req *http.Request, w http.ResponseWriter, serverProtocols []strin
 
 	if len(serverProtocols) == 0 {
 		panic(fmt.Errorf("unable to upgrade: serverProtocols is required"))
-<<<<<<< HEAD
-=======
-	clientProtocols := req.Header[http.CanonicalHeaderKey(HeaderProtocolVersion)]
-=======
-	clientProtocols := commaSeparatedHeaderValues(req.Header[http.CanonicalHeaderKey(HeaderProtocolVersion)])
->>>>>>> e879a141 (alibabacloud machine-api provider)
-	if len(clientProtocols) == 0 {
-		return "", fmt.Errorf("unable to upgrade: %s is required", HeaderProtocolVersion)
-	}
-
-	if len(serverProtocols) == 0 {
-<<<<<<< HEAD
-		// Kube 1.0 servers didn't support subprotocol negotiation. This is mainly for testing.
-		// TODO require serverProtocols once Kube 1.0 is no longer supported
-		return "", nil
->>>>>>> 79bfea2d (update vendor)
-=======
-		panic(fmt.Errorf("unable to upgrade: serverProtocols is required"))
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	}
 
 	negotiatedProtocol := negotiateProtocol(clientProtocols, serverProtocols)

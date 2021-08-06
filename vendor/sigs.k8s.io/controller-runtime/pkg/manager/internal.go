@@ -86,13 +86,6 @@ type controllerManager struct {
 	// metricsListener is used to serve prometheus metrics
 	metricsListener net.Listener
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	// metricsExtraHandlers contains extra handlers to register on http server that serves metrics.
 	metricsExtraHandlers map[string]http.Handler
 
@@ -104,50 +97,6 @@ type controllerManager struct {
 
 	// Liveness probe endpoint name
 	livenessEndpointName string
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-	// Readyz probe handler
-	readyzHandler *healthz.Handler
-=======
-	mu            sync.Mutex
-	started       bool
-	startedLeader bool
-	errChan       chan error
->>>>>>> 79bfea2d (update vendor)
-=======
-
-	// Readyz probe handler
-	readyzHandler *healthz.Handler
->>>>>>> 03397665 (update api)
-
-	// Healthz probe handler
-	healthzHandler *healthz.Handler
-
-	mu             sync.Mutex
-	started        bool
-	startedLeader  bool
-	healthzStarted bool
-	errChan        chan error
-
-	// controllerOptions are the global controller options.
-	controllerOptions v1alpha1.ControllerConfigurationSpec
-
-	// Logger is the logger that should be used by this manager.
-	// If none is set, it defaults to log.Log global logger.
-	logger logr.Logger
-
-	// leaderElectionCancel is used to cancel the leader election. It is distinct from internalStopper,
-	// because for safety reasons we need to os.Exit() when we lose the leader election, meaning that
-	// it must be deferred until after gracefulShutdown is done.
-	leaderElectionCancel context.CancelFunc
-
-	// leaderElectionStopped is an internal channel used to signal the stopping procedure that the
-	// LeaderElection.Run(...) function has returned and the shutdown can proceed.
-	leaderElectionStopped chan struct{}
-
-<<<<<<< HEAD
-=======
 
 	// Readyz probe handler
 	readyzHandler *healthz.Handler
@@ -177,9 +126,6 @@ type controllerManager struct {
 	// LeaderElection.Run(...) function has returned and the shutdown can proceed.
 	leaderElectionStopped chan struct{}
 
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	// stop procedure engaged. In other words, we should not add anything else to the manager
 	stopProcedureEngaged bool
 
@@ -343,27 +289,12 @@ func (cm *controllerManager) AddReadyzCheck(name string, check healthz.Checker) 
 
 	if cm.stopProcedureEngaged {
 		return errors.New("can't accept new ready check as stop procedure is already engaged")
-<<<<<<< HEAD
-<<<<<<< HEAD
 	}
 
 	if cm.healthzStarted {
 		return fmt.Errorf("unable to add new checker because readyz endpoint has already been created")
 	}
 
-=======
-=======
->>>>>>> 03397665 (update api)
-	}
-
-	if cm.healthzStarted {
-		return fmt.Errorf("unable to add new checker because readyz endpoint has already been created")
-	}
-
-<<<<<<< HEAD
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	if cm.readyzHandler == nil {
 		cm.readyzHandler = &healthz.Handler{Checks: map[string]healthz.Checker{}}
 	}
@@ -420,13 +351,6 @@ func (cm *controllerManager) GetWebhookServer() *webhook.Server {
 	return cm.webhookServer
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 func (cm *controllerManager) GetLogger() logr.Logger {
 	return cm.logger
 }
@@ -436,28 +360,11 @@ func (cm *controllerManager) GetControllerOptions() v1alpha1.ControllerConfigura
 }
 
 func (cm *controllerManager) serveMetrics() {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-func (cm *controllerManager) serveMetrics(stop <-chan struct{}) {
-	var metricsPath = "/metrics"
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	handler := promhttp.HandlerFor(metrics.Registry, promhttp.HandlerOpts{
 		ErrorHandling: promhttp.HTTPErrorOnError,
 	})
 	// TODO(JoelSpeed): Use existing Kubernetes machinery for serving metrics
 	mux := http.NewServeMux()
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	mux.Handle(defaultMetricsEndpoint, handler)
 
 	func() {
@@ -469,36 +376,12 @@ func (cm *controllerManager) serveMetrics(stop <-chan struct{}) {
 		}
 	}()
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-	mux.Handle(metricsPath, handler)
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	server := http.Server{
 		Handler: mux,
 	}
 	// Run the server
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	cm.startRunnable(RunnableFunc(func(_ context.Context) error {
 		cm.logger.Info("starting metrics server", "path", defaultMetricsEndpoint)
-=======
-	go func() {
-		log.Info("starting metrics server", "path", metricsPath)
->>>>>>> 79bfea2d (update vendor)
-=======
-	cm.startRunnable(RunnableFunc(func(_ context.Context) error {
-		cm.logger.Info("starting metrics server", "path", defaultMetricsEndpoint)
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	cm.startRunnable(RunnableFunc(func(_ context.Context) error {
-		cm.logger.Info("starting metrics server", "path", defaultMetricsEndpoint)
->>>>>>> 03397665 (update api)
 		if err := server.Serve(cm.metricsListener); err != nil && err != http.ErrServerClosed {
 			return err
 		}
@@ -526,27 +409,12 @@ func (cm *controllerManager) serveHealthProbes() {
 			mux.Handle(cm.readinessEndpointName, http.StripPrefix(cm.readinessEndpointName, cm.readyzHandler))
 			// Append '/' suffix to handle subpaths
 			mux.Handle(cm.readinessEndpointName+"/", http.StripPrefix(cm.readinessEndpointName, cm.readyzHandler))
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 03397665 (update api)
 		}
 		if cm.healthzHandler != nil {
 			mux.Handle(cm.livenessEndpointName, http.StripPrefix(cm.livenessEndpointName, cm.healthzHandler))
 			// Append '/' suffix to handle subpaths
 			mux.Handle(cm.livenessEndpointName+"/", http.StripPrefix(cm.livenessEndpointName, cm.healthzHandler))
 		}
-<<<<<<< HEAD
-=======
-		}
-		if cm.healthzHandler != nil {
-			mux.Handle(cm.livenessEndpointName, http.StripPrefix(cm.livenessEndpointName, cm.healthzHandler))
-			// Append '/' suffix to handle subpaths
-			mux.Handle(cm.livenessEndpointName+"/", http.StripPrefix(cm.livenessEndpointName, cm.healthzHandler))
-		}
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 
 		// Run server
 		cm.startRunnable(RunnableFunc(func(_ context.Context) error {
@@ -672,13 +540,6 @@ func (cm *controllerManager) engageStopProcedure(stopComplete <-chan struct{}) e
 	defer cm.mu.Unlock()
 	cm.stopProcedureEngaged = true
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	// we want to close this after the other runnables stop, because we don't
 	// want things like leader election to try and emit events on a closed
 	// channel
@@ -731,15 +592,6 @@ func (cm *controllerManager) startNonLeaderElectionRunnables() {
 
 	// Start and wait for caches.
 	cm.waitForCache(cm.internalCtx)
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-	cm.waitForCache()
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 
 	// Start the non-leaderelection Runnables after the cache has synced
 	for _, c := range cm.nonLeaderElectionRunnables {
@@ -757,19 +609,7 @@ func (cm *controllerManager) startLeaderElectionRunnables() {
 	cm.mu.Lock()
 	defer cm.mu.Unlock()
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	cm.waitForCache(cm.internalCtx)
-=======
-	cm.waitForCache()
->>>>>>> 79bfea2d (update vendor)
-=======
-	cm.waitForCache(cm.internalCtx)
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	cm.waitForCache(cm.internalCtx)
->>>>>>> 03397665 (update api)
 
 	// Start the leader election Runnables after the cache has synced
 	for _, c := range cm.leaderElectionRunnables {
@@ -781,28 +621,11 @@ func (cm *controllerManager) startLeaderElectionRunnables() {
 	cm.startedLeader = true
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 func (cm *controllerManager) waitForCache(ctx context.Context) {
-=======
-func (cm *controllerManager) waitForCache() {
->>>>>>> 79bfea2d (update vendor)
-=======
-func (cm *controllerManager) waitForCache(ctx context.Context) {
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-func (cm *controllerManager) waitForCache(ctx context.Context) {
->>>>>>> 03397665 (update api)
 	if cm.started {
 		return
 	}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 03397665 (update api)
 	for _, cache := range cm.caches {
 		cm.startRunnable(cache)
 	}
@@ -816,33 +639,6 @@ func (cm *controllerManager) waitForCache(ctx context.Context) {
 	// cm.started as check if we already started the cache so it must always become true.
 	// Making sure that the cache doesn't get started twice is needed to not get a "close
 	// of closed channel" panic
-<<<<<<< HEAD
-=======
-	// Start the Cache. Allow the function to start the cache to be mocked out for testing
-	if cm.startCache == nil {
-		cm.startCache = cm.cache.Start
-=======
-	for _, cache := range cm.caches {
-		cm.startRunnable(cache)
->>>>>>> e879a141 (alibabacloud machine-api provider)
-	}
-
-	// Wait for the caches to sync.
-	// TODO(community): Check the return value and write a test
-<<<<<<< HEAD
-	cm.cache.WaitForCacheSync(cm.internalStop)
->>>>>>> 79bfea2d (update vendor)
-=======
-	for _, cache := range cm.caches {
-		cache.GetCache().WaitForCacheSync(ctx)
-	}
-	// TODO: This should be the return value of cm.cache.WaitForCacheSync but we abuse
-	// cm.started as check if we already started the cache so it must always become true.
-	// Making sure that the cache doesn't get started twice is needed to not get a "close
-	// of closed channel" panic
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	cm.started = true
 }
 
@@ -887,23 +683,6 @@ func (cm *controllerManager) startLeaderElection() (err error) {
 		<-ctx.Done()
 		close(cm.leaderElectionStopped)
 	}()
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-	// Start the leader elector process
-<<<<<<< HEAD
-	go func() {
-		l.Run(ctx)
-		<-ctx.Done()
-		close(cm.leaderElectionStopped)
-	}()
-=======
-	go l.Run(ctx)
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	return nil
 }
 

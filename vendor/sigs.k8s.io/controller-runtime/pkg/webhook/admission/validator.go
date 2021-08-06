@@ -96,30 +96,6 @@ func (h *validatingHandler) Handle(ctx context.Context, req Request) Response {
 			if goerrors.As(err, &apiStatus) {
 				return validationResponseFromStatus(false, apiStatus.Status())
 			}
-<<<<<<< HEAD
-<<<<<<< HEAD
-			return Denied(err.Error())
-		}
-	}
-
-	if req.Operation == v1.Delete {
-		// In reference to PR: https://github.com/kubernetes/kubernetes/pull/76346
-		// OldObject contains the object being deleted
-		err := h.decoder.DecodeRaw(req.OldObject, obj)
-		if err != nil {
-			return Errored(http.StatusBadRequest, err)
-		}
-
-		err = obj.ValidateDelete()
-		if err != nil {
-			var apiStatus errors.APIStatus
-			if goerrors.As(err, &apiStatus) {
-				return validationResponseFromStatus(false, apiStatus.Status())
-			}
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 			return Denied(err.Error())
 		}
 	}

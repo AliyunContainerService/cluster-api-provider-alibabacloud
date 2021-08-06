@@ -4,25 +4,9 @@
 
 //go:build (darwin || dragonfly || freebsd || linux || netbsd || openbsd || solaris) && gc && !ppc64le && !ppc64
 // +build darwin dragonfly freebsd linux netbsd openbsd solaris
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 // +build gc
 // +build !ppc64le
 // +build !ppc64
-=======
-// +build !gccgo
->>>>>>> 79bfea2d (update vendor)
-=======
-// +build gc
-// +build !ppc64le
-// +build !ppc64
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-// +build gc
-// +build !ppc64le
-// +build !ppc64
->>>>>>> 03397665 (update api)
 
 package unix
 

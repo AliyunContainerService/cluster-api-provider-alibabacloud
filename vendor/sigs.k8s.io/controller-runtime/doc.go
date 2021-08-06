@@ -82,28 +82,11 @@ limitations under the License.
 // and writes directly to the API server, but clients can be constructed that
 // only talk to the API server, without a cache.  The Cache will auto-populate
 // with watched objects, as well as when other structured objects are
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 // requested. The default split client does not promise to invalidate the cache
 // during writes (nor does it promise sequential create/get coherence), and code
 // should not assume a get immediately following a create/update will return
 // the updated resource. Caches may also have indexes, which can be created via
 // a FieldIndexer (pkg/client) obtained from the manager.  Indexes can used to
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-// requested.  Caches may also have indexes, which can be created via a
-// FieldIndexer (pkg/client) obtained from the manager.  Indexes can used to
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 // quickly and easily look up all objects with certain fields set.  Reconcilers
 // may retrieve event recorders (pkg/recorder) to emit events using the
 // manager.

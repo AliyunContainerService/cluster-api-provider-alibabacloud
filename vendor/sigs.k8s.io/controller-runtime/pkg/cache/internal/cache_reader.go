@@ -94,19 +94,7 @@ func (c *CacheReader) Get(_ context.Context, key client.ObjectKey, out client.Ob
 }
 
 // List lists items out of the indexer and writes them to out
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 func (c *CacheReader) List(_ context.Context, out client.ObjectList, opts ...client.ListOption) error {
-=======
-func (c *CacheReader) List(_ context.Context, out runtime.Object, opts ...client.ListOption) error {
->>>>>>> 79bfea2d (update vendor)
-=======
-func (c *CacheReader) List(_ context.Context, out client.ObjectList, opts ...client.ListOption) error {
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-func (c *CacheReader) List(_ context.Context, out client.ObjectList, opts ...client.ListOption) error {
->>>>>>> 03397665 (update api)
 	var objs []interface{}
 	var err error
 

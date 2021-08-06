@@ -24,18 +24,7 @@ import (
 	"net/http"
 	"strings"
 	"sync/atomic"
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	"time"
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
-	"time"
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	"time"
->>>>>>> 03397665 (update api)
 
 	"k8s.io/apimachinery/pkg/util/httpstream"
 	"k8s.io/apimachinery/pkg/util/runtime"
@@ -46,18 +35,7 @@ const HeaderSpdy31 = "SPDY/3.1"
 // responseUpgrader knows how to upgrade HTTP responses. It
 // implements the httpstream.ResponseUpgrader interface.
 type responseUpgrader struct {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	pingPeriod time.Duration
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
-	pingPeriod time.Duration
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	pingPeriod time.Duration
->>>>>>> 03397665 (update api)
 }
 
 // connWrapper is used to wrap a hijacked connection and its bufio.Reader. All
@@ -88,13 +66,6 @@ func (w *connWrapper) Close() error {
 // capable of upgrading HTTP responses using SPDY/3.1 via the
 // spdystream package.
 func NewResponseUpgrader() httpstream.ResponseUpgrader {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	return NewResponseUpgraderWithPings(0)
 }
 
@@ -107,15 +78,6 @@ func NewResponseUpgrader() httpstream.ResponseUpgrader {
 // idle connections through certain load balancers alive longer.
 func NewResponseUpgraderWithPings(pingPeriod time.Duration) httpstream.ResponseUpgrader {
 	return responseUpgrader{pingPeriod: pingPeriod}
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-	return responseUpgrader{}
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 }
 
 // UpgradeResponse upgrades an HTTP response to one that supports multiplexed
@@ -148,19 +110,7 @@ func (u responseUpgrader) UpgradeResponse(w http.ResponseWriter, req *http.Reque
 	}
 
 	connWithBuf := &connWrapper{Conn: conn, bufReader: bufrw.Reader}
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	spdyConn, err := NewServerConnectionWithPings(connWithBuf, newStreamHandler, u.pingPeriod)
-=======
-	spdyConn, err := NewServerConnection(connWithBuf, newStreamHandler)
->>>>>>> 79bfea2d (update vendor)
-=======
-	spdyConn, err := NewServerConnectionWithPings(connWithBuf, newStreamHandler, u.pingPeriod)
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	spdyConn, err := NewServerConnectionWithPings(connWithBuf, newStreamHandler, u.pingPeriod)
->>>>>>> 03397665 (update api)
 	if err != nil {
 		runtime.HandleError(fmt.Errorf("unable to upgrade: error creating SPDY server connection: %v", err))
 		return nil

@@ -1,13 +1,5 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 // untested sections: 1
 
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
-// untested sections: 1
-
->>>>>>> 737a8f1c (add more test case)
 package gbytes
 
 import (
@@ -29,15 +21,7 @@ Say is a Gomega matcher that operates on gbytes.Buffers:
 
 will succeed if the unread portion of the buffer matches the regular expression "something".
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 When Say succeeds, it fast forwards the gbytes.Buffer's read cursor to just after the successful match.
-=======
-When Say succeeds, it fast forwards the gbytes.Buffer's read cursor to just after the succesful match.
->>>>>>> 79bfea2d (update vendor)
-=======
-When Say succeeds, it fast forwards the gbytes.Buffer's read cursor to just after the successful match.
->>>>>>> 737a8f1c (add more test case)
 Thus, subsequent calls to Say will only match against the unread portion of the buffer
 
 Say pairs very well with Eventually.  To assert that a buffer eventually receives data matching "[123]-star" within 3 seconds you can:

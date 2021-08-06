@@ -17,44 +17,16 @@ package main
 // This file contains the model construction by parsing source files.
 
 import (
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	"errors"
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
-	"errors"
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	"errors"
->>>>>>> 03397665 (update api)
 	"flag"
 	"fmt"
 	"go/ast"
 	"go/build"
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	"go/importer"
 	"go/parser"
 	"go/token"
 	"go/types"
 	"io/ioutil"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-	"go/parser"
-	"go/token"
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	"log"
 	"path"
 	"path/filepath"
@@ -69,52 +41,17 @@ var (
 	auxFiles = flag.String("aux_files", "", "(source mode) Comma-separated pkg=path pairs of auxiliary Go source files.")
 )
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 // sourceMode generates mocks via source file.
 func sourceMode(source string) (*model.Package, error) {
-=======
-// TODO: simplify error reporting
-
-func ParseFile(source string) (*model.Package, error) {
->>>>>>> 79bfea2d (update vendor)
-=======
-// sourceMode generates mocks via source file.
-func sourceMode(source string) (*model.Package, error) {
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-// sourceMode generates mocks via source file.
-func sourceMode(source string) (*model.Package, error) {
->>>>>>> 03397665 (update api)
 	srcDir, err := filepath.Abs(filepath.Dir(source))
 	if err != nil {
 		return nil, fmt.Errorf("failed getting source directory: %v", err)
 	}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	packageImport, err := parsePackageImport(srcDir)
 	if err != nil {
 		return nil, err
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-	var packageImport string
-	if p, err := build.ImportDir(srcDir, 0); err == nil {
-		packageImport = p.ImportPath
-	} // TODO: should we fail if this returns an error?
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 
 	fs := token.NewFileSet()
 	file, err := parser.ParseFile(fs, source, nil, 0)
@@ -124,19 +61,7 @@ func sourceMode(source string) (*model.Package, error) {
 
 	p := &fileParser{
 		fileSet:            fs,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 		imports:            make(map[string]importedPackage),
-=======
-		imports:            make(map[string]string),
->>>>>>> 79bfea2d (update vendor)
-=======
-		imports:            make(map[string]importedPackage),
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-		imports:            make(map[string]importedPackage),
->>>>>>> 03397665 (update api)
 		importedInterfaces: make(map[string]map[string]*ast.InterfaceType),
 		auxInterfaces:      make(map[string]map[string]*ast.InterfaceType),
 		srcDir:             srcDir,
@@ -149,29 +74,9 @@ func sourceMode(source string) (*model.Package, error) {
 			eq := strings.Index(kv, "=")
 			k, v := kv[:eq], kv[eq+1:]
 			if k == "." {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 				dotImports[v] = true
 			} else {
 				p.imports[k] = importedPkg{path: v}
-=======
-				// TODO: Catch dupes?
-				dotImports[v] = true
-			} else {
-				// TODO: Catch dupes?
-				p.imports[k] = v
->>>>>>> 79bfea2d (update vendor)
-=======
-				dotImports[v] = true
-			} else {
-				p.imports[k] = importedPkg{path: v}
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-				dotImports[v] = true
-			} else {
-				p.imports[k] = importedPkg{path: v}
->>>>>>> 03397665 (update api)
 			}
 		}
 	}
@@ -186,35 +91,12 @@ func sourceMode(source string) (*model.Package, error) {
 	if err != nil {
 		return nil, err
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	for pkgPath := range dotImports {
 		pkg.DotImports = append(pkg.DotImports, pkgPath)
-=======
-	pkg.DotImports = make([]string, 0, len(dotImports))
-	for path := range dotImports {
-		pkg.DotImports = append(pkg.DotImports, path)
->>>>>>> 79bfea2d (update vendor)
-=======
-	for pkgPath := range dotImports {
-		pkg.DotImports = append(pkg.DotImports, pkgPath)
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	for pkgPath := range dotImports {
-		pkg.DotImports = append(pkg.DotImports, pkgPath)
->>>>>>> 03397665 (update api)
 	}
 	return pkg, nil
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 type importedPackage interface {
 	Path() string
 	Parser() *fileParser
@@ -245,26 +127,9 @@ func (d duplicateImport) Error() string {
 func (d duplicateImport) Path() string        { log.Fatal(d.Error()); return "" }
 func (d duplicateImport) Parser() *fileParser { log.Fatal(d.Error()); return nil }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 type fileParser struct {
 	fileSet            *token.FileSet
 	imports            map[string]importedPackage               // package name => imported package
-=======
-type fileParser struct {
-	fileSet            *token.FileSet
-	imports            map[string]string                        // package name => import path
->>>>>>> 79bfea2d (update vendor)
-=======
-type fileParser struct {
-	fileSet            *token.FileSet
-	imports            map[string]importedPackage               // package name => imported package
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-type fileParser struct {
-	fileSet            *token.FileSet
-	imports            map[string]importedPackage               // package name => imported package
->>>>>>> 03397665 (update api)
 	importedInterfaces map[string]map[string]*ast.InterfaceType // package (or "") => name => interface
 
 	auxFiles      []*ast.File
@@ -314,63 +179,20 @@ func (p *fileParser) addAuxInterfacesFromFile(pkg string, file *ast.File) {
 // parseFile loads all file imports and auxiliary files import into the
 // fileParser, parses all file interfaces and returns package model.
 func (p *fileParser) parseFile(importPath string, file *ast.File) (*model.Package, error) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	allImports, dotImports := importsOfFile(file)
 	// Don't stomp imports provided by -imports. Those should take precedence.
 	for pkg, pkgI := range allImports {
 		if _, ok := p.imports[pkg]; !ok {
 			p.imports[pkg] = pkgI
-=======
-	allImports := importsOfFile(file)
-=======
-	allImports, dotImports := importsOfFile(file)
->>>>>>> e879a141 (alibabacloud machine-api provider)
-	// Don't stomp imports provided by -imports. Those should take precedence.
-	for pkg, pkgI := range allImports {
-		if _, ok := p.imports[pkg]; !ok {
-<<<<<<< HEAD
-			p.imports[pkg] = path
->>>>>>> 79bfea2d (update vendor)
-=======
-			p.imports[pkg] = pkgI
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	allImports, dotImports := importsOfFile(file)
-	// Don't stomp imports provided by -imports. Those should take precedence.
-	for pkg, pkgI := range allImports {
-		if _, ok := p.imports[pkg]; !ok {
-			p.imports[pkg] = pkgI
->>>>>>> 03397665 (update api)
 		}
 	}
 	// Add imports from auxiliary files, which might be needed for embedded interfaces.
 	// Don't stomp any other imports.
 	for _, f := range p.auxFiles {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 03397665 (update api)
 		auxImports, _ := importsOfFile(f)
 		for pkg, pkgI := range auxImports {
 			if _, ok := p.imports[pkg]; !ok {
 				p.imports[pkg] = pkgI
-<<<<<<< HEAD
-=======
-		for pkg, path := range importsOfFile(f) {
-			if _, ok := p.imports[pkg]; !ok {
-				p.imports[pkg] = path
->>>>>>> 79bfea2d (update vendor)
-=======
-		auxImports, _ := importsOfFile(f)
-		for pkg, pkgI := range auxImports {
-			if _, ok := p.imports[pkg]; !ok {
-				p.imports[pkg] = pkgI
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 			}
 		}
 	}
@@ -385,9 +207,6 @@ func (p *fileParser) parseFile(importPath string, file *ast.File) (*model.Packag
 	}
 	return &model.Package{
 		Name:       file.Name.String(),
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 		PkgPath:    importPath,
 		Interfaces: is,
 		DotImports: dotImports,
@@ -430,80 +249,11 @@ func (p *fileParser) parsePackage(path string) (*fileParser, error) {
 
 func (p *fileParser) parseInterface(name, pkg string, it *ast.InterfaceType) (*model.Interface, error) {
 	iface := &model.Interface{Name: name}
-=======
-=======
-		PkgPath:    importPath,
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-		PkgPath:    importPath,
->>>>>>> 03397665 (update api)
-		Interfaces: is,
-		DotImports: dotImports,
-	}, nil
-}
-
-// parsePackage loads package specified by path, parses it and returns
-// a new fileParser with the parsed imports and interfaces.
-func (p *fileParser) parsePackage(path string) (*fileParser, error) {
-	newP := &fileParser{
-		fileSet:            token.NewFileSet(),
-		imports:            make(map[string]importedPackage),
-		importedInterfaces: make(map[string]map[string]*ast.InterfaceType),
-		auxInterfaces:      make(map[string]map[string]*ast.InterfaceType),
-		srcDir:             p.srcDir,
-	}
-
-	var pkgs map[string]*ast.Package
-	if imp, err := build.Import(path, newP.srcDir, build.FindOnly); err != nil {
-		return nil, err
-	} else if pkgs, err = parser.ParseDir(newP.fileSet, imp.Dir, nil, 0); err != nil {
-		return nil, err
-	}
-
-	for _, pkg := range pkgs {
-		file := ast.MergePackageFiles(pkg, ast.FilterFuncDuplicates|ast.FilterUnassociatedComments|ast.FilterImportDuplicates)
-		if _, ok := newP.importedInterfaces[path]; !ok {
-			newP.importedInterfaces[path] = make(map[string]*ast.InterfaceType)
-		}
-		for ni := range iterInterfaces(file) {
-			newP.importedInterfaces[path][ni.name.Name] = ni.it
-		}
-		imports, _ := importsOfFile(file)
-		for pkgName, pkgI := range imports {
-			newP.imports[pkgName] = pkgI
-		}
-	}
-	return newP, nil
-}
-
-func (p *fileParser) parseInterface(name, pkg string, it *ast.InterfaceType) (*model.Interface, error) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-	intf := &model.Interface{Name: name}
->>>>>>> 79bfea2d (update vendor)
-=======
-	iface := &model.Interface{Name: name}
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	iface := &model.Interface{Name: name}
->>>>>>> 03397665 (update api)
 	for _, field := range it.Methods.List {
 		switch v := field.Type.(type) {
 		case *ast.FuncType:
 			if nn := len(field.Names); nn != 1 {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 				return nil, fmt.Errorf("expected one name for interface %v, got %d", iface.Name, nn)
-=======
-				return nil, fmt.Errorf("expected one name for interface %v, got %d", intf.Name, nn)
->>>>>>> 79bfea2d (update vendor)
-=======
-				return nil, fmt.Errorf("expected one name for interface %v, got %d", iface.Name, nn)
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-				return nil, fmt.Errorf("expected one name for interface %v, got %d", iface.Name, nn)
->>>>>>> 03397665 (update api)
 			}
 			m := &model.Method{
 				Name: field.Names[0].String(),
@@ -513,9 +263,6 @@ func (p *fileParser) parseInterface(name, pkg string, it *ast.InterfaceType) (*m
 			if err != nil {
 				return nil, err
 			}
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 			iface.AddMethod(m)
 		case *ast.Ident:
 			// Embedded interface in this package.
@@ -585,122 +332,15 @@ func (p *fileParser) parseInterface(name, pkg string, it *ast.InterfaceType) (*m
 			// TODO: apply shadowing rules.
 			for _, m := range embeddedIface.Methods {
 				iface.AddMethod(m)
-=======
-			intf.Methods = append(intf.Methods, m)
-=======
-			iface.AddMethod(m)
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-			iface.AddMethod(m)
->>>>>>> 03397665 (update api)
-		case *ast.Ident:
-			// Embedded interface in this package.
-			embeddedIfaceType := p.auxInterfaces[pkg][v.String()]
-			if embeddedIfaceType == nil {
-				embeddedIfaceType = p.importedInterfaces[pkg][v.String()]
-			}
-
-			var embeddedIface *model.Interface
-			if embeddedIfaceType != nil {
-				var err error
-				embeddedIface, err = p.parseInterface(v.String(), pkg, embeddedIfaceType)
-				if err != nil {
-					return nil, err
-				}
-			} else {
-				// This is built-in error interface.
-				if v.String() == model.ErrorInterface.Name {
-					embeddedIface = &model.ErrorInterface
-				} else {
-					return nil, p.errorf(v.Pos(), "unknown embedded interface %s", v.String())
-				}
-			}
-			// Copy the methods.
-			for _, m := range embeddedIface.Methods {
-				iface.AddMethod(m)
-			}
-		case *ast.SelectorExpr:
-			// Embedded interface in another package.
-			filePkg, sel := v.X.(*ast.Ident).String(), v.Sel.String()
-			embeddedPkg, ok := p.imports[filePkg]
-			if !ok {
-				return nil, p.errorf(v.X.Pos(), "unknown package %s", filePkg)
-			}
-
-			var embeddedIface *model.Interface
-			var err error
-			embeddedIfaceType := p.auxInterfaces[filePkg][sel]
-			if embeddedIfaceType != nil {
-				embeddedIface, err = p.parseInterface(sel, filePkg, embeddedIfaceType)
-				if err != nil {
-					return nil, err
-				}
-			} else {
-				path := embeddedPkg.Path()
-				parser := embeddedPkg.Parser()
-				if parser == nil {
-					ip, err := p.parsePackage(path)
-					if err != nil {
-						return nil, p.errorf(v.Pos(), "could not parse package %s: %v", path, err)
-					}
-					parser = ip
-					p.imports[filePkg] = importedPkg{
-						path:   embeddedPkg.Path(),
-						parser: parser,
-					}
-				}
-				if embeddedIfaceType = parser.importedInterfaces[path][sel]; embeddedIfaceType == nil {
-					return nil, p.errorf(v.Pos(), "unknown embedded interface %s.%s", path, sel)
-				}
-				embeddedIface, err = parser.parseInterface(sel, path, embeddedIfaceType)
-				if err != nil {
-					return nil, err
-				}
-			}
-			// Copy the methods.
-			// TODO: apply shadowing rules.
-<<<<<<< HEAD
-<<<<<<< HEAD
-			for _, m := range eintf.Methods {
-				intf.Methods = append(intf.Methods, m)
->>>>>>> 79bfea2d (update vendor)
-=======
-			for _, m := range embeddedIface.Methods {
-				iface.AddMethod(m)
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-			for _, m := range embeddedIface.Methods {
-				iface.AddMethod(m)
->>>>>>> 03397665 (update api)
 			}
 		default:
 			return nil, fmt.Errorf("don't know how to mock method of type %T", field.Type)
 		}
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	return iface, nil
 }
 
 func (p *fileParser) parseFunc(pkg string, f *ast.FuncType) (inParam []*model.Parameter, variadic *model.Parameter, outParam []*model.Parameter, err error) {
-=======
-	return intf, nil
-}
-
-func (p *fileParser) parseFunc(pkg string, f *ast.FuncType) (in []*model.Parameter, variadic *model.Parameter, out []*model.Parameter, err error) {
->>>>>>> 79bfea2d (update vendor)
-=======
-=======
->>>>>>> 03397665 (update api)
-	return iface, nil
-}
-
-func (p *fileParser) parseFunc(pkg string, f *ast.FuncType) (inParam []*model.Parameter, variadic *model.Parameter, outParam []*model.Parameter, err error) {
-<<<<<<< HEAD
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	if f.Params != nil {
 		regParams := f.Params.List
 		if isVariadic(f) {
@@ -713,37 +353,13 @@ func (p *fileParser) parseFunc(pkg string, f *ast.FuncType) (inParam []*model.Pa
 			}
 			variadic = vp[0]
 		}
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 		inParam, err = p.parseFieldList(pkg, regParams)
-=======
-		in, err = p.parseFieldList(pkg, regParams)
->>>>>>> 79bfea2d (update vendor)
-=======
-		inParam, err = p.parseFieldList(pkg, regParams)
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-		inParam, err = p.parseFieldList(pkg, regParams)
->>>>>>> 03397665 (update api)
 		if err != nil {
 			return nil, nil, nil, p.errorf(f.Pos(), "failed parsing arguments: %v", err)
 		}
 	}
 	if f.Results != nil {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 		outParam, err = p.parseFieldList(pkg, f.Results.List)
-=======
-		out, err = p.parseFieldList(pkg, f.Results.List)
->>>>>>> 79bfea2d (update vendor)
-=======
-		outParam, err = p.parseFieldList(pkg, f.Results.List)
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-		outParam, err = p.parseFieldList(pkg, f.Results.List)
->>>>>>> 03397665 (update api)
 		if err != nil {
 			return nil, nil, nil, p.errorf(f.Pos(), "failed parsing returns: %v", err)
 		}
@@ -790,13 +406,6 @@ func (p *fileParser) parseType(pkg string, typ ast.Expr) (model.Type, error) {
 	case *ast.ArrayType:
 		ln := -1
 		if v.Len != nil {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 			var value string
 			switch val := v.Len.(type) {
 			case (*ast.BasicLit):
@@ -818,15 +427,6 @@ func (p *fileParser) parseType(pkg string, typ ast.Expr) (model.Type, error) {
 			}
 
 			x, err := strconv.Atoi(value)
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-			x, err := strconv.Atoi(v.Len.(*ast.BasicLit).Value)
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 			if err != nil {
 				return nil, p.errorf(v.Len.Pos(), "bad array size: %v", err)
 			}
@@ -865,9 +465,6 @@ func (p *fileParser) parseType(pkg string, typ ast.Expr) (model.Type, error) {
 			// if so, patch the import w/ the fully qualified import
 			maybeImportedPkg, ok := p.imports[pkg]
 			if ok {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 				pkg = maybeImportedPkg.Path()
 			}
 			// assume type in this package
@@ -876,31 +473,6 @@ func (p *fileParser) parseType(pkg string, typ ast.Expr) (model.Type, error) {
 
 		// assume predeclared type
 		return model.PredeclaredType(v.Name), nil
-=======
-				pkg = maybeImportedPkg
-=======
-				pkg = maybeImportedPkg.Path()
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-				pkg = maybeImportedPkg.Path()
->>>>>>> 03397665 (update api)
-			}
-			// assume type in this package
-			return &model.NamedType{Package: pkg, Type: v.Name}, nil
-		}
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 79bfea2d (update vendor)
-=======
-
-		// assume predeclared type
-		return model.PredeclaredType(v.Name), nil
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-
-		// assume predeclared type
-		return model.PredeclaredType(v.Name), nil
->>>>>>> 03397665 (update api)
 	case *ast.InterfaceType:
 		if v.Methods != nil && len(v.Methods.List) > 0 {
 			return nil, p.errorf(v.Pos(), "can't handle non-empty unnamed interface types")
@@ -922,19 +494,7 @@ func (p *fileParser) parseType(pkg string, typ ast.Expr) (model.Type, error) {
 		if !ok {
 			return nil, p.errorf(v.Pos(), "unknown package %q", pkgName)
 		}
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 		return &model.NamedType{Package: pkg.Path(), Type: v.Sel.String()}, nil
-=======
-		return &model.NamedType{Package: pkg, Type: v.Sel.String()}, nil
->>>>>>> 79bfea2d (update vendor)
-=======
-		return &model.NamedType{Package: pkg.Path(), Type: v.Sel.String()}, nil
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-		return &model.NamedType{Package: pkg.Path(), Type: v.Sel.String()}, nil
->>>>>>> 03397665 (update api)
 	case *ast.StarExpr:
 		t, err := p.parseType(pkg, v.X)
 		if err != nil {
@@ -946,21 +506,8 @@ func (p *fileParser) parseType(pkg string, typ ast.Expr) (model.Type, error) {
 			return nil, p.errorf(v.Pos(), "can't handle non-empty unnamed struct types")
 		}
 		return model.PredeclaredType("struct{}"), nil
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	case *ast.ParenExpr:
 		return p.parseType(pkg, v.X)
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
-	case *ast.ParenExpr:
-		return p.parseType(pkg, v.X)
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	case *ast.ParenExpr:
-		return p.parseType(pkg, v.X)
->>>>>>> 03397665 (update api)
 	}
 
 	return nil, fmt.Errorf("don't know how to parse type %T", typ)
@@ -968,13 +515,6 @@ func (p *fileParser) parseType(pkg string, typ ast.Expr) (model.Type, error) {
 
 // importsOfFile returns a map of package name to import path
 // of the imports in file.
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 func importsOfFile(file *ast.File) (normalImports map[string]importedPackage, dotImports []string) {
 	var importPaths []string
 	for _, is := range file.Imports {
@@ -987,16 +527,6 @@ func importsOfFile(file *ast.File) (normalImports map[string]importedPackage, do
 	packagesName := createPackageMap(importPaths)
 	normalImports = make(map[string]importedPackage)
 	dotImports = make([]string, 0)
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-func importsOfFile(file *ast.File) map[string]string {
-	m := make(map[string]string)
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	for _, is := range file.Imports {
 		var pkgName string
 		importPath := is.Path.Value[1 : len(is.Path.Value)-1] // remove quotes
@@ -1006,39 +536,16 @@ func importsOfFile(file *ast.File) map[string]string {
 			if is.Name.Name == "_" {
 				continue
 			}
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 			pkgName = is.Name.Name
 		} else {
 			pkg, ok := packagesName[importPath]
 			if !ok {
-=======
-			pkgName = removeDot(is.Name.Name)
-		} else {
-			pkg, err := build.Import(importPath, "", 0)
-			if err != nil {
->>>>>>> 79bfea2d (update vendor)
-=======
-=======
->>>>>>> 03397665 (update api)
-			pkgName = is.Name.Name
-		} else {
-			pkg, ok := packagesName[importPath]
-			if !ok {
-<<<<<<< HEAD
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 				// Fallback to import path suffix. Note that this is uncertain.
 				_, last := path.Split(importPath)
 				// If the last path component has dots, the first dot-delimited
 				// field is used as the name.
 				pkgName = strings.SplitN(last, ".", 2)[0]
 			} else {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 				pkgName = pkg
 			}
 		}
@@ -1065,48 +572,6 @@ func importsOfFile(file *ast.File) map[string]string {
 		}
 	}
 	return
-=======
-				pkgName = pkg.Name
-=======
-				pkgName = pkg
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-				pkgName = pkg
->>>>>>> 03397665 (update api)
-			}
-		}
-
-		if pkgName == "." {
-			dotImports = append(dotImports, importPath)
-		} else {
-			if pkg, ok := normalImports[pkgName]; ok {
-				switch p := pkg.(type) {
-				case duplicateImport:
-					normalImports[pkgName] = duplicateImport{
-						name:       p.name,
-						duplicates: append([]string{importPath}, p.duplicates...),
-					}
-				case importedPkg:
-					normalImports[pkgName] = duplicateImport{
-						name:       pkgName,
-						duplicates: []string{p.path, importPath},
-					}
-				}
-			} else {
-				normalImports[pkgName] = importedPkg{path: importPath}
-			}
-		}
-	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-	return m
->>>>>>> 79bfea2d (update vendor)
-=======
-	return
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	return
->>>>>>> 03397665 (update api)
 }
 
 type namedInterface struct {
@@ -1150,13 +615,6 @@ func isVariadic(f *ast.FuncType) bool {
 	_, ok := f.Params.List[nargs-1].Type.(*ast.Ellipsis)
 	return ok
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 
 // packageNameOfDir get package import path via dir
 func packageNameOfDir(srcDir string) (string, error) {
@@ -1184,11 +642,3 @@ func packageNameOfDir(srcDir string) (string, error) {
 }
 
 var errOutsideGoPath = errors.New("source directory is outside GOPATH")
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)

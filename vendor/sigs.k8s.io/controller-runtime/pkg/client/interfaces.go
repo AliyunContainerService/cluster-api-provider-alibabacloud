@@ -55,27 +55,12 @@ type Reader interface {
 	// List retrieves list of objects for a given namespace and list options. On a
 	// successful call, Items field in the list will be populated with the
 	// result returned from the server.
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	List(ctx context.Context, list ObjectList, opts ...ListOption) error
-=======
-	List(ctx context.Context, list runtime.Object, opts ...ListOption) error
->>>>>>> 79bfea2d (update vendor)
-=======
-	List(ctx context.Context, list ObjectList, opts ...ListOption) error
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	List(ctx context.Context, list ObjectList, opts ...ListOption) error
->>>>>>> 03397665 (update api)
 }
 
 // Writer knows how to create, delete, and update Kubernetes objects.
 type Writer interface {
 	// Create saves the object obj in the Kubernetes cluster.
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	Create(ctx context.Context, obj Object, opts ...CreateOption) error
 
 	// Delete deletes the given obj from Kubernetes cluster.
@@ -91,37 +76,6 @@ type Writer interface {
 
 	// DeleteAllOf deletes all objects of the given type matching the given options.
 	DeleteAllOf(ctx context.Context, obj Object, opts ...DeleteAllOfOption) error
-=======
-	Create(ctx context.Context, obj runtime.Object, opts ...CreateOption) error
-=======
-	Create(ctx context.Context, obj Object, opts ...CreateOption) error
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	Create(ctx context.Context, obj Object, opts ...CreateOption) error
->>>>>>> 03397665 (update api)
-
-	// Delete deletes the given obj from Kubernetes cluster.
-	Delete(ctx context.Context, obj Object, opts ...DeleteOption) error
-
-	// Update updates the given obj in the Kubernetes cluster. obj must be a
-	// struct pointer so that obj can be updated with the content returned by the Server.
-	Update(ctx context.Context, obj Object, opts ...UpdateOption) error
-
-	// Patch patches the given obj in the Kubernetes cluster. obj must be a
-	// struct pointer so that obj can be updated with the content returned by the Server.
-	Patch(ctx context.Context, obj Object, patch Patch, opts ...PatchOption) error
-
-	// DeleteAllOf deletes all objects of the given type matching the given options.
-<<<<<<< HEAD
-<<<<<<< HEAD
-	DeleteAllOf(ctx context.Context, obj runtime.Object, opts ...DeleteAllOfOption) error
->>>>>>> 79bfea2d (update vendor)
-=======
-	DeleteAllOf(ctx context.Context, obj Object, opts ...DeleteAllOfOption) error
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	DeleteAllOf(ctx context.Context, obj Object, opts ...DeleteAllOfOption) error
->>>>>>> 03397665 (update api)
 }
 
 // StatusClient knows how to create a client which can update status subresource
@@ -135,36 +89,12 @@ type StatusWriter interface {
 	// Update updates the fields corresponding to the status subresource for the
 	// given obj. obj must be a struct pointer so that obj can be updated
 	// with the content returned by the Server.
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	Update(ctx context.Context, obj Object, opts ...UpdateOption) error
-=======
-	Update(ctx context.Context, obj runtime.Object, opts ...UpdateOption) error
->>>>>>> 79bfea2d (update vendor)
-=======
-	Update(ctx context.Context, obj Object, opts ...UpdateOption) error
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	Update(ctx context.Context, obj Object, opts ...UpdateOption) error
->>>>>>> 03397665 (update api)
 
 	// Patch patches the given object's subresource. obj must be a struct
 	// pointer so that obj can be updated with the content returned by the
 	// Server.
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	Patch(ctx context.Context, obj Object, patch Patch, opts ...PatchOption) error
-=======
-	Patch(ctx context.Context, obj runtime.Object, patch Patch, opts ...PatchOption) error
->>>>>>> 79bfea2d (update vendor)
-=======
-	Patch(ctx context.Context, obj Object, patch Patch, opts ...PatchOption) error
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	Patch(ctx context.Context, obj Object, patch Patch, opts ...PatchOption) error
->>>>>>> 03397665 (update api)
 }
 
 // Client knows how to perform CRUD operations on Kubernetes objects.

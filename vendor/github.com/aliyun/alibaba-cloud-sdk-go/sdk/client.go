@@ -70,31 +70,11 @@ type Client struct {
 	asyncTaskQueue chan func()
 	readTimeout    time.Duration
 	connectTimeout time.Duration
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	EndpointMap    map[string]string
 	EndpointType   string
 	Network        string
 	Domain         string
 	isOpenAsync    bool
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
-	debug     bool
-	isRunning bool
-	// void "panic(write to close channel)" cause of addAsync() after Shutdown()
-	asyncChanLock *sync.RWMutex
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 }
 
 func (client *Client) Init() (err error) {
@@ -343,13 +323,6 @@ func (client *Client) DoAction(request requests.AcsRequest, response responses.A
 	return client.DoActionWithSigner(request, response, nil)
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 func (client *Client) GetEndpointRules(regionId string, product string) (endpointRaw string, err error) {
 	if client.EndpointType == "regional" {
 		if regionId == "" {
@@ -369,14 +342,6 @@ func (client *Client) GetEndpointRules(regionId string, product string) (endpoin
 	return endpointRaw, nil
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 func (client *Client) buildRequestWithSigner(request requests.AcsRequest, signer auth.Signer) (httpRequest *http.Request, err error) {
 	// add clientVersion
 	request.GetHeaders()["x-sdk-core-version"] = Version
@@ -387,13 +352,6 @@ func (client *Client) buildRequestWithSigner(request requests.AcsRequest, signer
 	}
 
 	// resolve endpoint
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	endpoint := request.GetDomain()
 
 	if endpoint == "" && client.Domain != "" {
@@ -402,54 +360,6 @@ func (client *Client) buildRequestWithSigner(request requests.AcsRequest, signer
 
 	if endpoint == "" {
 		endpoint = endpoints.GetEndpointFromMap(regionId, request.GetProduct())
-<<<<<<< HEAD
-<<<<<<< HEAD
-	}
-
-	if endpoint == "" && client.EndpointType != "" &&
-		(request.GetProduct() != "Sts" || len(request.GetQueryParams()) == 0) {
-		if client.EndpointMap != nil && client.Network == "" || client.Network == "public" {
-			endpoint = client.EndpointMap[regionId]
-		}
-
-		if endpoint == "" {
-			endpoint, err = client.GetEndpointRules(regionId, request.GetProduct())
-			if err != nil {
-				return
-			}
-		}
-	}
-
-	if endpoint == "" {
-		resolveParam := &endpoints.ResolveParam{
-			Domain:               request.GetDomain(),
-			Product:              request.GetProduct(),
-			RegionId:             regionId,
-			LocationProduct:      request.GetLocationServiceCode(),
-			LocationEndpointType: request.GetLocationEndpointType(),
-			CommonApi:            client.ProcessCommonRequest,
-		}
-		endpoint, err = endpoints.Resolve(resolveParam)
-		if err != nil {
-			return
-		}
-=======
-	resolveParam := &endpoints.ResolveParam{
-		Domain:               request.GetDomain(),
-		Product:              request.GetProduct(),
-		RegionId:             regionId,
-		LocationProduct:      request.GetLocationServiceCode(),
-		LocationEndpointType: request.GetLocationEndpointType(),
-		CommonApi:            client.ProcessCommonRequest,
-	}
-	endpoint, err := endpoints.Resolve(resolveParam)
-	if err != nil {
-		return
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	}
 
 	if endpoint == "" && client.EndpointType != "" &&

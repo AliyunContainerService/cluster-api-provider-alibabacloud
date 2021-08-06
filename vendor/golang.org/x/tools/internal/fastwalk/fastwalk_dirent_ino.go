@@ -2,18 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 //go:build (linux || darwin) && !appengine
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
-//go:build (linux || darwin) && !appengine
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-//go:build (linux || darwin) && !appengine
->>>>>>> 03397665 (update api)
 // +build linux darwin
 // +build !appengine
 

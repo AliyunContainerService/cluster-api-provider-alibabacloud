@@ -156,13 +156,6 @@ func (n notMatcher) String() string {
 	return "not(" + n.m.String() + ")"
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 type assignableToTypeOfMatcher struct {
 	targetType reflect.Type
 }
@@ -278,10 +271,6 @@ func (m inAnyOrderMatcher) String() string {
 	return fmt.Sprintf("has the same elements as %v", m.x)
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 03397665 (update api)
 // Constructors
 
 // All returns a composite Matcher that returns true if and only all of the
@@ -318,66 +307,12 @@ func Nil() Matcher { return nilMatcher{} }
 // Example usage:
 //   Not(Eq(5)).Matches(4) // returns true
 //   Not(Eq(5)).Matches(5) // returns false
-<<<<<<< HEAD
-=======
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-// Constructors
-
-// All returns a composite Matcher that returns true if and only all of the
-// matchers return true.
-func All(ms ...Matcher) Matcher { return allMatcher{ms} }
-
-// Any returns a matcher that always matches.
-func Any() Matcher { return anyMatcher{} }
-
-// Eq returns a matcher that matches on equality.
-//
-// Example usage:
-//   Eq(5).Matches(5) // returns true
-//   Eq(5).Matches(4) // returns false
-func Eq(x interface{}) Matcher { return eqMatcher{x} }
-<<<<<<< HEAD
-func Nil() Matcher             { return nilMatcher{} }
->>>>>>> 79bfea2d (update vendor)
-=======
-
-// Len returns a matcher that matches on length. This matcher returns false if
-// is compared to a type that is not an array, chan, map, slice, or string.
-func Len(i int) Matcher {
-	return lenMatcher{i}
-}
-
-// Nil returns a matcher that matches if the received value is nil.
-//
-// Example usage:
-//   var x *bytes.Buffer
-//   Nil().Matches(x) // returns true
-//   x = &bytes.Buffer{}
-//   Nil().Matches(x) // returns false
-func Nil() Matcher { return nilMatcher{} }
-
-// Not reverses the results of its given child matcher.
-//
-// Example usage:
-//   Not(Eq(5)).Matches(4) // returns true
-//   Not(Eq(5)).Matches(5) // returns false
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 func Not(x interface{}) Matcher {
 	if m, ok := x.(Matcher); ok {
 		return notMatcher{m}
 	}
 	return notMatcher{Eq(x)}
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 
 // AssignableToTypeOf is a Matcher that matches if the parameter to the mock
 // function is assignable to the type of the parameter to this function.
@@ -404,11 +339,3 @@ func AssignableToTypeOf(x interface{}) Matcher {
 func InAnyOrder(x interface{}) Matcher {
 	return inAnyOrderMatcher{x}
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)

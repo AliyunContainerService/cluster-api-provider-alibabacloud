@@ -1,8 +1,5 @@
 language: go
-<<<<<<< HEAD
-=======
 go_import_path: k8s.io/klog
->>>>>>> 03397665 (update api)
 dist: xenial
 go:
   - 1.9.x

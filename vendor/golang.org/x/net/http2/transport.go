@@ -98,13 +98,6 @@ type Transport struct {
 	// to mean no limit.
 	MaxHeaderListSize uint32
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	// StrictMaxConcurrentStreams controls whether the server's
 	// SETTINGS_MAX_CONCURRENT_STREAMS should be respected
 	// globally. If false, new TCP connections are created to the
@@ -128,14 +121,6 @@ type Transport struct {
 	// Defaults to 15s.
 	PingTimeout time.Duration
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	// t1, if non-nil, is the standard library Transport using
 	// this transport. Its settings are used (but not its
 	// RoundTrip method, etc).
@@ -159,13 +144,6 @@ func (t *Transport) disableCompression() bool {
 	return t.DisableCompression || (t.t1 != nil && t.t1.DisableCompression)
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 func (t *Transport) pingTimeout() time.Duration {
 	if t.PingTimeout == 0 {
 		return 15 * time.Second
@@ -173,10 +151,6 @@ func (t *Transport) pingTimeout() time.Duration {
 	return t.PingTimeout
 
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 03397665 (update api)
 
 // ConfigureTransport configures a net/http HTTP/1 Transport to use HTTP/2.
 // It returns an error if t1 has already been HTTP/2-enabled.
@@ -237,77 +211,6 @@ func configureTransports(t1 *http.Transport) (*Transport, error) {
 	return t2, nil
 }
 
-<<<<<<< HEAD
-=======
-var errTransportVersion = errors.New("http2: ConfigureTransport is only supported starting at Go 1.6")
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-
-// ConfigureTransport configures a net/http HTTP/1 Transport to use HTTP/2.
-// It returns an error if t1 has already been HTTP/2-enabled.
-//
-// Use ConfigureTransports instead to configure the HTTP/2 Transport.
-func ConfigureTransport(t1 *http.Transport) error {
-	_, err := ConfigureTransports(t1)
-	return err
-}
-
-<<<<<<< HEAD
->>>>>>> 79bfea2d (update vendor)
-=======
-// ConfigureTransports configures a net/http HTTP/1 Transport to use HTTP/2.
-// It returns a new HTTP/2 Transport for further configuration.
-// It returns an error if t1 has already been HTTP/2-enabled.
-func ConfigureTransports(t1 *http.Transport) (*Transport, error) {
-	return configureTransports(t1)
-}
-
-func configureTransports(t1 *http.Transport) (*Transport, error) {
-	connPool := new(clientConnPool)
-	t2 := &Transport{
-		ConnPool: noDialClientConnPool{connPool},
-		t1:       t1,
-	}
-	connPool.t = t2
-	if err := registerHTTPSProtocol(t1, noDialH2RoundTripper{t2}); err != nil {
-		return nil, err
-	}
-	if t1.TLSClientConfig == nil {
-		t1.TLSClientConfig = new(tls.Config)
-	}
-	if !strSliceContains(t1.TLSClientConfig.NextProtos, "h2") {
-		t1.TLSClientConfig.NextProtos = append([]string{"h2"}, t1.TLSClientConfig.NextProtos...)
-	}
-	if !strSliceContains(t1.TLSClientConfig.NextProtos, "http/1.1") {
-		t1.TLSClientConfig.NextProtos = append(t1.TLSClientConfig.NextProtos, "http/1.1")
-	}
-	upgradeFn := func(authority string, c *tls.Conn) http.RoundTripper {
-		addr := authorityAddr("https", authority)
-		if used, err := connPool.addConnIfNeeded(addr, t2, c); err != nil {
-			go c.Close()
-			return erringRoundTripper{err}
-		} else if !used {
-			// Turns out we don't need this c.
-			// For example, two goroutines made requests to the same host
-			// at the same time, both kicking off TCP dials. (since protocol
-			// was unknown)
-			go c.Close()
-		}
-		return t2
-	}
-	if m := t1.TLSNextProto; len(m) == 0 {
-		t1.TLSNextProto = map[string]func(string, *tls.Conn) http.RoundTripper{
-			"h2": upgradeFn,
-		}
-	} else {
-		m["h2"] = upgradeFn
-	}
-	return t2, nil
-}
-
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 func (t *Transport) connPool() ClientConnPool {
 	t.connPoolOnce.Do(t.initConnPool)
 	return t.connPoolOrDef
@@ -867,13 +770,6 @@ func (cc *ClientConn) idleStateLocked() (st clientConnIdleState) {
 	if cc.singleUse && cc.nextStreamID > 1 {
 		return
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	var maxConcurrentOkay bool
 	if cc.t.StrictMaxConcurrentStreams {
 		// We'll tell the caller we can take a new request to
@@ -888,16 +784,6 @@ func (cc *ClientConn) idleStateLocked() (st clientConnIdleState) {
 	st.canTakeNewRequest = cc.goAway == nil && !cc.closed && !cc.closing && maxConcurrentOkay &&
 		int64(cc.nextStreamID)+2*int64(cc.pendingRequests) < math.MaxInt32 &&
 		!cc.tooIdleLocked()
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-	st.canTakeNewRequest = cc.goAway == nil && !cc.closed && !cc.closing &&
-		int64(cc.nextStreamID)+int64(cc.pendingRequests) < math.MaxInt32
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	st.freshConn = cc.nextStreamID == 1 && st.canTakeNewRequest
 	return
 }
@@ -2784,13 +2670,6 @@ func (s bodyWriterState) scheduleBodyWrite() {
 func isConnectionCloseRequest(req *http.Request) bool {
 	return req.Close || httpguts.HeaderValuesContainsToken(req.Header["Connection"], "close")
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 
 // registerHTTPSProtocol calls Transport.RegisterProtocol but
 // converting panics into errors.
@@ -2879,11 +2758,3 @@ func traceFirstResponseByte(trace *httptrace.ClientTrace) {
 		trace.GotFirstResponseByte()
 	}
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)

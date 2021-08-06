@@ -71,13 +71,6 @@ func (client *Client) DescribePriceWithCallback(request *DescribePriceRequest, c
 // DescribePriceRequest is the request struct for api DescribePrice
 type DescribePriceRequest struct {
 	*requests.RpcRequest
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	DataDisk3Size              requests.Integer `position:"Query" name:"DataDisk.3.Size"`
 	ResourceOwnerId            requests.Integer `position:"Query" name:"ResourceOwnerId"`
 	DataDisk3Category          string           `position:"Query" name:"DataDisk.3.Category"`
@@ -117,38 +110,6 @@ type DescribePriceRequest struct {
 	DataDisk2PerformanceLevel  string           `position:"Query" name:"DataDisk.2.PerformanceLevel"`
 	SystemDiskSize             requests.Integer `position:"Query" name:"SystemDisk.Size"`
 	OfferingType               string           `position:"Query" name:"OfferingType"`
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-	DataDisk3Size           requests.Integer `position:"Query" name:"DataDisk.3.Size"`
-	ResourceOwnerId         requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	ImageId                 string           `position:"Query" name:"ImageId"`
-	DataDisk3Category       string           `position:"Query" name:"DataDisk.3.Category"`
-	IoOptimized             string           `position:"Query" name:"IoOptimized"`
-	InternetMaxBandwidthOut requests.Integer `position:"Query" name:"InternetMaxBandwidthOut"`
-	SystemDiskCategory      string           `position:"Query" name:"SystemDisk.Category"`
-	DataDisk4Category       string           `position:"Query" name:"DataDisk.4.Category"`
-	DataDisk4Size           requests.Integer `position:"Query" name:"DataDisk.4.Size"`
-	PriceUnit               string           `position:"Query" name:"PriceUnit"`
-	InstanceType            string           `position:"Query" name:"InstanceType"`
-	DataDisk2Category       string           `position:"Query" name:"DataDisk.2.Category"`
-	DataDisk1Size           requests.Integer `position:"Query" name:"DataDisk.1.Size"`
-	Period                  requests.Integer `position:"Query" name:"Period"`
-	Amount                  requests.Integer `position:"Query" name:"Amount"`
-	ResourceOwnerAccount    string           `position:"Query" name:"ResourceOwnerAccount"`
-	OwnerAccount            string           `position:"Query" name:"OwnerAccount"`
-	DataDisk2Size           requests.Integer `position:"Query" name:"DataDisk.2.Size"`
-	OwnerId                 requests.Integer `position:"Query" name:"OwnerId"`
-	ResourceType            string           `position:"Query" name:"ResourceType"`
-	DataDisk1Category       string           `position:"Query" name:"DataDisk.1.Category"`
-	SystemDiskSize          requests.Integer `position:"Query" name:"SystemDisk.Size"`
-	InternetChargeType      string           `position:"Query" name:"InternetChargeType"`
-	InstanceNetworkType     string           `position:"Query" name:"InstanceNetworkType"`
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 }
 
 // DescribePriceResponse is the response struct for api DescribePrice

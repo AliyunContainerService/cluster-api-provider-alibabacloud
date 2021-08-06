@@ -100,11 +100,6 @@ func loadConfig(context string) (*rest.Config, error) {
 
 	// If a flag is specified with the config location, use that
 	if len(kubeconfig) > 0 {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 03397665 (update api)
 		return loadConfigWithContext("", &clientcmd.ClientConfigLoadingRules{ExplicitPath: kubeconfig}, context)
 	}
 
@@ -113,35 +108,6 @@ func loadConfig(context string) (*rest.Config, error) {
 	kubeconfigPath := os.Getenv(clientcmd.RecommendedConfigPathEnvVar)
 	if len(kubeconfigPath) == 0 {
 		if c, err := loadInClusterConfig(); err == nil {
-<<<<<<< HEAD
-=======
-		return loadConfigWithContext(apiServerURL, kubeconfig, context)
-	}
-	// If an env variable is specified with the config location, use that
-	if len(os.Getenv("KUBECONFIG")) > 0 {
-		return loadConfigWithContext(apiServerURL, os.Getenv("KUBECONFIG"), context)
-	}
-	// If no explicit location, try the in-cluster config
-	if c, err := rest.InClusterConfig(); err == nil {
-		return c, nil
-	}
-	// If no in-cluster config, try the default location in the user's home directory
-	if usr, err := user.Current(); err == nil {
-		if c, err := loadConfigWithContext(apiServerURL, filepath.Join(usr.HomeDir, ".kube", "config"),
-			context); err == nil {
->>>>>>> 79bfea2d (update vendor)
-=======
-		return loadConfigWithContext("", &clientcmd.ClientConfigLoadingRules{ExplicitPath: kubeconfig}, context)
-	}
-
-	// If the recommended kubeconfig env variable is not specified,
-	// try the in-cluster config.
-	kubeconfigPath := os.Getenv(clientcmd.RecommendedConfigPathEnvVar)
-	if len(kubeconfigPath) == 0 {
-		if c, err := loadInClusterConfig(); err == nil {
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 			return c, nil
 		}
 	}
@@ -164,23 +130,6 @@ func loadConfig(context string) (*rest.Config, error) {
 	}
 
 	return loadConfigWithContext("", loadingRules, context)
-<<<<<<< HEAD
-<<<<<<< HEAD
-}
-
-func loadConfigWithContext(apiServerURL string, loader clientcmd.ClientConfigLoader, context string) (*rest.Config, error) {
-	return clientcmd.NewNonInteractiveDeferredLoadingClientConfig(
-		loader,
-		&clientcmd.ConfigOverrides{
-			ClusterInfo: clientcmdapi.Cluster{
-				Server: apiServerURL,
-			},
-			CurrentContext: context,
-		}).ClientConfig()
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 }
 
 func loadConfigWithContext(apiServerURL string, loader clientcmd.ClientConfigLoader, context string) (*rest.Config, error) {

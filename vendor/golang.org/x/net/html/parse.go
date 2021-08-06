@@ -1780,28 +1780,11 @@ func inSelectIM(p *parser) bool {
 			}
 			p.addElement()
 		case a.Select:
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 			if !p.popUntil(selectScope, a.Select) {
 				// Ignore the token.
 				return true
 			}
 			p.resetInsertionMode()
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-			p.tok.Type = EndTagToken
-			return false
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 		case a.Input, a.Keygen, a.Textarea:
 			if p.elementInScope(selectScope, a.Select) {
 				p.parseImpliedToken(EndTagToken, a.Select, a.Select.String())
@@ -1836,26 +1819,9 @@ func inSelectIM(p *parser) bool {
 				p.oe = p.oe[:i]
 			}
 		case a.Select:
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 			if !p.popUntil(selectScope, a.Select) {
 				// Ignore the token.
 				return true
-=======
-			if p.popUntil(selectScope, a.Select) {
-				p.resetInsertionMode()
->>>>>>> 79bfea2d (update vendor)
-=======
-			if !p.popUntil(selectScope, a.Select) {
-				// Ignore the token.
-				return true
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-			if !p.popUntil(selectScope, a.Select) {
-				// Ignore the token.
-				return true
->>>>>>> 03397665 (update api)
 			}
 			p.resetInsertionMode()
 		case a.Template:

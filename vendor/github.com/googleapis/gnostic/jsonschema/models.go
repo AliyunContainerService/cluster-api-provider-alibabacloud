@@ -1,16 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 // Copyright 2017 Google LLC. All Rights Reserved.
-=======
-// Copyright 2017 Google Inc. All Rights Reserved.
->>>>>>> 79bfea2d (update vendor)
-=======
-// Copyright 2017 Google LLC. All Rights Reserved.
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-// Copyright 2017 Google LLC. All Rights Reserved.
->>>>>>> 03397665 (update api)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -28,21 +16,8 @@
 // of JSON Schemas.
 package jsonschema
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 import "gopkg.in/yaml.v3"
 
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
-import "gopkg.in/yaml.v3"
-
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-import "gopkg.in/yaml.v3"
-
->>>>>>> 03397665 (update api)
 // The Schema struct models a JSON Schema and, because schemas are
 // defined hierarchically, contains many references to itself.
 // All fields are pointers and are nil if the associated values
@@ -93,19 +68,7 @@ type Schema struct {
 	// 6.  Metadata keywords
 	Title       *string
 	Description *string
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	Default     *yaml.Node
-=======
-	Default     *interface{}
->>>>>>> 79bfea2d (update vendor)
-=======
-	Default     *yaml.Node
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	Default     *yaml.Node
->>>>>>> 03397665 (update api)
 
 	// 7.  Semantic validation with "format"
 	Format *string

@@ -14,31 +14,11 @@ import metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 type OAuth struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 03397665 (update api)
 	// spec holds user settable values for configuration
 	// +kubebuilder:validation:Required
 	// +required
 	Spec OAuthSpec `json:"spec"`
 	// status holds observed values from the cluster. They may not be overridden.
-<<<<<<< HEAD
-=======
-
-	// +required
-	Spec OAuthSpec `json:"spec"`
->>>>>>> 79bfea2d (update vendor)
-=======
-	// spec holds user settable values for configuration
-	// +kubebuilder:validation:Required
-	// +required
-	Spec OAuthSpec `json:"spec"`
-	// status holds observed values from the cluster. They may not be overridden.
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	// +optional
 	Status OAuthStatus `json:"status"`
 }
@@ -66,20 +46,11 @@ type OAuthStatus struct {
 // TokenConfig holds the necessary configuration options for authorization and access tokens
 type TokenConfig struct {
 	// accessTokenMaxAgeSeconds defines the maximum age of access tokens
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	AccessTokenMaxAgeSeconds int32 `json:"accessTokenMaxAgeSeconds,omitempty"`
 
 	// accessTokenInactivityTimeoutSeconds - DEPRECATED: setting this field has no effect.
 	// +optional
 	AccessTokenInactivityTimeoutSeconds int32 `json:"accessTokenInactivityTimeoutSeconds,omitempty"`
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 	// accessTokenInactivityTimeout defines the token inactivity timeout
 	// for tokens granted by any client.
@@ -94,44 +65,6 @@ type TokenConfig struct {
 	// are valid until their lifetime.
 	// +optional
 	AccessTokenInactivityTimeout *metav1.Duration `json:"accessTokenInactivityTimeout,omitempty"`
-=======
-	AccessTokenMaxAgeSeconds int32 `json:"accessTokenMaxAgeSeconds"`
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
-
-	// accessTokenInactivityTimeout defines the token inactivity timeout
-	// for tokens granted by any client.
-	// The value represents the maximum amount of time that can occur between
-	// consecutive uses of the token. Tokens become invalid if they are not
-	// used within this temporal window. The user will need to acquire a new
-<<<<<<< HEAD
-<<<<<<< HEAD
-	// token to regain access once a token times out.
-	// Valid values are integer values:
-	//   x < 0  Tokens time out is enabled but tokens never timeout unless configured per client (e.g. `-1`)
-	//   x = 0  Tokens time out is disabled (default)
-	//   x > 0  Tokens time out if there is no activity for x seconds
-	// The current minimum allowed value for X is 300 (5 minutes)
-	// +optional
-	AccessTokenInactivityTimeoutSeconds int32 `json:"accessTokenInactivityTimeoutSeconds,omitempty"`
->>>>>>> 79bfea2d (update vendor)
-=======
-=======
->>>>>>> 03397665 (update api)
-	// token to regain access once a token times out. Takes valid time
-	// duration string such as "5m", "1.5h" or "2h45m". The minimum allowed
-	// value for duration is 300s (5 minutes). If the timeout is configured
-	// per client, then that value takes precedence. If the timeout value is
-	// not specified and the client does not override the value, then tokens
-	// are valid until their lifetime.
-	// +optional
-	AccessTokenInactivityTimeout *metav1.Duration `json:"accessTokenInactivityTimeout,omitempty"`
-<<<<<<< HEAD
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 }
 
 const (

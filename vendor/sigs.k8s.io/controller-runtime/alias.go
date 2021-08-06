@@ -21,18 +21,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"sigs.k8s.io/controller-runtime/pkg/builder"
 	"sigs.k8s.io/controller-runtime/pkg/client/config"
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	cfg "sigs.k8s.io/controller-runtime/pkg/config"
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
-	cfg "sigs.k8s.io/controller-runtime/pkg/config"
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	cfg "sigs.k8s.io/controller-runtime/pkg/config"
->>>>>>> 03397665 (update api)
 	"sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
 	"sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/manager"
@@ -103,26 +92,11 @@ var (
 	// * $HOME/.kube/config if exists
 	GetConfig = config.GetConfig
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	// ConfigFile returns the cfg.File function for deferred config file loading,
 	// this is passed into Options{}.From() to populate the Options fields for
 	// the manager.
 	ConfigFile = cfg.File
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	// NewControllerManagedBy returns a new controller builder that will be started by the provided Manager
 	NewControllerManagedBy = builder.ControllerManagedBy
 
@@ -157,13 +131,6 @@ var (
 	// get any actual logging.
 	Log = log.Log
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	// LoggerFrom returns a logger with predefined values from a context.Context.
 	// The logger, when used with controllers, can be expected to contain basic information about the object
 	// that's being reconciled like:
@@ -178,14 +145,6 @@ var (
 	// This is meant to be used in reconcilers to enrich the logger within a context with additional values.
 	LoggerInto = log.IntoContext
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	// SetLogger sets a concrete logging implementation for all deferred Loggers.
 	SetLogger = log.SetLogger
 )

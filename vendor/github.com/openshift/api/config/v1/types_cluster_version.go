@@ -16,18 +16,7 @@ type ClusterVersion struct {
 
 	// spec is the desired state of the cluster version - the operator will work
 	// to ensure that the desired version is applied to the cluster.
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// +kubebuilder:validation:Required
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
-	// +kubebuilder:validation:Required
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	// +kubebuilder:validation:Required
->>>>>>> 03397665 (update api)
 	// +required
 	Spec ClusterVersionSpec `json:"spec"`
 	// status contains information about the available updates and any in-progress
@@ -44,21 +33,8 @@ type ClusterVersionSpec struct {
 	// clusterID uniquely identifies this cluster. This is expected to be
 	// an RFC4122 UUID value (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx in
 	// hexadecimal values). This is a required field.
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// +kubebuilder:validation:Required
 	// +required
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
-	// +kubebuilder:validation:Required
-	// +required
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	// +kubebuilder:validation:Required
-	// +required
->>>>>>> 03397665 (update api)
 	ClusterID ClusterID `json:"clusterID"`
 
 	// desiredUpdate is an optional field that indicates the desired value of
@@ -106,25 +82,9 @@ type ClusterVersionStatus struct {
 	// desired is the version that the cluster is reconciling towards.
 	// If the cluster is not yet fully initialized desired will be set
 	// with the information available, which may be an image or a tag.
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// +kubebuilder:validation:Required
 	// +required
 	Desired Release `json:"desired"`
-=======
-	Desired Update `json:"desired"`
->>>>>>> 79bfea2d (update vendor)
-=======
-	// +kubebuilder:validation:Required
-	// +required
-	Desired Release `json:"desired"`
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	// +kubebuilder:validation:Required
-	// +required
-	Desired Release `json:"desired"`
->>>>>>> 03397665 (update api)
 
 	// history contains a list of the most recent versions applied to the cluster.
 	// This value may be empty during cluster startup, and then will be updated
@@ -138,45 +98,16 @@ type ClusterVersionStatus struct {
 
 	// observedGeneration reports which version of the spec is being synced.
 	// If this value is not equal to metadata.generation, then the desired
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// and conditions fields may represent a previous version.
 	// +kubebuilder:validation:Required
 	// +required
-=======
-	// and conditions fields may represent from a previous version.
->>>>>>> 79bfea2d (update vendor)
-=======
-	// and conditions fields may represent a previous version.
-	// +kubebuilder:validation:Required
-	// +required
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	// and conditions fields may represent a previous version.
-	// +kubebuilder:validation:Required
-	// +required
->>>>>>> 03397665 (update api)
 	ObservedGeneration int64 `json:"observedGeneration"`
 
 	// versionHash is a fingerprint of the content that the cluster will be
 	// updated with. It is used by the operator to avoid unnecessary work
 	// and is for internal use only.
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// +kubebuilder:validation:Required
 	// +required
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
-	// +kubebuilder:validation:Required
-	// +required
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	// +kubebuilder:validation:Required
-	// +required
->>>>>>> 03397665 (update api)
 	VersionHash string `json:"versionHash"`
 
 	// conditions provides information about the cluster version. The condition
@@ -194,25 +125,9 @@ type ClusterVersionStatus struct {
 	// if the update service is unavailable, or if an invalid channel has
 	// been specified.
 	// +nullable
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// +kubebuilder:validation:Required
 	// +required
 	AvailableUpdates []Release `json:"availableUpdates"`
-=======
-	AvailableUpdates []Update `json:"availableUpdates"`
->>>>>>> 79bfea2d (update vendor)
-=======
-	// +kubebuilder:validation:Required
-	// +required
-	AvailableUpdates []Release `json:"availableUpdates"`
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	// +kubebuilder:validation:Required
-	// +required
-	AvailableUpdates []Release `json:"availableUpdates"`
->>>>>>> 03397665 (update api)
 }
 
 // UpdateState is a constant representing whether an update was successfully
@@ -234,13 +149,6 @@ type UpdateHistory struct {
 	// indicates the update is not fully applied, while the Completed state
 	// indicates the update was successfully rolled out at least once (all
 	// parts of the update successfully applied).
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	// +kubebuilder:validation:Required
 	// +required
 	State UpdateState `json:"state"`
@@ -248,37 +156,13 @@ type UpdateHistory struct {
 	// startedTime is the time at which the update was started.
 	// +kubebuilder:validation:Required
 	// +required
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-	State UpdateState `json:"state"`
-
-	// startedTime is the time at which the update was started.
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	StartedTime metav1.Time `json:"startedTime"`
 	// completionTime, if set, is when the update was fully applied. The update
 	// that is currently being applied will have a null completion time.
 	// Completion time will always be set for entries that are not the current
 	// update (usually to the started time of the next update).
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// +kubebuilder:validation:Required
 	// +required
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
-	// +kubebuilder:validation:Required
-	// +required
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	// +kubebuilder:validation:Required
-	// +required
->>>>>>> 03397665 (update api)
 	// +nullable
 	CompletionTime *metav1.Time `json:"completionTime"`
 
@@ -290,9 +174,6 @@ type UpdateHistory struct {
 	Version string `json:"version"`
 	// image is a container image location that contains the update. This value
 	// is always populated.
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// +kubebuilder:validation:Required
 	// +required
 	Image string `json:"image"`
@@ -300,25 +181,6 @@ type UpdateHistory struct {
 	// before it was installed. If this is false the cluster may not be trusted.
 	// +kubebuilder:validation:Required
 	// +required
-=======
-	Image string `json:"image"`
-	// verified indicates whether the provided update was properly verified
-	// before it was installed. If this is false the cluster may not be trusted.
->>>>>>> 79bfea2d (update vendor)
-=======
-=======
->>>>>>> 03397665 (update api)
-	// +kubebuilder:validation:Required
-	// +required
-	Image string `json:"image"`
-	// verified indicates whether the provided update was properly verified
-	// before it was installed. If this is false the cluster may not be trusted.
-	// +kubebuilder:validation:Required
-	// +required
-<<<<<<< HEAD
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	Verified bool `json:"verified"`
 }
 
@@ -330,96 +192,36 @@ type ClusterID string
 // +k8s:deepcopy-gen=true
 type ComponentOverride struct {
 	// kind indentifies which object to override.
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	// +kubebuilder:validation:Required
 	// +required
 	Kind string `json:"kind"`
 	// group identifies the API group that the kind is in.
 	// +kubebuilder:validation:Required
 	// +required
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-	Kind string `json:"kind"`
-	// group identifies the API group that the kind is in.
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	Group string `json:"group"`
 
 	// namespace is the component's namespace. If the resource is cluster
 	// scoped, the namespace should be empty.
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	// +kubebuilder:validation:Required
 	// +required
 	Namespace string `json:"namespace"`
 	// name is the component's name.
 	// +kubebuilder:validation:Required
 	// +required
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-	Namespace string `json:"namespace"`
-	// name is the component's name.
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	Name string `json:"name"`
 
 	// unmanaged controls if cluster version operator should stop managing the
 	// resources in this cluster.
 	// Default: false
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// +kubebuilder:validation:Required
 	// +required
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
-	// +kubebuilder:validation:Required
-	// +required
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	// +kubebuilder:validation:Required
-	// +required
->>>>>>> 03397665 (update api)
 	Unmanaged bool `json:"unmanaged"`
 }
 
 // URL is a thin wrapper around string that ensures the string is a valid URL.
 type URL string
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 // Update represents an administrator update request.
-=======
-// Update represents a release of the ClusterVersionOperator, referenced by the
-// Image member.
->>>>>>> 79bfea2d (update vendor)
-=======
-// Update represents an administrator update request.
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-// Update represents an administrator update request.
->>>>>>> 03397665 (update api)
 // +k8s:deepcopy-gen=true
 type Update struct {
 	// version is a semantic versioning identifying the update version. When this
@@ -448,13 +250,6 @@ type Update struct {
 	Force bool `json:"force"`
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 // Release represents an OpenShift release image and associated metadata.
 // +k8s:deepcopy-gen=true
 type Release struct {
@@ -483,14 +278,6 @@ type Release struct {
 	Channels []string `json:"channels,omitempty"`
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 // RetrievedUpdates reports whether available updates have been retrieved from
 // the upstream update server. The condition is Unknown before retrieval, False
 // if the updates could not be retrieved or recently failed, or True if the

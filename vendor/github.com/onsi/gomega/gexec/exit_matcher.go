@@ -1,13 +1,5 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 // untested sections: 2
 
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
-// untested sections: 2
-
->>>>>>> 737a8f1c (add more test case)
 package gexec
 
 import (

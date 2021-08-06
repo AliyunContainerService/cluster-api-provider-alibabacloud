@@ -128,105 +128,6 @@ const (
 	FADV_NOREUSE  = 0x5
 )
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-type RawSockaddrInet4 struct {
-	Family uint16
-	Port   uint16
-	Addr   [4]byte /* in_addr */
-	Zero   [8]uint8
-}
-
-type RawSockaddrInet6 struct {
-	Family   uint16
-	Port     uint16
-	Flowinfo uint32
-	Addr     [16]byte /* in6_addr */
-	Scope_id uint32
-}
-
-type RawSockaddrUnix struct {
-	Family uint16
-	Path   [108]int8
-}
-
-type RawSockaddrLinklayer struct {
-	Family   uint16
-	Protocol uint16
-	Ifindex  int32
-	Hatype   uint16
-	Pkttype  uint8
-	Halen    uint8
-	Addr     [8]uint8
-}
-
-type RawSockaddrNetlink struct {
-	Family uint16
-	Pad    uint16
-	Pid    uint32
-	Groups uint32
-}
-
-type RawSockaddrHCI struct {
-	Family  uint16
-	Dev     uint16
-	Channel uint16
-}
-
-type RawSockaddrL2 struct {
-	Family      uint16
-	Psm         uint16
-	Bdaddr      [6]uint8
-	Cid         uint16
-	Bdaddr_type uint8
-	_           [1]byte
-}
-
-type RawSockaddrRFCOMM struct {
-	Family  uint16
-	Bdaddr  [6]uint8
-	Channel uint8
-	_       [1]byte
-}
-
-type RawSockaddrCAN struct {
-	Family  uint16
-	_       [2]byte
-	Ifindex int32
-	Addr    [8]byte
-}
-
-type RawSockaddrALG struct {
-	Family uint16
-	Type   [14]uint8
-	Feat   uint32
-	Mask   uint32
-	Name   [64]uint8
-}
-
-type RawSockaddrVM struct {
-	Family    uint16
-	Reserved1 uint16
-	Port      uint32
-	Cid       uint32
-	Zero      [4]uint8
-}
-
-type RawSockaddrXDP struct {
-	Family         uint16
-	Flags          uint16
-	Ifindex        uint32
-	Queue_id       uint32
-	Shared_umem_fd uint32
-}
-
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 type RawSockaddr struct {
 	Family uint16
 	Data   [14]int8
@@ -258,84 +159,7 @@ type Cmsghdr struct {
 	Type  int32
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-type Inet4Pktinfo struct {
-	Ifindex  int32
-	Spec_dst [4]byte /* in_addr */
-	Addr     [4]byte /* in_addr */
-}
-
-type Inet6Pktinfo struct {
-	Addr    [16]byte /* in6_addr */
-	Ifindex uint32
-}
-
-type IPv6MTUInfo struct {
-	Addr RawSockaddrInet6
-	Mtu  uint32
-}
-
-type ICMPv6Filter struct {
-	Data [8]uint32
-}
-
-type Ucred struct {
-	Pid int32
-	Uid uint32
-	Gid uint32
-}
-
-type TCPInfo struct {
-	State          uint8
-	Ca_state       uint8
-	Retransmits    uint8
-	Probes         uint8
-	Backoff        uint8
-	Options        uint8
-	_              [2]byte
-	Rto            uint32
-	Ato            uint32
-	Snd_mss        uint32
-	Rcv_mss        uint32
-	Unacked        uint32
-	Sacked         uint32
-	Lost           uint32
-	Retrans        uint32
-	Fackets        uint32
-	Last_data_sent uint32
-	Last_ack_sent  uint32
-	Last_data_recv uint32
-	Last_ack_recv  uint32
-	Pmtu           uint32
-	Rcv_ssthresh   uint32
-	Rtt            uint32
-	Rttvar         uint32
-	Snd_ssthresh   uint32
-	Snd_cwnd       uint32
-	Advmss         uint32
-	Reordering     uint32
-	Rcv_rtt        uint32
-	Rcv_space      uint32
-	Total_retrans  uint32
-}
-
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
 const (
-	SizeofIovec   = 0x8
-	SizeofMsghdr  = 0x1c
-	SizeofCmsghdr = 0xc
-)
-
->>>>>>> 79bfea2d (update vendor)
-const (
-<<<<<<< HEAD
-=======
-const (
->>>>>>> 03397665 (update api)
 	SizeofIovec   = 0x8
 	SizeofMsghdr  = 0x1c
 	SizeofCmsghdr = 0xc
@@ -345,39 +169,6 @@ const (
 	SizeofSockFprog = 0x8
 )
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-type SockFilter struct {
-	Code uint16
-	Jt   uint8
-	Jf   uint8
-	K    uint32
-}
-
-type SockFprog struct {
-	Len    uint16
-	_      [2]byte
-	Filter *SockFilter
-}
-
-type InotifyEvent struct {
-	Wd     int32
-	Mask   uint32
-	Cookie uint32
-	Len    uint32
-}
-
-const SizeofInotifyEvent = 0x10
-
->>>>>>> 79bfea2d (update vendor)
-=======
-	SizeofSockFprog = 0x8
-)
-
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 type PtraceRegs struct {
 	Ebx      int32
 	Ecx      int32
@@ -440,21 +231,7 @@ type Sigset_t struct {
 	Val [32]uint32
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 const _C__NSIG = 0x41
-=======
-const RNDGETENTCNT = 0x80045200
-
-const PERF_IOC_FLAG_GROUP = 0x1
->>>>>>> 79bfea2d (update vendor)
-=======
-const _C__NSIG = 0x41
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-const _C__NSIG = 0x41
->>>>>>> 03397665 (update api)
 
 type Termios struct {
 	Iflag  uint32
@@ -514,24 +291,9 @@ type Taskstats struct {
 	Cpu_scaled_run_real_total uint64
 	Freepages_count           uint64
 	Freepages_delay_total     uint64
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	Thrashing_count           uint64
 	Thrashing_delay_total     uint64
 	Ac_btime64                uint64
-=======
->>>>>>> 79bfea2d (update vendor)
-=======
-	Thrashing_count           uint64
-	Thrashing_delay_total     uint64
-	Ac_btime64                uint64
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
-	Thrashing_count           uint64
-	Thrashing_delay_total     uint64
-	Ac_btime64                uint64
->>>>>>> 03397665 (update api)
 }
 
 type cpuMask uint32
@@ -726,133 +488,6 @@ type CryptoStatCompress struct {
 	Decompress_tlen uint64
 	Err_cnt         uint64
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-type CryptoStatHash struct {
-	Type      [64]int8
-	Hash_cnt  uint64
-	Hash_tlen uint64
-	Err_cnt   uint64
-}
-
-type CryptoStatKPP struct {
-	Type                      [64]int8
-	Setsecret_cnt             uint64
-	Generate_public_key_cnt   uint64
-	Compute_shared_secret_cnt uint64
-	Err_cnt                   uint64
-}
-
-type CryptoStatRNG struct {
-	Type          [64]int8
-	Generate_cnt  uint64
-	Generate_tlen uint64
-	Seed_cnt      uint64
-	Err_cnt       uint64
-}
-
-type CryptoStatLarval struct {
-	Type [64]int8
-}
-
-type CryptoReportLarval struct {
-	Type [64]int8
-}
-
-type CryptoReportHash struct {
-	Type       [64]int8
-	Blocksize  uint32
-	Digestsize uint32
-}
-
-<<<<<<< HEAD
-type CryptoReportCipher struct {
-	Type        [64]int8
-	Blocksize   uint32
-	Min_keysize uint32
-	Max_keysize uint32
-=======
-type RTCWkAlrm struct {
-	Enabled uint8
-	Pending uint8
-	_       [2]byte
-	Time    RTCTime
->>>>>>> 79bfea2d (update vendor)
-}
-
-type CryptoReportBlkCipher struct {
-	Type        [64]int8
-	Geniv       [64]int8
-	Blocksize   uint32
-	Min_keysize uint32
-	Max_keysize uint32
-	Ivsize      uint32
-}
-
-type CryptoReportAEAD struct {
-	Type        [64]int8
-	Geniv       [64]int8
-	Blocksize   uint32
-	Maxauthsize uint32
-	Ivsize      uint32
-}
-
-type CryptoReportComp struct {
-	Type [64]int8
-}
-
-type CryptoReportRNG struct {
-	Type     [64]int8
-	Seedsize uint32
-}
-
-type CryptoReportAKCipher struct {
-	Type [64]int8
-}
-
-type CryptoReportKPP struct {
-	Type [64]int8
-}
-
-type CryptoReportAcomp struct {
-	Type [64]int8
-}
-
-type LoopInfo struct {
-	Number           int32
-	Device           uint16
-	Inode            uint32
-	Rdevice          uint16
-	Offset           int32
-	Encrypt_type     int32
-	Encrypt_key_size int32
-	Flags            int32
-	Name             [64]int8
-	Encrypt_key      [32]uint8
-	Init             [2]uint32
-	Reserved         [4]int8
-}
-
-type TIPCSubscr struct {
-	Seq     TIPCServiceRange
-	Timeout uint32
-	Filter  uint32
-	Handle  [8]int8
-}
-
-type TIPCSIOCLNReq struct {
-	Peer     uint32
-	Id       uint32
-	Linkname [68]int8
-}
-
-type TIPCSIOCNodeIDReq struct {
-	Peer uint32
-	Id   [16]int8
-=======
-=======
->>>>>>> 03397665 (update api)
 
 type CryptoStatHash struct {
 	Type      [64]int8
@@ -975,19 +610,6 @@ type PPSKInfo struct {
 	Assert_tu       PPSKTime
 	Clear_tu        PPSKTime
 	Current_mode    int32
-<<<<<<< HEAD
->>>>>>> e879a141 (alibabacloud machine-api provider)
-}
-
-<<<<<<< HEAD
-type PPSKInfo struct {
-	Assert_sequence uint32
-	Clear_sequence  uint32
-	Assert_tu       PPSKTime
-	Clear_tu        PPSKTime
-	Current_mode    int32
-=======
->>>>>>> 03397665 (update api)
 }
 
 const (
@@ -995,35 +617,4 @@ const (
 	PPS_SETPARAMS = 0x400470a2
 	PPS_GETCAP    = 0x800470a3
 	PPS_FETCH     = 0xc00470a4
-<<<<<<< HEAD
-=======
-const (
-<<<<<<< HEAD
-	SOF_TIMESTAMPING_TX_HARDWARE  = 0x1
-	SOF_TIMESTAMPING_TX_SOFTWARE  = 0x2
-	SOF_TIMESTAMPING_RX_HARDWARE  = 0x4
-	SOF_TIMESTAMPING_RX_SOFTWARE  = 0x8
-	SOF_TIMESTAMPING_SOFTWARE     = 0x10
-	SOF_TIMESTAMPING_SYS_HARDWARE = 0x20
-	SOF_TIMESTAMPING_RAW_HARDWARE = 0x40
-	SOF_TIMESTAMPING_OPT_ID       = 0x80
-	SOF_TIMESTAMPING_TX_SCHED     = 0x100
-	SOF_TIMESTAMPING_TX_ACK       = 0x200
-	SOF_TIMESTAMPING_OPT_CMSG     = 0x400
-	SOF_TIMESTAMPING_OPT_TSONLY   = 0x800
-	SOF_TIMESTAMPING_OPT_STATS    = 0x1000
-	SOF_TIMESTAMPING_OPT_PKTINFO  = 0x2000
-	SOF_TIMESTAMPING_OPT_TX_SWHW  = 0x4000
-
-	SOF_TIMESTAMPING_LAST = 0x4000
-	SOF_TIMESTAMPING_MASK = 0x7fff
->>>>>>> 79bfea2d (update vendor)
-=======
-	PPS_GETPARAMS = 0x800470a1
-	PPS_SETPARAMS = 0x400470a2
-	PPS_GETCAP    = 0x800470a3
-	PPS_FETCH     = 0xc00470a4
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 )

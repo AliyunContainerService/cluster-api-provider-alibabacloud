@@ -59,47 +59,10 @@ type Manager interface {
 	// non-leaderelection mode (always running) or leader election mode (managed by leader election if enabled).
 	Add(Runnable) error
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	// Elected is closed when this manager is elected leader of a group of
 	// managers, either because it won a leader election or because no leader
 	// election was configured.
 	Elected() <-chan struct{}
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-	// SetFields will set any dependencies on an object for which the object has implemented the inject
-	// interface - e.g. inject.Client.
-	SetFields(interface{}) error
-
-	// Start starts all registered Controllers and blocks until the Stop channel is closed.
-	// Returns an error if there is an error starting any controller.
-	Start(<-chan struct{}) error
-
-	// GetConfig returns an initialized Config
-	GetConfig() *rest.Config
-
-	// GetScheme returns an initialized Scheme
-	GetScheme() *runtime.Scheme
-
-	// GetClient returns a client configured with the Config. This client may
-	// not be a fully "direct" client -- it may read from a cache, for
-	// instance.  See Options.NewClient for more information on how the default
-	// implementation works.
-	GetClient() client.Client
-
-	// GetFieldIndexer returns a client.FieldIndexer configured with the client
-	GetFieldIndexer() client.FieldIndexer
->>>>>>> 79bfea2d (update vendor)
-=======
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 
 	// AddMetricsExtraHandler adds an extra handler served on path to the http server that serves metrics.
 	// Might be useful to register some diagnostic endpoints e.g. pprof. Note that these endpoints meant to be
@@ -500,25 +463,10 @@ func (o Options) AndFromOrDie(loader config.ControllerManagerConfiguration) Opti
 	o, err := o.AndFrom(loader)
 	if err != nil {
 		panic(fmt.Sprintf("could not parse config file: %v", err))
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 03397665 (update api)
 	}
 	return o
 }
 
-func (o Options) setLeaderElectionConfig(obj v1alpha1.ControllerManagerConfigurationSpec) Options {
-	if o.LeaderElection == false && obj.LeaderElection.LeaderElect != nil {
-		o.LeaderElection = *obj.LeaderElection.LeaderElect
-<<<<<<< HEAD
->>>>>>> e879a141 (alibabacloud machine-api provider)
-	}
-	return o
-}
-
-<<<<<<< HEAD
 func (o Options) setLeaderElectionConfig(obj v1alpha1.ControllerManagerConfigurationSpec) Options {
 	if o.LeaderElection == false && obj.LeaderElection.LeaderElect != nil {
 		o.LeaderElection = *obj.LeaderElection.LeaderElect
@@ -548,39 +496,6 @@ func (o Options) setLeaderElectionConfig(obj v1alpha1.ControllerManagerConfigura
 		o.RetryPeriod = &obj.LeaderElection.RetryPeriod.Duration
 	}
 
-=======
-=======
-	}
-
->>>>>>> 03397665 (update api)
-	if o.LeaderElectionResourceLock == "" && obj.LeaderElection.ResourceLock != "" {
-		o.LeaderElectionResourceLock = obj.LeaderElection.ResourceLock
-	}
-
-	if o.LeaderElectionNamespace == "" && obj.LeaderElection.ResourceNamespace != "" {
-		o.LeaderElectionNamespace = obj.LeaderElection.ResourceNamespace
-	}
-
-	if o.LeaderElectionID == "" && obj.LeaderElection.ResourceName != "" {
-		o.LeaderElectionID = obj.LeaderElection.ResourceName
-	}
-
-	if o.LeaseDuration == nil && !reflect.DeepEqual(obj.LeaderElection.LeaseDuration, metav1.Duration{}) {
-		o.LeaseDuration = &obj.LeaderElection.LeaseDuration.Duration
-	}
-
-	if o.RenewDeadline == nil && !reflect.DeepEqual(obj.LeaderElection.RenewDeadline, metav1.Duration{}) {
-		o.RenewDeadline = &obj.LeaderElection.RenewDeadline.Duration
-	}
-
-	if o.RetryPeriod == nil && !reflect.DeepEqual(obj.LeaderElection.RetryPeriod, metav1.Duration{}) {
-		o.RetryPeriod = &obj.LeaderElection.RetryPeriod.Duration
-	}
-
-<<<<<<< HEAD
->>>>>>> e879a141 (alibabacloud machine-api provider)
-=======
->>>>>>> 03397665 (update api)
 	return o
 }
 
