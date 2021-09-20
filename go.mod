@@ -1,6 +1,6 @@
 module github.com/AliyunContainerService/cluster-api-provider-alibabacloud
 
-go 1.15
+go 1.16
 
 require (
 	github.com/aliyun/alibaba-cloud-sdk-go v1.61.1153
@@ -8,16 +8,16 @@ require (
 	github.com/go-logr/logr v0.4.0
 	github.com/golang/mock v1.6.0
 	github.com/onsi/gomega v1.10.5
-	github.com/openshift/api v0.0.0-20210416115537-a60c0dc032fd
+	github.com/openshift/api v0.0.0-20210919222239-cc0db1116639
 	github.com/openshift/machine-api-operator v0.2.1-0.20210504014029-a132ec00f7dd
 	github.com/stretchr/testify v1.7.0
 
 	// kube 1.18
-	k8s.io/api v0.21.0
-	k8s.io/apimachinery v0.21.0
-	k8s.io/client-go v0.21.0
+	k8s.io/api v0.22.1
+	k8s.io/apimachinery v0.22.1
+	k8s.io/client-go v0.22.1
 	k8s.io/klog v1.0.0
-	k8s.io/klog/v2 v2.8.0
+	k8s.io/klog/v2 v2.9.0
 	sigs.k8s.io/controller-runtime v0.9.0-beta.1.0.20210512131817-ce2f0c92d77e
 	sigs.k8s.io/controller-tools v0.3.0
 	sigs.k8s.io/yaml v1.2.0
