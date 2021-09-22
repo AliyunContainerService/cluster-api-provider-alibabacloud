@@ -1,4 +1,4 @@
-FROM registry.ci.openshift.org/openshift/release:golang-1.15 AS builder
+FROM registry.ci.openshift.org/openshift/release:golang-1.16 AS builder
 WORKDIR /go/src/github.com/AliyunContainerService/cluster-api-provider-alibabacloud
 COPY . .
 # VERSION env gets set in the openshift/release image and refers to the golang version, which interfers with our own
