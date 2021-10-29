@@ -2,3 +2,7 @@
 .idea/
 bin/
 examples/secret.yaml
+config/bootstrap-master.yaml
+config/bootstrap-worker.yaml
+
+
