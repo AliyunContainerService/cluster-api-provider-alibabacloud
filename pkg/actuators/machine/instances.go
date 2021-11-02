@@ -442,11 +442,11 @@ func getMaxInstancesBySecurityGroupType(securityGroupType string) int {
 func buildDescribeSecurityGroupsTag(tags []alibabacloudproviderv1.Tag) *[]ecs.DescribeSecurityGroupsTag {
 	describeSecurityGroupsTag := make([]ecs.DescribeSecurityGroupsTag, len(tags))
 
-	for _, tag := range tags {
-		describeSecurityGroupsTag = append(describeSecurityGroupsTag, ecs.DescribeSecurityGroupsTag{
+	for index, tag := range tags {
+		describeSecurityGroupsTag[index] = ecs.DescribeSecurityGroupsTag{
 			Key:   tag.Key,
 			Value: tag.Value,
-		})
+		}
 	}
 
 	return &describeSecurityGroupsTag
